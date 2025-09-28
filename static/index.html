@@ -529,12 +529,76 @@
       border-radius: 0.5rem;
       padding: 1rem;
       text-align: center;
-      overflow-x: auto;
+      overflow: visible;
+      min-height: 300px;
     }
 
     .mermaid svg {
-      max-width: 100%;
+      max-width: none;
       height: auto;
+      transition: transform 0.2s ease;
+    }
+
+    .diagram-container {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      text-align: center;
+      overflow: hidden;
+      height: 500px;
+      position: relative;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .diagram-container.dragging {
+      cursor: grabbing;
+    }
+
+    .diagram-container .mermaid {
+      border: none;
+      background: transparent;
+      padding: 0;
+    }
+
+    .diagram-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .zoom-btn {
+      background: var(--bg-tertiary);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      min-width: 32px;
+      height: 32px;
+      justify-content: center;
+    }
+
+    .zoom-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .zoom-btn:active {
+      transform: scale(0.95);
+    }
+
+    .zoom-info {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-left: 0.5rem;
     }
 
     /* Responsive */
@@ -739,11 +803,18 @@
           <div class="workflow-detail hidden" id="diagramSection">
             <div class="section-header">
               <h4>Workflow Diagram</h4>
-              <button id="copyDiagramBtn" class="copy-btn" title="Copy diagram code to clipboard">
-                📋 Copy
-              </button>
+              <div class="diagram-controls">
+                <button id="zoomInBtn" class="zoom-btn" title="Zoom In">🔍+</button>
+                <button id="zoomOutBtn" class="zoom-btn" title="Zoom Out">🔍-</button>
+                <button id="zoomResetBtn" class="zoom-btn" title="Reset Zoom">🔄</button>
+                <button id="copyDiagramBtn" class="copy-btn" title="Copy diagram code to clipboard">
+                  📋 Copy
+                </button>
+              </div>
             </div>
-            <div id="diagramViewer">Loading diagram...</div>
+            <div id="diagramContainer" class="diagram-container">
+              <div id="diagramViewer">Loading diagram...</div>
+            </div>
           </div>
         </div>
       </div>
@@ -806,14 +877,23 @@
           jsonViewer: document.getElementById('jsonViewer'),
           diagramSection: document.getElementById('diagramSection'),
           diagramViewer: document.getElementById('diagramViewer'),
+          diagramContainer: document.getElementById('diagramContainer'),
           copyJsonBtn: document.getElementById('copyJsonBtn'),
-          copyDiagramBtn: document.getElementById('copyDiagramBtn')
+          copyDiagramBtn: document.getElementById('copyDiagramBtn'),
+          zoomInBtn: document.getElementById('zoomInBtn'),
+          zoomOutBtn: document.getElementById('zoomOutBtn'),
+          zoomResetBtn: document.getElementById('zoomResetBtn')
         };
 
         this.searchDebounceTimer = null;
         this.currentWorkflow = null;
         this.currentJsonData = null;
         this.currentDiagramData = null;
+        this.diagramZoom = 1;
+        this.diagramSvg = null;
+        this.diagramPan = { x: 0, y: 0 };
+        this.isDragging = false;
+        this.lastMousePos = { x: 0, y: 0 };
         this.init();
       }
 
@@ -920,10 +1000,37 @@
           this.copyToClipboard(this.currentDiagramData, 'copyDiagramBtn');
         });
 
+        // Zoom control events
+        this.elements.zoomInBtn.addEventListener('click', () => {
+          this.zoomDiagram(1.2);
+        });
+
+        this.elements.zoomOutBtn.addEventListener('click', () => {
+          this.zoomDiagram(0.8);
+        });
+
+        this.elements.zoomResetBtn.addEventListener('click', () => {
+          this.resetDiagramZoom();
+        });
+
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
             this.closeModal();
+          }
+          
+          // Zoom shortcuts when diagram is visible
+          if (!this.elements.diagramSection.classList.contains('hidden')) {
+            if (e.key === '+' || e.key === '=') {
+              e.preventDefault();
+              this.zoomDiagram(1.2);
+            } else if (e.key === '-') {
+              e.preventDefault();
+              this.zoomDiagram(0.8);
+            } else if (e.key === '0' && e.ctrlKey) {
+              e.preventDefault();
+              this.resetDiagramZoom();
+            }
           }
         });
       }
@@ -1322,6 +1429,10 @@
         this.currentWorkflow = null;
         this.currentJsonData = null;
         this.currentDiagramData = null;
+        this.diagramSvg = null;
+        this.diagramZoom = 1;
+        this.diagramPan = { x: 0, y: 0 };
+        this.isDragging = false;
 
         // Reset button states
         this.elements.viewJsonBtn.textContent = '📄 View JSON';
@@ -1382,6 +1493,13 @@
             // Re-initialize Mermaid for the new diagram
             if (typeof mermaid !== 'undefined') {
               mermaid.init(undefined, this.elements.diagramViewer.querySelector('.mermaid'));
+              
+              // Store reference to SVG and reset zoom
+              setTimeout(() => {
+                this.diagramSvg = this.elements.diagramViewer.querySelector('.mermaid svg');
+                this.resetDiagramZoom();
+                this.setupDiagramPanning();
+              }, 100);
             }
           } catch (error) {
             this.elements.diagramViewer.textContent = 'Error loading diagram: ' + error.message;
@@ -1390,7 +1508,109 @@
         }
       }
 
-      updateLoadMoreButton() {
+      zoomDiagram(factor) {
+        if (!this.diagramSvg) return;
+        
+        this.diagramZoom *= factor;
+        this.diagramZoom = Math.max(0.1, Math.min(10, this.diagramZoom)); // Limit zoom between 10% and 1000%
+        
+        this.applyDiagramTransform();
+      }
+
+      resetDiagramZoom() {
+        this.diagramZoom = 1;
+        this.diagramPan = { x: 0, y: 0 };
+        this.applyDiagramTransform();
+      }
+
+      applyDiagramTransform() {
+        if (!this.diagramSvg) return;
+        
+        const transform = `scale(${this.diagramZoom}) translate(${this.diagramPan.x}px, ${this.diagramPan.y}px)`;
+        this.diagramSvg.style.transform = transform;
+        this.diagramSvg.style.transformOrigin = 'center center';
+      }
+
+      setupDiagramPanning() {
+        if (!this.elements.diagramContainer) return;
+
+        // Mouse events
+        this.elements.diagramContainer.addEventListener('mousedown', (e) => {
+          if (e.button === 0) { // Left mouse button
+            this.startDragging(e.clientX, e.clientY);
+            e.preventDefault();
+          }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+          if (this.isDragging) {
+            this.handleDragging(e.clientX, e.clientY);
+            e.preventDefault();
+          }
+        });
+
+        document.addEventListener('mouseup', () => {
+          this.stopDragging();
+        });
+
+        // Touch events for mobile
+        this.elements.diagramContainer.addEventListener('touchstart', (e) => {
+          if (e.touches.length === 1) {
+            const touch = e.touches[0];
+            this.startDragging(touch.clientX, touch.clientY);
+            e.preventDefault();
+          }
+        });
+
+        document.addEventListener('touchmove', (e) => {
+          if (this.isDragging && e.touches.length === 1) {
+            const touch = e.touches[0];
+            this.handleDragging(touch.clientX, touch.clientY);
+            e.preventDefault();
+          }
+        });
+
+        document.addEventListener('touchend', () => {
+          this.stopDragging();
+        });
+
+        // Prevent context menu on right click
+        this.elements.diagramContainer.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
+        });
+
+        // Mouse wheel zoom
+        this.elements.diagramContainer.addEventListener('wheel', (e) => {
+          e.preventDefault();
+          const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+          this.zoomDiagram(zoomFactor);
+        });
+      }
+
+      startDragging(x, y) {
+        this.isDragging = true;
+        this.lastMousePos = { x, y };
+        this.elements.diagramContainer.classList.add('dragging');
+      }
+
+      handleDragging(x, y) {
+        if (!this.isDragging) return;
+
+        const deltaX = x - this.lastMousePos.x;
+        const deltaY = y - this.lastMousePos.y;
+
+        // Apply pan delta scaled by zoom level (inverse relationship)
+        this.diagramPan.x += deltaX / this.diagramZoom;
+        this.diagramPan.y += deltaY / this.diagramZoom;
+
+        this.lastMousePos = { x, y };
+        this.applyDiagramTransform();
+      }
+
+      stopDragging() {
+        this.isDragging = false;
+        this.elements.diagramContainer.classList.remove('dragging');
+      }      updateLoadMoreButton() {
         const hasMore = this.state.currentPage < this.state.totalPages;
 
         if (hasMore && this.state.workflows.length > 0) {

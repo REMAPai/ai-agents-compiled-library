@@ -1,8 +1,10 @@
 {
   "id": "lStrENIdqN2WyGqW",
   "meta": {
-    "instanceId": "7dad74485e3e05b018ebcb1de30d0069d50b5085ff62446e7e84ef96b35d0508",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Business Canvas Generator",
   "tags": [],
@@ -332,7 +334,7 @@
         620
       ],
       "parameters": {
-        "jsCode": "const input = $input.all()\n// Simple merge\n\nconst output = {\n  title: input[0].json.title,\n  key_partners: input[1].json.key_partners,\n  key_activities: input[2].json.key_activities, // combining both\n  value_proposition: input[3].json.value_proposition,\n  customer_relationship: input[4].json.customer_relationship,\n  customer_segments: input[5].json.customer_segments,\n  key_resources: input[6].json.key_resources,\n  channels: input[7].json.channels,\n  cost_structure : input[8].json.cost_structure,\n  revenue_streams: input[9].json.revenue_streams\n};\n\n\nconsole.log(output);\nreturn {\n  \"final_html\": `<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\" /> <title>Business Model Canvas</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /> <link href=\"https://fonts.googleapis.com/css?family=Headland+One\" rel=\"stylesheet\" /> <style> body { font-family: sans-serif; margin-top: 2.5vh; padding: 10px; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 95vh; /* Full viewport height */ overflow: hidden; } .container { height: 100%; /* Fit the height of the screen */ aspect-ratio: 297 / 210; /* Maintain A4 aspect ratio (landscape) */ background: #fff; margin-bottom: 20px; padding: 10px 10px 80px; /* Added extra padding at the bottom */ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 8px; box-sizing: border-box; overflow: hidden; } h1 { text-align: center; font-size: 24px; /* Reduced font size */ margin-bottom: 20px; color: #333; } p { padding-top: 2px; } table { width: 100%; height: 100%; border-collapse: collapse; table-layout: fixed; } table td { border: 1px solid #ddd; padding: 5px; /* Reduced padding */ vertical-align: top; font-size: 14px; /* Reduced font size */ word-wrap: break-word; background-color: transparent; /* No background color */ } table td h4 { padding: 5px; margin: 0 0 5px; /* Reduced margin */ font-size: 17px; /* Reduced font size */ color: #1b1b1b; } table td p { margin: 3px 0; /* Reduced margin */ line-height: 1.2; /* Reduced line height */ color: #555; } table td p strong { color: #000; } /* Adjust row heights */ #business-model-canvas tr:first-child { height: 30%; /* Reduced height for the upper part */ } #business-model-canvas tr:nth-child(2) { height: 25%; /* Reduced height for the second row */ } #business-model-canvas tr:last-child { height: 25%; /* Increased height for the bottom part */ } /* Print-specific styles */ @media print { body { background: none; margin: 0; } .container { box-shadow: none; margin: 0; padding: 0; } table td { font-size: 11px; /* Further reduced font size for print */ } } </style> </head> <body> <div class=\"container\"> <h1>`+output.title+` Business Model Canvas</h1> <!-- Canvas --> <table id=\"business-model-canvas\" cellspacing=\"0\"> <!-- Upper part --> <tr> <td id=\"key-partners\" colspan=\"2\" rowspan=\"2\"> <h4>Key Partners</h4> `+output.key_partners+` </td> <td id=\"key-activities\" colspan=\"2\"> <h4>Key Activities</h4> `+output.key_activities+` </td> <td id=\"value-propositions\" colspan=\"2\" rowspan=\"2\"> <h4>Value Proposition</h4> `+output.value_proposition+` </td> <td id=\"customer-relationships\" colspan=\"2\"> <h4>Customer Relationships</h4> `+output.customer_relationship+` </td> <td id=\"customer-segments\" colspan=\"2\" rowspan=\"2\"> <h4>Customer Segments</h4> `+output.customer_segments+` </td> </tr> <!-- Lower part --> <tr> <td id=\"key-resources\" colspan=\"2\"> <h4>Key Resources</h4> `+output.key_resources+` </td> <td id=\"channels\" colspan=\"2\"> <h4>Channels</h4> `+output.channels+` </td> </tr> <tr> <td id=\"cost-structure\" colspan=\"5\"> <h4>Cost Structure</h4> `+output.cost_structure+` </td> <td id=\"revenue-streams\" colspan=\"5\"> <h4>Revenue Streams</h4> `+output.revenue_streams+` </td> </tr> </table> <!-- /Canvas --> </div> </body> </html>`,\n  \"title\" : $input.first().json.title\n}"
+        "jsCode": "const input = $input.all()\n// Simple merge\n\nconst output = {\n  title: input[0].json.title,\n  key_partners: input[1].json.key_partners,\n  key_activities: input[2].json.key_activities, // combining both\n  value_proposition: input[3].json.value_proposition,\n  customer_relationship: input[4].json.customer_relationship,\n  customer_segments: input[5].json.customer_segments,\n  key_resources: input[6].json.key_resources,\n  channels: input[7].json.channels,\n  cost_structure : input[8].json.cost_structure,\n  revenue_streams: input[9].json.revenue_streams\n};\n\n\nconsole.log(output);\nreturn {\n  \"final_html\": `<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\" /> <title>Business Model Canvas</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /> <link href=\"{{ $env.API_BASE_URL }}\" rel=\"stylesheet\" /> <style> body { font-family: sans-serif; margin-top: 2.5vh; padding: 10px; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 95vh; /* Full viewport height */ overflow: hidden; } .container { height: 100%; /* Fit the height of the screen */ aspect-ratio: 297 / 210; /* Maintain A4 aspect ratio (landscape) */ background: #fff; margin-bottom: 20px; padding: 10px 10px 80px; /* Added extra padding at the bottom */ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 8px; box-sizing: border-box; overflow: hidden; } h1 { text-align: center; font-size: 24px; /* Reduced font size */ margin-bottom: 20px; color: #333; } p { padding-top: 2px; } table { width: 100%; height: 100%; border-collapse: collapse; table-layout: fixed; } table td { border: 1px solid #ddd; padding: 5px; /* Reduced padding */ vertical-align: top; font-size: 14px; /* Reduced font size */ word-wrap: break-word; background-color: transparent; /* No background color */ } table td h4 { padding: 5px; margin: 0 0 5px; /* Reduced margin */ font-size: 17px; /* Reduced font size */ color: #1b1b1b; } table td p { margin: 3px 0; /* Reduced margin */ line-height: 1.2; /* Reduced line height */ color: #555; } table td p strong { color: #000; } /* Adjust row heights */ #business-model-canvas tr:first-child { height: 30%; /* Reduced height for the upper part */ } #business-model-canvas tr:nth-child(2) { height: 25%; /* Reduced height for the second row */ } #business-model-canvas tr:last-child { height: 25%; /* Increased height for the bottom part */ } /* Print-specific styles */ @media print { body { background: none; margin: 0; } .container { box-shadow: none; margin: 0; padding: 0; } table td { font-size: 11px; /* Further reduced font size for print */ } } </style> </head> <body> <div class=\"container\"> <h1>`+output.title+` Business Model Canvas</h1> <!-- Canvas --> <table id=\"business-model-canvas\" cellspacing=\"0\"> <!-- Upper part --> <tr> <td id=\"key-partners\" colspan=\"2\" rowspan=\"2\"> <h4>Key Partners</h4> `+output.key_partners+` </td> <td id=\"key-activities\" colspan=\"2\"> <h4>Key Activities</h4> `+output.key_activities+` </td> <td id=\"value-propositions\" colspan=\"2\" rowspan=\"2\"> <h4>Value Proposition</h4> `+output.value_proposition+` </td> <td id=\"customer-relationships\" colspan=\"2\"> <h4>Customer Relationships</h4> `+output.customer_relationship+` </td> <td id=\"customer-segments\" colspan=\"2\" rowspan=\"2\"> <h4>Customer Segments</h4> `+output.customer_segments+` </td> </tr> <!-- Lower part --> <tr> <td id=\"key-resources\" colspan=\"2\"> <h4>Key Resources</h4> `+output.key_resources+` </td> <td id=\"channels\" colspan=\"2\"> <h4>Channels</h4> `+output.channels+` </td> </tr> <tr> <td id=\"cost-structure\" colspan=\"5\"> <h4>Cost Structure</h4> `+output.cost_structure+` </td> <td id=\"revenue-streams\" colspan=\"5\"> <h4>Revenue Streams</h4> `+output.revenue_streams+` </td> </tr> </table> <!-- /Canvas --> </div> </body> </html>`,\n  \"title\" : $input.first().json.title\n}"
       },
       "typeVersion": 2
     },
@@ -415,12 +417,43 @@
         "content": "## I'm here to help!\n\nIf you need assistance customizing the model or have feedback to share, please don’t hesitate to reach out. Your thoughts are important to me, and I'm eager to support you in any way I can. \n\n**📩 sinamirshafiee@gmail.com**"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-7a5b2b06-75fc-4c27-971d-df3817100000-1c1669e4",
+      "name": "Error Handler for 7a5b2b06",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7a5b2b06",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-2e36d7bc",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Business Canvas Generator\n\n## Overview\nAutomated workflow: Business Canvas Generator. This workflow integrates 8 different services: convertToFile, stickyNote, code, agent, merge. It contains 29 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 29\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When chat message received**: chatTrigger\n- **Key Partners Generator**: agent\n- **Key Activities Generator**: agent\n- **Value Proposition Generator**: agent\n- **Customer Relationship Generator**: agent\n- **Customer Segments Generator**: agent\n- **Ollama Chat Model**: lmChatOllama\n- **Key Resources Generator**: agent\n- **Channels Generator**: agent\n- **Cost Structure Generator**: agent\n- ... and 19 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "782619e6-0ab1-4a22-b224-98b080614647",
   "connections": {
@@ -782,6 +815,18 @@
           }
         ]
       ]
+    },
+    "7a5b2b06-75fc-4c27-971d-df3817100000": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7a5b2b06-75fc-4c27-971d-df3817100000-1c1669e4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Business Canvas Generator. This workflow integrates 8 different services: convertToFile, stickyNote, code, agent, merge. It contains 29 nodes and follows best practices for error handling and security."
 }

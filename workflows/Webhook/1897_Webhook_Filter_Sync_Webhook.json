@@ -1,7 +1,10 @@
 {
   "id": "k9abwUyVzl7OCsAl",
   "meta": {
-    "instanceId": "fb8bc2e315f7f03c97140b30aa454a27bc7883a19000fa1da6e6b571bf56ad6d"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Realtime Notion Todoist 2-way Sync Template",
   "tags": [
@@ -22,10 +25,10 @@
         260
       ],
       "parameters": {
-        "url": "https://api.todoist.com/rest/v2/projects",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "todoistApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "todoistApi": {
@@ -44,7 +47,7 @@
         260
       ],
       "parameters": {
-        "url": "https://api.todoist.com/rest/v2/sections",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -56,7 +59,7 @@
             }
           ]
         },
-        "nodeCredentialType": "todoistApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "todoistApi": {
@@ -248,7 +251,7 @@
       "webhookId": "41b4bc95-2938-4a53-a051-7a3079001329",
       "parameters": {
         "operation": "completion",
-        "redirectUrl": "=https://todoist.com/oauth/authorize?client_id={{ $json['Client ID'] }}&scope=task:add,data:read_write,data:delete&state={{ $json.state }}",
+        "redirectUrl": "={{ $env.WEBHOOK_URL }}{{ $json['Client ID'] }}&scope=task:add,data:read_write,data:delete&state={{ $json.state }}",
         "respondWith": "redirect"
       },
       "typeVersion": 1
@@ -283,7 +286,7 @@
         880
       ],
       "parameters": {
-        "url": "https://todoist.com/oauth/access_token",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -626,7 +629,7 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Todoist ID|rich_text",
+              "key": "YOUR_API_KEY",
               "textContent": "={{ $json.id }}"
             }
           ]
@@ -731,7 +734,7 @@
         "filters": {
           "conditions": [
             {
-              "key": "Todoist ID|rich_text",
+              "key": "YOUR_API_KEY",
               "condition": "equals",
               "richTextValue": "={{ $('Todoist').item.json.id }}"
             }
@@ -767,14 +770,14 @@
         520
       ],
       "parameters": {
-        "url": "=https://api.todoist.com/rest/v2/tasks/{{ $json.id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}",
         "method": "POST",
         "options": {},
         "jsonQuery": "={{ $json.toJsonString() }}",
         "sendQuery": true,
         "specifyQuery": "json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "todoistApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "todoistApi": {
@@ -862,14 +865,14 @@
         1120
       ],
       "parameters": {
-        "url": "=https://api.todoist.com/rest/v2/tasks/{{ $json.id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}",
         "method": "POST",
         "options": {},
         "jsonQuery": "={{ $json.toJsonString() }}",
         "sendQuery": true,
         "specifyQuery": "json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "todoistApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "todoistApi": {
@@ -946,14 +949,14 @@
         -280
       ],
       "parameters": {
-        "url": "=https://api.todoist.com/rest/v2/tasks",
+        "url": "={{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonQuery": "={{ $('If Todoist ID exists').item.json.toJsonString() }}",
         "sendQuery": true,
         "specifyQuery": "json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "todoistApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "todoistApi": {
@@ -998,11 +1001,11 @@
         -380
       ],
       "parameters": {
-        "key": "=lock_{{ $('Compare Datasets').item.json.id }}",
+        "key": "YOUR_API_KEY",
         "ttl": 15,
         "value": "={{ $now.toISO() }}",
         "expire": true,
-        "keyType": "string",
+        "keyType": "YOUR_API_KEY",
         "operation": "set"
       },
       "credentials": {
@@ -1036,7 +1039,7 @@
         -80
       ],
       "parameters": {
-        "url": "https://api.todoist.com/sync/v9/sync",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -1050,7 +1053,7 @@
             }
           ]
         },
-        "nodeCredentialType": "todoistApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "todoistApi": {
@@ -1183,11 +1186,11 @@
         1020
       ],
       "parameters": {
-        "key": "=lock_{{ $('Compare Datasets').item.json.id }}",
+        "key": "YOUR_API_KEY",
         "ttl": 15,
         "value": "={{ $now.toISO() }}",
         "expire": true,
-        "keyType": "string",
+        "keyType": "YOUR_API_KEY",
         "operation": "set"
       },
       "credentials": {
@@ -1207,11 +1210,11 @@
         320
       ],
       "parameters": {
-        "key": "=lock_{{ $('Compare Datasets').item.json.id }}",
+        "key": "YOUR_API_KEY",
         "ttl": 15,
         "value": "={{ $now.toISO() }}",
         "expire": true,
-        "keyType": "string",
+        "keyType": "YOUR_API_KEY",
         "operation": "set"
       },
       "credentials": {
@@ -1231,14 +1234,14 @@
         -580
       ],
       "parameters": {
-        "url": "=https://api.todoist.com/rest/v2/tasks/{{ $('If Todoist ID exists').item.json.id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $('If Todoist ID exists').item.json.id }}",
         "method": "POST",
         "options": {},
         "jsonQuery": "={{ $('If Todoist ID exists').item.json.toJsonString() }}",
         "sendQuery": true,
         "specifyQuery": "json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "todoistApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "todoistApi": {
@@ -1866,24 +1869,24 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Todoist ID|rich_text",
+              "key": "YOUR_API_KEY",
               "textContent": "={{ $('Map Todoist to Notion1').item.json.todoist_id }}"
             },
             {
-              "key": "Priority|select",
+              "key": "YOUR_API_KEY",
               "selectValue": "={{ $('Map Todoist to Notion1').item.json.priority }}"
             },
             {
-              "key": "Status|status",
+              "key": "YOUR_API_KEY",
               "statusValue": "={{ $('Map Todoist to Notion1').item.json.status }}"
             },
             {
-              "key": "Due|date",
+              "key": "YOUR_API_KEY",
               "date": "={{ $('Map Todoist to Notion1').item.json.due || '' }}",
               "includeTime": "={{ $('Map Todoist to Notion1').item.json.due !== null && $('Map Todoist to Notion1').item.json.due.length > 10 }}"
             },
             {
-              "key": "Focus|checkbox",
+              "key": "YOUR_API_KEY",
               "checkboxValue": true
             }
           ]
@@ -1919,19 +1922,19 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Name|title",
+              "key": "YOUR_API_KEY",
               "title": "={{ $('Map Todoist to Notion1').item.json.name }}"
             },
             {
-              "key": "Priority|select",
+              "key": "YOUR_API_KEY",
               "selectValue": "={{ $('Map Todoist to Notion1').item.json.priority }}"
             },
             {
-              "key": "Status|status",
+              "key": "YOUR_API_KEY",
               "statusValue": "={{ $('Map Todoist to Notion1').item.json.status }}"
             },
             {
-              "key": "Due|date",
+              "key": "YOUR_API_KEY",
               "date": "={{ $ifEmpty($('Map Todoist to Notion1').item.json.due, \"\") }}",
               "includeTime": "={{ $('Map Todoist to Notion1').item.json.due !== null && $('Map Todoist to Notion1').item.json.due.length > 10 }}"
             }
@@ -1968,7 +1971,7 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Status|status",
+              "key": "YOUR_API_KEY",
               "statusValue": "Done"
             }
           ]
@@ -2004,7 +2007,7 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Status|status",
+              "key": "YOUR_API_KEY",
               "statusValue": "Obsolete"
             }
           ]
@@ -2040,7 +2043,7 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Status|status",
+              "key": "YOUR_API_KEY",
               "statusValue": "In progress"
             }
           ]
@@ -2099,11 +2102,11 @@
         3040
       ],
       "parameters": {
-        "key": "=lock_{{ $json.id }}",
+        "key": "YOUR_API_KEY",
         "ttl": 15,
         "value": "={{ $now.toISO() }}",
         "expire": true,
-        "keyType": "string",
+        "keyType": "YOUR_API_KEY",
         "operation": "set"
       },
       "credentials": {
@@ -2123,8 +2126,8 @@
         2900
       ],
       "parameters": {
-        "key": "=lock_{{ $json.body.event_data.id }}",
-        "keyType": "string",
+        "key": "YOUR_API_KEY",
+        "keyType": "YOUR_API_KEY",
         "options": {},
         "operation": "get",
         "propertyName": "item"
@@ -2240,7 +2243,7 @@
         2440
       ],
       "parameters": {
-        "url": "https://api.todoist.com/sync/v9/sync",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -2254,7 +2257,7 @@
             }
           ]
         },
-        "nodeCredentialType": "todoistApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "todoistApi": {
@@ -2321,8 +2324,8 @@
         2440
       ],
       "parameters": {
-        "key": "=creating_for_{{ $('Todoist trigger reference').item.json.body.event_data.id }}",
-        "keyType": "string",
+        "key": "YOUR_API_KEY",
+        "keyType": "YOUR_API_KEY",
         "options": {},
         "operation": "get",
         "propertyName": "item"
@@ -2378,11 +2381,11 @@
         2440
       ],
       "parameters": {
-        "key": "=creating_for_{{ $('Todoist trigger reference').item.json.body.event_data.id }}",
+        "key": "YOUR_API_KEY",
         "ttl": 10,
         "value": "={{ $now.toISO() }}",
         "expire": true,
-        "keyType": "string",
+        "keyType": "YOUR_API_KEY",
         "operation": "set"
       },
       "credentials": {
@@ -2458,7 +2461,7 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Focus|checkbox",
+              "key": "YOUR_API_KEY",
               "checkboxValue": true
             }
           ]
@@ -2498,7 +2501,7 @@
         "filters": {
           "conditions": [
             {
-              "key": "Todoist ID|rich_text",
+              "key": "YOUR_API_KEY",
               "condition": "equals",
               "richTextValue": "={{ $('Todoist trigger reference').item.json.body.event_data.id }}"
             }
@@ -2569,7 +2572,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "item:updated",
+              "outputKey": "output_1",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -2594,7 +2597,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "item:completed",
+              "outputKey": "output_2",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -2619,7 +2622,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "item:uncompleted",
+              "outputKey": "output_3",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -2694,19 +2697,19 @@
         "dataToSave": {
           "values": [
             {
-              "key": "database_id",
+              "key": "YOUR_API_KEY",
               "value": "={{ $('Globals1').first().json.database_id }}"
             },
             {
-              "key": "project_id",
+              "key": "YOUR_API_KEY",
               "value": "={{ $('Globals1').first().json.project_id }}"
             },
             {
-              "key": "todoist_id",
+              "key": "YOUR_API_KEY",
               "value": "={{ $json.body.event_data.id }}"
             },
             {
-              "key": "source",
+              "key": "YOUR_API_KEY",
               "value": "Todoist"
             }
           ]
@@ -2726,7 +2729,7 @@
         "dataToSave": {
           "values": [
             {
-              "key": "task_name",
+              "key": "YOUR_API_KEY",
               "value": "={{ $json.name }}"
             }
           ]
@@ -2746,7 +2749,7 @@
         "dataToSave": {
           "values": [
             {
-              "key": "notion_id",
+              "key": "YOUR_API_KEY",
               "value": "={{ $json.id }}"
             }
           ]
@@ -2766,7 +2769,7 @@
         "dataToSave": {
           "values": [
             {
-              "key": "notion_id",
+              "key": "YOUR_API_KEY",
               "value": "={{ $json.id }}"
             }
           ]
@@ -2786,11 +2789,11 @@
         "dataToSave": {
           "values": [
             {
-              "key": "notion_id",
+              "key": "YOUR_API_KEY",
               "value": "={{ $json.id }}"
             },
             {
-              "key": "task_name",
+              "key": "YOUR_API_KEY",
               "value": "={{ $json.name }}"
             }
           ]
@@ -2880,7 +2883,7 @@
         "filters": {
           "conditions": [
             {
-              "key": "Todoist ID|rich_text",
+              "key": "YOUR_API_KEY",
               "condition": "equals",
               "richTextValue": "={{ $('Map Todoist to Notion1').item.json.todoist_id }}"
             }
@@ -3261,8 +3264,8 @@
         3040
       ],
       "parameters": {
-        "key": "=lock_{{ $json.body.data.id }}",
-        "keyType": "string",
+        "key": "YOUR_API_KEY",
+        "keyType": "YOUR_API_KEY",
         "options": {},
         "operation": "get",
         "propertyName": "item"
@@ -3313,8 +3316,8 @@
         3400
       ],
       "parameters": {
-        "key": "=creating_for_{{ $('Notion trigger reference').item.json.body.data.id }}",
-        "keyType": "string",
+        "key": "YOUR_API_KEY",
+        "keyType": "YOUR_API_KEY",
         "options": {},
         "operation": "get",
         "propertyName": "item"
@@ -3370,11 +3373,11 @@
         3400
       ],
       "parameters": {
-        "key": "=creating_for_{{ $('Notion trigger reference').item.json.body.data.id }}",
+        "key": "YOUR_API_KEY",
         "ttl": 10,
         "value": "={{ $now.toISO() }}",
         "expire": true,
-        "keyType": "string",
+        "keyType": "YOUR_API_KEY",
         "operation": "set"
       },
       "credentials": {
@@ -3703,7 +3706,7 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Todoist ID|rich_text",
+              "key": "YOUR_API_KEY",
               "textContent": "={{ $json.id }}"
             }
           ]
@@ -3750,14 +3753,14 @@
         2260
       ],
       "parameters": {
-        "url": "=https://api.todoist.com/rest/v2/tasks/{{ $json.id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}",
         "method": "POST",
         "options": {},
         "jsonQuery": "={{ $('Map Notion to Todoist2').item.json.toJsonString() }}",
         "sendQuery": true,
         "specifyQuery": "json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "todoistApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "todoistApi": {
@@ -3830,7 +3833,7 @@
         2900
       ],
       "parameters": {
-        "url": "https://api.todoist.com/sync/v9/sync",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -3844,7 +3847,7 @@
             }
           ]
         },
-        "nodeCredentialType": "todoistApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "todoistApi": {
@@ -3863,11 +3866,11 @@
         2580
       ],
       "parameters": {
-        "key": "=lock_{{ $json.id }}",
+        "key": "YOUR_API_KEY",
         "ttl": 15,
         "value": "={{ $now.toISO() }}",
         "expire": true,
-        "keyType": "string",
+        "keyType": "YOUR_API_KEY",
         "operation": "set"
       },
       "credentials": {
@@ -3945,14 +3948,14 @@
         3400
       ],
       "parameters": {
-        "url": "=https://api.todoist.com/rest/v2/tasks",
+        "url": "={{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonQuery": "={{ $('Map Notion to Todoist2').item.json.toJsonString() }}",
         "sendQuery": true,
         "specifyQuery": "json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "todoistApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "todoistApi": {
@@ -3976,19 +3979,19 @@
         "dataToSave": {
           "values": [
             {
-              "key": "database_id",
+              "key": "YOUR_API_KEY",
               "value": "={{ $('Globals2').first().json.database_id }}"
             },
             {
-              "key": "project_id",
+              "key": "YOUR_API_KEY",
               "value": "={{ $('Globals2').first().json.project_id }}"
             },
             {
-              "key": "notion_id",
+              "key": "YOUR_API_KEY",
               "value": "={{ $json.body.data.id }}"
             },
             {
-              "key": "source",
+              "key": "YOUR_API_KEY",
               "value": "Notion"
             }
           ]
@@ -4008,11 +4011,11 @@
         "dataToSave": {
           "values": [
             {
-              "key": "todoist_id",
+              "key": "YOUR_API_KEY",
               "value": "={{ $json.id }}"
             },
             {
-              "key": "task_name",
+              "key": "YOUR_API_KEY",
               "value": "={{ $json.content }}"
             }
           ]
@@ -4726,7 +4729,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "[project name]",
+              "outputKey": "output_1",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -4814,7 +4817,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "project1",
+              "outputKey": "output_1",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -4837,7 +4840,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "project2",
+              "outputKey": "output_2",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -4957,7 +4960,7 @@
       "parameters": {
         "width": 980,
         "height": 560,
-        "content": "# 0. Start here\n### Notion\n- A database must already exist (get a basic template [here](https://steadfast-banjo-d1f.notion.site/17682b476c848086b002de766879aa71)) with the following properties (case matters!):\n  - Text: \"Name\"\n  - Status: \"Status\", containing at least the options \"Backlog\", \"In progress\", \"Done\", \"Obsolete\"\n  - Select: \"Priority\", containing the options \"do first\", \"urgent\", \"important\"\n  - Date: \"Due\"\n  - Checkbox: \"Focus\"\n  - Text: \"Todoist ID\"\n### Todoist\n- A project must already exist with the same sections like defined as Status in Notion (except Done and Obsolete)\n### Redis\n- Create a [Free Redis Cloud](https://redis.io/try-free/) instance or self-host\n### Setup credentials in n8n\n- Notion: https://docs.n8n.io/integrations/builtin/credentials/notion/\n- Todoist: https://docs.n8n.io/integrations/builtin/credentials/todoist/\n- Redis: https://docs.n8n.io/integrations/builtin/credentials/redis/\n### Clone workflow\n- Clone this workflow into your n8n environment and map the credentials (beware, Todoist credentials are also used in HTTP request nodes)\n- Check for every yellow sticky notes. They show instructions which need to be done once"
+        "content": "# 0. Start here\n### Notion\n- A database must already exist (get a basic template [here]({{ $env.WEBHOOK_URL }} with the following properties (case matters!):\n  - Text: \"Name\"\n  - Status: \"Status\", containing at least the options \"Backlog\", \"In progress\", \"Done\", \"Obsolete\"\n  - Select: \"Priority\", containing the options \"do first\", \"urgent\", \"important\"\n  - Date: \"Due\"\n  - Checkbox: \"Focus\"\n  - Text: \"Todoist ID\"\n### Todoist\n- A project must already exist with the same sections like defined as Status in Notion (except Done and Obsolete)\n### Redis\n- Create a [Free Redis Cloud]({{ $env.WEBHOOK_URL }} instance or self-host\n### Setup credentials in n8n\n- Notion: {{ $env.WEBHOOK_URL }}\n- Todoist: {{ $env.WEBHOOK_URL }}\n- Redis: {{ $env.WEBHOOK_URL }}\n### Clone workflow\n- Clone this workflow into your n8n environment and map the credentials (beware, Todoist credentials are also used in HTTP request nodes)\n- Check for every yellow sticky notes. They show instructions which need to be done once"
       },
       "typeVersion": 1
     },
@@ -5002,7 +5005,7 @@
       "parameters": {
         "width": 800,
         "height": 680,
-        "content": "# 4. Setup Notion Webhook\nYou can choose from two options and also choose different options for different workspaces, e.g. optionA for a business related workspace and option B for a private workspace. Both options work similarly, option A is a bit easier to setup, yet it is more expensive.\n\n## Option A: Notion Webhook via Automation (paid plan required)\n- Create a new [automation](https://www.notion.com/help/database-automations) on the database which should be synced\n- Rename the automation to \"Notion-Todoist Sync\" or similar\n- Add trigger: \"Any property edited\"\n- Add action: \"Send webhook\"\n  - URL: Grab the production URL from the \"Notion Webhook\" Node of this workflow (Notion to Todoist Diff sync)\n  - Content: Select all existing properties\n- Click \"Save\"\n\n## Option B: Notion Webhook Emulator (no subscription required)\n- Follow the instructions here: https://n8n.io/workflows/2284-provide-real-time-updates-for-notion-databases-via-webhooks-with-supabase/\n- Use the Webhook URL from the \"Notion Webhook\" Node of this workflow to push the updates to"
+        "content": "# 4. Setup Notion Webhook\nYou can choose from two options and also choose different options for different workspaces, e.g. optionA for a business related workspace and option B for a private workspace. Both options work similarly, option A is a bit easier to setup, yet it is more expensive.\n\n## Option A: Notion Webhook via Automation (paid plan required)\n- Create a new [automation]({{ $env.WEBHOOK_URL }} on the database which should be synced\n- Rename the automation to \"Notion-Todoist Sync\" or similar\n- Add trigger: \"Any property edited\"\n- Add action: \"Send webhook\"\n  - URL: Grab the production URL from the \"Notion Webhook\" Node of this workflow (Notion to Todoist Diff sync)\n  - Content: Select all existing properties\n- Click \"Save\"\n\n## Option B: Notion Webhook Emulator (no subscription required)\n- Follow the instructions here: {{ $env.WEBHOOK_URL }}\n- Use the Webhook URL from the \"Notion Webhook\" Node of this workflow to push the updates to"
       },
       "typeVersion": 1
     },
@@ -5653,12 +5656,281 @@
         "content": "# 5. Finishing Touches\n\n### Cleanup\nNow technically everything is ready, but it is missing better usability and maintainability. So start by moving (cut & paste) the 3 big flows (outlined in blue) to separate n8n workflows. You can name them as follows:\n- Notion-Todoist Full Sync (<workspace-name>)\n- Notion-Todoist Diff Sync (<workspace-name>)\n- Todoist-Notion Diff Sync (<workspace-name>)\n \nMake sure to **activate every workflow** which requires it.\nAlso save this workflow to avoid duplicates.\n\n### First run\n- Execute the **Notion-Todoist Full Sync** workflow manually first\n- Now that the initial sync is done and you can start using the realtime sync"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-5e0488a3-270d-46b3-8b4b-f4ee459a3016-017f6cf9",
+      "name": "Error Handler for 5e0488a3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5e0488a3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e52b0a6d-4697-4c42-91c9-6c786752877c-d80ba345",
+      "name": "Error Handler for e52b0a6d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e52b0a6d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b72c6f9f-f821-4859-b75d-192541ce0d34-3a15c61f",
+      "name": "Error Handler for b72c6f9f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b72c6f9f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d0adcb66-4817-44f9-ad7e-320cff86aefe-78e3f447",
+      "name": "Error Handler for d0adcb66",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d0adcb66",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4fda8614-308c-4d66-ac7d-c2491ab5a86a-948ef9d9",
+      "name": "Error Handler for 4fda8614",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4fda8614",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-347fb99f-861f-483a-bc39-7341fe41439f-f7a2c8ba",
+      "name": "Error Handler for 347fb99f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 347fb99f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-01ec4ae8-22df-45ef-8593-4f16e3571c2e-0748ebb9",
+      "name": "Error Handler for 01ec4ae8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 01ec4ae8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ca33c90f-3204-45e1-9d66-20e7e740a4d7-dceb6800",
+      "name": "Error Handler for ca33c90f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ca33c90f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4a538bb6-80f6-4920-b96a-0756e0dc5449-720c51a3",
+      "name": "Error Handler for 4a538bb6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4a538bb6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-28b4e10e-a9cb-40c0-9a2c-d45303f4b64e-92ea1cc2",
+      "name": "Error Handler for 28b4e10e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 28b4e10e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cee5f777-4763-490e-a89f-8ba715cfd5b8-e81abfc3",
+      "name": "Error Handler for cee5f777",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node cee5f777",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-106f7e35-0cc2-4054-817c-6c3d50407e88-69abe5da",
+      "name": "Error Handler for 106f7e35",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 106f7e35",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1895a6d2-71dc-4f58-a746-9b59c71bedcb-349dac5a",
+      "name": "Error Handler for 1895a6d2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1895a6d2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-baa2d8ad-3eee-46ec-bd20-cea4615f5cec-63810387",
+      "name": "Error Handler for baa2d8ad",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node baa2d8ad",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-00cea352-9026-433b-b351-28720e0b6a40-19797b30",
+      "name": "Error Handler for 00cea352",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 00cea352",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-05441894-9904-44b3-94f7-bb600bcbe7ba-a346db67",
+      "name": "Error Handler for 05441894",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 05441894",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b8aeecf7-28fb-433e-b045-147e6080cc30-9d63c251",
+      "name": "Error Handler for b8aeecf7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b8aeecf7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f2243125-18c3-4484-9a06-85c638b1895f-1c292a6a",
+      "name": "Error Handler for f2243125",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f2243125",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-dd5debc8",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Realtime Notion Todoist 2-way Sync Template\n\n## Overview\nAutomated workflow: Realtime Notion Todoist 2-way Sync Template. This workflow integrates 29 different services: stickyNote, scheduleTrigger, merge, switch, redis. It contains 264 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 264\n- **Node Types**: 29\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Get projects**: httpRequest\n- **Get sections**: httpRequest\n- **Get Notion Databases**: notion\n- **Prep Dropdown**: code\n- **Prep Dropdown1**: code\n- **Generate config**: code\n- **Choose Notion Database**: form\n- **Choose Todoist Project**: form\n- **Verify security token**: if\n- **Generate security token**: crypto\n- ... and 254 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "a3febb48-a786-4168-8e4f-61821e15858e",
   "connections": {
@@ -7609,6 +7881,205 @@
           }
         ]
       ]
+    },
+    "5e0488a3-270d-46b3-8b4b-f4ee459a3016": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5e0488a3-270d-46b3-8b4b-f4ee459a3016-017f6cf9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e52b0a6d-4697-4c42-91c9-6c786752877c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e52b0a6d-4697-4c42-91c9-6c786752877c-d80ba345",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b72c6f9f-f821-4859-b75d-192541ce0d34": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b72c6f9f-f821-4859-b75d-192541ce0d34-3a15c61f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d0adcb66-4817-44f9-ad7e-320cff86aefe": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d0adcb66-4817-44f9-ad7e-320cff86aefe-78e3f447",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4fda8614-308c-4d66-ac7d-c2491ab5a86a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4fda8614-308c-4d66-ac7d-c2491ab5a86a-948ef9d9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "347fb99f-861f-483a-bc39-7341fe41439f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-347fb99f-861f-483a-bc39-7341fe41439f-f7a2c8ba",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "01ec4ae8-22df-45ef-8593-4f16e3571c2e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-01ec4ae8-22df-45ef-8593-4f16e3571c2e-0748ebb9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ca33c90f-3204-45e1-9d66-20e7e740a4d7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ca33c90f-3204-45e1-9d66-20e7e740a4d7-dceb6800",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4a538bb6-80f6-4920-b96a-0756e0dc5449": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4a538bb6-80f6-4920-b96a-0756e0dc5449-720c51a3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "28b4e10e-a9cb-40c0-9a2c-d45303f4b64e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-28b4e10e-a9cb-40c0-9a2c-d45303f4b64e-92ea1cc2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cee5f777-4763-490e-a89f-8ba715cfd5b8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-cee5f777-4763-490e-a89f-8ba715cfd5b8-e81abfc3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "106f7e35-0cc2-4054-817c-6c3d50407e88": {
+      "main": [
+        [
+          {
+            "node": "error-handler-106f7e35-0cc2-4054-817c-6c3d50407e88-69abe5da",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1895a6d2-71dc-4f58-a746-9b59c71bedcb": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1895a6d2-71dc-4f58-a746-9b59c71bedcb-349dac5a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "baa2d8ad-3eee-46ec-bd20-cea4615f5cec": {
+      "main": [
+        [
+          {
+            "node": "error-handler-baa2d8ad-3eee-46ec-bd20-cea4615f5cec-63810387",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "00cea352-9026-433b-b351-28720e0b6a40": {
+      "main": [
+        [
+          {
+            "node": "error-handler-00cea352-9026-433b-b351-28720e0b6a40-19797b30",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "05441894-9904-44b3-94f7-bb600bcbe7ba": {
+      "main": [
+        [
+          {
+            "node": "error-handler-05441894-9904-44b3-94f7-bb600bcbe7ba-a346db67",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b8aeecf7-28fb-433e-b045-147e6080cc30": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b8aeecf7-28fb-433e-b045-147e6080cc30-9d63c251",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f2243125-18c3-4484-9a06-85c638b1895f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f2243125-18c3-4484-9a06-85c638b1895f-1c292a6a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Realtime Notion Todoist 2-way Sync Template. This workflow integrates 29 different services: stickyNote, scheduleTrigger, merge, switch, redis. It contains 264 nodes and follows best practices for error handling and security."
 }

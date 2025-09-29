@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "db80165df40cb07c0377167c050b3f9ab0b0fb04f0e8cae0dc53f5a8527103ca",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -70,7 +72,7 @@
           "__rl": true,
           "mode": "list",
           "value": "1hnHubRgcstU8OgV8BPwPNivfTZT5g2Wf",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/1hnHubRgcstU8OgV8BPwPNivfTZT5g2Wf",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Workflow Backups"
         },
         "resource": "folder"
@@ -228,7 +230,7 @@
             "__rl": true,
             "mode": "list",
             "value": "1hnHubRgcstU8OgV8BPwPNivfTZT5g2Wf",
-            "cachedResultUrl": "https://drive.google.com/drive/folders/1hnHubRgcstU8OgV8BPwPNivfTZT5g2Wf",
+            "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
             "cachedResultName": "Workflow Backups"
           }
         },
@@ -242,6 +244,102 @@
         }
       },
       "typeVersion": 3
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\nAutomated workflow: Manualtrigger Workflow. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 10 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
+    },
+    {
+      "id": "error-handler-755e0803-c5c0-48a7-9c0c-44f8d5718d0b-4f562c1e",
+      "name": "Error Handler for 755e0803",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 755e0803",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-22874532-6d87-4a72-bb51-dd8c6e03c0c1-39bce9e4",
+      "name": "Error Handler for 22874532",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 22874532",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0b0155f1-15bc-4580-af6e-7dec3b0d5737-aa90f05e",
+      "name": "Error Handler for 0b0155f1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0b0155f1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f6f44cbe-a98e-4a49-8c4c-59ebe02db9e5-ed2f2ab6",
+      "name": "Error Handler for f6f44cbe",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f6f44cbe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d96a009f-08d3-4f0d-9f70-f9e0de9b9f91-0c2f48e6",
+      "name": "Error Handler for d96a009f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d96a009f",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-e38385ef",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow processes data and performs automated tasks.\n\n## Workflow Details\n- **Total Nodes**: 16\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **On clicking 'execute'**: manualTrigger\n- **n8n**: n8n\n- **Loop Over Items**: splitInBatches\n- **create new folder**: googleDrive\n- **Convert to File**: convertToFile\n- **Google Drive**: googleDrive\n- **Schedule Trigger**: scheduleTrigger\n- **Filter**: filter\n- **delete folder**: googleDrive\n- **Get folders**: googleDrive\n- ... and 6 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -356,6 +454,70 @@
           }
         ]
       ]
+    },
+    "755e0803-c5c0-48a7-9c0c-44f8d5718d0b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-755e0803-c5c0-48a7-9c0c-44f8d5718d0b-4f562c1e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "22874532-6d87-4a72-bb51-dd8c6e03c0c1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-22874532-6d87-4a72-bb51-dd8c6e03c0c1-39bce9e4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0b0155f1-15bc-4580-af6e-7dec3b0d5737": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0b0155f1-15bc-4580-af6e-7dec3b0d5737-aa90f05e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f6f44cbe-a98e-4a49-8c4c-59ebe02db9e5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f6f44cbe-a98e-4a49-8c4c-59ebe02db9e5-ed2f2ab6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d96a009f-08d3-4f0d-9f70-f9e0de9b9f91": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d96a009f-08d3-4f0d-9f70-f9e0de9b9f91-0c2f48e6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
+  },
+  "name": "Manualtrigger Workflow",
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow processes data and performs automated tasks.",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   }
 }

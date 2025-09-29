@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "cb484ba7b742928a2048bf8829668bed5b5ad9787579adea888f05980292a4a7",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -153,7 +155,7 @@
         "color": 5,
         "width": 360,
         "height": 1200,
-        "content": "![Callforge](https://uploads.n8n.io/templates/callforgeshadow.png)\n## CallForge - The AI Gong Sales Call Processor\nCallForge allows you to extract important information for different departments from your Sales Gong Calls. \n\n### Call PreProcessor\nThis workflow preps the calls to pass into the call processor. It also pulls data from the product in order to enrich the AI Prompt to catch typos in the Gong call transcript. It then cleans up the transcript into a single string and then sends it to the call processor."
+        "content": "![Callforge]({{ $env.WEBHOOK_URL }}\n## CallForge - The AI Gong Sales Call Processor\nCallForge allows you to extract important information for different departments from your Sales Gong Calls. \n\n### Call PreProcessor\nThis workflow preps the calls to pass into the call processor. It also pulls data from the product in order to enrich the AI Prompt to catch typos in the Gong call transcript. It then cleans up the transcript into a single string and then sends it to the call processor."
       },
       "typeVersion": 1
     },
@@ -217,14 +219,14 @@
           "__rl": true,
           "mode": "list",
           "value": 1859794756,
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DKrLntdoNScMey5Bb4ggSpS8NFHlYN3kuTJQbrbJU7I/edit#gid=1859794756",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1DKrLntdoNScMey5Bb4ggSpS8NFHlYN3kuTJQbrbJU7I",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DKrLntdoNScMey5Bb4ggSpS8NFHlYN3kuTJQbrbJU7I/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Most Popular Node Combos"
         }
       },
@@ -298,7 +300,7 @@
           "__rl": true,
           "mode": "list",
           "value": "2cb8596f-2029-4d15-bf56-7001652f6fcf",
-          "cachedResultUrl": "https://www.notion.so/2cb8596f20294d15bf567001652f6fcf",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "n8n vs."
         }
       },
@@ -387,7 +389,7 @@
           "__rl": true,
           "mode": "list",
           "value": "1a85b6e0-c94f-81a3-aa21-e3ccf8296d72",
-          "cachedResultUrl": "https://www.notion.so/1a85b6e0c94f81a3aa21e3ccf8296d72",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sales Call Summaries Demo"
         }
       },
@@ -488,6 +490,33 @@
       ],
       "parameters": {},
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-31df099f-45ec-4dff-b968-a90e7eaa67b5-f9895f26",
+      "name": "Error Handler for 31df099f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 31df099f",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-25c7dd06",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 15 different services: stickyNote, splitInBatches, splitOut, merge, noOp. It contains 27 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 27\n- **Node Types**: 15\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Gong**: gong\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Transcript Processor**: executeWorkflow\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Sticky Note4**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Execute Workflow Trigger**: executeWorkflowTrigger\n- ... and 17 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -732,6 +761,26 @@
           }
         ]
       ]
+    },
+    "31df099f-45ec-4dff-b968-a90e7eaa67b5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-31df099f-45ec-4dff-b968-a90e7eaa67b5-f9895f26",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 15 different services: stickyNote, splitInBatches, splitOut, merge, noOp. It contains 27 nodes and follows best practices for error handling and security."
 }

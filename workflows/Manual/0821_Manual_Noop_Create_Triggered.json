@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "408f9fb9940c3cb18ffdef0e0150fe342d6e655c3a9fac21f0f644e8bedabcd9",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -293,7 +295,7 @@
       "parameters": {
         "width": 480,
         "height": 1080,
-        "content": "## Try it out\n### This n8n template uses existing emails from customers as context to customise and \"finetune\" outreach emails to them using AI.\n\nBy now, it should be common knowledge that we can leverage AI to generate unique emails but in a way, they can remain generic as the AI lacks the customer context to be truly personalised. One way to solve this is \n\n### How it works\n* Customers to target are pulled from Hubspot and each customer is then run in a loop. We're using a loop as the retrieved emails for each customer become separate items and a loop helps with item reference.\n* We connect to our Gmail account to pull all emails recieved from the customer.\n* The contents of the email will be suitable to build a short persona of the customer. We use the Information Extractor to get our AI model to pull out the key attributes of this persona such as decision making style and communication preferences.\n* With this persona, we can now pass this to our AI model to generate a personalised outreach email specifically for our customer.\n* Finally, a draft email is created for human review before sending. If you would rather send the email straight away, this is also possible.\n\n### How to use\n* Define the topic of the outreach email in the \"variables\" node. This directs the AI on what outreach email to generate.\n* Ensure the emails are pulled from the right account. If emails may contain sensitive data, adjust the filters and text parsing to ensure these are not leaked to the AI (which might then leak into the generated email).\n\n### Need Help?\nJoin the [Discord](https://discord.com/invite/XPKeKXeB7d) or ask in the [Forum](https://community.n8n.io/)!\n\nHappy Hacking!"
+        "content": "## Try it out\n### This n8n template uses existing emails from customers as context to customise and \"finetune\" outreach emails to them using AI.\n\nBy now, it should be common knowledge that we can leverage AI to generate unique emails but in a way, they can remain generic as the AI lacks the customer context to be truly personalised. One way to solve this is \n\n### How it works\n* Customers to target are pulled from Hubspot and each customer is then run in a loop. We're using a loop as the retrieved emails for each customer become separate items and a loop helps with item reference.\n* We connect to our Gmail account to pull all emails recieved from the customer.\n* The contents of the email will be suitable to build a short persona of the customer. We use the Information Extractor to get our AI model to pull out the key attributes of this persona such as decision making style and communication preferences.\n* With this persona, we can now pass this to our AI model to generate a personalised outreach email specifically for our customer.\n* Finally, a draft email is created for human review before sending. If you would rather send the email straight away, this is also possible.\n\n### How to use\n* Define the topic of the outreach email in the \"variables\" node. This directs the AI on what outreach email to generate.\n* Ensure the emails are pulled from the right account. If emails may contain sensitive data, adjust the filters and text parsing to ensure these are not leaked to the AI (which might then leak into the generated email).\n\n### Need Help?\nJoin the [Discord]({{ $env.WEBHOOK_URL }} or ask in the [Forum]({{ $env.WEBHOOK_URL }}\n\nHappy Hacking!"
       },
       "typeVersion": 1
     },
@@ -397,6 +399,47 @@
         "content": "## 1. Get Targeted Existing Customers\nAs with all campaigns, it's good to have a targeted subset of customers to aim for to assess the response. Here, we can pull them out of a CRM like Hubspot if granular filtering is required for example but even a simple csv of contacts would also work."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-f21c0147-dd18-4b06-9f58-258b8946977d-2e8078df",
+      "name": "Error Handler for f21c0147",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f21c0147",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-27aaa070-4de5-479a-83eb-d2e0810a19da-3a00480d",
+      "name": "Error Handler for 27aaa070",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 27aaa070",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-a6b1ee11",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 10 different services: stickyNote, hubspot, lmChatGoogleGemini, informationExtractor, set. It contains 19 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 19\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Variables**: set\n- **Google Gemini Chat Model**: lmChatGoogleGemini\n- **Google Gemini Chat Model1**: lmChatGoogleGemini\n- **Create Draft Email For Review**: gmail\n- **Generate Sales Email**: informationExtractor\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- ... and 9 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -522,6 +565,37 @@
           }
         ]
       ]
+    },
+    "f21c0147-dd18-4b06-9f58-258b8946977d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f21c0147-dd18-4b06-9f58-258b8946977d-2e8078df",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "27aaa070-4de5-479a-83eb-d2e0810a19da": {
+      "main": [
+        [
+          {
+            "node": "error-handler-27aaa070-4de5-479a-83eb-d2e0810a19da-3a00480d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 10 different services: stickyNote, hubspot, lmChatGoogleGemini, informationExtractor, set. It contains 19 nodes and follows best practices for error handling and security."
 }

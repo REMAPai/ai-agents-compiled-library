@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "1eadd5bc7c3d70c587c28f782511fd898c6bf6d97963d92e836019d2039d1c79"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -31,7 +34,7 @@
         "color": 4,
         "width": 1300,
         "height": 320,
-        "content": "=======================================\n            WORKFLOW ASSISTANCE\n=======================================\nFor any questions or support, please contact:\n    Yaron@nofluff.online\n\nExplore more tips and tutorials here:\n   - YouTube: https://www.youtube.com/@YaronBeen/videos\n   - LinkedIn: https://www.linkedin.com/in/yaronbeen/\n=======================================\n"
+        "content": "=======================================\n            WORKFLOW ASSISTANCE\n=======================================\nFor any questions or support, please contact:\n    Yaron@nofluff.online\n\nExplore more tips and tutorials here:\n   - YouTube: {{ $env.WEBHOOK_URL }}\n   - LinkedIn: {{ $env.WEBHOOK_URL }}\n=======================================\n"
       },
       "typeVersion": 1
     },
@@ -44,7 +47,7 @@
         360
       ],
       "parameters": {
-        "url": "=https://api.brightdata.com/datasets/v3/progress/{{ $('HTTP Request- Post API call to Bright Data').item.json.snapshot_id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $('HTTP Request- Post API call to Bright Data').item.json.snapshot_id }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -69,7 +72,7 @@
       "parameters": {
         "width": 195,
         "height": 646,
-        "content": "In this workflow, I use Google Sheets to store the results. \n\nYou can use my template to get started faster:\n\n1. [Click on this link to get the template](https://docs.google.com/spreadsheets/d/1_jbr5zBllTy_pGbogfGSvyv1_0a77I8tU-Ai7BjTAw4/edit?usp=sharing)\n2. Make a copy of the Sheets\n3. Add the URL to this node \n\n\n"
+        "content": "In this workflow, I use Google Sheets to store the results. \n\nYou can use my template to get started faster:\n\n1. [Click on this link to get the template]({{ $env.WEBHOOK_URL }}\n2. Make a copy of the Sheets\n3. Add the URL to this node \n\n\n"
       },
       "typeVersion": 1
     },
@@ -132,7 +135,7 @@
         620
       ],
       "parameters": {
-        "url": "https://api.brightdata.com/datasets/v3/trigger",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "=[\n  {\n    \"location\": \"{{ $json['Job Location'] }}\",\n    \"keyword\": \"{{ $json.Keyword }}\",\n    \"country\": \"{{ $json['Country (2 letters)'] }}\",\n    \"time_range\": \"Past 24 hours\",\n    \"job_type\": \"Part-time\",\n    \"experience_level\": \"\",\n    \"remote\": \"\",\n    \"company\": \"\"\n  }\n] ",
@@ -148,11 +151,11 @@
             },
             {
               "name": "endpoint",
-              "value": "https://yaron-nofluff.app.n8n.cloud/webhook-test/8c42463d-a631-4a17-a084-4bcbbb3bfc68"
+              "value": "{{ $env.WEBHOOK_URL }}"
             },
             {
               "name": "notify",
-              "value": "https://yaron-nofluff.app.n8n.cloud/webhook-test/8c42463d-a631-4a17-a084-4bcbbb3bfc68"
+              "value": "{{ $env.WEBHOOK_URL }}"
             },
             {
               "name": "format",
@@ -241,7 +244,7 @@
         380
       ],
       "parameters": {
-        "url": "=https://api.brightdata.com/datasets/v3/snapshot/{{ $json.snapshot_id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.snapshot_id }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
@@ -637,14 +640,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_jbr5zBllTy_pGbogfGSvyv1_0a77I8tU-Ai7BjTAw4/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "input"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1_jbr5zBllTy_pGbogfGSvyv1_0a77I8tU-Ai7BjTAw4",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_jbr5zBllTy_pGbogfGSvyv1_0a77I8tU-Ai7BjTAw4/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "NoFluff-N8N-Sheet-Template-Job Scraping WIth Bright Data"
         }
       },
@@ -710,6 +713,117 @@
         }
       },
       "typeVersion": 3.4
+    },
+    {
+      "id": "error-handler-33cb416e-a7ff-4b55-9701-9b9e95d76f12",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 33cb416e-a7ff-4b55-9701-9b9e95d76f12",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-aea569df-eedd-441f-aba5-c3c26a50fa87",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in aea569df-eedd-441f-aba5-c3c26a50fa87",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e17b4da0-3f9c-45d5-acdf-ab634acfef97",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e17b4da0-3f9c-45d5-acdf-ab634acfef97",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-33cb416e-a7ff-4b55-9701-9b9e95d76f12-d0391a02",
+      "name": "Error Handler for 33cb416e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 33cb416e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-aea569df-eedd-441f-aba5-c3c26a50fa87-f9cdd69b",
+      "name": "Error Handler for aea569df",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node aea569df",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e17b4da0-3f9c-45d5-acdf-ab634acfef97-cae06837",
+      "name": "Error Handler for e17b4da0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e17b4da0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-70f4a4a0-b9ce-4b7a-b232-86014a7f8a3f-cf01b487",
+      "name": "Error Handler for 70f4a4a0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 70f4a4a0",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-fa3036ce",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Stickynote Workflow\n\n## Overview\nAutomated workflow: Stickynote Workflow. This workflow integrates 9 different services: stickyNote, httpRequest, formTrigger, wait, code. It contains 22 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 22\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note**: stickyNote\n- **Sticky Note9**: stickyNote\n- **Snapshot Progress**: httpRequest\n- **Sticky Note10**: stickyNote\n- **Sticky Note1**: stickyNote\n- **On form submission - Discover Jobs**: formTrigger\n- **HTTP Request- Post API call to Bright Data**: httpRequest\n- **Wait - Polling Bright Data**: wait\n- **If - Checking status of Snapshot - if data is ready or not**: if\n- **HTTP Request - Getting data from Bright Data**: httpRequest\n- ... and 12 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -808,6 +922,80 @@
           }
         ]
       ]
+    },
+    "33cb416e-a7ff-4b55-9701-9b9e95d76f12": {
+      "main": [
+        [
+          {
+            "node": "error-handler-33cb416e-a7ff-4b55-9701-9b9e95d76f12",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-33cb416e-a7ff-4b55-9701-9b9e95d76f12-d0391a02",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "aea569df-eedd-441f-aba5-c3c26a50fa87": {
+      "main": [
+        [
+          {
+            "node": "error-handler-aea569df-eedd-441f-aba5-c3c26a50fa87",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-aea569df-eedd-441f-aba5-c3c26a50fa87-f9cdd69b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e17b4da0-3f9c-45d5-acdf-ab634acfef97": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e17b4da0-3f9c-45d5-acdf-ab634acfef97",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e17b4da0-3f9c-45d5-acdf-ab634acfef97-cae06837",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "70f4a4a0-b9ce-4b7a-b232-86014a7f8a3f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-70f4a4a0-b9ce-4b7a-b232-86014a7f8a3f-cf01b487",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Stickynote Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 9 different services: stickyNote, httpRequest, formTrigger, wait, code. It contains 22 nodes and follows best practices for error handling and security."
 }

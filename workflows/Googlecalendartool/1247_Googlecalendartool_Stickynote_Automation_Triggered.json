@@ -1,7 +1,10 @@
 {
   "id": "ITH6r6UYtlCyUcpj",
   "meta": {
-    "instanceId": "b9faf72fe0d7c3be94b3ebff0778790b50b135c336412d28fd4fca2cbbf8d1f5"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "AI Agent : Google calendar assistant using OpenAI",
   "tags": [],
@@ -72,7 +75,7 @@
         },
         "operation": "getAll",
         "descriptionType": "manual",
-        "toolDescription": "Use this tool when you\u2019re asked to retrieve events data."
+        "toolDescription": "Use this tool when you’re asked to retrieve events data."
       },
       "credentials": {
         "googleCalendarOAuth2Api": {
@@ -128,7 +131,7 @@
         "color": 7,
         "width": 320,
         "height": 560,
-        "content": "## Chat trigger - When a message is received\n\nThis node is the **entry point of the workflow**. \nIt triggers the workflow whenever a message is sent to the **chat interface**.\n\nOptions with n8n:\n- **Embed the chat interface** anywhere you want.\n- Use a **webhook node** instead of this node to connect with interfaces like **[Streamlit](https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps)** or **[OpenWebUI](https://docs.openwebui.com/)**.\n- Use nodes for communication platforms (**Slack**, **Teams**, **Discord**, etc.) if you know how to configure them.\n"
+        "content": "## Chat trigger - When a message is received\n\nThis node is the **entry point of the workflow**. \nIt triggers the workflow whenever a message is sent to the **chat interface**.\n\nOptions with n8n:\n- **Embed the chat interface** anywhere you want.\n- Use a **webhook node** instead of this node to connect with interfaces like **[Streamlit]({{ $env.WEBHOOK_URL }} or **[OpenWebUI]({{ $env.WEBHOOK_URL }}\n- Use nodes for communication platforms (**Slack**, **Teams**, **Discord**, etc.) if you know how to configure them.\n"
       },
       "typeVersion": 1
     },
@@ -193,7 +196,7 @@
         "color": 5,
         "width": 320,
         "height": 720,
-        "content": "## Window buffer memory\n\nThis node manages the **memory** of the agent, specifically the **context window length** for chat history. \nThe default is set to 5 messages.\n\nNote: \nThe **memory** is **temporary**. If you want to **store conversations with the agent**, you should use other nodes like **Postgres chat memory**. \nThis can be easily set up with services like **[Supabase](https://supabase.com/)**.\n"
+        "content": "## Window buffer memory\n\nThis node manages the **memory** of the agent, specifically the **context window length** for chat history. \nThe default is set to 5 messages.\n\nNote: \nThe **memory** is **temporary**. If you want to **store conversations with the agent**, you should use other nodes like **Postgres chat memory**. \nThis can be easily set up with services like **[Supabase]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -209,7 +212,7 @@
         "color": 5,
         "width": 320,
         "height": 720,
-        "content": "## Google Calendar - Get Events\n\nThis sub-node is a tool used by the AI agent. \nIts purpose is to **retrieve events based on the user input**. \nFor example: *\"Can you give me the events from last week about internal process ?\"*\n\nThe AI agent is designed to **use this tool only** when it has a **date range**. \nIf the user hasn\u2019t provided a date range, the **AI agent will ask the user** for it.\n\nThe **variables** `{{ $fromAI('start_date') }}` and `{{ $fromAI('end_date') }}` are **dynamically filled by the AI**.\n"
+        "content": "## Google Calendar - Get Events\n\nThis sub-node is a tool used by the AI agent. \nIts purpose is to **retrieve events based on the user input**. \nFor example: *\"Can you give me the events from last week about internal process ?\"*\n\nThe AI agent is designed to **use this tool only** when it has a **date range**. \nIf the user hasn’t provided a date range, the **AI agent will ask the user** for it.\n\nThe **variables** `{{ $fromAI('start_date') }}` and `{{ $fromAI('end_date') }}` are **dynamically filled by the AI**.\n"
       },
       "typeVersion": 1
     },
@@ -225,7 +228,7 @@
         "color": 5,
         "width": 320,
         "height": 720,
-        "content": "## Google Calendar - Create Events\n\nThis sub-node is a tool used by the AI agent. \nIts purpose is to **create events based on the user input**. \nFor example: \"Can you create an event 'Quarter revenue meeting' on [date] from [hour] to [hour] ?\"\n\nThe AI agent is designed to **use this tool only** when it has a **date range**. \nIf the user hasn\u2019t provided a **date range**, the AI agent will **ask the user** for it. \nThe variables `{{ $fromAI('start_date') }}` and `{{ $fromAI('end_date') }}` are dynamically filled by the AI.\n\nBefore creating the event, the AI agent will **confirm with the user** if the **title** and **description** of the event are correct. \nThe variables used for this are:\n- `{{ $fromAI('event_title') }}`\n- `{{ $fromAI('event_description') }}`\n"
+        "content": "## Google Calendar - Create Events\n\nThis sub-node is a tool used by the AI agent. \nIts purpose is to **create events based on the user input**. \nFor example: \"Can you create an event 'Quarter revenue meeting' on [date] from [hour] to [hour] ?\"\n\nThe AI agent is designed to **use this tool only** when it has a **date range**. \nIf the user hasn’t provided a **date range**, the AI agent will **ask the user** for it. \nThe variables `{{ $fromAI('start_date') }}` and `{{ $fromAI('end_date') }}` are dynamically filled by the AI.\n\nBefore creating the event, the AI agent will **confirm with the user** if the **title** and **description** of the event are correct. \nThe variables used for this are:\n- `{{ $fromAI('event_title') }}`\n- `{{ $fromAI('event_description') }}`\n"
       },
       "typeVersion": 1
     },
@@ -241,17 +244,74 @@
         "color": 4,
         "width": 720,
         "height": 380,
-        "content": "## Having fun with it ? Here\u2019s how to level up this AI agent ! \n\nThis workflow demonstrates **how easily you can set up an AI agent to call tools** for you using **n8n**. \nThe tasks here are **useful but very basic**. \n\nIf you want to **enhance the tool-calling capabilities**, consider the following:\n\n- Explore the **\"options\"** in the Google Calendar nodes to see additional features you can use. \n For example, let the AI agent add attendees to events it creates.\n\n- Implement the AI agent with your **teammates and link it to each calendar**. \n Use a `{{ $fromAI('') }}` variable for the calendar field and refine the prompts to suit your needs.\n\n- Add **more actions** for the AI agent to perform with the **Google Calendar API**, expanding its functionality.\n"
+        "content": "## Having fun with it ? Here’s how to level up this AI agent ! \n\nThis workflow demonstrates **how easily you can set up an AI agent to call tools** for you using **n8n**. \nThe tasks here are **useful but very basic**. \n\nIf you want to **enhance the tool-calling capabilities**, consider the following:\n\n- Explore the **\"options\"** in the Google Calendar nodes to see additional features you can use. \n For example, let the AI agent add attendees to events it creates.\n\n- Implement the AI agent with your **teammates and link it to each calendar**. \n Use a `{{ $fromAI('') }}` variable for the calendar field and refine the prompts to suit your needs.\n\n- Add **more actions** for the AI agent to perform with the **Google Calendar API**, expanding its functionality.\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-96bf895f-a18c-4a4c-bc26-3ec5d2372de5-1cbe598d",
+      "name": "Error Handler for 96bf895f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 96bf895f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5cdece35-bd69-4c77-b240-963df8781d64-823554e7",
+      "name": "Error Handler for 5cdece35",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5cdece35",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-634e6472-099c-4f0e-b9eb-67956c4881b8-696c600d",
+      "name": "Error Handler for 634e6472",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 634e6472",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-eb1dc024",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# AI Agent : Google calendar assistant using OpenAI\n\n## Overview\nAutomated workflow: AI Agent : Google calendar assistant using OpenAI. This workflow integrates 7 different services: stickyNote, agent, stopAndError, lmChatOpenAi, memoryBufferWindow. It contains 16 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 16\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When chat message received**: chatTrigger\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Window Buffer Memory**: memoryBufferWindow\n- **Google Calendar - Get Events**: googleCalendarTool\n- **Google Calendar - Create events**: googleCalendarTool\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Calendar AI Agent**: agent\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- ... and 6 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "timezone": "Europe/Paris",
+    "timezone": "UTC",
     "callerPolicy": "workflowsFromSameOwner",
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "errorWorkflow": null
   },
   "versionId": "25b51038-e103-4be6-bcd1-64df4b90d4c6",
   "connections": {
@@ -314,6 +374,40 @@
           }
         ]
       ]
+    },
+    "96bf895f-a18c-4a4c-bc26-3ec5d2372de5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-96bf895f-a18c-4a4c-bc26-3ec5d2372de5-1cbe598d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5cdece35-bd69-4c77-b240-963df8781d64": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5cdece35-bd69-4c77-b240-963df8781d64-823554e7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "634e6472-099c-4f0e-b9eb-67956c4881b8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-634e6472-099c-4f0e-b9eb-67956c4881b8-696c600d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: AI Agent : Google calendar assistant using OpenAI. This workflow integrates 7 different services: stickyNote, agent, stopAndError, lmChatOpenAi, memoryBufferWindow. It contains 16 nodes and follows best practices for error handling and security."
 }

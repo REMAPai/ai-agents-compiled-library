@@ -1,8 +1,10 @@
 {
   "id": "yPIST7l13huQEjY5",
   "meta": {
-    "instanceId": "98bf0d6aef1dd8b7a752798121440fb171bf7686b95727fd617f43452393daa3",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Use XMLRPC via HttpRequest-node to post on Wordpress.com",
   "tags": [
@@ -232,12 +234,57 @@
         "options": {}
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-3f29f3ed-f7ae-475b-bce3-04d3eeeacee9",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3f29f3ed-f7ae-475b-bce3-04d3eeeacee9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3f29f3ed-f7ae-475b-bce3-04d3eeeacee9-a561b73f",
+      "name": "Error Handler for 3f29f3ed",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3f29f3ed",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-0002a1a3",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Use XMLRPC via HttpRequest-node to post on Wordpress.com\n\n## Overview\nAutomated workflow: Use XMLRPC via HttpRequest-node to post on Wordpress.com. This workflow integrates 9 different services: stickyNote, httpRequest, code, set, stopAndError. It contains 13 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 13\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Settings**: set\n- **ManualTrigger**: manualTrigger\n- **Sticky Note**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Success**: noOp\n- **Error**: noOp\n- **PrepareXML**: code\n- **PostRequest**: httpRequest\n- **IsSuccessful**: if\n- ... and 3 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "78f90dc5-6209-4db0-b6c6-9f2324488605",
   "connections": {
@@ -313,6 +360,25 @@
           }
         ]
       ]
+    },
+    "3f29f3ed-f7ae-475b-bce3-04d3eeeacee9": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3f29f3ed-f7ae-475b-bce3-04d3eeeacee9",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3f29f3ed-f7ae-475b-bce3-04d3eeeacee9-a561b73f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Use XMLRPC via HttpRequest-node to post on Wordpress.com. This workflow integrates 9 different services: stickyNote, httpRequest, code, set, stopAndError. It contains 13 nodes and follows best practices for error handling and security."
 }

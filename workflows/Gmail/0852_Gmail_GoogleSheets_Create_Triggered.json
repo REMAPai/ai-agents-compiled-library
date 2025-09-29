@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "ddc2592f2c048b3a9255de9457632cead183ed1f8d682593ea74c5b20f968a76",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -29,7 +31,7 @@
       "parameters": {
         "width": 480,
         "height": 260,
-        "content": "## Resume Screener from Gmail to Sheets\n\n### 📃Before you get started, you'll need:\n- [n8n installation](https://n8n.partnerlinks.io/n8nTTVideoGenTemplate) \n- [OpenAI API Key](https://platform.openai.com/api-keys)\n- Google Sheets API enabled in [Google Cloud Console](https://console.cloud.google.com/apis/api/sheets.googleapis.com/overview)\n- Google Drive API enabled in [Google Cloud Console](https://console.cloud.google.com/apis/api/drive.googleapis.com/overview)\n- OAuth 2.0 Client ID and Client Secret from your [Google Cloud Console Credentials](https://console.cloud.google.com/apis/credentials)\n"
+        "content": "## Resume Screener from Gmail to Sheets\n\n### 📃Before you get started, you'll need:\n- [n8n installation]({{ $env.WEBHOOK_URL }} \n- [OpenAI API Key]({{ $env.API_BASE_URL }}\n- Google Sheets API enabled in [Google Cloud Console]({{ $env.API_BASE_URL }}\n- Google Drive API enabled in [Google Cloud Console]({{ $env.API_BASE_URL }}\n- OAuth 2.0 Client ID and Client Secret from your [Google Cloud Console Credentials]({{ $env.API_BASE_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -168,14 +170,14 @@
           "__rl": true,
           "mode": "list",
           "value": 781640061,
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SGYsuJI2YJVztZZmSLsFZ0lbUHnxm0V9r3c8S5-2q74/edit#gid=781640061",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Resume Score"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1SGYsuJI2YJVztZZmSLsFZ0lbUHnxm0V9r3c8S5-2q74",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SGYsuJI2YJVztZZmSLsFZ0lbUHnxm0V9r3c8S5-2q74/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Lead Generation"
         }
       },
@@ -223,6 +225,61 @@
         }
       },
       "typeVersion": 1.2
+    },
+    {
+      "id": "error-handler-e4f3aef9-750a-48bb-899b-bd4a810032f2-1304f85c",
+      "name": "Error Handler for e4f3aef9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e4f3aef9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-dce8e431-9d5c-4aa1-a0eb-c2a27de2d7f9-06eee85b",
+      "name": "Error Handler for dce8e431",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node dce8e431",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e7fdaf75-11ad-40c2-84a0-13c52f6f2eb1-22382597",
+      "name": "Error Handler for e7fdaf75",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e7fdaf75",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-31ff7c0a",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Outputparserstructured Workflow\n\n## Overview\nAutomated workflow: Outputparserstructured Workflow. This workflow integrates 8 different services: stickyNote, gmailTrigger, agent, outputParserStructured, stopAndError. It contains 10 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 10\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Structured Output Parser**: outputParserStructured\n- **Sticky Note**: stickyNote\n- **Extract text from PDF File**: extractFromFile\n- **AI Agent to evaluate Resume**: agent\n- **OpenAI Chat Model (GPT 4o-mini)**: lmChatOpenAi\n- **Add Resume Evaluation to Google Sheets**: googleSheets\n- **Trigger on new Email Received**: gmailTrigger\n- **Error Handler for e4f3aef9**: stopAndError\n- **Error Handler for dce8e431**: stopAndError\n- **Error Handler for e7fdaf75**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -281,6 +338,48 @@
           }
         ]
       ]
+    },
+    "e4f3aef9-750a-48bb-899b-bd4a810032f2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e4f3aef9-750a-48bb-899b-bd4a810032f2-1304f85c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "dce8e431-9d5c-4aa1-a0eb-c2a27de2d7f9": {
+      "main": [
+        [
+          {
+            "node": "error-handler-dce8e431-9d5c-4aa1-a0eb-c2a27de2d7f9-06eee85b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e7fdaf75-11ad-40c2-84a0-13c52f6f2eb1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e7fdaf75-11ad-40c2-84a0-13c52f6f2eb1-22382597",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Outputparserstructured Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Outputparserstructured Workflow. This workflow integrates 8 different services: stickyNote, gmailTrigger, agent, outputParserStructured, stopAndError. It contains 10 nodes and follows best practices for error handling and security."
 }

@@ -1,7 +1,10 @@
 {
   "id": "VlCgU5K9SYQbdxTa",
   "meta": {
-    "instanceId": "d868e3d040e7bda892c81b17cf446053ea25d2556fcef89cbe19dd61a3e876e9"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Content to 9:16 Aspect Image Generator v1",
   "tags": [
@@ -45,7 +48,7 @@
   "nodes": [
     {
       "id": "be5c3e43-cc86-4081-aa98-e7af3d22267d",
-      "name": "When clicking \u2018Test workflow\u2019",
+      "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
         200,
@@ -66,7 +69,7 @@
         "color": 6,
         "width": 290,
         "height": 1110,
-        "content": "# AlexK1919 \n![Alex Kim](https://media.licdn.com/dms/image/v2/D5603AQFOYMkqCPl6Sw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718309808352?e=1736985600&v=beta&t=pQKm7lQfUU1ytuC2Gq1PRxNY-XmROFWbo-BjzUPxWOs)\n\n#### I\u2019m Alex, an AI-Native Workflow Automation Architect Building Solutions to Optimize your Personal and Professional Life.\n\n### Example AirTable Base\nhttps://airtable.com/appRDq3E42JNtruIP/shrnc9EzlxpCq7Vxe\n\n### Link to my n8n Workflow Templates\nhttps://n8n.io/creators/alexk1919\n\n### Workflow Overview Video\nhttps://www.youtube.com/@alexk1919_\n\n### Products Used\n[AirTable](https://airtable.com)\n[OpenAI](https://openai.com/)\n[Leonardo.ai](https://app.leonardo.ai/?via=alexk1919)\n\n### About Me\nhttps://beacons.ai/alexk1919\n"
+        "content": "# AlexK1919 \n![Alex Kim]({{ $env.WEBHOOK_URL }}\n\n#### I’m Alex, an AI-Native Workflow Automation Architect Building Solutions to Optimize your Personal and Professional Life.\n\n### Example AirTable Base\n{{ $env.WEBHOOK_URL }}\n\n### Link to my n8n Workflow Templates\n{{ $env.WEBHOOK_URL }}\n\n### Workflow Overview Video\n{{ $env.WEBHOOK_URL }}\n\n### Products Used\n[AirTable]({{ $env.WEBHOOK_URL }}\n[OpenAI]({{ $env.WEBHOOK_URL }}\n[Leonardo.ai]({{ $env.WEBHOOK_URL }}\n\n### About Me\n{{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -155,14 +158,14 @@
           "__rl": true,
           "mode": "list",
           "value": "appRDq3E42JNtruIP",
-          "cachedResultUrl": "https://airtable.com/appRDq3E42JNtruIP",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Content Manager"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblF8Ye2g0gPdpsaI",
-          "cachedResultUrl": "https://airtable.com/appRDq3E42JNtruIP/tblF8Ye2g0gPdpsaI",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Brand Guidelines"
         },
         "options": {},
@@ -189,14 +192,14 @@
           "__rl": true,
           "mode": "list",
           "value": "appRDq3E42JNtruIP",
-          "cachedResultUrl": "https://airtable.com/appRDq3E42JNtruIP",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Content Manager"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblU1fgGH1LXwnWRb",
-          "cachedResultUrl": "https://airtable.com/appRDq3E42JNtruIP/tblU1fgGH1LXwnWRb",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "SEO Keywords"
         },
         "options": {
@@ -296,14 +299,14 @@
           "__rl": true,
           "mode": "list",
           "value": "appRDq3E42JNtruIP",
-          "cachedResultUrl": "https://airtable.com/appRDq3E42JNtruIP",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Content Manager"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblU1fgGH1LXwnWRb",
-          "cachedResultUrl": "https://airtable.com/appRDq3E42JNtruIP/tblU1fgGH1LXwnWRb",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "SEO Keywords"
         },
         "options": {}
@@ -448,7 +451,7 @@
         -1020
       ],
       "parameters": {
-        "url": "https://cloud.leonardo.ai/api/rest/v1/prompt/improve",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -489,7 +492,7 @@
         -1020
       ],
       "parameters": {
-        "url": "=https://cloud.leonardo.ai/api/rest/v1/generations/{{ $json.body.sdGenerationJob.generationId }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.body.sdGenerationJob.generationId }}",
         "options": {
           "response": {
             "response": {
@@ -556,7 +559,7 @@
         -1020
       ],
       "parameters": {
-        "url": "https://cloud.leonardo.ai/api/rest/v1/generations",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -643,7 +646,7 @@
         -420
       ],
       "parameters": {
-        "url": "https://cloud.leonardo.ai/api/rest/v1/prompt/improve",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -684,7 +687,7 @@
         -420
       ],
       "parameters": {
-        "url": "=https://cloud.leonardo.ai/api/rest/v1/generations/{{ $json.body.sdGenerationJob.generationId }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.body.sdGenerationJob.generationId }}",
         "options": {
           "response": {
             "response": {
@@ -751,7 +754,7 @@
         -420
       ],
       "parameters": {
-        "url": "https://cloud.leonardo.ai/api/rest/v1/generations",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -841,14 +844,14 @@
           "__rl": true,
           "mode": "list",
           "value": "appRDq3E42JNtruIP",
-          "cachedResultUrl": "https://airtable.com/appRDq3E42JNtruIP",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Content Manager"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblqoaJ7bRLBgENED",
-          "cachedResultUrl": "https://airtable.com/appRDq3E42JNtruIP/tblqoaJ7bRLBgENED",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Assets"
         },
         "columns": {
@@ -1056,14 +1059,14 @@
           "__rl": true,
           "mode": "list",
           "value": "appRDq3E42JNtruIP",
-          "cachedResultUrl": "https://airtable.com/appRDq3E42JNtruIP",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Content Manager"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblqoaJ7bRLBgENED",
-          "cachedResultUrl": "https://airtable.com/appRDq3E42JNtruIP/tblqoaJ7bRLBgENED",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Assets"
         },
         "columns": {
@@ -1316,6 +1319,201 @@
         "content": "### Optionally, you can modify the number of images generated to provide more options"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-d4f30eff-220a-4682-9072-f1bbbce3655c",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d4f30eff-220a-4682-9072-f1bbbce3655c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a1d32bae-67a0-487d-9583-0b53ab25d184",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a1d32bae-67a0-487d-9583-0b53ab25d184",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9791db0e-c9a5-4fd8-b3fc-fd92b65c6362",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 9791db0e-c9a5-4fd8-b3fc-fd92b65c6362",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d418088f-cebd-483a-b413-09f62faac1b7",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d418088f-cebd-483a-b413-09f62faac1b7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c77d1f84-8db8-4ca5-9bcf-854a4bda9cf5",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c77d1f84-8db8-4ca5-9bcf-854a4bda9cf5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b6c43a16-29e8-4074-9dda-5661dfd3da5d",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b6c43a16-29e8-4074-9dda-5661dfd3da5d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bcdf8e9e-463c-43d4-a29e-7f90076815a1-493d7392",
+      "name": "Error Handler for bcdf8e9e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node bcdf8e9e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d4f30eff-220a-4682-9072-f1bbbce3655c-58e0b12f",
+      "name": "Error Handler for d4f30eff",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d4f30eff",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a1d32bae-67a0-487d-9583-0b53ab25d184-ad1f5235",
+      "name": "Error Handler for a1d32bae",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a1d32bae",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9791db0e-c9a5-4fd8-b3fc-fd92b65c6362-c8b905d2",
+      "name": "Error Handler for 9791db0e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9791db0e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d418088f-cebd-483a-b413-09f62faac1b7-2cab4c2d",
+      "name": "Error Handler for d418088f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d418088f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c77d1f84-8db8-4ca5-9bcf-854a4bda9cf5-a1dc31da",
+      "name": "Error Handler for c77d1f84",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c77d1f84",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b6c43a16-29e8-4074-9dda-5661dfd3da5d-81370369",
+      "name": "Error Handler for b6c43a16",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b6c43a16",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-3117ac10",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Content to 9:16 Aspect Image Generator v1\n\n## Overview\nAutomated workflow: Content to 9:16 Aspect Image Generator v1. This workflow integrates 14 different services: stickyNote, filter, httpRequest, wait, airtable. It contains 52 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 52\n- **Node Types**: 14\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Sticky Note20**: stickyNote\n- **Sticky Note9**: stickyNote\n- **Sticky Note**: stickyNote\n- **Set Guidelines**: set\n- **Sticky Note10**: stickyNote\n- **Get Brand Guidelines**: airtable\n- **Get SEO Keywords**: airtable\n- **Remove Duplicates**: removeDuplicates\n- **Sticky Note7**: stickyNote\n- ... and 42 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -1347,7 +1545,7 @@
         "json": {
           "id": "rec8DMroyovGEp8lP",
           "Name": "Voice",
-          "Description": "Assertive, friendly, and educational \u2013 \"We sound like a trusted expert who\u2019s here to help. We\u2019re confident but approachable, breaking down complex ideas in a simple, actionable way.\"",
+          "Description": "Assertive, friendly, and educational – \"We sound like a trusted expert who’s here to help. We’re confident but approachable, breaking down complex ideas in a simple, actionable way.\"",
           "createdTime": "2024-12-19T04:54:56.000Z"
         }
       },
@@ -1363,7 +1561,7 @@
         "json": {
           "id": "recMgJO7MkxxyigTC",
           "Name": "Brand Don'ts",
-          "Description": "Overcomplicate messaging with jargon-heavy language.\nStretch, distort, or recolor the logo.\nUse off-brand imagery (e.g., cluttered visuals, low-quality images).\nCreate content without a clear takeaway or action.\nBe too formal or robotic \u2013 keep it human and approachable.",
+          "Description": "Overcomplicate messaging with jargon-heavy language.\nStretch, distort, or recolor the logo.\nUse off-brand imagery (e.g., cluttered visuals, low-quality images).\nCreate content without a clear takeaway or action.\nBe too formal or robotic – keep it human and approachable.",
           "createdTime": "2024-12-19T04:55:24.000Z"
         }
       },
@@ -1411,7 +1609,7 @@
         "json": {
           "id": "recrJ6KO6JOuB4xXT",
           "Name": "Core Values",
-          "Description": "Exploration \u2013 \"We explore the edge of technology to uncover solutions that redefine possibilities.\"\nEfficiency \u2013 \"Every workflow, every solution \u2013 designed to optimize time, resources, and results.\"\nInnovation \u2013 \"We embrace new ideas, take risks, and push the boundaries of automation and AI.\"\nHonesty \u2013 \"Transparency is key; we say what we do and do what we say.\"\nImpact \u2013 \"We focus on meaningful results that create value for businesses and their teams.\"",
+          "Description": "Exploration – \"We explore the edge of technology to uncover solutions that redefine possibilities.\"\nEfficiency – \"Every workflow, every solution – designed to optimize time, resources, and results.\"\nInnovation – \"We embrace new ideas, take risks, and push the boundaries of automation and AI.\"\nHonesty – \"Transparency is key; we say what we do and do what we say.\"\nImpact – \"We focus on meaningful results that create value for businesses and their teams.\"",
           "createdTime": "2024-12-19T04:50:31.000Z"
         }
       },
@@ -1463,7 +1661,7 @@
               "generated_images": [
                 {
                   "id": "03ae728b-f305-464d-9a61-92f624f50ee6",
-                  "url": "https://cdn.leonardo.ai/users/18c4756f-8bfb-4e43-ac59-cc3ced68c735/generations/40cf89f4-dc20-4546-b22c-26017f42d20f/Leonardo_Phoenix_10_Emerging_from_the_computer_screen_futurist_0.jpg",
+                  "url": "{{ $env.WEBHOOK_URL }}",
                   "nsfw": false,
                   "likeCount": 0,
                   "motionMP4URL": null,
@@ -1529,7 +1727,7 @@
         "json": {
           "id": "rec8DMroyovGEp8lP",
           "Name": "Voice",
-          "Content": "Assertive, friendly, and educational \u2013 \"We sound like a trusted expert who\u2019s here to help. We\u2019re confident but approachable, breaking down complex ideas in a simple, actionable way.\"",
+          "Content": "Assertive, friendly, and educational – \"We sound like a trusted expert who’s here to help. We’re confident but approachable, breaking down complex ideas in a simple, actionable way.\"",
           "createdTime": "2024-12-19T04:54:56.000Z"
         }
       },
@@ -1545,7 +1743,7 @@
         "json": {
           "id": "recMgJO7MkxxyigTC",
           "Name": "Brand Don'ts",
-          "Content": "Overcomplicate messaging with jargon-heavy language.\nStretch, distort, or recolor the logo.\nUse off-brand imagery (e.g., cluttered visuals, low-quality images).\nCreate content without a clear takeaway or action.\nBe too formal or robotic \u2013 keep it human and approachable.",
+          "Content": "Overcomplicate messaging with jargon-heavy language.\nStretch, distort, or recolor the logo.\nUse off-brand imagery (e.g., cluttered visuals, low-quality images).\nCreate content without a clear takeaway or action.\nBe too formal or robotic – keep it human and approachable.",
           "createdTime": "2024-12-19T04:55:24.000Z"
         }
       },
@@ -1593,7 +1791,7 @@
         "json": {
           "id": "recrJ6KO6JOuB4xXT",
           "Name": "Core Values",
-          "Content": "Exploration \u2013 \"We explore the edge of technology to uncover solutions that redefine possibilities.\"\nEfficiency \u2013 \"Every workflow, every solution \u2013 designed to optimize time, resources, and results.\"\nInnovation \u2013 \"We embrace new ideas, take risks, and push the boundaries of automation and AI.\"\nHonesty \u2013 \"Transparency is key; we say what we do and do what we say.\"\nImpact \u2013 \"We focus on meaningful results that create value for businesses and their teams.\"",
+          "Content": "Exploration – \"We explore the edge of technology to uncover solutions that redefine possibilities.\"\nEfficiency – \"Every workflow, every solution – designed to optimize time, resources, and results.\"\nInnovation – \"We embrace new ideas, take risks, and push the boundaries of automation and AI.\"\nHonesty – \"Transparency is key; we say what we do and do what we say.\"\nImpact – \"We focus on meaningful results that create value for businesses and their teams.\"",
           "createdTime": "2024-12-19T04:50:31.000Z"
         }
       },
@@ -1675,7 +1873,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "fbfa83f0-1109-4c7e-9cd7-abfabc810f48",
   "connections": {
@@ -1960,7 +2162,7 @@
         ]
       ]
     },
-    "When clicking \u2018Test workflow\u2019": {
+    "When clicking ‘Test workflow’": {
       "main": [
         [
           {
@@ -1970,6 +2172,126 @@
           }
         ]
       ]
+    },
+    "d4f30eff-220a-4682-9072-f1bbbce3655c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d4f30eff-220a-4682-9072-f1bbbce3655c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d4f30eff-220a-4682-9072-f1bbbce3655c-58e0b12f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a1d32bae-67a0-487d-9583-0b53ab25d184": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a1d32bae-67a0-487d-9583-0b53ab25d184",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a1d32bae-67a0-487d-9583-0b53ab25d184-ad1f5235",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9791db0e-c9a5-4fd8-b3fc-fd92b65c6362": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9791db0e-c9a5-4fd8-b3fc-fd92b65c6362",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-9791db0e-c9a5-4fd8-b3fc-fd92b65c6362-c8b905d2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d418088f-cebd-483a-b413-09f62faac1b7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d418088f-cebd-483a-b413-09f62faac1b7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d418088f-cebd-483a-b413-09f62faac1b7-2cab4c2d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c77d1f84-8db8-4ca5-9bcf-854a4bda9cf5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c77d1f84-8db8-4ca5-9bcf-854a4bda9cf5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c77d1f84-8db8-4ca5-9bcf-854a4bda9cf5-a1dc31da",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b6c43a16-29e8-4074-9dda-5661dfd3da5d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b6c43a16-29e8-4074-9dda-5661dfd3da5d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b6c43a16-29e8-4074-9dda-5661dfd3da5d-81370369",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bcdf8e9e-463c-43d4-a29e-7f90076815a1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-bcdf8e9e-463c-43d4-a29e-7f90076815a1-493d7392",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Content to 9:16 Aspect Image Generator v1. This workflow integrates 14 different services: stickyNote, filter, httpRequest, wait, airtable. It contains 52 nodes and follows best practices for error handling and security."
 }

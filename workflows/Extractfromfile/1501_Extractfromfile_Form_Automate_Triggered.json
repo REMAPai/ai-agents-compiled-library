@@ -1,8 +1,10 @@
 {
   "id": "IO0OrQ6ao4vm9urI",
   "meta": {
-    "instanceId": "0d6ec6d73242e93a616bed7dc657bb92fd6b05466b19318f83d18293848e971a",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Automated Resume Review System Using OpenAI + Google Sheets",
   "tags": [],
@@ -246,14 +248,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tmg5CW1d3ZNVJ98hODs24RLGyKul98cAtVHULLNDAyU/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1tmg5CW1d3ZNVJ98hODs24RLGyKul98cAtVHULLNDAyU",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tmg5CW1d3ZNVJ98hODs24RLGyKul98cAtVHULLNDAyU/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "HR New"
         }
       },
@@ -530,13 +532,85 @@
         }
       },
       "typeVersion": 1.2
+    },
+    {
+      "id": "error-handler-04b20070-141a-466c-87d3-7de4323f83df-24883783",
+      "name": "Error Handler for 04b20070",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 04b20070",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-51e5290b-fadd-4f7c-99fc-8bfd54a1ee27-eeb834e8",
+      "name": "Error Handler for 51e5290b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 51e5290b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b69e22ba-ab56-4199-830a-4d74fd8c8e74-2d9dccf5",
+      "name": "Error Handler for b69e22ba",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b69e22ba",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-56329dd0-53e2-4617-ba54-c91e9f96d6ca-3a570179",
+      "name": "Error Handler for 56329dd0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 56329dd0",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-1293f8f6",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Automated Resume Review System Using OpenAI + Google Sheets\n\n## Overview\nAutomated workflow: Automated Resume Review System Using OpenAI + Google Sheets. This workflow integrates 13 different services: stickyNote, formTrigger, chainLlm, outputParserStructured, merge. It contains 21 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 21\n- **Node Types**: 13\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **On form submission**: formTrigger\n- **Merge**: merge\n- **Structured Output Parser**: outputParserStructured\n- **Google Sheets**: googleSheets\n- **Personal Info**: informationExtractor\n- **Qualification**: informationExtractor\n- **HR Expert**: chainLlm\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- ... and 11 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
     "callerPolicy": "workflowsFromSameOwner",
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "24ebf6c2-c041-4dc0-8fec-5728f86625f1",
   "connections": {
@@ -674,6 +748,51 @@
           }
         ]
       ]
+    },
+    "04b20070-141a-466c-87d3-7de4323f83df": {
+      "main": [
+        [
+          {
+            "node": "error-handler-04b20070-141a-466c-87d3-7de4323f83df-24883783",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "51e5290b-fadd-4f7c-99fc-8bfd54a1ee27": {
+      "main": [
+        [
+          {
+            "node": "error-handler-51e5290b-fadd-4f7c-99fc-8bfd54a1ee27-eeb834e8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b69e22ba-ab56-4199-830a-4d74fd8c8e74": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b69e22ba-ab56-4199-830a-4d74fd8c8e74-2d9dccf5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "56329dd0-53e2-4617-ba54-c91e9f96d6ca": {
+      "main": [
+        [
+          {
+            "node": "error-handler-56329dd0-53e2-4617-ba54-c91e9f96d6ca-3a570179",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Automated Resume Review System Using OpenAI + Google Sheets. This workflow integrates 13 different services: stickyNote, formTrigger, chainLlm, outputParserStructured, merge. It contains 21 nodes and follows best practices for error handling and security."
 }

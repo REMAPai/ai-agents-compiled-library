@@ -42,7 +42,7 @@
         "color": 6,
         "width": 267,
         "height": 394,
-        "content": "Make sure to disable legacy API\n\n![](https://imgur.com/0tebypt.png)"
+        "content": "Make sure to disable legacy API\n\n![]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -145,14 +145,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gLJ5I4ZJ9FQHJH56lunUKnHUBUsIms9PciIkJYi8SJE/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1gLJ5I4ZJ9FQHJH56lunUKnHUBUsIms9PciIkJYi8SJE",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gLJ5I4ZJ9FQHJH56lunUKnHUBUsIms9PciIkJYi8SJE/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Automation test"
         }
       },
@@ -176,9 +176,36 @@
         "color": 7,
         "width": 520,
         "height": 1680,
-        "content": "## Self-hosted N8N users only:\n\n### How to get Client ID and Client Secret\n\n- From your Webflow dashboard go to \"Apps & Integrations\"\n![](https://imgur.com/IX2ruVB.png)\n\n- Look for \"App development\" and click \"Create an App\"\n![](https://imgur.com/J0be6lz.png)\n\n- Fill the fields and click \"Continue\"\n![](https://imgur.com/Uiwo7vp.png)\n\n- Inside \"Building blocks\" enable REST API, insert your \"Redirect URL\" from N8N, enable form access and click \"Create App\"\n![](https://imgur.com/lf8Xv7R.png)\n![](https://imgur.com/5yyex2U.png)\n\n- Copy and paste Client ID and Client Secret to N8N and connect\n\n\n"
+        "content": "## Self-hosted N8N users only:\n\n### How to get Client ID and Client Secret\n\n- From your Webflow dashboard go to \"Apps & Integrations\"\n![]({{ $env.WEBHOOK_URL }}\n\n- Look for \"App development\" and click \"Create an App\"\n![]({{ $env.WEBHOOK_URL }}\n\n- Fill the fields and click \"Continue\"\n![]({{ $env.WEBHOOK_URL }}\n\n- Inside \"Building blocks\" enable REST API, insert your \"Redirect URL\" from N8N, enable form access and click \"Create App\"\n![]({{ $env.WEBHOOK_URL }}\n![]({{ $env.WEBHOOK_URL }}\n\n- Copy and paste Client ID and Client Secret to N8N and connect\n\n\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-4ce0eeea-dd09-4d79-967e-210f2762d5c3-55d777fd",
+      "name": "Error Handler for 4ce0eeea",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4ce0eeea",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-3a3a1089",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Code Workflow\n\n## Overview\nAutomated workflow: Code Workflow. This workflow integrates 5 different services: stickyNote, code, stopAndError, webflowTrigger, googleSheets. It contains 8 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 8\n- **Node Types**: 5\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Prepare Fields**: code\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **On Form Submission**: webflowTrigger\n- **Append New Row**: googleSheets\n- **Sticky Note4**: stickyNote\n- **Error Handler for 4ce0eeea**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -204,6 +231,32 @@
           }
         ]
       ]
+    },
+    "4ce0eeea-dd09-4d79-967e-210f2762d5c3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4ce0eeea-dd09-4d79-967e-210f2762d5c3-55d777fd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
+  },
+  "name": "Code Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Code Workflow. This workflow integrates 5 different services: stickyNote, code, stopAndError, webflowTrigger, googleSheets. It contains 8 nodes and follows best practices for error handling and security.",
+  "meta": {
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   }
 }

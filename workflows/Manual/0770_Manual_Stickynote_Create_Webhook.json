@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "8418cffce8d48086ec0a73fd90aca708aa07591f2fefa6034d87fe12a09de26e",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -113,7 +115,7 @@
       "parameters": {
         "width": 820,
         "height": 860,
-        "content": "# Generate AI Videos with HeyGen in n8n\n\nThis workflow allows you to generate AI-powered videos using [HeyGen](https://www.heygen.com), a platform that provides customizable AI avatars and voices. By integrating HeyGen with n8n, you can create videos by providing a text input, which is then spoken by an AI-generated avatar.\n\n# [👉🏻 Try HeyGen for free 👈🏻](https://www.heygen.com)\n\n## Setup\n\n### Step 1: Create a HeyGen Account & API Key\n1. Sign up for a [HeyGen account](https://www.heygen.com).\n2. Navigate to your account settings and locate your **API Key**.\n3. Copy your API key for use in n8n.\n\n\n⚠️ To use Heygen API you need to purchase API credits\n\n### Step 2: Create n8n Credentials\n1. In n8n, create new credentials and select **\"Custom Auth\"** as the authentication type.\n2. In the Name provide : `X-Api-Key`\n3. And in the value paste your API key from Heygen\n4. Update the 2 http node with the right credentials.\n\n### Step 3: Choose an Avatar and a Voice\nHeyGen provides multiple AI avatars and voice options. You need to choose:\n- An **Avatar ID** (representing the AI-generated presenter)\n- A **Voice ID** (which will read your text)\n\nTo find available avatars and voices:\n1. Visit the HeyGen [API Documentation](https://www.heygen.com/api) or check the list in your HeyGen account.\n2. Copy the **Avatar ID** and **Voice ID** that you want to use.\n"
+        "content": "# Generate AI Videos with HeyGen in n8n\n\nThis workflow allows you to generate AI-powered videos using [HeyGen]({{ $env.WEBHOOK_URL }} a platform that provides customizable AI avatars and voices. By integrating HeyGen with n8n, you can create videos by providing a text input, which is then spoken by an AI-generated avatar.\n\n# [👉🏻 Try HeyGen for free 👈🏻]({{ $env.WEBHOOK_URL }}\n\n## Setup\n\n### Step 1: Create a HeyGen Account & API Key\n1. Sign up for a [HeyGen account]({{ $env.WEBHOOK_URL }}\n2. Navigate to your account settings and locate your **API Key**.\n3. Copy your API key for use in n8n.\n\n\n⚠️ To use Heygen API you need to purchase API credits\n\n### Step 2: Create n8n Credentials\n1. In n8n, create new credentials and select **\"Custom Auth\"** as the authentication type.\n2. In the Name provide : `X-Api-Key`\n3. And in the value paste your API key from Heygen\n4. Update the 2 http node with the right credentials.\n\n### Step 3: Choose an Avatar and a Voice\nHeyGen provides multiple AI avatars and voice options. You need to choose:\n- An **Avatar ID** (representing the AI-generated presenter)\n- A **Voice ID** (which will read your text)\n\nTo find available avatars and voices:\n1. Visit the HeyGen [API Documentation]({{ $env.API_BASE_URL }} or check the list in your HeyGen account.\n2. Copy the **Avatar ID** and **Voice ID** that you want to use.\n"
       },
       "typeVersion": 1
     },
@@ -141,7 +143,7 @@
         -140
       ],
       "parameters": {
-        "url": "https://api.heygen.com/v2/video/generate",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"video_inputs\": [\n    {\n      \"character\": {\n        \"type\": \"avatar\",\n        \"avatar_id\": \"{{ $json.avatar_id }}\",\n        \"avatar_style\": \"normal\"\n      },\n      \"voice\": {\n        \"type\": \"text\",\n        \"input_text\": \"{{ $json.text }}\",\n        \"voice_id\": \"{{ $json.voice_id }}\",\n        \"speed\": 1\n      }\n    }\n  ],\n  \"caption\": true,\n  \"dimension\": {\n    \"width\": 1080,\n    \"height\": 1920\n  }\n}",
@@ -202,7 +204,7 @@
         -200
       ],
       "parameters": {
-        "url": "https://api.heygen.com/v1/video_status.get",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "authentication": "genericCredentialType",
@@ -227,6 +229,75 @@
         }
       },
       "typeVersion": 4.2
+    },
+    {
+      "id": "error-handler-c0ebe61f-ca8f-4928-8e89-93ef50aa17ee",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c0ebe61f-ca8f-4928-8e89-93ef50aa17ee",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c63f1b7a-0ec0-4329-aeee-229e8433add7",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c63f1b7a-0ec0-4329-aeee-229e8433add7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c0ebe61f-ca8f-4928-8e89-93ef50aa17ee-118a2a6c",
+      "name": "Error Handler for c0ebe61f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c0ebe61f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c63f1b7a-0ec0-4329-aeee-229e8433add7-dc93c12b",
+      "name": "Error Handler for c63f1b7a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c63f1b7a",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-00de865a",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 7 different services: stickyNote, httpRequest, wait, set, stopAndError. It contains 14 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 14\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Wait**: wait\n- **Output**: set\n- **Sticky Note1**: stickyNote\n- **is Completed**: if\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Create Video**: httpRequest\n- **Config**: set\n- **Get Video Status**: httpRequest\n- ... and 4 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -303,6 +374,51 @@
           }
         ]
       ]
+    },
+    "c0ebe61f-ca8f-4928-8e89-93ef50aa17ee": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c0ebe61f-ca8f-4928-8e89-93ef50aa17ee",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c0ebe61f-ca8f-4928-8e89-93ef50aa17ee-118a2a6c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c63f1b7a-0ec0-4329-aeee-229e8433add7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c63f1b7a-0ec0-4329-aeee-229e8433add7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c63f1b7a-0ec0-4329-aeee-229e8433add7-dc93c12b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 7 different services: stickyNote, httpRequest, wait, set, stopAndError. It contains 14 nodes and follows best practices for error handling and security."
 }

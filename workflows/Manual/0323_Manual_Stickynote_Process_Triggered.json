@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "408f9fb9940c3cb18ffdef0e0150fe342d6e655c3a9fac21f0f644e8bedabcd9",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -184,6 +186,47 @@
         "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"state\": {\n      \"type\": \"string\"\n    },\n    \"cities\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": \"string\",\n          \"population\": \"number\"\n        }\n      }\n    }\n  }\n}"
       },
       "typeVersion": 1.2
+    },
+    {
+      "id": "error-handler-e76f5ac7-e185-46d4-aa26-971c8fe03c76-29a23b93",
+      "name": "Error Handler for e76f5ac7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e76f5ac7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d5642767-69f6-4a09-92da-195a25a17dd1-80211b91",
+      "name": "Error Handler for d5642767",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d5642767",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-fddb6639",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 8 different services: stickyNote, chainLlm, outputParserStructured, set, stopAndError. It contains 13 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 13\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking \"Execute Workflow\"**: manualTrigger\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Basic LLM Chain**: chainLlm\n- **Prompt**: set\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Auto-fixing Output Parser**: outputParserAutofixing\n- **OpenAI Chat Model1**: lmChatOpenAi\n- ... and 3 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -253,6 +296,37 @@
           }
         ]
       ]
+    },
+    "e76f5ac7-e185-46d4-aa26-971c8fe03c76": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e76f5ac7-e185-46d4-aa26-971c8fe03c76-29a23b93",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d5642767-69f6-4a09-92da-195a25a17dd1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d5642767-69f6-4a09-92da-195a25a17dd1-80211b91",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 8 different services: stickyNote, chainLlm, outputParserStructured, set, stopAndError. It contains 13 nodes and follows best practices for error handling and security."
 }

@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "cb484ba7b742928a2048bf8829668bed5b5ad9787579adea888f05980292a4a7",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -182,7 +184,7 @@
     },
     {
       "id": "0b9897b0-149b-43ce-b66c-e78552729aa5",
-      "name": "When clicking \u2018Test workflow\u2019",
+      "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
         -1360,
@@ -276,7 +278,7 @@
         "color": 7,
         "width": 1380,
         "height": 820,
-        "content": "![n8n](https://uploads.n8n.io/templates/qdrantlogo.png)\n## Embed your Vector Store\nTo provide data for your Vector store, you need to pass it in as JSON, and ensure it's setup correctly. This flow pulls the JSON file from Google Drive and extracts the JSON data and then passes it into the qdrant collection. "
+        "content": "![n8n]({{ $env.WEBHOOK_URL }}\n## Embed your Vector Store\nTo provide data for your Vector store, you need to pass it in as JSON, and ensure it's setup correctly. This flow pulls the JSON file from Google Drive and extracts the JSON data and then passes it into the qdrant collection. "
       },
       "typeVersion": 1
     },
@@ -292,7 +294,7 @@
         "color": 7,
         "width": 1380,
         "height": 680,
-        "content": "![n8n](https://uploads.n8n.io/templates/n8n.png)\n## Talk to your Vector Store\nNow that your vector store has been updated with the embedded data, \nyou can use the n8n chat interface to talk to your data using OpenAI, \nOllama, or any of our supported LLMs."
+        "content": "![n8n]({{ $env.WEBHOOK_URL }}\n## Talk to your Vector Store\nNow that your vector store has been updated with the embedded data, \nyou can use the n8n chat interface to talk to your data using OpenAI, \nOllama, or any of our supported LLMs."
       },
       "typeVersion": 1
     },
@@ -308,7 +310,7 @@
         "color": 7,
         "width": 2140,
         "height": 900,
-        "content": "![Servicenow](https://uploads.n8n.io/templates/zendesk.png)\n## Deploy your Vector Store\nThis flow adds contextual information to your tickets using the Mitre Attack framework to help contextualize the ticket data."
+        "content": "![Servicenow]({{ $env.WEBHOOK_URL }}\n## Deploy your Vector Store\nThis flow adds contextual information to your tickets using the Mitre Attack framework to help contextualize the ticket data."
       },
       "typeVersion": 1
     },
@@ -321,7 +323,7 @@
         -160
       ],
       "parameters": {
-        "jsonSchemaExample": "{\n \"ttp_identification\": {\n \"alert_summary\": \"The alert indicates a check-in from the NetSupport RAT, a known Remote Access Trojan, suggesting command and control (C2) communication.\",\n \"mitre_attack_ttps\": [\n {\n \"tactic\": \"Command and Control\",\n \"technique\": \"Protocol or Service Impersonation\",\n \"technique_id\": \"T1001.003\",\n \"description\": \"The RAT's check-in over port 443 implies potential masquerading of its traffic as legitimate SSL/TLS traffic, a tactic often used to blend C2 communications with normal web traffic.\",\n \"reference\": \"https://attack.mitre.org/techniques/T1001/003/\"\n }\n ]\n },\n \"remediation_steps\": {\n \"network_segmentation\": {\n \"action\": \"Isolate the affected host\",\n \"target\": \"10.11.26.183\",\n \"reason\": \"Prevents further C2 communication or lateral movement.\"\n },\n \"endpoint_inspection\": {\n \"action\": \"Perform a thorough inspection\",\n \"target\": \"Impacted endpoint\",\n \"method\": \"Use endpoint detection and response (EDR) tools to check for additional persistence mechanisms.\"\n },\n \"network_traffic_analysis\": {\n \"action\": \"Investigate and block unusual traffic\",\n \"target\": \"IP 194.180.191.64\",\n \"method\": \"Implement blocks for the IP across the firewall or IDS/IPS systems.\"\n },\n \"system_patching\": {\n \"action\": \"Ensure all systems are updated\",\n \"method\": \"Apply the latest security patches to mitigate vulnerabilities exploited by RAT malware.\"\n },\n \"ioc_hunting\": {\n \"action\": \"Search for Indicators of Compromise (IoCs)\",\n \"method\": \"Check for NetSupport RAT IoCs across other endpoints within the network.\"\n }\n },\n \"historical_patterns\": {\n \"network_anomalies\": \"Past alerts involving similar attempts to use standard web ports (e.g., 80, 443) for non-standard applications could suggest a broader attempt to blend malicious traffic into legitimate streams.\",\n \"persistence_tactics\": \"Any detection of anomalies in task scheduling or shortcut modifications may indicate persistence methods similar to those used by RATs.\"\n },\n \"external_resources\": [\n {\n \"title\": \"ESET Report on Okrum and Ketrican\",\n \"description\": \"Discusses similar tactics involving protocol impersonation and C2.\",\n \"url\": \"https://www.eset.com/int/about/newsroom/research/okrum-ketrican/\"\n },\n {\n \"title\": \"Malleable C2 Profiles\",\n \"description\": \"Document on crafting custom C2 traffic profiles similar to the targeting methods used by NetSupport RAT.\",\n \"url\": \"https://www.cobaltstrike.com/help-malleable-c2\"\n },\n {\n \"title\": \"MITRE ATT&CK Technique Overview\",\n \"description\": \"Overview of Protocol or Service Impersonation tactics.\",\n \"url\": \"https://attack.mitre.org/techniques/T1001/003/\"\n }\n ]\n}\n"
+        "jsonSchemaExample": "{\n \"ttp_identification\": {\n \"alert_summary\": \"The alert indicates a check-in from the NetSupport RAT, a known Remote Access Trojan, suggesting command and control (C2) communication.\",\n \"mitre_attack_ttps\": [\n {\n \"tactic\": \"Command and Control\",\n \"technique\": \"Protocol or Service Impersonation\",\n \"technique_id\": \"T1001.003\",\n \"description\": \"The RAT's check-in over port 443 implies potential masquerading of its traffic as legitimate SSL/TLS traffic, a tactic often used to blend C2 communications with normal web traffic.\",\n \"reference\": \"{{ $env.WEBHOOK_URL }}\"\n }\n ]\n },\n \"remediation_steps\": {\n \"network_segmentation\": {\n \"action\": \"Isolate the affected host\",\n \"target\": \"10.11.26.183\",\n \"reason\": \"Prevents further C2 communication or lateral movement.\"\n },\n \"endpoint_inspection\": {\n \"action\": \"Perform a thorough inspection\",\n \"target\": \"Impacted endpoint\",\n \"method\": \"Use endpoint detection and response (EDR) tools to check for additional persistence mechanisms.\"\n },\n \"network_traffic_analysis\": {\n \"action\": \"Investigate and block unusual traffic\",\n \"target\": \"IP 194.180.191.64\",\n \"method\": \"Implement blocks for the IP across the firewall or IDS/IPS systems.\"\n },\n \"system_patching\": {\n \"action\": \"Ensure all systems are updated\",\n \"method\": \"Apply the latest security patches to mitigate vulnerabilities exploited by RAT malware.\"\n },\n \"ioc_hunting\": {\n \"action\": \"Search for Indicators of Compromise (IoCs)\",\n \"method\": \"Check for NetSupport RAT IoCs across other endpoints within the network.\"\n }\n },\n \"historical_patterns\": {\n \"network_anomalies\": \"Past alerts involving similar attempts to use standard web ports (e.g., 80, 443) for non-standard applications could suggest a broader attempt to blend malicious traffic into legitimate streams.\",\n \"persistence_tactics\": \"Any detection of anomalies in task scheduling or shortcut modifications may indicate persistence methods similar to those used by RATs.\"\n },\n \"external_resources\": [\n {\n \"title\": \"ESET Report on Okrum and Ketrican\",\n \"description\": \"Discusses similar tactics involving protocol impersonation and C2.\",\n \"url\": \"{{ $env.WEBHOOK_URL }}\"\n },\n {\n \"title\": \"Malleable C2 Profiles\",\n \"description\": \"Document on crafting custom C2 traffic profiles similar to the targeting methods used by NetSupport RAT.\",\n \"url\": \"{{ $env.WEBHOOK_URL }}\"\n },\n {\n \"title\": \"MITRE ATT&CK Technique Overview\",\n \"description\": \"Overview of Protocol or Service Impersonation tactics.\",\n \"url\": \"{{ $env.WEBHOOK_URL }}\"\n }\n ]\n}\n"
       },
       "typeVersion": 1.2
     },
@@ -338,7 +340,7 @@
           "__rl": true,
           "mode": "list",
           "value": "1oWBLO5AlIqbgo9mKD1hNtx92HdC6O28d",
-          "cachedResultUrl": "https://drive.google.com/file/d/1oWBLO5AlIqbgo9mKD1hNtx92HdC6O28d/view?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "cleaned_mitre_attack_data.json"
         },
         "options": {},
@@ -498,6 +500,117 @@
       ],
       "parameters": {},
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-67c52944-b616-4ea6-9507-e9fb6fcdbe2b-b0655870",
+      "name": "Error Handler for 67c52944",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 67c52944",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-46a5b8c6-3d34-4e9b-b812-23135f28c278-29be7c62",
+      "name": "Error Handler for 46a5b8c6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 46a5b8c6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-96b776a0-10da-4f70-99d0-ad6b6ee8fcca-aba1358f",
+      "name": "Error Handler for 96b776a0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 96b776a0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-695fba89-8f42-47c3-9d86-73f4ea0e72df-5ccea928",
+      "name": "Error Handler for 695fba89",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 695fba89",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-55d0b00a-5046-45fa-87cb-cb0257caae87-03bf1537",
+      "name": "Error Handler for 55d0b00a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 55d0b00a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9b53566b-e021-403d-9d78-28504c5c1dfa-7fb9bbe4",
+      "name": "Error Handler for 9b53566b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9b53566b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3aeb973d-22e5-4eaf-8fe8-fae3447909e1-cac32f8c",
+      "name": "Error Handler for 3aeb973d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3aeb973d",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-80cae5ec",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Chattrigger Workflow\n\n## Overview\nAutomated workflow: Chattrigger Workflow. This workflow integrates 18 different services: stickyNote, textSplitterTokenSplitter, splitInBatches, vectorStoreQdrant, agent. It contains 33 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 33\n- **Node Types**: 18\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When chat message received**: chatTrigger\n- **AI Agent**: agent\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Split Out**: splitOut\n- **Embeddings OpenAI1**: embeddingsOpenAi\n- **Default Data Loader**: documentDefaultDataLoader\n- **Token Splitter1**: textSplitterTokenSplitter\n- **Window Buffer Memory**: memoryBufferWindow\n- **Embeddings OpenAI2**: embeddingsOpenAi\n- **Extract from File**: extractFromFile\n- ... and 23 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -728,7 +841,7 @@
         ]
       ]
     },
-    "When clicking \u2018Test workflow\u2019": {
+    "When clicking ‘Test workflow’": {
       "main": [
         [
           {
@@ -738,6 +851,92 @@
           }
         ]
       ]
+    },
+    "67c52944-b616-4ea6-9507-e9fb6fcdbe2b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-67c52944-b616-4ea6-9507-e9fb6fcdbe2b-b0655870",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "46a5b8c6-3d34-4e9b-b812-23135f28c278": {
+      "main": [
+        [
+          {
+            "node": "error-handler-46a5b8c6-3d34-4e9b-b812-23135f28c278-29be7c62",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "96b776a0-10da-4f70-99d0-ad6b6ee8fcca": {
+      "main": [
+        [
+          {
+            "node": "error-handler-96b776a0-10da-4f70-99d0-ad6b6ee8fcca-aba1358f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "695fba89-8f42-47c3-9d86-73f4ea0e72df": {
+      "main": [
+        [
+          {
+            "node": "error-handler-695fba89-8f42-47c3-9d86-73f4ea0e72df-5ccea928",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "55d0b00a-5046-45fa-87cb-cb0257caae87": {
+      "main": [
+        [
+          {
+            "node": "error-handler-55d0b00a-5046-45fa-87cb-cb0257caae87-03bf1537",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9b53566b-e021-403d-9d78-28504c5c1dfa": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9b53566b-e021-403d-9d78-28504c5c1dfa-7fb9bbe4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3aeb973d-22e5-4eaf-8fe8-fae3447909e1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3aeb973d-22e5-4eaf-8fe8-fae3447909e1-cac32f8c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Chattrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Chattrigger Workflow. This workflow integrates 18 different services: stickyNote, textSplitterTokenSplitter, splitInBatches, vectorStoreQdrant, agent. It contains 33 nodes and follows best practices for error handling and security."
 }

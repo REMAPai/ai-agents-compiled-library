@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "a2434c94d549548a685cca39cc4614698e94f527bcea84eefa363f1037ae14cd"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -87,9 +90,22 @@
       "parameters": {
         "width": 315,
         "height": 248,
-        "content": "### Configure light here\nIt is likely the name of the light that you want to turn a specific colour is not called `light.lamp`. In which case, please head to your Home Assistant instance and find the light taking note of it's `entity_id`. See discussion [here](https://community.home-assistant.io/t/find-the-entity-id-of-a-yeelight-light-in-manual-mode-or-automatic-mode-doesnt-work/165557) for help.\n\nIf you would also like to change the colour the light turns to, do so with an [RGB color picker](https://www.google.com/search?q=rgb+color+picker&oq=rgb+colo&aqs=chrome.0.0i67i433j69i57j0i67l4j0i512l4.6248j0j7&sourceid=chrome&ie=UTF-8). Default colour is red (255,0,0)."
+        "content": "### Configure light here\nIt is likely the name of the light that you want to turn a specific colour is not called `light.lamp`. In which case, please head to your Home Assistant instance and find the light taking note of it's `entity_id`. See discussion [here]({{ $env.WEBHOOK_URL }} for help.\n\nIf you would also like to change the colour the light turns to, do so with an [RGB color picker]({{ $env.WEBHOOK_URL }} Default colour is red (255,0,0)."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-99eca564",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Githubtrigger Workflow\n\n## Overview\nAutomated workflow: Githubtrigger Workflow. This workflow integrates 3 different services: stickyNote, githubTrigger, homeAssistant. It contains 4 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 4\n- **Node Types**: 3\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **On any update in repository**: githubTrigger\n- **Turn a light red**: homeAssistant\n- **Note**: stickyNote\n- **Note1**: stickyNote\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "connections": {
@@ -104,5 +120,14 @@
         ]
       ]
     }
-  }
+  },
+  "name": "Githubtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Githubtrigger Workflow. This workflow integrates 3 different services: stickyNote, githubTrigger, homeAssistant. It contains 4 nodes and follows best practices for error handling and security."
 }

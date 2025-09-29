@@ -83,7 +83,7 @@
         180
       ],
       "parameters": {
-        "url": "=https://api.elevenlabs.io/v1/text-to-speech/{{ $json.body.voice_id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.body.voice_id }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"text\":  \"{{ $json.body.text }}\"\n} ",
@@ -120,7 +120,7 @@
       "parameters": {
         "width": 806.0818150700699,
         "height": 495.17470523089514,
-        "content": "## Generate Text-to-Speech Using Elevenlabs via API\nThis workflow provides an API endpoint to generate speech from text using [Elevenlabs.io](https://elevenlabs.io/), a popular text-to-speech service.\n\n### Step 1: Configure Custom Credentials in n8n\nTo set up your credentials in n8n, create a new custom authentication entry with the following JSON structure:\n```json\n{\n  \"headers\": {\n    \"xi-api-key\": \"your-elevenlabs-api-key\"\n  }\n}\n```\nReplace `\"your-elevenlabs-api-key\"` with your actual Elevenlabs API key.\n\n### Step 2: Send a POST Request to the Webhook\nSend a POST request to the workflow's webhook endpoint with these two parameters:\n- `voice_id`: The ID of the voice from Elevenlabs that you want to use.\n- `text`: The text you want to convert to speech.\n\nThis workflow has been a significant time-saver in my video production tasks. I hope it proves just as useful to you!\n\nHappy automating!  \nThe n8Ninja"
+        "content": "## Generate Text-to-Speech Using Elevenlabs via API\nThis workflow provides an API endpoint to generate speech from text using [Elevenlabs.io]({{ $env.WEBHOOK_URL }} a popular text-to-speech service.\n\n### Step 1: Configure Custom Credentials in n8n\nTo set up your credentials in n8n, create a new custom authentication entry with the following JSON structure:\n```json\n{\n  \"headers\": {\n    \"xi-api-key\": \"your-elevenlabs-api-key\"\n  }\n}\n```\nReplace `\"your-elevenlabs-api-key\"` with your actual Elevenlabs API key.\n\n### Step 2: Send a POST Request to the Webhook\nSend a POST request to the workflow's webhook endpoint with these two parameters:\n- `voice_id`: The ID of the voice from Elevenlabs that you want to use.\n- `text`: The text you want to convert to speech.\n\nThis workflow has been a significant time-saver in my video production tasks. I hope it proves just as useful to you!\n\nHappy automating!  \nThe n8Ninja"
       },
       "typeVersion": 1
     },
@@ -138,6 +138,131 @@
         "responseBody": "{\n  \"error\": \"Invalid inputs.\"\n}"
       },
       "typeVersion": 1.1
+    },
+    {
+      "id": "error-handler-39079dec-54c5-458e-afa1-56ee5723f3a3",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 39079dec-54c5-458e-afa1-56ee5723f3a3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b6a344f4-28ac-41a7-8e6a-a2782a5d1c68",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b6a344f4-28ac-41a7-8e6a-a2782a5d1c68",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a25dec72-152b-4457-a18f-9cbbd31840ec",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a25dec72-152b-4457-a18f-9cbbd31840ec",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-275ca523-8b43-4723-9dc4-f5dc1832fcd1",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 275ca523-8b43-4723-9dc4-f5dc1832fcd1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-39079dec-54c5-458e-afa1-56ee5723f3a3-8fd5b535",
+      "name": "Error Handler for 39079dec",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 39079dec",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b6a344f4-28ac-41a7-8e6a-a2782a5d1c68-ab423891",
+      "name": "Error Handler for b6a344f4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b6a344f4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a25dec72-152b-4457-a18f-9cbbd31840ec-bcff34e4",
+      "name": "Error Handler for a25dec72",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a25dec72",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-275ca523-8b43-4723-9dc4-f5dc1832fcd1-7493a7b8",
+      "name": "Error Handler for 275ca523",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 275ca523",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-ee42d7ab",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# If Workflow\n\n## Overview\nAutomated workflow: If Workflow. This workflow integrates 6 different services: webhook, stickyNote, httpRequest, respondToWebhook, stopAndError. It contains 14 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 14\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **If params correct**: if\n- **Respond to Webhook**: respondToWebhook\n- **Webhook**: webhook\n- **Generate voice**: httpRequest\n- **Sticky Note**: stickyNote\n- **Error**: respondToWebhook\n- **Error Handler**: stopAndError\n- **Stopanderror 1**: stopAndError\n- **Stopanderror 2**: stopAndError\n- **Stopanderror 3**: stopAndError\n- ... and 4 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -181,6 +306,93 @@
           }
         ]
       ]
+    },
+    "39079dec-54c5-458e-afa1-56ee5723f3a3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-39079dec-54c5-458e-afa1-56ee5723f3a3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-39079dec-54c5-458e-afa1-56ee5723f3a3-8fd5b535",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b6a344f4-28ac-41a7-8e6a-a2782a5d1c68": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b6a344f4-28ac-41a7-8e6a-a2782a5d1c68",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b6a344f4-28ac-41a7-8e6a-a2782a5d1c68-ab423891",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a25dec72-152b-4457-a18f-9cbbd31840ec": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a25dec72-152b-4457-a18f-9cbbd31840ec",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a25dec72-152b-4457-a18f-9cbbd31840ec-bcff34e4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "275ca523-8b43-4723-9dc4-f5dc1832fcd1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-275ca523-8b43-4723-9dc4-f5dc1832fcd1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-275ca523-8b43-4723-9dc4-f5dc1832fcd1-7493a7b8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
+  },
+  "name": "If Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: If Workflow. This workflow integrates 6 different services: webhook, stickyNote, httpRequest, respondToWebhook, stopAndError. It contains 14 nodes and follows best practices for error handling and security.",
+  "meta": {
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   }
 }

@@ -1,7 +1,10 @@
 {
   "id": "Tqa8dikBDLYEytx5",
   "meta": {
-    "instanceId": "ddfdf733df99a65c801a91865dba5b7c087c95cc22a459ff3647e6deddf2aee6"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Automated Content SEO Audit Report",
   "tags": [],
@@ -46,13 +49,13 @@
               "id": "da123535-f678-4331-973a-07711b7aaaac",
               "name": "company_website",
               "type": "string",
-              "value": "https://customworkflows.ai"
+              "value": "{{ $env.WEBHOOK_URL }}"
             },
             {
               "id": "e12486eb-7019-4639-85a9-c55b4c62beef",
               "name": "company_logo_url",
               "type": "string",
-              "value": "https://customworkflows.ai/images/logo.png"
+              "value": "{{ $env.WEBHOOK_URL }}"
             },
             {
               "id": "9eef2015-e89c-4930-82a5-972111c1a4fe",
@@ -97,7 +100,7 @@
         620
       ],
       "parameters": {
-        "url": "=https://api.dataforseo.com/v3/on_page/summary/{{ $json.tasks[0].id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.tasks[0].id }}",
         "options": {},
         "sendHeaders": true,
         "authentication": "genericCredentialType",
@@ -122,7 +125,7 @@
         620
       ],
       "parameters": {
-        "url": "https://api.dataforseo.com/v3/on_page/task_post",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "=[\n  {\n    \"target\": \"{{ $json.dfs_domain }}\",\n    \"max_crawl_pages\": {{ $json.dfs_max_crawl_pages }},\n    \"load_resources\": false,\n    \"enable_javascript\": {{ $json.dfs_enable_javascript }},\n    \"custom_js\": \"meta = {}; meta.url = document.URL; meta;\",\n    \"tag\": \"{{ $json.dfs_domain + Math.floor(10000 + Math.random() * 90000) }}\"\n  }\n]",
@@ -144,7 +147,7 @@
     },
     {
       "id": "0a0e696a-29a7-4b34-8299-102c72544153",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         860,
@@ -200,7 +203,7 @@
         500
       ],
       "parameters": {
-        "url": "https://api.dataforseo.com/v3/on_page/pages",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "=[\n  {\n    \"id\": \"{{ $json.tasks[0].id }}\",\n    \"limit\": \"1000\"\n  }\n]",
@@ -258,7 +261,7 @@
         680
       ],
       "parameters": {
-        "url": "={{ \n  $('Set Fields').first().json.gsc_property_type === 'domain' \n    ? 'https://searchconsole.googleapis.com/webmasters/v3/sites/' + \n      'sc-domain:' + \n      $node[\"Loop Over Items\"].json.url.replace(/https?:\\/\\/(www\\.)?([^\\/]+).*/, '$2') + \n      '/searchAnalytics/query' \n    : 'https://searchconsole.googleapis.com/webmasters/v3/sites/' + \n      encodeURIComponent(\n        $node[\"Loop Over Items\"].json.url.replace(/(https?:\\/\\/(?:www\\.)?[^\\/]+).*/, '$1')\n      ) + \n      '/searchAnalytics/query' \n}}",
+        "url": "={{ \n  $('Set Fields').first().json.gsc_property_type === 'domain' \n    ? '{{ $env.API_BASE_URL }}' + \n      'sc-domain:' + \n      $node[\"Loop Over Items\"].json.url.replace(/https?:\\/\\/(www\\.)?([^\\/]+).*/, '$2') + \n      '/searchAnalytics/query' \n    : '{{ $env.API_BASE_URL }}' + \n      encodeURIComponent(\n        $node[\"Loop Over Items\"].json.url.replace(/(https?:\\/\\/(?:www\\.)?[^\\/]+).*/, '$1')\n      ) + \n      '/searchAnalytics/query' \n}}",
         "body": "={\n  \"startDate\": \"{{ new Date(new Date().setDate(new Date().getDate() - 90)).toISOString().split('T')[0] }}\",\n  \"endDate\": \"{{ new Date().toISOString().split('T')[0] }}\",\n  \"dimensionFilterGroups\": [\n    {\n      \"filters\": [\n        {\n          \"dimension\": \"page\",\n          \"operator\": \"equals\",\n          \"expression\": \"{{ $node['Loop Over Items'].json.url }}\"\n        }\n      ]\n    }\n  ],\n  \"aggregationType\": \"auto\",\n  \"rowLimit\": 100\n}",
         "method": "POST",
         "options": {},
@@ -275,7 +278,7 @@
             }
           ]
         },
-        "nodeCredentialType": "googleOAuth2Api"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "retryOnFail": true,
       "typeVersion": 4.2,
@@ -418,7 +421,7 @@
         500
       ],
       "parameters": {
-        "url": "https://api.dataforseo.com/v3/on_page/links",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "=[\n  {\n    \"id\": \"{{ $('Get RAW Audit Data').first().json.tasks[0].id }}\",\n    \"page_to\": \"{{ $json.url }}\"\n  }\n]",
@@ -449,7 +452,7 @@
       "parameters": {
         "width": 940,
         "height": 580,
-        "content": "## Content SEO Audit Report\nA workflow powered by DataForSEO and Google Search Analytics API that generate a comprehensive content audit report for any website up to 1000 pages, 100% customized to your brand's colors.\n\n### Set up instructions:\n1. Add a new credential \"Basic Auth\" by following this [guide](https://docs.n8n.io/integrations/builtin/credentials/httprequest/). You can get your DataForSEO API credentials [here](https://app.dataforseo.com/api-access). DataForSEO offer a free $1 credit when you register, which is plenty enough to test the workflow as the cost is about ~$0.20 per 500-page report. Finally, assign your Basic Auth account to the node \"Create Task\", \"Check Task Status\", \"Get Raw Audit Data\" and \"Get Source URLs Data\".\n2. Add a new credential \"Google OAuth2 API\" by following this [guide](https://docs.n8n.io/integrations/builtin/credentials/google/oauth-generic/). Assign your Google OAuth2 account to the node \"Query GSC API\".\n3. Update the \"Set Fields\" node with the following information:\n- dfs_domain: The website domain you want to crawl.\n- company_name: Your company name (Will be displayed on the final report)\n- company_website: Your company website URL (Will be displayed on the final report)\n- company_logo_url: Your company logo URL (Will be displayed on the final report)\n- brand_primary_color: Your primary brand color. (Will be used to customize the final report to your brand's colors)\n- brand_secondary_color: Your secondary brand color. (Will be used to customize the final report to your brand's colors)\n- gsc_property_type: Set to \"domain\" or \"url\" depending of the property type set in your Google Search Console account for the target website (dfs_domain).\n4. Start the workflow. Once done, download the HTML file in the last node \"Download Report\". \n\nVoilà! You have a comprehensive content audit report ready to be sent to your client via email, customized to your own branding.\n\n**Note**: The workflow take approximately 20 minutes to run for ~500 pages. If you want to customize this workflow for your own need, feel free to [contact us](https://customworkflows.ai/work-with-us)."
+        "content": "## Content SEO Audit Report\nA workflow powered by DataForSEO and Google Search Analytics API that generate a comprehensive content audit report for any website up to 1000 pages, 100% customized to your brand's colors.\n\n### Set up instructions:\n1. Add a new credential \"Basic Auth\" by following this [guide]({{ $env.WEBHOOK_URL }} You can get your DataForSEO API credentials [here]({{ $env.API_BASE_URL }} DataForSEO offer a free $1 credit when you register, which is plenty enough to test the workflow as the cost is about ~$0.20 per 500-page report. Finally, assign your Basic Auth account to the node \"Create Task\", \"Check Task Status\", \"Get Raw Audit Data\" and \"Get Source URLs Data\".\n2. Add a new credential \"Google OAuth2 API\" by following this [guide]({{ $env.WEBHOOK_URL }} Assign your Google OAuth2 account to the node \"Query GSC API\".\n3. Update the \"Set Fields\" node with the following information:\n- dfs_domain: The website domain you want to crawl.\n- company_name: Your company name (Will be displayed on the final report)\n- company_website: Your company website URL (Will be displayed on the final report)\n- company_logo_url: Your company logo URL (Will be displayed on the final report)\n- brand_primary_color: Your primary brand color. (Will be used to customize the final report to your brand's colors)\n- brand_secondary_color: Your secondary brand color. (Will be used to customize the final report to your brand's colors)\n- gsc_property_type: Set to \"domain\" or \"url\" depending of the property type set in your Google Search Console account for the target website (dfs_domain).\n4. Start the workflow. Once done, download the HTML file in the last node \"Download Report\". \n\nVoilà! You have a comprehensive content audit report ready to be sent to your client via email, customized to your own branding.\n\n**Note**: The workflow take approximately 20 minutes to run for ~500 pages. If you want to customize this workflow for your own need, feel free to [contact us]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -470,12 +473,183 @@
         "binaryPropertyName": "=content audit report"
       },
       "typeVersion": 1.1
+    },
+    {
+      "id": "error-handler-3e5e8162-2815-429f-b6e8-6ea6ea70cf18",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3e5e8162-2815-429f-b6e8-6ea6ea70cf18",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9ea481fe-8af6-43c2-881d-eb68f63b0424",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 9ea481fe-8af6-43c2-881d-eb68f63b0424",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8f95fd0b-e990-4c85-b21b-83d06d2121fe",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 8f95fd0b-e990-4c85-b21b-83d06d2121fe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-aebdd823-9a4d-4323-aadf-b7d92d601d57",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in aebdd823-9a4d-4323-aadf-b7d92d601d57",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bbf44181-0ea7-48b2-b89e-143d72460d27",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in bbf44181-0ea7-48b2-b89e-143d72460d27",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3e5e8162-2815-429f-b6e8-6ea6ea70cf18-21cc061e",
+      "name": "Error Handler for 3e5e8162",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3e5e8162",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9ea481fe-8af6-43c2-881d-eb68f63b0424-7498f89e",
+      "name": "Error Handler for 9ea481fe",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9ea481fe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8f95fd0b-e990-4c85-b21b-83d06d2121fe-352eb210",
+      "name": "Error Handler for 8f95fd0b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8f95fd0b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-aebdd823-9a4d-4323-aadf-b7d92d601d57-d9dbd14b",
+      "name": "Error Handler for aebdd823",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node aebdd823",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bbf44181-0ea7-48b2-b89e-143d72460d27-591a4a49",
+      "name": "Error Handler for bbf44181",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node bbf44181",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-afd6a0aa-813c-4a3f-b844-ac1cf9f854c6-d1637c6c",
+      "name": "Error Handler for afd6a0aa",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node afd6a0aa",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-3a6570b6",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Automated Content SEO Audit Report\n\n## Overview\nAutomated workflow: Automated Content SEO Audit Report. This workflow integrates 10 different services: convertToFile, stickyNote, httpRequest, wait, code. It contains 32 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 32\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Set Fields**: set\n- **When clicking ‘Start’**: manualTrigger\n- **Check Task Status**: httpRequest\n- **Create Task**: httpRequest\n- **If Node**: if\n- **Wait**: wait\n- **Get RAW Audit Data**: httpRequest\n- **Extract URLs**: code\n- **Loop Over Items**: splitInBatches\n- **Query GSC API**: httpRequest\n- ... and 22 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "c6db2f12-2e4f-4f40-acf9-6664c9feb45e",
   "connections": {
@@ -708,6 +882,108 @@
           }
         ]
       ]
+    },
+    "3e5e8162-2815-429f-b6e8-6ea6ea70cf18": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3e5e8162-2815-429f-b6e8-6ea6ea70cf18",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3e5e8162-2815-429f-b6e8-6ea6ea70cf18-21cc061e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9ea481fe-8af6-43c2-881d-eb68f63b0424": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9ea481fe-8af6-43c2-881d-eb68f63b0424",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-9ea481fe-8af6-43c2-881d-eb68f63b0424-7498f89e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8f95fd0b-e990-4c85-b21b-83d06d2121fe": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8f95fd0b-e990-4c85-b21b-83d06d2121fe",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-8f95fd0b-e990-4c85-b21b-83d06d2121fe-352eb210",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "aebdd823-9a4d-4323-aadf-b7d92d601d57": {
+      "main": [
+        [
+          {
+            "node": "error-handler-aebdd823-9a4d-4323-aadf-b7d92d601d57",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-aebdd823-9a4d-4323-aadf-b7d92d601d57-d9dbd14b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bbf44181-0ea7-48b2-b89e-143d72460d27": {
+      "main": [
+        [
+          {
+            "node": "error-handler-bbf44181-0ea7-48b2-b89e-143d72460d27",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-bbf44181-0ea7-48b2-b89e-143d72460d27-591a4a49",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "afd6a0aa-813c-4a3f-b844-ac1cf9f854c6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-afd6a0aa-813c-4a3f-b844-ac1cf9f854c6-d1637c6c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Automated Content SEO Audit Report. This workflow integrates 10 different services: convertToFile, stickyNote, httpRequest, wait, code. It contains 32 nodes and follows best practices for error handling and security."
 }

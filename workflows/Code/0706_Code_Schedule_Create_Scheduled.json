@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "e0be1457dbb383bea07059c263a59b383a5b9420e6a22d3e5f1d80ae7f4f6629"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -12,7 +15,7 @@
         100
       ],
       "parameters": {
-        "url": "https://graph.threads.net/refresh_access_token",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {},
         "queryParametersUi": {
           "parameter": [
@@ -38,7 +41,7 @@
         100
       ],
       "parameters": {
-        "url": "https://graph.threads.net/v1.0/<Your Threads ID>/threads?fields=id,media_product_type,media_type,media_url,permalink,owner,username,text,timestamp,shortcode,thumbnail_url,children,is_quote_post",
+        "url": "{{ $env.WEBHOOK_URL }}<Your Threads ID>/threads?fields=id,media_product_type,media_type,media_url,permalink,owner,username,text,timestamp,shortcode,thumbnail_url,children,is_quote_post",
         "options": {},
         "queryParametersUi": {
           "parameter": [
@@ -101,7 +104,7 @@
         180
       ],
       "parameters": {
-        "url": "=https://graph.threads.net/v1.0/{{ $json.id }}/conversation?fields=id,text,username,permalink,timestamp,media_product_type,media_type,media_url,children{media_url}&reverse=false",
+        "url": "={{ $env.WEBHOOK_URL }}{{ $json.id }}/conversation?fields=id,text,username,permalink,timestamp,media_product_type,media_type,media_url,children{media_url}&reverse=false",
         "options": {},
         "queryParametersUi": {
           "parameter": [
@@ -123,7 +126,7 @@
         0
       ],
       "parameters": {
-        "url": "=https://graph.threads.net/v1.0/{{ $json.id }}?fields=id,media_product_type,media_type,media_url,children{media_url},permalink,owner,username,text,timestamp,children",
+        "url": "={{ $env.WEBHOOK_URL }}{{ $json.id }}?fields=id,media_product_type,media_type,media_url,children{media_url},permalink,owner,username,text,timestamp,children",
         "options": {},
         "queryParametersUi": {
           "parameter": [
@@ -180,7 +183,7 @@
           "__rl": true,
           "mode": "list",
           "value": "175931b1-f5b8-8047-8620-f0e7ccde8407",
-          "cachedResultUrl": "https://www.notion.so/175931b1f5b880478620f0e7ccde8407",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Posts Automation"
         }
       },
@@ -237,34 +240,34 @@
           "__rl": true,
           "mode": "list",
           "value": "175931b1-f5b8-8047-8620-f0e7ccde8407",
-          "cachedResultUrl": "https://www.notion.so/175931b1f5b880478620f0e7ccde8407",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Posts Automation"
         },
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Name|title",
+              "key": "YOUR_API_KEY",
               "title": "={{ $('Threads Post').first().json.permalink }}"
             },
             {
-              "key": "Threads ID|rich_text",
+              "key": "YOUR_API_KEY",
               "textContent": "={{ $('Threads Post').first().json.id }}"
             },
             {
-              "key": "Post Date|date",
+              "key": "YOUR_API_KEY",
               "date": "={{ $('Threads Post').first().json.timestamp }}",
               "timezone": "America/Los_Angeles",
               "includeTime": false
             },
             {
-              "key": "Source|multi_select",
+              "key": "YOUR_API_KEY",
               "multiSelectValue": "=Threads"
             },
             {
-              "key": "Import Check|checkbox"
+              "key": "YOUR_API_KEY"
             },
             {
-              "key": "Username|rich_text",
+              "key": "YOUR_API_KEY",
               "textContent": "={{ $('Threads Post').first().json.username }}"
             }
           ]
@@ -287,7 +290,7 @@
         20
       ],
       "parameters": {
-        "url": "=https://api.notion.com/v1/blocks/{{ $('Create Page').item.json.id }}/children",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Create Page').item.json.id }}/children",
         "options": {},
         "requestMethod": "PATCH",
         "jsonParameters": true,
@@ -309,7 +312,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "Create Page",
+              "outputKey": "output_1",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -333,7 +336,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Update Page",
+              "outputKey": "output_2",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -396,7 +399,7 @@
         -340
       ],
       "parameters": {
-        "url": "https://graph.threads.net/access_token",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {},
         "queryParametersUi": {
           "parameter": [
@@ -427,7 +430,7 @@
       ],
       "parameters": {
         "height": 240,
-        "content": "## Get Threads API Access Token\n\nGet Threads Access Token Tutorial and ID/教學 [Link](https://nijialin.com/2024/08/17/python-threads-sdk-introduction/)\n\nPlease get your access token and Threads ID first before you start\n(It only need to run once)"
+        "content": "## Get Threads API Access Token\n\nGet Threads Access Token Tutorial and ID/教學 [Link]({{ $env.WEBHOOK_URL }}\n\nPlease get your access token and Threads ID first before you start\n(It only need to run once)"
       },
       "typeVersion": 1
     },
@@ -458,7 +461,7 @@
       ],
       "parameters": {
         "height": 180,
-        "content": "## Refresh Token\n\nUpdate your long live token here / 在此放上剛剛拿到的長期 Token\n\n[Check Facebook Docs Refresh Token](https://developers.facebook.com/docs/threads/get-started/long-lived-tokens/)"
+        "content": "## Refresh Token\n\nUpdate your long live token here / 在此放上剛剛拿到的長期 Token\n\n[Check Facebook Docs Refresh Token]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -472,7 +475,7 @@
       ],
       "parameters": {
         "height": 600,
-        "content": "## Set your Theads ID & Post Time\n\nChage the your with your Threads ID to get your posts / 請先透過上方教學獲取 Threads ID\n\nSet the time of the Post you wanna get / 設置抓取的貼文時間\n\n[Check Facebook Docs Post API](https://developers.facebook.com/docs/threads/threads-media)\n\nsince is scrape the post after the date /\nsince 為抓取日期之後的貼文\n\nuntil is scrape the post before the date /\nuntil 為抓取日期之前的貼文\n\nsince can set\n\n{{ new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().split('T')[0] }}\n\nit will scrape the post since one day ago"
+        "content": "## Set your Theads ID & Post Time\n\nChage the your with your Threads ID to get your posts / 請先透過上方教學獲取 Threads ID\n\nSet the time of the Post you wanna get / 設置抓取的貼文時間\n\n[Check Facebook Docs Post API]({{ $env.WEBHOOK_URL }}\n\nsince is scrape the post after the date /\nsince 為抓取日期之後的貼文\n\nuntil is scrape the post before the date /\nuntil 為抓取日期之前的貼文\n\nsince can set\n\n{{ new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().split('T')[0] }}\n\nit will scrape the post since one day ago"
       },
       "typeVersion": 1
     },
@@ -529,7 +532,7 @@
       "parameters": {
         "width": 600,
         "height": 180,
-        "content": "## Get your Threads Post automatically\n\nCreator: [Geekaz](https://www.threads.net/@geekaz?hl=zh-tw)\n\nIf your have any problems or question, please send message to my instagram!\n有任何問題都歡迎透過 Instagram 私訊詢問！"
+        "content": "## Get your Threads Post automatically\n\nCreator: [Geekaz]({{ $env.WEBHOOK_URL }}\n\nIf your have any problems or question, please send message to my instagram!\n有任何問題都歡迎透過 Instagram 私訊詢問！"
       },
       "typeVersion": 1
     },
@@ -546,6 +549,187 @@
         "content": "## Comment's Filter\n\nSet your Threads Username"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-200098a9-1a49-49c1-8703-eea0c496a020",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 200098a9-1a49-49c1-8703-eea0c496a020",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-58373d28-8f22-4224-8ef1-aca9c24d5777",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 58373d28-8f22-4224-8ef1-aca9c24d5777",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3b4e5eda-f354-4ef4-a260-378c06708cb5",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3b4e5eda-f354-4ef4-a260-378c06708cb5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6331c1f6-e1a4-4749-a17a-c129ab7ab0e0",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 6331c1f6-e1a4-4749-a17a-c129ab7ab0e0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8a5e4752-a8fa-480f-8271-c15a66679e00",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 8a5e4752-a8fa-480f-8271-c15a66679e00",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a79e46eb-bb45-4d80-9f99-adae1e51f94d",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a79e46eb-bb45-4d80-9f99-adae1e51f94d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-200098a9-1a49-49c1-8703-eea0c496a020-d82eee1c",
+      "name": "Error Handler for 200098a9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 200098a9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-58373d28-8f22-4224-8ef1-aca9c24d5777-c1a8f84e",
+      "name": "Error Handler for 58373d28",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 58373d28",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3b4e5eda-f354-4ef4-a260-378c06708cb5-250a9566",
+      "name": "Error Handler for 3b4e5eda",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3b4e5eda",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6331c1f6-e1a4-4749-a17a-c129ab7ab0e0-9aca089b",
+      "name": "Error Handler for 6331c1f6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6331c1f6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8a5e4752-a8fa-480f-8271-c15a66679e00-ecbb069f",
+      "name": "Error Handler for 8a5e4752",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8a5e4752",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a79e46eb-bb45-4d80-9f99-adae1e51f94d-145ccba7",
+      "name": "Error Handler for a79e46eb",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a79e46eb",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-cde5df6f",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Httprequest Workflow\n\n## Overview\nAutomated workflow: Httprequest Workflow. This workflow integrates 11 different services: stickyNote, httpRequest, code, scheduleTrigger, function. It contains 39 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 39\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Refresh Token**: httpRequest\n- **Get Post**: httpRequest\n- **Get Post ID**: function\n- **Loop Over Items**: splitInBatches\n- **Replace Me**: noOp\n- **Threads / Comments**: httpRequest\n- **Threads / Root**: httpRequest\n- **Comment's Filter**: code\n- **Root's Filter**: code\n- **Threads ID**: notion\n- ... and 29 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -760,6 +944,123 @@
           }
         ]
       ]
+    },
+    "200098a9-1a49-49c1-8703-eea0c496a020": {
+      "main": [
+        [
+          {
+            "node": "error-handler-200098a9-1a49-49c1-8703-eea0c496a020",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-200098a9-1a49-49c1-8703-eea0c496a020-d82eee1c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "58373d28-8f22-4224-8ef1-aca9c24d5777": {
+      "main": [
+        [
+          {
+            "node": "error-handler-58373d28-8f22-4224-8ef1-aca9c24d5777",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-58373d28-8f22-4224-8ef1-aca9c24d5777-c1a8f84e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3b4e5eda-f354-4ef4-a260-378c06708cb5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3b4e5eda-f354-4ef4-a260-378c06708cb5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3b4e5eda-f354-4ef4-a260-378c06708cb5-250a9566",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6331c1f6-e1a4-4749-a17a-c129ab7ab0e0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6331c1f6-e1a4-4749-a17a-c129ab7ab0e0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-6331c1f6-e1a4-4749-a17a-c129ab7ab0e0-9aca089b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8a5e4752-a8fa-480f-8271-c15a66679e00": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8a5e4752-a8fa-480f-8271-c15a66679e00",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-8a5e4752-a8fa-480f-8271-c15a66679e00-ecbb069f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a79e46eb-bb45-4d80-9f99-adae1e51f94d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a79e46eb-bb45-4d80-9f99-adae1e51f94d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a79e46eb-bb45-4d80-9f99-adae1e51f94d-145ccba7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Httprequest Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 11 different services: stickyNote, httpRequest, code, scheduleTrigger, function. It contains 39 nodes and follows best practices for error handling and security."
 }

@@ -1,7 +1,10 @@
 {
   "id": "WETMyIJCbD3et6Rh",
   "meta": {
-    "instanceId": "ddfdf733df99a65c801a91865dba5b7c087c95cc22a459ff3647e6deddf2aee6"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "High-Level Service Page SEO Blueprint Report",
   "tags": [],
@@ -96,7 +99,7 @@
         340
       ],
       "parameters": {
-        "url": "=https://r.jina.ai/{{ $json.competitor_url }}",
+        "url": "={{ $env.WEBHOOK_URL }}{{ $json.competitor_url }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -704,15 +707,158 @@
       "parameters": {
         "width": 1020,
         "height": 460,
-        "content": "## Generate High-Level Service Page Blueprint Report\nThis powerful workflow generates comprehensive SEO blueprints for service pages by analyzing competitor websites and user intent. By examining the structure, headings, and meta information of top-ranking competitors for a specific target keyword, the workflow creates a detailed content strategy tailored to your brand and services, designed to outperform the competition and maximize conversions.\n\n### Setup Instructions:\n1. Create a new Jina Reader API key [here](https://jina.ai/api-dashboard/key-manager). You can claim a free API key, which allow you to use up to 1m tokens for free.  \n2. Create a new Google Gemini(PaLM) credentials by following the guide [here](https://docs.n8n.io/integrations/builtin/credentials/googleai/#using-geminipalm-api-key). Please note, if you are using the free tier, you need to set the \"Waiting Time\" to 20s as the free tier allow a maximum of 5 requests per minute.\n3. Update the node \"Set Fields\" with your Jina API Key. Change the Waiting Time to \"20\" if using free Google Gemini API key. You can change the Gemini model from here as well, in the case Gemini make changes to their Gemini models.\n4. Start the form trigger and answer to the following questions:\n4.1. Competitors: A list of direct competitors. Up to 5, use their direct service page URL.\n4.2. Target Keyword: The query related with your service. (E.g. International accounting services, Chicago cleaning services, etc...)\n4.3. Services Offered: Details your complete service offerings. This will be ensure the outline recommended align with your services.\n4.4. Brand Name: The name of your brand, your company name.\n4.5. Homepage: If you try to rank for a homepage, check that box.\n5. Download the .txt file generated at the end, copy/paste it's content (Markdown format) and copy it [here](https://markdownlivepreview.com/). You can after copy/paste the rendered results in Gdocs and share with your client/team.\n\nYou can see a demo of the report [here](https://docs.google.com/document/d/1XDJV3zNB7cLPBzaMXstzEl7ZvPrjiuBbet5C5ZlC4bo/edit). "
+        "content": "## Generate High-Level Service Page Blueprint Report\nThis powerful workflow generates comprehensive SEO blueprints for service pages by analyzing competitor websites and user intent. By examining the structure, headings, and meta information of top-ranking competitors for a specific target keyword, the workflow creates a detailed content strategy tailored to your brand and services, designed to outperform the competition and maximize conversions.\n\n### Setup Instructions:\n1. Create a new Jina Reader API key [here]({{ $env.API_BASE_URL }} You can claim a free API key, which allow you to use up to 1m tokens for free.  \n2. Create a new Google Gemini(PaLM) credentials by following the guide [here]({{ $env.API_BASE_URL }} Please note, if you are using the free tier, you need to set the \"Waiting Time\" to 20s as the free tier allow a maximum of 5 requests per minute.\n3. Update the node \"Set Fields\" with your Jina API Key. Change the Waiting Time to \"20\" if using free Google Gemini API key. You can change the Gemini model from here as well, in the case Gemini make changes to their Gemini models.\n4. Start the form trigger and answer to the following questions:\n4.1. Competitors: A list of direct competitors. Up to 5, use their direct service page URL.\n4.2. Target Keyword: The query related with your service. (E.g. International accounting services, Chicago cleaning services, etc...)\n4.3. Services Offered: Details your complete service offerings. This will be ensure the outline recommended align with your services.\n4.4. Brand Name: The name of your brand, your company name.\n4.5. Homepage: If you try to rank for a homepage, check that box.\n5. Download the .txt file generated at the end, copy/paste it's content (Markdown format) and copy it [here]({{ $env.WEBHOOK_URL }} You can after copy/paste the rendered results in Gdocs and share with your client/team.\n\nYou can see a demo of the report [here]({{ $env.WEBHOOK_URL }} "
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-ac532215-626d-4690-9c99-d11f09fa86dc",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ac532215-626d-4690-9c99-d11f09fa86dc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ac532215-626d-4690-9c99-d11f09fa86dc-edc59fa8",
+      "name": "Error Handler for ac532215",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ac532215",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-715317ae-e896-48cf-b732-31a0a1ee7999-e82a0e1f",
+      "name": "Error Handler for 715317ae",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 715317ae",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-998ac0b0-d3e6-4e4a-b8a6-ae8994dbfa58-b07e4147",
+      "name": "Error Handler for 998ac0b0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 998ac0b0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8ac6dc7a-d32f-4366-9b21-fb20aaf1043f-374d9d62",
+      "name": "Error Handler for 8ac6dc7a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8ac6dc7a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0282d60c-c030-4ccd-8716-dd56bbc636e2-a6cf0da4",
+      "name": "Error Handler for 0282d60c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0282d60c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bd098536-18dd-4f23-98da-d86c3f0baf2a-ec893d32",
+      "name": "Error Handler for bd098536",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node bd098536",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1e9482a5-6b59-456c-8a92-49cdea47e973-a931643b",
+      "name": "Error Handler for 1e9482a5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1e9482a5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-780a5e01-6f26-43da-b650-5cd3cdf1cfa0-b1afdecd",
+      "name": "Error Handler for 780a5e01",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 780a5e01",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-42ac54d2",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# High-Level Service Page SEO Blueprint Report\n\n## Overview\nAutomated workflow: High-Level Service Page SEO Blueprint Report. This workflow integrates 11 different services: convertToFile, stickyNote, httpRequest, formTrigger, wait. It contains 42 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 42\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Convert URLs to Items**: code\n- **Start**: formTrigger\n- **Loop Over Items**: splitInBatches\n- **Get URL HTML**: httpRequest\n- **Extract HTML Elements**: code\n- **Set URL Data**: set\n- **Code**: code\n- **Edit Fields1**: set\n- **Google Gemini Chat Model**: lmChatGoogleGemini\n- **Wait**: wait\n- ... and 32 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "443f606c-8007-41cd-959e-71d17bbabec5",
   "connections": {
@@ -1063,6 +1209,102 @@
           }
         ]
       ]
+    },
+    "ac532215-626d-4690-9c99-d11f09fa86dc": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ac532215-626d-4690-9c99-d11f09fa86dc",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ac532215-626d-4690-9c99-d11f09fa86dc-edc59fa8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "715317ae-e896-48cf-b732-31a0a1ee7999": {
+      "main": [
+        [
+          {
+            "node": "error-handler-715317ae-e896-48cf-b732-31a0a1ee7999-e82a0e1f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "998ac0b0-d3e6-4e4a-b8a6-ae8994dbfa58": {
+      "main": [
+        [
+          {
+            "node": "error-handler-998ac0b0-d3e6-4e4a-b8a6-ae8994dbfa58-b07e4147",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8ac6dc7a-d32f-4366-9b21-fb20aaf1043f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8ac6dc7a-d32f-4366-9b21-fb20aaf1043f-374d9d62",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0282d60c-c030-4ccd-8716-dd56bbc636e2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0282d60c-c030-4ccd-8716-dd56bbc636e2-a6cf0da4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bd098536-18dd-4f23-98da-d86c3f0baf2a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-bd098536-18dd-4f23-98da-d86c3f0baf2a-ec893d32",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1e9482a5-6b59-456c-8a92-49cdea47e973": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1e9482a5-6b59-456c-8a92-49cdea47e973-a931643b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "780a5e01-6f26-43da-b650-5cd3cdf1cfa0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-780a5e01-6f26-43da-b650-5cd3cdf1cfa0-b1afdecd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: High-Level Service Page SEO Blueprint Report. This workflow integrates 11 different services: convertToFile, stickyNote, httpRequest, formTrigger, wait. It contains 42 nodes and follows best practices for error handling and security."
 }

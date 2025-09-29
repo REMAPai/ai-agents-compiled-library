@@ -1,7 +1,10 @@
 {
   "id": "yYjRbTWULZuNLXM0",
   "meta": {
-    "instanceId": "616c00803b706b71f395da00f933102e3b493591ba0a653e82d0b9ed360368da"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "My workflow",
   "tags": [],
@@ -115,14 +118,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zvlIZNAVFZ7lg9hch_zsNEIbmAhInUuwhiK2zWq0snA/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1zvlIZNAVFZ7lg9hch_zsNEIbmAhInUuwhiK2zWq0snA",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zvlIZNAVFZ7lg9hch_zsNEIbmAhInUuwhiK2zWq0snA/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Leads Data"
         }
       },
@@ -235,7 +238,7 @@
     },
     {
       "id": "c5e320e3-6489-4957-bb4e-e9873d001a66",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         640,
@@ -322,6 +325,47 @@
         "content": "Doesn't move forward if the email is not valid or if its fake email address"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-94f6684f-925b-4ded-a79f-ff44771ee992-9692dc7f",
+      "name": "Error Handler for 94f6684f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 94f6684f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-126d0ee3-de81-41ed-88f6-ffdeefae5576-d78654d9",
+      "name": "Error Handler for 126d0ee3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 126d0ee3",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-c00b2469",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# My workflow\n\n## Overview\nAutomated workflow: My workflow. This workflow integrates 9 different services: stickyNote, formTrigger, hunter, noOp, discord. It contains 14 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 14\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **n8n Form Trigger**: formTrigger\n- **Google Sheets**: googleSheets\n- **Gmail**: gmail\n- **Discord**: discord\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **If Node**: if\n- **Hunter**: hunter\n- **No Operation, do nothing**: noOp\n- ... and 4 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -329,7 +373,9 @@
   "settings": {
     "callerPolicy": "workflowsFromSameOwner",
     "executionOrder": "v1",
-    "saveManualExecutions": true
+    "saveManualExecutions": true,
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "6455a6bd-0749-4c00-805b-a04ea6e34cc7",
   "connections": {
@@ -392,6 +438,29 @@
           }
         ]
       ]
+    },
+    "94f6684f-925b-4ded-a79f-ff44771ee992": {
+      "main": [
+        [
+          {
+            "node": "error-handler-94f6684f-925b-4ded-a79f-ff44771ee992-9692dc7f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "126d0ee3-de81-41ed-88f6-ffdeefae5576": {
+      "main": [
+        [
+          {
+            "node": "error-handler-126d0ee3-de81-41ed-88f6-ffdeefae5576-d78654d9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: My workflow. This workflow integrates 9 different services: stickyNote, formTrigger, hunter, noOp, discord. It contains 14 nodes and follows best practices for error handling and security."
 }

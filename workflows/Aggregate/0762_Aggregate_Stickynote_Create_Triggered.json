@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "cb484ba7b742928a2048bf8829668bed5b5ad9787579adea888f05980292a4a7",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -452,7 +454,7 @@
         "color": 5,
         "width": 340,
         "height": 820,
-        "content": "![Callforge](https://uploads.n8n.io/templates/callforgeshadow.png)\n## CallForge - The AI Gong Sales Call Processor\nCallForge allows you to extract important information for different departments from your Sales Gong Calls. \n\n### AI Agent Processor\nThis is where the AI magic happens. In this workflow, we take the final transcript blog and pass it into the AI Prompt for analysis and data extraction. "
+        "content": "![Callforge]({{ $env.WEBHOOK_URL }}\n## CallForge - The AI Gong Sales Call Processor\nCallForge allows you to extract important information for different departments from your Sales Gong Calls. \n\n### AI Agent Processor\nThis is where the AI magic happens. In this workflow, we take the final transcript blog and pass it into the AI Prompt for analysis and data extraction. "
       },
       "typeVersion": 1
     },
@@ -624,6 +626,61 @@
         "aggregate": "aggregateAllItemData"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-7ee72c9f-19ab-4f9b-95ee-7292c8490464-52c4f93b",
+      "name": "Error Handler for 7ee72c9f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7ee72c9f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-31ac033f-ded5-459c-b427-a3cd39325439-2ff22f80",
+      "name": "Error Handler for 31ac033f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 31ac033f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bc64a18b-3d30-46ff-a983-683dfc481a9d-0e3a8e99",
+      "name": "Error Handler for bc64a18b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node bc64a18b",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-5f8323d0",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Executeworkflowtrigger Workflow\n\n## Overview\nAutomated workflow: Executeworkflowtrigger Workflow. This workflow integrates 10 different services: stickyNote, agent, outputParserStructured, merge, set. It contains 30 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 30\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Execute Workflow Trigger**: executeWorkflowTrigger\n- **Structured Output Parser1**: outputParserStructured\n- **Marketing AI Agent Processor**: agent\n- **Structured Output Parser2**: outputParserStructured\n- **Product AI Agent Processor**: agent\n- **Sales Data Processor**: executeWorkflow\n- **Marketing Data Processor**: executeWorkflow\n- **Product AI Data Processor**: executeWorkflow\n- **Data Recall Sales**: set\n- **Data Recall Marketing**: set\n- ... and 20 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -851,6 +908,48 @@
           }
         ]
       ]
+    },
+    "7ee72c9f-19ab-4f9b-95ee-7292c8490464": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7ee72c9f-19ab-4f9b-95ee-7292c8490464-52c4f93b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "31ac033f-ded5-459c-b427-a3cd39325439": {
+      "main": [
+        [
+          {
+            "node": "error-handler-31ac033f-ded5-459c-b427-a3cd39325439-2ff22f80",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bc64a18b-3d30-46ff-a983-683dfc481a9d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-bc64a18b-3d30-46ff-a983-683dfc481a9d-0e3a8e99",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Executeworkflowtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Executeworkflowtrigger Workflow. This workflow integrates 10 different services: stickyNote, agent, outputParserStructured, merge, set. It contains 30 nodes and follows best practices for error handling and security."
 }

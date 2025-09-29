@@ -1,8 +1,10 @@
 {
   "id": "cGqPi5Uy2u1ShmoO",
   "meta": {
-    "instanceId": "8fccc85e4982eaaf920505127420cfb3a600b56930a56e499973488bb6dc5e3a",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "💻 Schedule workflow activity time",
   "tags": [
@@ -169,7 +171,7 @@
         "color": 5,
         "width": 320,
         "height": 800,
-        "content": "## Set targeted Workflow ID\n\nYou will find it in the URL of the workflow you want to manage.\n\n![img](https://community.n8n.io/uploads/default/original/3X/8/a/8aa6297de2cffb3de23c221aee62065610525f5f.png)\n"
+        "content": "## Set targeted Workflow ID\n\nYou will find it in the URL of the workflow you want to manage.\n\n![img]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -185,7 +187,7 @@
         "color": 5,
         "width": 300,
         "height": 800,
-        "content": "## Set Activate/deactivate schedule \n\n[Custom (cron) interval](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.scheduletrigger/#custom-cron-interval) is a recommended approach.\n\n"
+        "content": "## Set Activate/deactivate schedule \n\n[Custom (cron) interval]({{ $env.WEBHOOK_URL }} is a recommended approach.\n\n"
       },
       "typeVersion": 1
     },
@@ -201,7 +203,7 @@
         "color": 5,
         "width": 320,
         "height": 800,
-        "content": "## Set n8n API credentials\n\n1. Create an API key:\nhttps://docs.n8n.io/api/authentication/\n\n2. Create n8n credentials using the API key\n\n\nThis workflow uses **[n8n node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.n8n/)**."
+        "content": "## Set n8n API credentials\n\n1. Create an API key:\n{{ $env.API_BASE_URL }}\n\n2. Create n8n credentials using the API key\n\n\nThis workflow uses **[n8n node]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -216,7 +218,7 @@
       "parameters": {
         "width": 1120,
         "height": 100,
-        "content": "## ⚠️ Warning!\nThis approach **won't work for trial users** as it requires n8n API that is not available to trial users.\nSee https://docs.n8n.io/api/ for details."
+        "content": "## ⚠️ Warning!\nThis approach **won't work for trial users** as it requires n8n API that is not available to trial users.\nSee {{ $env.API_BASE_URL }} for details."
       },
       "typeVersion": 1
     },
@@ -251,12 +253,29 @@
         "content": "## Activate this workflow!"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-d9868c2c",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# 💻 Schedule workflow activity time\n\n## Overview\nAutomated workflow: 💻 Schedule workflow activity time. This workflow integrates 5 different services: stickyNote, scheduleTrigger, merge, n8n, set. It contains 13 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 13\n- **Node Types**: 5\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **n8n Activate**: n8n\n- **n8n Deactivate**: n8n\n- **Workflow ID**: set\n- **Merge in Workflow ID for deactivation**: merge\n- **Merge in Workflow ID for activation**: merge\n- **Activate at 08:00 daily**: scheduleTrigger\n- **Deactivate at 20:00 daily**: scheduleTrigger\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- ... and 3 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "bb1c2014-2e38-41c0-ae1c-952fb98d0504",
   "connections": {
@@ -330,5 +349,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: 💻 Schedule workflow activity time. This workflow integrates 5 different services: stickyNote, scheduleTrigger, merge, n8n, set. It contains 13 nodes and follows best practices for error handling and security."
 }

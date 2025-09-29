@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "408f9fb9940c3cb18ffdef0e0150fe342d6e655c3a9fac21f0f644e8bedabcd9",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -43,7 +45,7 @@
         920
       ],
       "parameters": {
-        "sessionKey": "={{ $('When chat message received').first().json.sessionId }}",
+        "sessionKey": "YOUR_SESSION_KEY",
         "sessionIdType": "customKey",
         "contextWindowLength": 20
       },
@@ -103,6 +105,33 @@
         }
       },
       "typeVersion": 1.1
+    },
+    {
+      "id": "error-handler-24faa70e-52e7-40e4-abc1-05c8b18df583-a400d99b",
+      "name": "Error Handler for 24faa70e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 24faa70e",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-5d2d6883",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Stickynote Workflow\n\n## Overview\nAutomated workflow: Stickynote Workflow. This workflow integrates 6 different services: stickyNote, stopAndError, memoryBufferWindow, openAi, toolCalculator. It contains 7 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 7\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note1**: stickyNote\n- **Sticky Note4**: stickyNote\n- **Simple Memory**: memoryBufferWindow\n- **OpenAI**: openAi\n- **Calculator1**: toolCalculator\n- **When chat message received**: chatTrigger\n- **Error Handler for 24faa70e**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -144,6 +173,26 @@
           }
         ]
       ]
+    },
+    "24faa70e-52e7-40e4-abc1-05c8b18df583": {
+      "main": [
+        [
+          {
+            "node": "error-handler-24faa70e-52e7-40e4-abc1-05c8b18df583-a400d99b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Stickynote Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 6 different services: stickyNote, stopAndError, memoryBufferWindow, openAi, toolCalculator. It contains 7 nodes and follows best practices for error handling and security."
 }

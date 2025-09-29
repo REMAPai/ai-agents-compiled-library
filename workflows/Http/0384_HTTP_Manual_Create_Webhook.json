@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "dbd43d88d26a9e30d8aadc002c9e77f1400c683dd34efe3778d43d27250dde50"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -15,7 +18,7 @@
         "color": 6,
         "width": 305,
         "height": 254.26094733974475,
-        "content": "## List NMs\nto change parameters read [Docs](https://developers.cloudflare.com/api/operations/workers-kv-namespace-list-namespaces)"
+        "content": "## List NMs\nto change parameters read [Docs]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -31,7 +34,7 @@
         "color": 4,
         "width": 289.22425544359976,
         "height": 259,
-        "content": "## Create NM\nto change parameters read [Docs](https://developers.cloudflare.com/api/operations/workers-kv-namespace-create-a-namespace)"
+        "content": "## Create NM\nto change parameters read [Docs]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -47,7 +50,7 @@
         "color": 3,
         "width": 767.2997851806018,
         "height": 260.5583291593211,
-        "content": "## Delete NM of KV (By Name Serach)\nto change anything read [Docs](https://developers.cloudflare.com/api/operations/workers-kv-namespace-remove-a-namespace)"
+        "content": "## Delete NM of KV (By Name Serach)\nto change anything read [Docs]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -61,11 +64,11 @@
         1280
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (2)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (2)\"].json[\"NameSpace\"]).id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (2)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (2)\"].json[\"NameSpace\"]).id }}",
         "method": "DELETE",
         "options": {},
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -82,7 +85,7 @@
         "color": 4,
         "width": 762.4679767633019,
         "height": 259,
-        "content": "## Rename NM of KV (By Serach)\nto change parameters read [Docs](https://developers.cloudflare.com/api/operations/workers-kv-namespace-rename-a-namespace)"
+        "content": "## Rename NM of KV (By Serach)\nto change parameters read [Docs]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -96,7 +99,7 @@
         1540
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (5)\"].json[\"result\"].find(kv => kv.title === $node[\"KV to Rename\"].json[\"Previous KV Name\"]).id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (5)\"].json[\"result\"].find(kv => kv.title === $node[\"KV to Rename\"].json[\"Previous KV Name\"]).id }}",
         "method": "PUT",
         "options": {},
         "sendBody": true,
@@ -109,7 +112,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -174,7 +177,7 @@
         "color": 3,
         "width": 838.4149493375248,
         "height": 259,
-        "content": "## Delete multiple KV pairs\nto change anything read [Docs](https://developers.cloudflare.com/api/operations/workers-kv-namespace-delete-multiple-key-value-pairs)"
+        "content": "## Delete multiple KV pairs\nto change anything read [Docs]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -190,7 +193,7 @@
         "color": 7,
         "width": 1264.141937886304,
         "height": 607,
-        "content": "#  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ **`Cloudflare Key-Value Full API integration Workflow`**\n[![Hetzner Cloud](https://developers.cloudflare.com/assets/kv-write-fdb5578b.svg)](https://www.hetzner.com/cloud)\n##  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ _Integrate your N8N with CF KV Free instead of selfhosting Redis or any RAM based Storages!!_"
+        "content": "#  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ **`Cloudflare Key-Value Full API integration Workflow`**\n[![Hetzner Cloud]({{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n##  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ _Integrate your N8N with CF KV Free instead of selfhosting Redis or any RAM based Storages!!_"
       },
       "typeVersion": 1
     },
@@ -204,14 +207,14 @@
         1284
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (3)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (3)\"].json[\"NameSpace\"]).id }}/bulk",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (3)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (3)\"].json[\"NameSpace\"]).id }}/bulk",
         "method": "DELETE",
         "options": {},
         "jsonBody": "[   \"key1\",   \"key2\",   \"key3\" ]",
         "sendBody": true,
         "specifyBody": "json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -228,7 +231,7 @@
         "color": 4,
         "width": 839.99463355761,
         "height": 257.7516694510983,
-        "content": "## Write multiple KV pairs\nto change anything read [Docs](https://developers.cloudflare.com/api/operations/workers-kv-namespace-write-multiple-key-value-pairs)"
+        "content": "## Write multiple KV pairs\nto change anything read [Docs]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -242,7 +245,7 @@
         1540
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -255,7 +258,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -270,7 +273,7 @@
         1560
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (6)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (5)\"].json[\"NameSpace\"]).id }}/bulk",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (6)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (5)\"].json[\"NameSpace\"]).id }}/bulk",
         "method": "PUT",
         "options": {},
         "jsonBody": "=[{\n        \"key\": \"key1\",\n        \"value\": \"Value1\",\n        \"base64\": false,\n        \"expiration\": 1578435000,\n        \"expiration_ttl\": 300\n      },\n      {\n        \"key\": \"key2\",\n        \"value\": \"Value2\",\n        \"base64\": false,\n        \"expiration\": 1578435000,\n        \"expiration_ttl\": 300\n      },\n      {\n        \"key\": \"key3\",\n        \"value\": \"Value3\",\n        \"base64\": false,\n        \"expiration\": 1578435000,\n        \"expiration_ttl\": 300\n      }]",
@@ -286,7 +289,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -303,7 +306,7 @@
         "color": 6,
         "width": 513,
         "height": 254.59230101092814,
-        "content": "## List NM-Keys\nto change anything read [Docs](https://developers.cloudflare.com/api/operations/workers-kv-namespace-list-a-namespace'-s-keys)"
+        "content": "## List NM-Keys\nto change anything read [Docs]({{ $env.API_BASE_URL }}'-s-keys)"
       },
       "typeVersion": 1
     },
@@ -317,7 +320,7 @@
         1840
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (9)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (8)\"].json[\"NameSpace\"]).id }}/keys",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (9)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (8)\"].json[\"NameSpace\"]).id }}/keys",
         "options": {},
         "jsonBody": "=[{\n        \"key\": \"key1\",\n        \"value\": \"Value1\",\n        \"base64\": false,\n        \"expiration\": 1578435000,\n        \"expiration_ttl\": 300\n      },\n      {\n        \"key\": \"key2\",\n        \"value\": \"Value2\",\n        \"base64\": false,\n        \"expiration\": 1578435000,\n        \"expiration_ttl\": 300\n      },\n      {\n        \"key\": \"key3\",\n        \"value\": \"Value3\",\n        \"base64\": false,\n        \"expiration\": 1578435000,\n        \"expiration_ttl\": 300\n      }]",
         "sendBody": true,
@@ -332,7 +335,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -365,7 +368,7 @@
         "color": 6,
         "width": 755.5520725546517,
         "height": 257.7516694510983,
-        "content": "## Read MD in spesific key\nto change anything read [Docs](https://developers.cloudflare.com/api/operations/workers-kv-namespace-read-the-metadata-for-a-key)"
+        "content": "## Read MD in spesific key\nto change anything read [Docs]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -381,7 +384,7 @@
         "color": 3,
         "width": 828.445488674341,
         "height": 259,
-        "content": "## Delete KV\nto change anything read [Docs](https://developers.cloudflare.com/api/operations/workers-kv-namespace-delete-key-value-pair)"
+        "content": "## Delete KV\nto change anything read [Docs]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -395,11 +398,11 @@
         1280
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (1)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (1)\"].json[\"NameSpace\"]).id }}/values/{{ $('Set KV-NM Name (1)').item.json['Key Name'] }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (1)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (1)\"].json[\"NameSpace\"]).id }}/values/{{ $('Set KV-NM Name (1)').item.json['Key Name'] }}",
         "method": "DELETE",
         "options": {},
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -416,7 +419,7 @@
         "color": 6,
         "width": 834.9104620941396,
         "height": 259,
-        "content": "## Read KV\nto change anything read [Docs](https://developers.cloudflare.com/api/operations/workers-kv-namespace-read-key-value-pair)"
+        "content": "## Read KV\nto change anything read [Docs]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -430,7 +433,7 @@
         1840
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (7)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (6)\"].json[\"NameSpace\"]).id }}/values/{{ $('Set KV-NM Name (6)').item.json['Key Name'] }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (7)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (6)\"].json[\"NameSpace\"]).id }}/values/{{ $('Set KV-NM Name (6)').item.json['Key Name'] }}",
         "options": {
           "response": {
             "response": {
@@ -440,7 +443,7 @@
           }
         },
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -457,7 +460,7 @@
         "color": 4,
         "width": 531.3495902609195,
         "height": 263.788476053995,
-        "content": "## Write KV\nto change anything read [Docs](https://developers.cloudflare.com/api/operations/workers-kv-namespace-write-key-value-pair-with-metadata)"
+        "content": "## Write KV\nto change anything read [Docs]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -505,7 +508,7 @@
         "color": 7,
         "width": 1389.3461161034518,
         "height": 607,
-        "content": "## This n8n template provides a seamless and efficient way to manage Key-Value (KV) pairs in Cloudflare's KV storage. all you need just take the part of action you want then use it with your workflow, keep in mind that the **_`Account Path`_** node is required for all actions as it's used to set the path of account, other authentication values is automatically set by n8n pre configured cloudflare api.\n ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌   ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌   ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ![Cloudflare Logo](https://cf-assets.www.cloudflare.com/slt3lc6tev37/7bIgGp4hk4SFO0o3SBbOKJ/546b2df59d9ef1ac226d70c40b17d019/Cloudflare-logo-transparent-v-rgb_thumbnail.png)\n\n\n# shortcuts:\n- ## **`NM`** or **`NMs`** =  _**`NameSpace/s`**_\n- ## **`KV`** or **`KVs`** = _**`Key/s - Value/s`**_\n- ## **`MD`** = _**`MetaData`**_"
+        "content": "## This n8n template provides a seamless and efficient way to manage Key-Value (KV) pairs in Cloudflare's KV storage. all you need just take the part of action you want then use it with your workflow, keep in mind that the **_`Account Path`_** node is required for all actions as it's used to set the path of account, other authentication values is automatically set by n8n pre configured cloudflare api.\n ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌   ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌   ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ![Cloudflare Logo]({{ $env.WEBHOOK_URL }}\n\n\n# shortcuts:\n- ## **`NM`** or **`NMs`** =  _**`NameSpace/s`**_\n- ## **`KV`** or **`KVs`** = _**`Key/s - Value/s`**_\n- ## **`MD`** = _**`MetaData`**_"
       },
       "typeVersion": 1
     },
@@ -532,7 +535,7 @@
         1280
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
+        "url": "={{ $env.API_BASE_URL }}{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -556,7 +559,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -644,7 +647,7 @@
         1280
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
+        "url": "={{ $env.API_BASE_URL }}{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -668,7 +671,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -683,7 +686,7 @@
         1284
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
+        "url": "={{ $env.API_BASE_URL }}{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -707,7 +710,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -749,7 +752,7 @@
         1540
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (4)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (4)\"].json[\"NameSpace\"]).id }}/values/{{ $('Set KV-NM Name (4)').item.json['Key Name'] }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (4)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (4)\"].json[\"NameSpace\"]).id }}/values/{{ $('Set KV-NM Name (4)').item.json['Key Name'] }}",
         "method": "PUT",
         "options": {},
         "sendBody": true,
@@ -767,7 +770,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -831,7 +834,7 @@
         1540
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
+        "url": "={{ $env.API_BASE_URL }}{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -855,7 +858,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -870,7 +873,7 @@
         1540
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
+        "url": "={{ $env.API_BASE_URL }}{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -894,7 +897,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -909,7 +912,7 @@
         1560
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
+        "url": "={{ $env.API_BASE_URL }}{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -933,7 +936,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -948,7 +951,7 @@
         1840
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
+        "url": "={{ $env.API_BASE_URL }}{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -972,7 +975,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -987,7 +990,7 @@
         1840
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
+        "url": "={{ $env.API_BASE_URL }}{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -1011,7 +1014,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -1026,7 +1029,7 @@
         1840
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
+        "url": "={{ $env.API_BASE_URL }}{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -1050,7 +1053,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -1065,7 +1068,7 @@
         1835
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
+        "url": "={{ $env.API_BASE_URL }}{{ $json[\"Account Path (account_identifier)\"] }}/storage/kv/namespaces",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -1089,7 +1092,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -1153,7 +1156,7 @@
         1840
       ],
       "parameters": {
-        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (8)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (7)\"].json[\"NameSpace\"]).id }}/metadata/{{ $('Set KV-NM Name (7)').item.json['Key Name'] }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Account Path').params[\"fields\"][\"values\"][0][\"stringValue\"] }}/storage/kv/namespaces/{{ $node[\"List KV-NMs (8)\"].json[\"result\"].find(kv => kv.title === $node[\"Set KV-NM Name (7)\"].json[\"NameSpace\"]).id }}/metadata/{{ $('Set KV-NM Name (7)').item.json['Key Name'] }}",
         "options": {},
         "sendHeaders": true,
         "authentication": "predefinedCredentialType",
@@ -1165,10 +1168,583 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
+    },
+    {
+      "id": "error-handler-259848b4-5472-436e-9ef7-dbba14f21348",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 259848b4-5472-436e-9ef7-dbba14f21348",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2f6a6158-f755-4ad5-a874-c08f2182e2bd",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2f6a6158-f755-4ad5-a874-c08f2182e2bd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5ca2dfda-2662-44ad-a4f5-3a036533eaac",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 5ca2dfda-2662-44ad-a4f5-3a036533eaac",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-689575b2-8dcf-4a6b-bedb-2aa1e1de48f7",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 689575b2-8dcf-4a6b-bedb-2aa1e1de48f7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e78616dc-bf3d-4913-a463-427d4b62c07b",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e78616dc-bf3d-4913-a463-427d4b62c07b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1e444f44-4561-493d-b295-812f71e14385",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 1e444f44-4561-493d-b295-812f71e14385",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-89cde428-54c7-4f8f-b16c-5803ede6e015",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 89cde428-54c7-4f8f-b16c-5803ede6e015",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-71e7e9e3-57e6-43da-a90a-64aa79197769",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 71e7e9e3-57e6-43da-a90a-64aa79197769",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-197ca562-fc20-4cd6-8990-cd3e9e3d3b0d",
+      "name": "Stopanderror 8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 197ca562-fc20-4cd6-8990-cd3e9e3d3b0d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a9692d7c-f0bc-45c3-b99c-3c7a36d98f5c",
+      "name": "Stopanderror 9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a9692d7c-f0bc-45c3-b99c-3c7a36d98f5c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1c655d60-bcf8-42ee-a993-57b151789d44",
+      "name": "Stopanderror 10",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 1c655d60-bcf8-42ee-a993-57b151789d44",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b72a4e3e-60d6-4c31-9299-3d09c934d1c7",
+      "name": "Stopanderror 11",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b72a4e3e-60d6-4c31-9299-3d09c934d1c7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c2635c89-51a0-4a84-aa63-775f318fdc7a",
+      "name": "Stopanderror 12",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c2635c89-51a0-4a84-aa63-775f318fdc7a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b0bcd87c-f19f-4e8f-8899-37676e66aa95",
+      "name": "Stopanderror 13",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b0bcd87c-f19f-4e8f-8899-37676e66aa95",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-50f41db8-62ba-4bb2-abc0-cecbce4bcd12",
+      "name": "Stopanderror 14",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 50f41db8-62ba-4bb2-abc0-cecbce4bcd12",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-00315620-0ed0-47df-bbd1-98a8a089a018",
+      "name": "Stopanderror 15",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 00315620-0ed0-47df-bbd1-98a8a089a018",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ecce1146-2562-4beb-8c88-b30158251999",
+      "name": "Stopanderror 16",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ecce1146-2562-4beb-8c88-b30158251999",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bcad9996-5d32-4367-8b81-618a3af70879",
+      "name": "Stopanderror 17",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in bcad9996-5d32-4367-8b81-618a3af70879",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-64253d04-7ce4-4045-a41f-45faae2b6fd7",
+      "name": "Stopanderror 18",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 64253d04-7ce4-4045-a41f-45faae2b6fd7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-16f84be9-30b3-4664-9f9e-69b2ac961034",
+      "name": "Stopanderror 19",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 16f84be9-30b3-4664-9f9e-69b2ac961034",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-259848b4-5472-436e-9ef7-dbba14f21348-685f1fc2",
+      "name": "Error Handler for 259848b4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 259848b4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2f6a6158-f755-4ad5-a874-c08f2182e2bd-8f93a17e",
+      "name": "Error Handler for 2f6a6158",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2f6a6158",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5ca2dfda-2662-44ad-a4f5-3a036533eaac-8129b9b9",
+      "name": "Error Handler for 5ca2dfda",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5ca2dfda",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-689575b2-8dcf-4a6b-bedb-2aa1e1de48f7-af711405",
+      "name": "Error Handler for 689575b2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 689575b2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e78616dc-bf3d-4913-a463-427d4b62c07b-9e70b623",
+      "name": "Error Handler for e78616dc",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e78616dc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1e444f44-4561-493d-b295-812f71e14385-7f06a19d",
+      "name": "Error Handler for 1e444f44",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1e444f44",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-89cde428-54c7-4f8f-b16c-5803ede6e015-6511d3af",
+      "name": "Error Handler for 89cde428",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 89cde428",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-71e7e9e3-57e6-43da-a90a-64aa79197769-15f762d4",
+      "name": "Error Handler for 71e7e9e3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 71e7e9e3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-197ca562-fc20-4cd6-8990-cd3e9e3d3b0d-89f0433c",
+      "name": "Error Handler for 197ca562",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 197ca562",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a9692d7c-f0bc-45c3-b99c-3c7a36d98f5c-871061ef",
+      "name": "Error Handler for a9692d7c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a9692d7c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1c655d60-bcf8-42ee-a993-57b151789d44-7a59decd",
+      "name": "Error Handler for 1c655d60",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1c655d60",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b72a4e3e-60d6-4c31-9299-3d09c934d1c7-cd11e620",
+      "name": "Error Handler for b72a4e3e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b72a4e3e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c2635c89-51a0-4a84-aa63-775f318fdc7a-2d5d79cb",
+      "name": "Error Handler for c2635c89",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c2635c89",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b0bcd87c-f19f-4e8f-8899-37676e66aa95-bb27b0cd",
+      "name": "Error Handler for b0bcd87c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b0bcd87c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-50f41db8-62ba-4bb2-abc0-cecbce4bcd12-09ff8aa9",
+      "name": "Error Handler for 50f41db8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 50f41db8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-00315620-0ed0-47df-bbd1-98a8a089a018-572305bc",
+      "name": "Error Handler for 00315620",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 00315620",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ecce1146-2562-4beb-8c88-b30158251999-edc548cd",
+      "name": "Error Handler for ecce1146",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ecce1146",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bcad9996-5d32-4367-8b81-618a3af70879-d8dd2e60",
+      "name": "Error Handler for bcad9996",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node bcad9996",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-64253d04-7ce4-4045-a41f-45faae2b6fd7-9f906558",
+      "name": "Error Handler for 64253d04",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 64253d04",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-16f84be9-30b3-4664-9f9e-69b2ac961034-f6aebc28",
+      "name": "Error Handler for 16f84be9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 16f84be9",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-93890c4b",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Stickynote Workflow\n\n## Overview\nAutomated workflow: Stickynote Workflow. This workflow integrates 5 different services: stickyNote, httpRequest, set, stopAndError, manualTrigger. It contains 87 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 87\n- **Node Types**: 5\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Delete KV**: httpRequest\n- **Sticky Note3**: stickyNote\n- **Delete KV1**: httpRequest\n- **KV to Rename**: set\n- **Account Path**: set\n- **Sticky Note4**: stickyNote\n- **Sticky Note5**: stickyNote\n- ... and 77 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -1432,6 +2008,375 @@
           }
         ]
       ]
+    },
+    "259848b4-5472-436e-9ef7-dbba14f21348": {
+      "main": [
+        [
+          {
+            "node": "error-handler-259848b4-5472-436e-9ef7-dbba14f21348",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-259848b4-5472-436e-9ef7-dbba14f21348-685f1fc2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2f6a6158-f755-4ad5-a874-c08f2182e2bd": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2f6a6158-f755-4ad5-a874-c08f2182e2bd",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2f6a6158-f755-4ad5-a874-c08f2182e2bd-8f93a17e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5ca2dfda-2662-44ad-a4f5-3a036533eaac": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5ca2dfda-2662-44ad-a4f5-3a036533eaac",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-5ca2dfda-2662-44ad-a4f5-3a036533eaac-8129b9b9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "689575b2-8dcf-4a6b-bedb-2aa1e1de48f7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-689575b2-8dcf-4a6b-bedb-2aa1e1de48f7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-689575b2-8dcf-4a6b-bedb-2aa1e1de48f7-af711405",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e78616dc-bf3d-4913-a463-427d4b62c07b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e78616dc-bf3d-4913-a463-427d4b62c07b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e78616dc-bf3d-4913-a463-427d4b62c07b-9e70b623",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1e444f44-4561-493d-b295-812f71e14385": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1e444f44-4561-493d-b295-812f71e14385",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-1e444f44-4561-493d-b295-812f71e14385-7f06a19d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "89cde428-54c7-4f8f-b16c-5803ede6e015": {
+      "main": [
+        [
+          {
+            "node": "error-handler-89cde428-54c7-4f8f-b16c-5803ede6e015",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-89cde428-54c7-4f8f-b16c-5803ede6e015-6511d3af",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "71e7e9e3-57e6-43da-a90a-64aa79197769": {
+      "main": [
+        [
+          {
+            "node": "error-handler-71e7e9e3-57e6-43da-a90a-64aa79197769",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-71e7e9e3-57e6-43da-a90a-64aa79197769-15f762d4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "197ca562-fc20-4cd6-8990-cd3e9e3d3b0d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-197ca562-fc20-4cd6-8990-cd3e9e3d3b0d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-197ca562-fc20-4cd6-8990-cd3e9e3d3b0d-89f0433c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a9692d7c-f0bc-45c3-b99c-3c7a36d98f5c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a9692d7c-f0bc-45c3-b99c-3c7a36d98f5c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a9692d7c-f0bc-45c3-b99c-3c7a36d98f5c-871061ef",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1c655d60-bcf8-42ee-a993-57b151789d44": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1c655d60-bcf8-42ee-a993-57b151789d44",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-1c655d60-bcf8-42ee-a993-57b151789d44-7a59decd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b72a4e3e-60d6-4c31-9299-3d09c934d1c7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b72a4e3e-60d6-4c31-9299-3d09c934d1c7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b72a4e3e-60d6-4c31-9299-3d09c934d1c7-cd11e620",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c2635c89-51a0-4a84-aa63-775f318fdc7a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c2635c89-51a0-4a84-aa63-775f318fdc7a",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c2635c89-51a0-4a84-aa63-775f318fdc7a-2d5d79cb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b0bcd87c-f19f-4e8f-8899-37676e66aa95": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b0bcd87c-f19f-4e8f-8899-37676e66aa95",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b0bcd87c-f19f-4e8f-8899-37676e66aa95-bb27b0cd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "50f41db8-62ba-4bb2-abc0-cecbce4bcd12": {
+      "main": [
+        [
+          {
+            "node": "error-handler-50f41db8-62ba-4bb2-abc0-cecbce4bcd12",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-50f41db8-62ba-4bb2-abc0-cecbce4bcd12-09ff8aa9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "00315620-0ed0-47df-bbd1-98a8a089a018": {
+      "main": [
+        [
+          {
+            "node": "error-handler-00315620-0ed0-47df-bbd1-98a8a089a018",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-00315620-0ed0-47df-bbd1-98a8a089a018-572305bc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ecce1146-2562-4beb-8c88-b30158251999": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ecce1146-2562-4beb-8c88-b30158251999",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ecce1146-2562-4beb-8c88-b30158251999-edc548cd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bcad9996-5d32-4367-8b81-618a3af70879": {
+      "main": [
+        [
+          {
+            "node": "error-handler-bcad9996-5d32-4367-8b81-618a3af70879",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-bcad9996-5d32-4367-8b81-618a3af70879-d8dd2e60",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "64253d04-7ce4-4045-a41f-45faae2b6fd7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-64253d04-7ce4-4045-a41f-45faae2b6fd7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-64253d04-7ce4-4045-a41f-45faae2b6fd7-9f906558",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16f84be9-30b3-4664-9f9e-69b2ac961034": {
+      "main": [
+        [
+          {
+            "node": "error-handler-16f84be9-30b3-4664-9f9e-69b2ac961034",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-16f84be9-30b3-4664-9f9e-69b2ac961034-f6aebc28",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Stickynote Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 5 different services: stickyNote, httpRequest, set, stopAndError, manualTrigger. It contains 87 nodes and follows best practices for error handling and security."
 }

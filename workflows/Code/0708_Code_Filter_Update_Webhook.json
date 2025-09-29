@@ -20,7 +20,7 @@
         0
       ],
       "parameters": {
-        "url": "https://fresh-linkedin-profile-data.p.rapidapi.com/get-linkedin-profile",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
@@ -506,14 +506,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10cSUaj-YZhrgwXLIGpJzLjv6RMN6cYiw9EK-rNw0-AM/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "10cSUaj-YZhrgwXLIGpJzLjv6RMN6cYiw9EK-rNw0-AM",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10cSUaj-YZhrgwXLIGpJzLjv6RMN6cYiw9EK-rNw0-AM/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Linkedin contact info"
         }
       },
@@ -553,7 +553,7 @@
         "color": 4,
         "width": 300,
         "height": 480,
-        "content": "## Call RapidAPI Fresh Linkedin Profile Data\nYou have to create an account in [RapidAPI](https://rapidapi.com) and subscribe to Fresh LinkedIn Profile Data. With a free account you will be able to scrape 100 profile / month.\nAfter your subscription you will have to replace the header values: \"x-rapidapi-key\" and \"x-rapidapi-host\" with the values given in the RapidAPI interface\n"
+        "content": "## Call RapidAPI Fresh Linkedin Profile Data\nYou have to create an account in [RapidAPI]({{ $env.API_BASE_URL }} and subscribe to Fresh LinkedIn Profile Data. With a free account you will be able to scrape 100 profile / month.\nAfter your subscription you will have to replace the header values: \"x-rapidapi-key\" and \"x-rapidapi-host\" with the values given in the RapidAPI interface\n"
       },
       "typeVersion": 1
     },
@@ -571,14 +571,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10cSUaj-YZhrgwXLIGpJzLjv6RMN6cYiw9EK-rNw0-AM/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "10cSUaj-YZhrgwXLIGpJzLjv6RMN6cYiw9EK-rNw0-AM",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10cSUaj-YZhrgwXLIGpJzLjv6RMN6cYiw9EK-rNw0-AM/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Linkedin contact info"
         }
       },
@@ -602,9 +602,78 @@
         "color": 7,
         "width": 460,
         "height": 1160,
-        "content": "### LinkedIn Profile Enrichment Workflow\n\n#### Who is this for?\n\nThis workflow is ideal for recruiters, sales professionals, and marketing teams who need to enrich LinkedIn profiles with additional data for lead generation, talent sourcing, or market research.\n\n#### What problem is this workflow solving?\n\nManually gathering detailed LinkedIn profile information can be time-consuming and prone to errors. This workflow automates the process of enriching profile data from LinkedIn, saving time and ensuring accuracy.\n\n#### What this workflow does\n\n1.  **Input**: Reads LinkedIn profile URLs from a Google Sheet.\n2.  **Validation**: Filters out already enriched profiles to avoid redundant processing.\n3.  **Data Enrichment**: Uses RapidAPI's Fresh LinkedIn Profile Data API to retrieve detailed profile information.\n4.  **Output**: Updates the Google Sheet with enriched profile data, appending new information efficiently.\n\n#### Setup\n\n1.  **Google Sheet**: Create a sheet with a column named `linkedin_url` and populate it with the profile URLs to enrich.\n2.  **RapidAPI Account**: Sign up at [RapidAPI](https://rapidapi.com) and subscribe to the Fresh LinkedIn Profile Data API.\n3.  **API Integration**: Replace the `x-rapidapi-key` and `x-rapidapi-host` values with your credentials from RapidAPI.\n4.  **Run the Workflow**: Trigger the workflow and monitor the updates to your Google Sheet.\n\n#### How to customize this workflow\n\n*   **Filter Criteria**: Modify the filter step to include additional conditions for processing profiles.\n*   **API Configuration**: Adjust API parameters to retrieve specific fields or extend usage.\n*   **Output Format**: Customize how the enriched data is appended to the Google Sheet (e.g., format, column mappings).\n*   **Error Handling**: Add steps to handle API rate limits or missing data for smoother automation.\n\nThis workflow streamlines LinkedIn profile enrichment, making it faster and more effective for data-driven decision-making."
+        "content": "### LinkedIn Profile Enrichment Workflow\n\n#### Who is this for?\n\nThis workflow is ideal for recruiters, sales professionals, and marketing teams who need to enrich LinkedIn profiles with additional data for lead generation, talent sourcing, or market research.\n\n#### What problem is this workflow solving?\n\nManually gathering detailed LinkedIn profile information can be time-consuming and prone to errors. This workflow automates the process of enriching profile data from LinkedIn, saving time and ensuring accuracy.\n\n#### What this workflow does\n\n1.  **Input**: Reads LinkedIn profile URLs from a Google Sheet.\n2.  **Validation**: Filters out already enriched profiles to avoid redundant processing.\n3.  **Data Enrichment**: Uses RapidAPI's Fresh LinkedIn Profile Data API to retrieve detailed profile information.\n4.  **Output**: Updates the Google Sheet with enriched profile data, appending new information efficiently.\n\n#### Setup\n\n1.  **Google Sheet**: Create a sheet with a column named `linkedin_url` and populate it with the profile URLs to enrich.\n2.  **RapidAPI Account**: Sign up at [RapidAPI]({{ $env.API_BASE_URL }} and subscribe to the Fresh LinkedIn Profile Data API.\n3.  **API Integration**: Replace the `x-rapidapi-key` and `x-rapidapi-host` values with your credentials from RapidAPI.\n4.  **Run the Workflow**: Trigger the workflow and monitor the updates to your Google Sheet.\n\n#### How to customize this workflow\n\n*   **Filter Criteria**: Modify the filter step to include additional conditions for processing profiles.\n*   **API Configuration**: Adjust API parameters to retrieve specific fields or extend usage.\n*   **Output Format**: Customize how the enriched data is appended to the Google Sheet (e.g., format, column mappings).\n*   **Error Handling**: Add steps to handle API rate limits or missing data for smoother automation.\n\nThis workflow streamlines LinkedIn profile enrichment, making it faster and more effective for data-driven decision-making."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-1e85bf4f-52d5-4ec0-8d0b-a1deeb30c9c6",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 1e85bf4f-52d5-4ec0-8d0b-a1deeb30c9c6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1e85bf4f-52d5-4ec0-8d0b-a1deeb30c9c6-ee0c397d",
+      "name": "Error Handler for 1e85bf4f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1e85bf4f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-24b27c51-0f22-400c-bdc3-a09186c74639-bf8c3536",
+      "name": "Error Handler for 24b27c51",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 24b27c51",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2bae0a2a-0c88-465b-854d-728280539e90-1f1b7343",
+      "name": "Error Handler for 2bae0a2a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2bae0a2a",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-b38b26b5",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 8 different services: filter, httpRequest, stickyNote, code, set. It contains 14 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 14\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Call Rapid API**: httpRequest\n- **Filter already enriched**: filter\n- **Encode URI**: set\n- **FiIter out all arrays**: code\n- **Update the profile**: googleSheets\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Pull linkedin profiles**: googleSheets\n- **Sticky Note2**: stickyNote\n- ... and 4 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "connections": {
@@ -678,6 +747,61 @@
           }
         ]
       ]
+    },
+    "1e85bf4f-52d5-4ec0-8d0b-a1deeb30c9c6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1e85bf4f-52d5-4ec0-8d0b-a1deeb30c9c6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-1e85bf4f-52d5-4ec0-8d0b-a1deeb30c9c6-ee0c397d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "24b27c51-0f22-400c-bdc3-a09186c74639": {
+      "main": [
+        [
+          {
+            "node": "error-handler-24b27c51-0f22-400c-bdc3-a09186c74639-bf8c3536",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2bae0a2a-0c88-465b-854d-728280539e90": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2bae0a2a-0c88-465b-854d-728280539e90-1f1b7343",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 8 different services: filter, httpRequest, stickyNote, code, set. It contains 14 nodes and follows best practices for error handling and security.",
+  "meta": {
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   }
 }

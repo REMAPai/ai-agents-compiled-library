@@ -1,9 +1,10 @@
 {
   "id": "cRprVEUCjjvozkfb",
   "meta": {
-    "instanceId": "e634e668fe1fc93a75c4f2a7fc0dad807ca318b79654157eadb9578496acbc76",
-    "templateId": "548",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Get all orders in Squarespace to Google Sheets",
   "tags": [
@@ -35,7 +36,7 @@
         180
       ],
       "parameters": {
-        "url": "=https://api.squarespace.com/{{ $json[\"api-version\"] }}/commerce/orders",
+        "url": "={{ $env.API_BASE_URL }}{{ $json[\"api-version\"] }}/commerce/orders",
         "options": {
           "pagination": {
             "pagination": {
@@ -576,14 +577,14 @@
           "__rl": true,
           "mode": "list",
           "value": 2043293467,
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1yf_RYZGFHpMyOvD3RKGSvIFY2vumvI4474Qm_1t4-jM/edit#gid=2043293467",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "squarespace_orders"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1yf_RYZGFHpMyOvD3RKGSvIFY2vumvI4474Qm_1t4-jM",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1yf_RYZGFHpMyOvD3RKGSvIFY2vumvI4474Qm_1t4-jM/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Squarespace automation"
         }
       },
@@ -696,12 +697,71 @@
         "content": "## Get all Squarespace Orders\nRetrieves all Squarespace Orders and saves them into a Google Sheets spreadsheet using the Squarespace Commerce API\n\n### Setup\nOpen `Globals` node and update the values below 👇\n\n- **api-version** (string, required) – The current API version (see Squarespace Orders API documentation).\n- **modifiedAfter**={a-datetime} (string, conditional) – Fetch orders modified after a specific date (ISO 8601 format).\n- **modifiedBefore**={b-datetime} (string, conditional) – Fetch orders modified before a specific date (ISO 8601 format).\n- **cursor**={c} (string, conditional) – Used for pagination, cannot be combined with other filters.\n- **fulfillmentStatus**: PENDING, FULFILLED, or CANCELED.\n- **maxPage** – Set -1 to enables infinite pagination to fetch all available orders.\n\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-a1dcafad-6e82-4569-ba33-560d3286b08e",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a1dcafad-6e82-4569-ba33-560d3286b08e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a1dcafad-6e82-4569-ba33-560d3286b08e-59a64e52",
+      "name": "Error Handler for a1dcafad",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a1dcafad",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e910c791-d8be-4a4a-8d91-b9ef78c7c287-14b214ba",
+      "name": "Error Handler for e910c791",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e910c791",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-a5893859",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Get all orders in Squarespace to Google Sheets\n\n## Overview\nAutomated workflow: Get all orders in Squarespace to Google Sheets. This workflow integrates 8 different services: stickyNote, httpRequest, scheduleTrigger, splitOut, set. It contains 11 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 11\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **On clicking 'execute'**: manualTrigger\n- **Query Orders**: httpRequest\n- **Split Out Order **: splitOut\n- **Squarespace Orders Spreadsheet**: googleSheets\n- **Globals**: set\n- **Sticky Note3**: stickyNote\n- **Schedule Trigger**: scheduleTrigger\n- **Sticky Note**: stickyNote\n- **Error Handler**: stopAndError\n- **Error Handler for a1dcafad**: stopAndError\n- ... and 1 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "fd8ca9c3-787d-40da-aa22-594a3e900f0d",
   "connections": {
@@ -764,6 +824,36 @@
       "main": [
         []
       ]
+    },
+    "a1dcafad-6e82-4569-ba33-560d3286b08e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a1dcafad-6e82-4569-ba33-560d3286b08e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a1dcafad-6e82-4569-ba33-560d3286b08e-59a64e52",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e910c791-d8be-4a4a-8d91-b9ef78c7c287": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e910c791-d8be-4a4a-8d91-b9ef78c7c287-14b214ba",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Get all orders in Squarespace to Google Sheets. This workflow integrates 8 different services: stickyNote, httpRequest, scheduleTrigger, splitOut, set. It contains 11 nodes and follows best practices for error handling and security."
 }

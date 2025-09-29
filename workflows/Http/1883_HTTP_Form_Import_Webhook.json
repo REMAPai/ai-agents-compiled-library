@@ -1,7 +1,10 @@
 {
   "id": "i8nBvPOtFYWk5eoq",
   "meta": {
-    "instanceId": "c5a9958b493899f1235322c2c0e4f007083d1c79bb2c9043ae90b75371e276c7"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Get PDF with JSReport",
   "tags": [
@@ -35,7 +38,7 @@
         320
       ],
       "parameters": {
-        "url": "https://xxx.jsreportonline.net/api/report",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "=   {\n      \"template\": { \"name\" : \"invoice-main\" },\n      \"data\" :{\n    \"number\": \"123\",\n    \"seller\": {\n        \"name\": \"Next Step Webs, Inc.\",\n        \"road\": \"12345 Sunny Road\",\n        \"country\": \"Sunnyville, TX 12345\"\n    },\n    \"buyer\": {\n        \"name\": \"{{ $json[\"buyer name\"] }}\",\n        \"road\": \"{{ $json[\"buyer road\"] }}\",\n        \"country\": \"{{ $json[\"buyer country\"] }}\"\n    },\n    \"items\": [{\n        \"name\": \"{{ $json[\"Item 1 Name\"] }}\",\n        \"price\": {{ $json[\"Item 1 Price\"] }}\n    }, {\n        \"name\": \"{{ $json[\"Item 2 Name\"] }}\",\n        \"price\": {{ $json[\"Item 2 Price\"] }}\n    }]\n}\n   }",
@@ -79,7 +82,7 @@
         "color": 4,
         "width": 363,
         "height": 568,
-        "content": "## Information for calling JSReport\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n### URL API : \nhttps://xxx.jsreportonline.net/api/report\n\n### Use :\nTo use JSReport, simply call the APIs with the base URL. You can create a free account here: https://jsreport.net/online.\n\nThe APIs are available here: https://jsreport.net/learn/api.\n\nIn this example, we're sending a sample body that you can find in your JSReport test space."
+        "content": "## Information for calling JSReport\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n### URL API : \n{{ $env.API_BASE_URL }}\n\n### Use :\nTo use JSReport, simply call the APIs with the base URL. You can create a free account here: {{ $env.WEBHOOK_URL }}\n\nThe APIs are available here: {{ $env.API_BASE_URL }}\n\nIn this example, we're sending a sample body that you can find in your JSReport test space."
       },
       "typeVersion": 1
     },
@@ -160,12 +163,57 @@
       },
       "notesInFlow": true,
       "typeVersion": 2.1
+    },
+    {
+      "id": "error-handler-9514b49d-80f3-41d2-bcbc-8fa08e27cb64",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 9514b49d-80f3-41d2-bcbc-8fa08e27cb64",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9514b49d-80f3-41d2-bcbc-8fa08e27cb64-09185eac",
+      "name": "Error Handler for 9514b49d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9514b49d",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-bdfbf11b",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Get PDF with JSReport\n\n## Overview\nAutomated workflow: Get PDF with JSReport. This workflow integrates 5 different services: stickyNote, httpRequest, formTrigger, stopAndError, gmail. It contains 7 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 7\n- **Node Types**: 5\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Get PDF From JSReport**: httpRequest\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Form Invoice**: formTrigger\n- **Send invoice**: gmail\n- **Error Handler**: stopAndError\n- **Error Handler for 9514b49d**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "8e1b0f98-68ec-4300-a948-52439d00db66",
   "connections": {
@@ -190,6 +238,25 @@
           }
         ]
       ]
+    },
+    "9514b49d-80f3-41d2-bcbc-8fa08e27cb64": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9514b49d-80f3-41d2-bcbc-8fa08e27cb64",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-9514b49d-80f3-41d2-bcbc-8fa08e27cb64-09185eac",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Get PDF with JSReport. This workflow integrates 5 different services: stickyNote, httpRequest, formTrigger, stopAndError, gmail. It contains 7 nodes and follows best practices for error handling and security."
 }

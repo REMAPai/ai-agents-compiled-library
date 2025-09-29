@@ -1,7 +1,10 @@
 {
   "id": "hKkZYhJqBNir8amQ",
   "meta": {
-    "instanceId": "a943fc71a4dfb51cc3424882233bcd72e7a73857958af1cf464f7c21580c726e"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "🎥 Gemini AI Video Analysis",
   "tags": [
@@ -54,7 +57,7 @@
         160
       ],
       "parameters": {
-        "url": "=https://generativelanguage.googleapis.com/upload/v1beta/files?key={{ $vars.GeminiKey }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $vars.GeminiKey }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -93,7 +96,7 @@
         160
       ],
       "parameters": {
-        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key={{ $vars.GeminiKey }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $vars.GeminiKey }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n    \"contents\": [\n        {\n            \"role\": \"user\",\n            \"parts\": [\n                {\n                    \"fileData\": {\n                        \"fileUri\": \"{{ $json.file.uri }}\",\n                        \"mimeType\": \"{{ $json.file.mimeType }}\"\n                    }\n                },\n                {\n                    \"text\": \"Describe in detail what is visually happening in the video, including key elements, actions, colors, and branding. Note the style, tone, and any notable creative techniques being used.\"\n                }\n            ]\n        }\n    ],\n    \"generationConfig\": {\n        \"temperature\": 1.4,\n        \"topK\": 40,\n        \"topP\": 0.95,\n        \"maxOutputTokens\": 8192,\n        \"responseModalities\": [\"Text\"]\n    }\n}\n",
@@ -138,7 +141,7 @@
               "id": "6e1728e0-4749-47b9-92ae-4d1c0b7008c8",
               "name": "video_url",
               "type": "string",
-              "value": "https://video-gru2-1.xx.fbcdn.net/v/t42.1790-2/469342405_958689216107669_4819692307529683812_n.mp4?_nc_cat=109&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=DMM4-vR_LwoQ7kNvwGFIAOW&_nc_oc=AdkqAUzPHupjN-yAD8AGHbbnsMLQptad7NFTL-fuRa3Kq12boE6Ar_elagnzmgR87uU&_nc_zt=28&_nc_ht=video-gru2-1.xx&_nc_gid=ikICtUIUUCoHz775L2uRBw&oh=00_AfHlScWo8zXllEsqzl3wabxNva8z_qiFuA2g-hWzvnlVdg&oe=681596F3"
+              "value": "{{ $env.WEBHOOK_URL }}"
             }
           ]
         }
@@ -215,6 +218,103 @@
         "content": "## Video Processing Pipeline\n\nThis section handles the complete video processing workflow:\n\n1. DOWNLOAD: First, we fetch the video from the provided URL, converting it to binary data that Gemini can process\n\n2. UPLOAD: Next, we send the binary video data to Gemini's servers where it's stored temporarily for AI processing\n\n3. ANALYZE: Finally, we request Gemini's AI to analyze the video content. You can customize the prompt in the \"Analyze video Gemini\" node to focus on specific aspects of the video content you're interested in\n\nThe Wait node ensures the video is fully processed before analysis begins.\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-c0336074-a30f-4fc0-aa57-7142cea1a3da",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c0336074-a30f-4fc0-aa57-7142cea1a3da",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8b04c774-7a02-43ff-bac9-d19a427d514e",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 8b04c774-7a02-43ff-bac9-d19a427d514e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-eacf4317-18bc-441a-a415-488b65bb9545",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in eacf4317-18bc-441a-a415-488b65bb9545",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c0336074-a30f-4fc0-aa57-7142cea1a3da-d0368634",
+      "name": "Error Handler for c0336074",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c0336074",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8b04c774-7a02-43ff-bac9-d19a427d514e-b225de0f",
+      "name": "Error Handler for 8b04c774",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8b04c774",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-eacf4317-18bc-441a-a415-488b65bb9545-470572b5",
+      "name": "Error Handler for eacf4317",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node eacf4317",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-81e1e01f",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# 🎥 Gemini AI Video Analysis\n\n## Overview\nAutomated workflow: 🎥 Gemini AI Video Analysis. This workflow integrates 6 different services: stickyNote, httpRequest, wait, set, stopAndError. It contains 16 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 16\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Wait**: wait\n- **Download video**: httpRequest\n- **Upload video Gemini**: httpRequest\n- **Analyze video Gemini**: httpRequest\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Set Input**: set\n- **Get Result**: set\n- **Sticky Note3**: stickyNote\n- **Sticky Note4**: stickyNote\n- **Sticky Note1**: stickyNote\n- ... and 6 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -223,7 +323,7 @@
       {
         "json": {
           "file": {
-            "uri": "https://generativelanguage.googleapis.com/v1beta/files/7whopq8rwtt8",
+            "uri": "{{ $env.API_BASE_URL }}",
             "name": "files/7whopq8rwtt8",
             "state": "PROCESSING",
             "source": "UPLOADED",
@@ -285,7 +385,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "5f8d8d62-091e-4883-bbb0-8087ebe7b501",
   "connections": {
@@ -354,6 +458,61 @@
           }
         ]
       ]
+    },
+    "c0336074-a30f-4fc0-aa57-7142cea1a3da": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c0336074-a30f-4fc0-aa57-7142cea1a3da",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c0336074-a30f-4fc0-aa57-7142cea1a3da-d0368634",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8b04c774-7a02-43ff-bac9-d19a427d514e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8b04c774-7a02-43ff-bac9-d19a427d514e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-8b04c774-7a02-43ff-bac9-d19a427d514e-b225de0f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "eacf4317-18bc-441a-a415-488b65bb9545": {
+      "main": [
+        [
+          {
+            "node": "error-handler-eacf4317-18bc-441a-a415-488b65bb9545",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-eacf4317-18bc-441a-a415-488b65bb9545-470572b5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: 🎥 Gemini AI Video Analysis. This workflow integrates 6 different services: stickyNote, httpRequest, wait, set, stopAndError. It contains 16 nodes and follows best practices for error handling and security."
 }

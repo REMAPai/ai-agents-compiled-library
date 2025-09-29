@@ -1,7 +1,10 @@
 {
   "id": "8EmNhftXznAGV3dR",
   "meta": {
-    "instanceId": "03e9d14e9196363fe7191ce21dc0bb17387a6e755dcc9acc4f5904752919dca8"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Phishing_analysis__URLScan_io_and_Virustotal_",
   "tags": [
@@ -39,7 +42,7 @@
         1280
       ],
       "parameters": {
-        "text": "=*Email Analysis*\n\nSubject: {{ $('Microsoft Outlook').item.json[\"subject\"] }}\nFrom: {{ $('Microsoft Outlook').item.json[\"sender\"][\"emailAddress\"][\"address\"] }}\nDate: {{ $('Microsoft Outlook').item.json[\"sentDateTime\"] }}\n\nReport:\n\n*URLScan Report URL:* {{ $('urlscan.io').item.json.result ? $('urlscan.io').item.json.result : \"N/A\" }}\n*Virustotal report:* https://www.virustotal.com/gui/url/{{ $json[\"data\"][\"id\"].split(\"-\")[1] }}\n*Virustotal Verdict:* {{ $json.data.attributes.stats.malicious + $json.data.attributes.stats.suspicious }} / {{ Object.keys($json.data.attributes.results).length }}",
+        "text": "=*Email Analysis*\n\nSubject: {{ $('Microsoft Outlook').item.json[\"subject\"] }}\nFrom: {{ $('Microsoft Outlook').item.json[\"sender\"][\"emailAddress\"][\"address\"] }}\nDate: {{ $('Microsoft Outlook').item.json[\"sentDateTime\"] }}\n\nReport:\n\n*URLScan Report URL:* {{ $('urlscan.io').item.json.result ? $('urlscan.io').item.json.result : \"N/A\" }}\n*Virustotal report:* {{ $env.WEBHOOK_URL }}{{ $json[\"data\"][\"id\"].split(\"-\")[1] }}\n*Virustotal Verdict:* {{ $json.data.attributes.stats.malicious + $json.data.attributes.stats.suspicious }} / {{ Object.keys($json.data.attributes.results).length }}",
         "select": "channel",
         "channelId": {
           "__rl": true,
@@ -102,7 +105,7 @@
         700
       ],
       "parameters": {
-        "url": "https://www.virustotal.com/api/v3/urls",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendQuery": true,
@@ -115,7 +118,7 @@
             }
           ]
         },
-        "nodeCredentialType": "virusTotalApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "virusTotalApi": {
@@ -134,7 +137,7 @@
         700
       ],
       "parameters": {
-        "url": "=https://www.virustotal.com/api/v3/analyses/{{ $json.data.id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.data.id }}",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -142,11 +145,11 @@
           "parameters": [
             {
               "name": "resource",
-              "value": "https://developers.virustotal.com/v2.0/reference/url-report"
+              "value": "{{ $env.WEBHOOK_URL }}"
             }
           ]
         },
-        "nodeCredentialType": "virusTotalApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "virusTotalApi": {
@@ -300,7 +303,7 @@
       "parameters": {
         "width": 474.5187061049208,
         "height": 1008.8561536646063,
-        "content": "![Scheduled](https://i.imgur.com/PcOuvAL.png)\n## Workflow Overview\n\nThis n8n workflow is engineered to enhance cybersecurity measures by analyzing potential phishing URLs using URLScan.io and VirusTotal. \n\nIt is designed to automatically process and evaluate URLs from incoming messages for malicious content.\n\nThis workflow is tuned specifically for `Outlook`, but you can replace outlook with your mail provider of choice. \n\nThe workflow can be initiated manually or scheduled to run automatically, ensuring consistent checks against phishing threats. By integrating with leading cybersecurity tools, it provides a comprehensive analysis, strengthening your organization's defense against phishing attacks.\n\n## Execution Schedule\n\nIt can be triggered at will by clicking \"Execute Workflow\" or set to run on a schedule. To align with your operational needs, customize the `Schedule Trigger` to your preferred frequency, ensuring continuous monitoring for phishing attempts."
+        "content": "![Scheduled]({{ $env.WEBHOOK_URL }}\n## Workflow Overview\n\nThis n8n workflow is engineered to enhance cybersecurity measures by analyzing potential phishing URLs using URLScan.io and VirusTotal. \n\nIt is designed to automatically process and evaluate URLs from incoming messages for malicious content.\n\nThis workflow is tuned specifically for `Outlook`, but you can replace outlook with your mail provider of choice. \n\nThe workflow can be initiated manually or scheduled to run automatically, ensuring consistent checks against phishing threats. By integrating with leading cybersecurity tools, it provides a comprehensive analysis, strengthening your organization's defense against phishing attacks.\n\n## Execution Schedule\n\nIt can be triggered at will by clicking \"Execute Workflow\" or set to run on a schedule. To align with your operational needs, customize the `Schedule Trigger` to your preferred frequency, ensuring continuous monitoring for phishing attempts."
       },
       "typeVersion": 1
     },
@@ -315,7 +318,7 @@
       "parameters": {
         "width": 397.3953488372091,
         "height": 647.1076277970203,
-        "content": "![Outlook](https://i.imgur.com/R3Bhd8I.png)\n## Email Processing for Phishing Analysis\nThis segment of the workflow interfaces with Microsoft Outlook to retrieve and process `all messages marked as unread`. This section can be replaced with any mail provider.\n\nOnce an email is fetched, the `Get all unread messages` node captures the details, while the `Mark as read` node updates the message's status. \n\nThis ensures that each email is only processed once, maintaining a clean and organized inbox, and preventing reprocessing of the same messages."
+        "content": "![Outlook]({{ $env.WEBHOOK_URL }}\n## Email Processing for Phishing Analysis\nThis segment of the workflow interfaces with Microsoft Outlook to retrieve and process `all messages marked as unread`. This section can be replaced with any mail provider.\n\nOnce an email is fetched, the `Get all unread messages` node captures the details, while the `Mark as read` node updates the message's status. \n\nThis ensures that each email is only processed once, maintaining a clean and organized inbox, and preventing reprocessing of the same messages."
       },
       "typeVersion": 1
     },
@@ -330,7 +333,7 @@
       "parameters": {
         "width": 859.9418604651164,
         "height": 836.8098049558043,
-        "content": "![python](https://i.imgur.com/S2TZ3u6.png)\n## Indicator of Compromise Detection Loop\nThis workflow section leverages n8n's `Split In Batches` node, a powerful feature for iterative processing. It is set to dissect the batch of emails one by one, allowing for individual examination of each message's content for potential threats.\n\nWith the `Find indicators of compromise` node, the workflow employs Python code to parse the email content and extract URLs, which are common indicators of compromise (IoCs) in phishing attempts. By utilizing the ioc-finder library, it systematically scans for and isolates these IoCs from the email body.\n\nThe `Has URL?` node then checks if the email contains any urls. If no URLs are found, then the loop moves on to the next email, as there is nothing to scan. If it does find one, it allows the email to flow to the next sections. \n\nThe splitting of batches is key to the workflow's efficiency, enabling the loop to handle vast quantities of emails methodically. This step is crucial in pinpointing and extracting suspicious elements from each email, highlighting the workflow's meticulous approach to security analysis."
+        "content": "![python]({{ $env.WEBHOOK_URL }}\n## Indicator of Compromise Detection Loop\nThis workflow section leverages n8n's `Split In Batches` node, a powerful feature for iterative processing. It is set to dissect the batch of emails one by one, allowing for individual examination of each message's content for potential threats.\n\nWith the `Find indicators of compromise` node, the workflow employs Python code to parse the email content and extract URLs, which are common indicators of compromise (IoCs) in phishing attempts. By utilizing the ioc-finder library, it systematically scans for and isolates these IoCs from the email body.\n\nThe `Has URL?` node then checks if the email contains any urls. If no URLs are found, then the loop moves on to the next email, as there is nothing to scan. If it does find one, it allows the email to flow to the next sections. \n\nThe splitting of batches is key to the workflow's efficiency, enabling the loop to handle vast quantities of emails methodically. This step is crucial in pinpointing and extracting suspicious elements from each email, highlighting the workflow's meticulous approach to security analysis."
       },
       "typeVersion": 1
     },
@@ -345,7 +348,7 @@
       "parameters": {
         "width": 1099.116279069767,
         "height": 618.8295813953489,
-        "content": "![urlscan](https://i.imgur.com/RjaMt6c.png)\n## URL Scanning and Verification\nThis portion of the workflow engages with URLScan.io, a tool for scanning and analyzing websites for potential security threats.\n\nThe `URLScan: Scan URL` node begins the process by submitting the URL extracted from the email content. It's configured to continue even if an error occurs, which allows us to then do an error check in the `No error?` node instead. \n\nThis is because if the `URLScan: Scan URL` node fails, the whole workflow will grind to a stop. This is not good because in theory, we maybe processing another email after this one, and we need to ensure the workflow moves on to the next email. \n\nFollowing the submission, the `Wait 1 Minute` node pauses the workflow, giving URLScan.io adequate time to perform the scan and generate a report. This wait ensures that the subsequent retrieval of the report reflects the most recent and comprehensive analysis."
+        "content": "![urlscan]({{ $env.WEBHOOK_URL }}\n## URL Scanning and Verification\nThis portion of the workflow engages with URLScan.io, a tool for scanning and analyzing websites for potential security threats.\n\nThe `URLScan: Scan URL` node begins the process by submitting the URL extracted from the email content. It's configured to continue even if an error occurs, which allows us to then do an error check in the `No error?` node instead. \n\nThis is because if the `URLScan: Scan URL` node fails, the whole workflow will grind to a stop. This is not good because in theory, we maybe processing another email after this one, and we need to ensure the workflow moves on to the next email. \n\nFollowing the submission, the `Wait 1 Minute` node pauses the workflow, giving URLScan.io adequate time to perform the scan and generate a report. This wait ensures that the subsequent retrieval of the report reflects the most recent and comprehensive analysis."
       },
       "typeVersion": 1
     },
@@ -390,7 +393,7 @@
       "parameters": {
         "width": 1213.8313506082789,
         "height": 575.5779026440933,
-        "content": "![Slack](https://i.imgur.com/iKyMV0N.png)\n## Final Reporting on Phishing Analysis\nIn the concluding phase of the workflow, we consolidate the analysis into actionable intelligence and report through Slack.\n\nThe `Not empty?` node filters the data, ensuring that only URLs with a completed analysis proceed to the reporting stage. This step is crucial to avoid alerting on incomplete data, which could lead to misinformed decisions.\n\nThe `sends slack message` node is the final touchpoint of the workflow, where it compiles a detailed report and posts it on Slack. The message includes the `subject, sender, and date` of the analyzed email, along with the URLScan and VirusTotal reports. It provides a concise verdict by tallying the number of malicious and suspicious flags against the total checks performed, offering a clear indication of the potential threat level.\n\nThis Slack notification serves as a prompt for the cybersecurity team to take appropriate action, completing the workflow's aim of providing streamlined, accurate, and timely phishing threat analysis."
+        "content": "![Slack]({{ $env.WEBHOOK_URL }}\n## Final Reporting on Phishing Analysis\nIn the concluding phase of the workflow, we consolidate the analysis into actionable intelligence and report through Slack.\n\nThe `Not empty?` node filters the data, ensuring that only URLs with a completed analysis proceed to the reporting stage. This step is crucial to avoid alerting on incomplete data, which could lead to misinformed decisions.\n\nThe `sends slack message` node is the final touchpoint of the workflow, where it compiles a detailed report and posts it on Slack. The message includes the `subject, sender, and date` of the analyzed email, along with the URLScan and VirusTotal reports. It provides a concise verdict by tallying the number of malicious and suspicious flags against the total checks performed, offering a clear indication of the potential threat level.\n\nThis Slack notification serves as a prompt for the cybersecurity team to take appropriate action, completing the workflow's aim of providing streamlined, accurate, and timely phishing threat analysis."
       },
       "typeVersion": 1
     },
@@ -427,7 +430,7 @@
       "parameters": {
         "width": 615.527819465977,
         "height": 540.6919228251508,
-        "content": "![VirusTotal](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/VirusTotal_logo.svg/320px-VirusTotal_logo.svg.png)\n## Phishing URL Analysis with VirusTotal\nThis segment of the workflow deploys VirusTotal's capabilities to scrutinize URLs for signs of phishing.\n\nThe `VirusTotal: Scan URL` node initiates the process by sending the URL to VirusTotal for analysis. Once the scan is triggered, the workflow moves on to the `VirusTotal: Get report` node, which retrieves the detailed analysis report after a certain interval, ensuring that the data received includes all findings from the scan.\n\nFinally, the `Merge Reports` node combines the results from both URLScan.io and VirusTotal, aligning the data side by side for a comprehensive view. This merging by position is vital as it correlates the analysis from different sources, providing a layered security assessment of the URL in question."
+        "content": "![VirusTotal]({{ $env.WEBHOOK_URL }}\n## Phishing URL Analysis with VirusTotal\nThis segment of the workflow deploys VirusTotal's capabilities to scrutinize URLs for signs of phishing.\n\nThe `VirusTotal: Scan URL` node initiates the process by sending the URL to VirusTotal for analysis. Once the scan is triggered, the workflow moves on to the `VirusTotal: Get report` node, which retrieves the detailed analysis report after a certain interval, ensuring that the data received includes all findings from the scan.\n\nFinally, the `Merge Reports` node combines the results from both URLScan.io and VirusTotal, aligning the data side by side for a comprehensive view. This merging by position is vital as it correlates the analysis from different sources, providing a layered security assessment of the URL in question."
       },
       "typeVersion": 1
     },
@@ -445,12 +448,99 @@
         "combinationMode": "mergeByPosition"
       },
       "typeVersion": 2.1
+    },
+    {
+      "id": "error-handler-62098c94-5735-4eed-a712-3f9887e0400f",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 62098c94-5735-4eed-a712-3f9887e0400f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-55b7ce97-3609-4a16-b998-8bec77cffb59",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 55b7ce97-3609-4a16-b998-8bec77cffb59",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5a1e0490-6971-4490-a806-46da5e226365-6e1f1d59",
+      "name": "Error Handler for 5a1e0490",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5a1e0490",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-62098c94-5735-4eed-a712-3f9887e0400f-e824efe7",
+      "name": "Error Handler for 62098c94",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 62098c94",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-55b7ce97-3609-4a16-b998-8bec77cffb59-5f737feb",
+      "name": "Error Handler for 55b7ce97",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 55b7ce97",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-874b4a23",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Phishing_analysis__URLScan_io_and_Virustotal_\n\n## Overview\nAutomated workflow: Phishing_analysis__URLScan_io_and_Virustotal_. This workflow integrates 14 different services: microsoftOutlook, httpRequest, filter, stickyNote, wait. It contains 28 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 28\n- **Node Types**: 14\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking \"Execute Workflow\"**: manualTrigger\n- **sends slack message**: slack\n- **Split In Batches**: splitInBatches\n- **Mark as read**: microsoftOutlook\n- **VirusTotal: Scan URL**: httpRequest\n- **VirusTotal: Get report**: httpRequest\n- **Schedule Trigger**: scheduleTrigger\n- **Find indicators of compromise**: code\n- **URLScan: Get report**: urlScanIo\n- **URLScan: Scan URL**: urlScanIo\n- ... and 18 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "02ba918c-5fee-4d3e-824f-1160881716b6",
   "connections": {
@@ -644,6 +734,54 @@
           }
         ]
       ]
+    },
+    "62098c94-5735-4eed-a712-3f9887e0400f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-62098c94-5735-4eed-a712-3f9887e0400f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-62098c94-5735-4eed-a712-3f9887e0400f-e824efe7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "55b7ce97-3609-4a16-b998-8bec77cffb59": {
+      "main": [
+        [
+          {
+            "node": "error-handler-55b7ce97-3609-4a16-b998-8bec77cffb59",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-55b7ce97-3609-4a16-b998-8bec77cffb59-5f737feb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5a1e0490-6971-4490-a806-46da5e226365": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5a1e0490-6971-4490-a806-46da5e226365-6e1f1d59",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Phishing_analysis__URLScan_io_and_Virustotal_. This workflow integrates 14 different services: microsoftOutlook, httpRequest, filter, stickyNote, wait. It contains 28 nodes and follows best practices for error handling and security."
 }

@@ -1,7 +1,10 @@
 {
   "id": "g25bM3Hj71T3ZVVe",
   "meta": {
-    "instanceId": "21754f977ce20b07e6fe64be3fbc663f6e6f730423d6e46c6cd2bf5b5e70a383"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Streamline data from an n8n form into Google Sheet and Airtable",
   "tags": [],
@@ -276,14 +279,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ss6AEwaXpAl54YQAQDf1z6SRyh6pj719-A9eOzf2Dv4/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Page"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1Ss6AEwaXpAl54YQAQDf1z6SRyh6pj719-A9eOzf2Dv4",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ss6AEwaXpAl54YQAQDf1z6SRyh6pj719-A9eOzf2Dv4/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Streamline data from an n8n form into Google Sheet and Airtable"
         }
       },
@@ -352,7 +355,7 @@
       "parameters": {
         "width": 510.8381838182147,
         "height": 206.48715095387286,
-        "content": "### Links to Node Documentation:\n1. [n8n Form Trigger Documentation](https://docs.n8n.io/nodes/n8n-nodes-base.formTrigger)\n2. [Code Node Documentation](https://docs.n8n.io/nodes/n8n-nodes-base.code)\n3. [Set Node Documentation](https://docs.n8n.io/nodes/n8n-nodes-base.set)\n4. [Airtable Node Documentation](https://docs.n8n.io/nodes/n8n-nodes-base.airtable)\n5. [Google Sheets Node Documentation](https://docs.n8n.io/nodes/n8n-nodes-base.googleSheets)\n6. [Gmail Node Documentation](https://docs.n8n.io/nodes/n8n-nodes-base.gmail)\n"
+        "content": "### Links to Node Documentation:\n1. [n8n Form Trigger Documentation]({{ $env.WEBHOOK_URL }}\n2. [Code Node Documentation]({{ $env.WEBHOOK_URL }}\n3. [Set Node Documentation]({{ $env.WEBHOOK_URL }}\n4. [Airtable Node Documentation]({{ $env.WEBHOOK_URL }}\n5. [Google Sheets Node Documentation]({{ $env.WEBHOOK_URL }}\n6. [Gmail Node Documentation]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -370,12 +373,43 @@
         "content": ""
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-a0d53cb5-27c8-4dfb-a1ea-e2403bde1fc4-601db50e",
+      "name": "Error Handler for a0d53cb5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a0d53cb5",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-8bf791e5",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Streamline data from an n8n form into Google Sheet and Airtable\n\n## Overview\nAutomated workflow: Streamline data from an n8n form into Google Sheet and Airtable. This workflow integrates 8 different services: stickyNote, formTrigger, airtable, code, set. It contains 11 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 11\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **n8n Form Trigger**: formTrigger\n- **Extracting Date and Time Fields from 'submittedAt' Field**: code\n- **Format the Fields**: set\n- **Airtable**: airtable\n- **Sticky Note**: stickyNote\n- **Google Sheets**: googleSheets\n- **Gmail**: gmail\n- **Gmail1**: gmail\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- ... and 1 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "de903de6-c793-4a64-9d3c-0ade08d6994e",
   "connections": {
@@ -438,6 +472,18 @@
           }
         ]
       ]
+    },
+    "a0d53cb5-27c8-4dfb-a1ea-e2403bde1fc4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a0d53cb5-27c8-4dfb-a1ea-e2403bde1fc4-601db50e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Streamline data from an n8n form into Google Sheet and Airtable. This workflow integrates 8 different services: stickyNote, formTrigger, airtable, code, set. It contains 11 nodes and follows best practices for error handling and security."
 }

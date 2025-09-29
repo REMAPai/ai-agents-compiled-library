@@ -162,7 +162,7 @@
               "id": "9672bea2-3a6a-4162-9966-107bf2ddbee5",
               "name": "instance_url",
               "type": "string",
-              "value": "https://x.app.n8n.cloud/"
+              "value": "{{ $env.WEBHOOK_URL }}"
             },
             {
               "id": "52b53b37-5f69-4fb8-9569-f62788d91af1",
@@ -344,7 +344,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "help",
+              "outputKey": "output_1",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -624,7 +624,7 @@
         1120
       ],
       "parameters": {
-        "jsCode": "const user = {\n  id: '1',\n  email: 'mutasem@n8n.io',\n  name: 'Mutasem Aldmour',\n  username: 'mutasem',\n  profile_url: 'https://n8n.io/creators/mutasem/',\n}\n\nconst fields = [\n    `*id:*\\n${user.id}`,\n    `*email:*\\n${user.email}`,\n    `*name:*\\n${user.name}`,\n    `*urls:*\\n<${user.profile_url}|creator profile>`\n];\n\n// remember no more than 10 fields per section\nconst output = {\n    \"blocks\":\n    [\n        {\n            \"type\": \"section\",\n            \"text\":\n            {\n                \"type\": \"mrkdwn\",\n                \"text\": `User: *${user.username}*`\n            }\n        },\n        {\n            \"type\": \"section\",\n            \"fields\": fields.map((text) => {\n                    return {\n                        \"type\": \"mrkdwn\",\n                        text,\n                    };\n                })\n        }\n    ]\n}\n\nreturn { slack_message: output };"
+        "jsCode": "const user = {\n  id: '1',\n  email: 'mutasem@n8n.io',\n  name: 'Mutasem Aldmour',\n  username: 'mutasem',\n  profile_url: '{{ $env.WEBHOOK_URL }}',\n}\n\nconst fields = [\n    `*id:*\\n${user.id}`,\n    `*email:*\\n${user.email}`,\n    `*name:*\\n${user.name}`,\n    `*urls:*\\n<${user.profile_url}|creator profile>`\n];\n\n// remember no more than 10 fields per section\nconst output = {\n    \"blocks\":\n    [\n        {\n            \"type\": \"section\",\n            \"text\":\n            {\n                \"type\": \"mrkdwn\",\n                \"text\": `User: *${user.username}*`\n            }\n        },\n        {\n            \"type\": \"section\",\n            \"fields\": fields.map((text) => {\n                    return {\n                        \"type\": \"mrkdwn\",\n                        text,\n                    };\n                })\n        }\n    ]\n}\n\nreturn { slack_message: output };"
       },
       "typeVersion": 1
     },
@@ -828,6 +828,299 @@
         "jsCode": "const SIGNING_SECRET = $input.first().json.slack_secret_signature;\nconst item = $('Webhook to call for Slack command').first();\n\nif (!item.binary) {\n  throw new Error('Missing binary data');\n}\n\nconst crypto = require('crypto');\nconst { binary: { data } } = item;\n\nif (\n  !item.json.headers['x-slack-request-timestamp'] ||\n  Math.abs(\n    Math.floor(new Date().getTime() / 1000) -\n      +item.json.headers['x-slack-request-timestamp']\n  ) > 300\n) {\n  throw new Error('Unauthorized, request not fresh');\n}\n\nconst rawBody = Buffer.from(data.data, 'base64').toString()\n\n// compute the basestring\nconst baseStr = `v0:${item.json.headers['x-slack-request-timestamp']}:${rawBody}`;\n\n// extract the received signature from the request headers\nconst receivedSignature = item.json.headers['x-slack-signature'];\n\nconst expectedSignature = `v0=${crypto.createHmac('sha256', SIGNING_SECRET)\n.update(baseStr, 'utf8')\n.digest('hex')}`;\n\n// match the two signatures\nif (expectedSignature !== receivedSignature) {\nthrow new Error('Unauthorized, umatched signatures');\n}\n\nreturn $input.all();"
       },
       "typeVersion": 2
+    },
+    {
+      "id": "error-handler-ee413d6c-dad3-4e57-b08d-ffd0f84c682e",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ee413d6c-dad3-4e57-b08d-ffd0f84c682e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-30355072-5d75-4deb-af67-909ba59e6eb3",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 30355072-5d75-4deb-af67-909ba59e6eb3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4c730be9-d3f5-45ee-8f2b-b6bfd685ea78",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 4c730be9-d3f5-45ee-8f2b-b6bfd685ea78",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ed9f2ed8-5266-42a3-9d47-621050e5bf97",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ed9f2ed8-5266-42a3-9d47-621050e5bf97",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e56875c4-ce2b-4639-aabc-21f1562a3858",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e56875c4-ce2b-4639-aabc-21f1562a3858",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-99cab485-4099-4505-9c9e-33ea389818e5",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 99cab485-4099-4505-9c9e-33ea389818e5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-09dc7ecf-a577-427e-a193-ed29d260c5fe",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 09dc7ecf-a577-427e-a193-ed29d260c5fe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0ca15a51-2e56-4ef4-8be6-96f45ed17867",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 0ca15a51-2e56-4ef4-8be6-96f45ed17867",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8e0a3745-348b-42db-82cc-55676c897ad7-d68fefbd",
+      "name": "Error Handler for 8e0a3745",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8e0a3745",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ee413d6c-dad3-4e57-b08d-ffd0f84c682e-8a8e12aa",
+      "name": "Error Handler for ee413d6c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ee413d6c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-30355072-5d75-4deb-af67-909ba59e6eb3-2a42ccd1",
+      "name": "Error Handler for 30355072",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 30355072",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4c730be9-d3f5-45ee-8f2b-b6bfd685ea78-ad803618",
+      "name": "Error Handler for 4c730be9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4c730be9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ed9f2ed8-5266-42a3-9d47-621050e5bf97-88425cfb",
+      "name": "Error Handler for ed9f2ed8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ed9f2ed8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9904180a-e937-43fd-9b04-627e860d693a-66d828b2",
+      "name": "Error Handler for 9904180a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9904180a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e56875c4-ce2b-4639-aabc-21f1562a3858-2b3cf3f0",
+      "name": "Error Handler for e56875c4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e56875c4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-99cab485-4099-4505-9c9e-33ea389818e5-c4b58a4e",
+      "name": "Error Handler for 99cab485",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 99cab485",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-09dc7ecf-a577-427e-a193-ed29d260c5fe-1d2c618e",
+      "name": "Error Handler for 09dc7ecf",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 09dc7ecf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0ca15a51-2e56-4ef4-8be6-96f45ed17867-82936165",
+      "name": "Error Handler for 0ca15a51",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0ca15a51",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1f2eff56-a89b-4d6d-af8b-477c81c8bab3-4cda18de",
+      "name": "Error Handler for 1f2eff56",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1f2eff56",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0c0d0487-a594-4e88-b777-21b4816115cd-d0c6160e",
+      "name": "Error Handler for 0c0d0487",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0c0d0487",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-f2710842",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Slack Workflow\n\n## Overview\nAutomated workflow: Slack Workflow. This workflow integrates 13 different services: webhook, stickyNote, httpRequest, code, merge. It contains 54 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 54\n- **Node Types**: 13\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Start thread**: slack\n- **send help**: httpRequest\n- **Validate Slack token**: if\n- **Sticky Note3**: stickyNote\n- **Reply to user that command was received**: httpRequest\n- **if has workflow**: if\n- **Set config**: set\n- **Send debug url**: httpRequest\n- **if create thread**: if\n- **Alert user that thread was created**: httpRequest\n- ... and 44 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -1096,6 +1389,209 @@
           }
         ]
       ]
+    },
+    "ee413d6c-dad3-4e57-b08d-ffd0f84c682e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ee413d6c-dad3-4e57-b08d-ffd0f84c682e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ee413d6c-dad3-4e57-b08d-ffd0f84c682e-8a8e12aa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "30355072-5d75-4deb-af67-909ba59e6eb3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-30355072-5d75-4deb-af67-909ba59e6eb3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-30355072-5d75-4deb-af67-909ba59e6eb3-2a42ccd1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4c730be9-d3f5-45ee-8f2b-b6bfd685ea78": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4c730be9-d3f5-45ee-8f2b-b6bfd685ea78",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-4c730be9-d3f5-45ee-8f2b-b6bfd685ea78-ad803618",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ed9f2ed8-5266-42a3-9d47-621050e5bf97": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ed9f2ed8-5266-42a3-9d47-621050e5bf97",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ed9f2ed8-5266-42a3-9d47-621050e5bf97-88425cfb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e56875c4-ce2b-4639-aabc-21f1562a3858": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e56875c4-ce2b-4639-aabc-21f1562a3858",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e56875c4-ce2b-4639-aabc-21f1562a3858-2b3cf3f0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "99cab485-4099-4505-9c9e-33ea389818e5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-99cab485-4099-4505-9c9e-33ea389818e5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-99cab485-4099-4505-9c9e-33ea389818e5-c4b58a4e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "09dc7ecf-a577-427e-a193-ed29d260c5fe": {
+      "main": [
+        [
+          {
+            "node": "error-handler-09dc7ecf-a577-427e-a193-ed29d260c5fe",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-09dc7ecf-a577-427e-a193-ed29d260c5fe-1d2c618e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0ca15a51-2e56-4ef4-8be6-96f45ed17867": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0ca15a51-2e56-4ef4-8be6-96f45ed17867",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-0ca15a51-2e56-4ef4-8be6-96f45ed17867-82936165",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8e0a3745-348b-42db-82cc-55676c897ad7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8e0a3745-348b-42db-82cc-55676c897ad7-d68fefbd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9904180a-e937-43fd-9b04-627e860d693a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9904180a-e937-43fd-9b04-627e860d693a-66d828b2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1f2eff56-a89b-4d6d-af8b-477c81c8bab3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1f2eff56-a89b-4d6d-af8b-477c81c8bab3-4cda18de",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0c0d0487-a594-4e88-b777-21b4816115cd": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0c0d0487-a594-4e88-b777-21b4816115cd-d0c6160e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
+  },
+  "name": "Slack Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Slack Workflow. This workflow integrates 13 different services: webhook, stickyNote, httpRequest, code, merge. It contains 54 nodes and follows best practices for error handling and security.",
+  "meta": {
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   }
 }

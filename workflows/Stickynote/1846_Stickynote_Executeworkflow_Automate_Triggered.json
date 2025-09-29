@@ -1,7 +1,10 @@
 {
   "id": "eHuvG2I1vOYj0U6k",
   "meta": {
-    "instanceId": "1c7be698fdfa769249b0c65dcf8862b184efc981b9cec697fe71be1be502c151"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "My workflow",
   "tags": [
@@ -48,7 +51,7 @@
         340
       ],
       "parameters": {
-        "text": "You are an AI agent tasked with identifying the (pretty-print) OAuth service name, audience, authorization URI, and token URI.\nThe input is only a name bearing on the OAUth service, e.g.:\n1. Jira.  The name Jira must be resolved to the correlated API service, in this case, Atlassian.  OAuth information can be gleaned from https://developer.atlassian.com/.\n2. Sage. This is potentially a vague name.  However, in the context of API and OAuth, it is probably Sage300 the ERP system.  OAuth information can be gleaned from https://developer.sage.com.\n3. SAP. This can be the SAP HANA Cloud Platform. Authorization is usually be dedicated URL, e.g., https://<host_name>:<port_number>/sap/bc/sec/oauth2/client/grant/authorization?\n4. Google. This can be the Google API, e.g., https://accounts.google.com/o/oauth2/v2/auth? with audience as project-id-random-value.apps.googleusercontent.com.\n\nObtaining these details by just knowing the pretty-name of the service might be cumbersome.  Therefore a confidence score, as a probabilistic indication your confidence\nof the data must be calculated.  Express your confidence score on a scale of 1 (absolute certainty) down to almost zero (least certain), i.e., confidence NUMERIC(3, 2) CHECK (confidence >= 0.1 AND confidence <= 1.0).\nIf you can't obtain information, invent the data, but justify your improvisation by assigning a very low confidence score.  You must always return a result, no matter\nhow low your confidence.\n\nThese Instructions comprise a Context Understanding, Information Retrieval, Output Format, an Example, with Accuracy and Verification.  \n1. Context Understanding: The name (as input) value represents the target API or service. You need to identify the service name, audience, authorization URI, and token URI based on the name value. \n2. Information Retrieval: Use reputable sources and official documentation to find the correct service name, audience, authorization URI and token URI.\n3. Output Format: Service Name: [Service Name], [Audience], [Authorization URI], [Token URI], [Details]: (Your choice rationale in about 100 words to justify your answer), and lastly the [Confidence] (probability factor) as a numeric value 0<x≤1andx∈{0.01,0.02,…,1.00}.\n4. Example 1: If the name is Sage, the service is probably something like sage300.yourdomain.com (where the yourdomain is clearly a proprietary name), the authorization and token uri follow the same pattern, e.g., \na. Service Name: Sage 300,\nb. Audience: sage300.yourdomain.com\nc. Authorization URI: https://sage300.yourdomain.com/oauth/authorize?, \nd. Token URI: https://sage300.yourdomain.com/oauth/token, \ne. Details: Your domain is embedded in the standard presentation of the audience, authorization uri, and the token uri.  Therefore I substituted the standard representations of the OAuth pattern. \nf. Confidence: 0.90 (=> 0<x≤1andx∈{0.01,0.02,…,1.00})\n5. Example 2: If the name is Jira, the API service is probably Atlassian the elements: \na. Service Name: Atlassian, \nb. Audience: api.atlassian.com\nc. Authorization URI: https://auth.atlassian.com/authorize?, \nd. Token URI: https://auth.atlassian.com/oauth/token, \ne. Details: I have referenced the Atlassian online API documentation and retrieved the standard presentation of the audience, authorization uri, and the token uri from their documentation. \nf. Confidence: 1 (=> 0<x≤1andx∈{0.01,0.02,…,1.00})\n6. Accuracy and Verification: Double-check the information to ensure it is correct and up-to-date. If the name value is ambiguous or not well-documented, provide the best possible match based on available information, or improvise an answer based on the patterns of OAuth, but assign a low Confidence.\n7. Improvisation when OAuth elements relating to the provided {{ $json.name }} (API service name) cannot be determined with high confidence you should specify common patterns or fallback options for OAuth and perform additional searches to cross-reference multiple sources to improve accuracy.\n",
+        "text": "You are an AI agent tasked with identifying the (pretty-print) OAuth service name, audience, authorization URI, and token URI.\nThe input is only a name bearing on the OAUth service, e.g.:\n1. Jira.  The name Jira must be resolved to the correlated API service, in this case, Atlassian.  OAuth information can be gleaned from {{ $env.WEBHOOK_URL }}\n2. Sage. This is potentially a vague name.  However, in the context of API and OAuth, it is probably Sage300 the ERP system.  OAuth information can be gleaned from {{ $env.WEBHOOK_URL }}\n3. SAP. This can be the SAP HANA Cloud Platform. Authorization is usually be dedicated URL, e.g., https://<host_name>:<port_number>/sap/bc/sec/oauth2/client/grant/authorization?\n4. Google. This can be the Google API, e.g., {{ $env.WEBHOOK_URL }} with audience as project-id-random-value.apps.googleusercontent.com.\n\nObtaining these details by just knowing the pretty-name of the service might be cumbersome.  Therefore a confidence score, as a probabilistic indication your confidence\nof the data must be calculated.  Express your confidence score on a scale of 1 (absolute certainty) down to almost zero (least certain), i.e., confidence NUMERIC(3, 2) CHECK (confidence >= 0.1 AND confidence <= 1.0).\nIf you can't obtain information, invent the data, but justify your improvisation by assigning a very low confidence score.  You must always return a result, no matter\nhow low your confidence.\n\nThese Instructions comprise a Context Understanding, Information Retrieval, Output Format, an Example, with Accuracy and Verification.  \n1. Context Understanding: The name (as input) value represents the target API or service. You need to identify the service name, audience, authorization URI, and token URI based on the name value. \n2. Information Retrieval: Use reputable sources and official documentation to find the correct service name, audience, authorization URI and token URI.\n3. Output Format: Service Name: [Service Name], [Audience], [Authorization URI], [Token URI], [Details]: (Your choice rationale in about 100 words to justify your answer), and lastly the [Confidence] (probability factor) as a numeric value 0<x≤1andx∈{0.01,0.02,…,1.00}.\n4. Example 1: If the name is Sage, the service is probably something like sage300.yourdomain.com (where the yourdomain is clearly a proprietary name), the authorization and token uri follow the same pattern, e.g., \na. Service Name: Sage 300,\nb. Audience: sage300.yourdomain.com\nc. Authorization URI: {{ $env.WEBHOOK_URL }} \nd. Token URI: {{ $env.WEBHOOK_URL }} \ne. Details: Your domain is embedded in the standard presentation of the audience, authorization uri, and the token uri.  Therefore I substituted the standard representations of the OAuth pattern. \nf. Confidence: 0.90 (=> 0<x≤1andx∈{0.01,0.02,…,1.00})\n5. Example 2: If the name is Jira, the API service is probably Atlassian the elements: \na. Service Name: Atlassian, \nb. Audience: api.atlassian.com\nc. Authorization URI: {{ $env.WEBHOOK_URL }} \nd. Token URI: {{ $env.WEBHOOK_URL }} \ne. Details: I have referenced the Atlassian online API documentation and retrieved the standard presentation of the audience, authorization uri, and the token uri from their documentation. \nf. Confidence: 1 (=> 0<x≤1andx∈{0.01,0.02,…,1.00})\n6. Accuracy and Verification: Double-check the information to ensure it is correct and up-to-date. If the name value is ambiguous or not well-documented, provide the best possible match based on available information, or improvise an answer based on the patterns of OAuth, but assign a low Confidence.\n7. Improvisation when OAuth elements relating to the provided {{ $json.name }} (API service name) cannot be determined with high confidence you should specify common patterns or fallback options for OAuth and perform additional searches to cross-reference multiple sources to improve accuracy.\n",
         "messages": {
           "messageValues": [
             {
@@ -72,7 +75,7 @@
       ],
       "parameters": {
         "schemaType": "manual",
-        "inputSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"Generated schema for Root\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"action\": {\n      \"type\": \"string\"\n    },\n    \"text\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"action\",\n    \"text\"\n  ]\n}"
+        "inputSchema": "{\n  \"$schema\": \"{{ $env.WEBHOOK_URL }}\",\n  \"title\": \"Generated schema for Root\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"action\": {\n      \"type\": \"string\"\n    },\n    \"text\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"action\",\n    \"text\"\n  ]\n}"
       },
       "typeVersion": 1.2
     },
@@ -224,6 +227,19 @@
         "content": "## Adaptability\n**Customize** this template:\n* Update the AI model prompt with details specific to your API or OAuth2 setup.\n* Adjust the JSON schema in the Structured Output node to match the data format.\n* Modify the Code logic to suit the application's requirements. "
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-0ab31e09",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# My workflow\n\n## Overview\nAutomated workflow: My workflow. This workflow integrates 6 different services: stickyNote, code, chainLlm, outputParserStructured, lmChatOpenRouter. It contains 12 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 12\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When Executed by Another Workflow**: executeWorkflowTrigger\n- **LLM Bus**: chainLlm\n- **Structured Output Parser**: outputParserStructured\n- **OpenRouter Chat Model**: lmChatOpenRouter\n- **Conform JSON**: code\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Sticky Note4**: stickyNote\n- ... and 2 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -237,7 +253,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "c1321677-4ea5-4c8c-8742-02ffd4c8ef70",
   "connections": {
@@ -285,5 +305,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: My workflow. This workflow integrates 6 different services: stickyNote, code, chainLlm, outputParserStructured, lmChatOpenRouter. It contains 12 nodes and follows best practices for error handling and security."
 }

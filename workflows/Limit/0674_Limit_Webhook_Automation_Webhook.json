@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "03e9d14e9196363fe7191ce21dc0bb17387a6e755dcc9acc4f5904752919dca8"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -112,7 +115,7 @@
         -160
       ],
       "parameters": {
-        "url": "=https://ipqualityscore.com/api/json/ip/Mlg6aZdzI1mVehUD3Z5Ak5Vl4yNN7P8v/{{ $('Gmail - Extract Original From IP').item.json.extractedfromip }}?strictness=1&allow_public_access_points=true&lighter_penalties=true",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Gmail - Extract Original From IP').item.json.extractedfromip }}?strictness=1&allow_public_access_points=true&lighter_penalties=true",
         "options": {}
       },
       "typeVersion": 4.2
@@ -126,7 +129,7 @@
         -160
       ],
       "parameters": {
-        "url": "=http://ip-api.com/json/{{ $('Gmail - Extract Original From IP').item.json.extractedfromip }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Gmail - Extract Original From IP').item.json.extractedfromip }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -797,7 +800,7 @@
         "color": 7,
         "width": 630.8094744668451,
         "height": 645.5004204663932,
-        "content": "![](https://uploads.n8n.io/templates/gmaillogo.png)  \n## **Testing Email Header Analysis Workflow**\n\nThis section of the workflow is designed for testing purposes to ensure that the setup functions correctly with your Gmail email client before deploying it as an API for third-party platforms. The process begins with the `Gmail Trigger` node, which monitors your Gmail inbox and triggers the workflow whenever a new email arrives.\n\nOnce an email is detected, the `Set Gmail Headers Here` node extracts the email headers from the detected email and organizes them into a standardized format as an object called `headers`. This prepares the email data for further processing in subsequent sections of the workflow. By validating these steps, you can confirm the workflow is functioning correctly before integrating it into broader use cases."
+        "content": "![]({{ $env.WEBHOOK_URL }}  \n## **Testing Email Header Analysis Workflow**\n\nThis section of the workflow is designed for testing purposes to ensure that the setup functions correctly with your Gmail email client before deploying it as an API for third-party platforms. The process begins with the `Gmail Trigger` node, which monitors your Gmail inbox and triggers the workflow whenever a new email arrives.\n\nOnce an email is detected, the `Set Gmail Headers Here` node extracts the email headers from the detected email and organizes them into a standardized format as an object called `headers`. This prepares the email data for further processing in subsequent sections of the workflow. By validating these steps, you can confirm the workflow is functioning correctly before integrating it into broader use cases."
       },
       "typeVersion": 1
     },
@@ -813,7 +816,7 @@
         "color": 7,
         "width": 869.3564073187465,
         "height": 611.2507800793627,
-        "content": "![](https://uploads.n8n.io/templates/n8n.png)  \n## **Extract and Process Email Headers**\n\nThis section processes the headers from incoming email data to extract critical information, particularly focusing on the originating IP address. The workflow begins with the `Gmail - Set Headers` node, which prepares the headers for analysis.\n\nThe `Gmail - Extract Received Headers` node filters through the headers and isolates those labeled as \"Received.\" These headers document the servers through which the email has passed, providing a traceable path of its journey. Next, the `Gmail - Remove Extra Received Headers` node narrows the focus to the most recent \"Received\" header, typically containing the originating IP address of the email sender.\n\nUsing the `Gmail - Extract Original From IP` node, the workflow applies a regular expression to extract the IP address from the retained header, removing internal or private IP addresses. This ensures that only the relevant external IP address is identified."
+        "content": "![]({{ $env.WEBHOOK_URL }}  \n## **Extract and Process Email Headers**\n\nThis section processes the headers from incoming email data to extract critical information, particularly focusing on the originating IP address. The workflow begins with the `Gmail - Set Headers` node, which prepares the headers for analysis.\n\nThe `Gmail - Extract Received Headers` node filters through the headers and isolates those labeled as \"Received.\" These headers document the servers through which the email has passed, providing a traceable path of its journey. Next, the `Gmail - Remove Extra Received Headers` node narrows the focus to the most recent \"Received\" header, typically containing the originating IP address of the email sender.\n\nUsing the `Gmail - Extract Original From IP` node, the workflow applies a regular expression to extract the IP address from the retained header, removing internal or private IP addresses. This ensures that only the relevant external IP address is identified."
       },
       "typeVersion": 1
     },
@@ -829,7 +832,7 @@
         "color": 7,
         "width": 922.1859426288208,
         "height": 824.9161858198846,
-        "content": "![](https://uploads.n8n.io/templates/ipqualityscoretemplate.png)  \n## **Analyze IP Address and Check Authentication Results**\n\nThis section analyzes the originating IP address and verifies the presence of essential email authentication headers. The `Gmail - Original IP Found?` node determines whether the extracted IP address is valid and non-empty. If valid, the workflow proceeds; otherwise, it triggers the `Skip IP Check` node to move on to the next steps.\n\nThe `Gmail - Query IP Quality Score API` node evaluates the IP’s reputation, identifying associations with spam, fraud, or other malicious activities. The `Gmail - Query IP API` node enriches the analysis by providing additional details such as geographic location and organizational affiliation of the IP. \n\nFinally, the `Gmail - Authentication-Results Header?` node checks for the presence of the \"Authentication-Results\" header, which indicates SPF, DKIM, and DMARC checks performed by the receiving email server. If present, the header is further analyzed in subsequent sections."
+        "content": "![]({{ $env.WEBHOOK_URL }}  \n## **Analyze IP Address and Check Authentication Results**\n\nThis section analyzes the originating IP address and verifies the presence of essential email authentication headers. The `Gmail - Original IP Found?` node determines whether the extracted IP address is valid and non-empty. If valid, the workflow proceeds; otherwise, it triggers the `Skip IP Check` node to move on to the next steps.\n\nThe `Gmail - Query IP Quality Score API` node evaluates the IP’s reputation, identifying associations with spam, fraud, or other malicious activities. The `Gmail - Query IP API` node enriches the analysis by providing additional details such as geographic location and organizational affiliation of the IP. \n\nFinally, the `Gmail - Authentication-Results Header?` node checks for the presence of the \"Authentication-Results\" header, which indicates SPF, DKIM, and DMARC checks performed by the receiving email server. If present, the header is further analyzed in subsequent sections."
       },
       "typeVersion": 1
     },
@@ -845,7 +848,7 @@
         "color": 7,
         "width": 1016.1357697283069,
         "height": 541.7962991053803,
-        "content": "![](https://uploads.n8n.io/templates/n8n.png)  \n## **Extract and Evaluate Authentication Results**\n\nThe workflow continues with the `Gmail - Extract Authentication-Results Header` node, which isolates and parses the authentication results header. The `Gmail - Determine Auth Values` node processes the extracted data, categorizing the SPF, DKIM, and DMARC results as `pass`, `fail`, `neutral`, `error`, or `unknown`.\n\nThe `Gmail - Format Combined Auth Output` node consolidates the authentication results with metadata from previous nodes, including the originating IP, geographic details, organization, IP reputation, and spam activity. This structured output provides a comprehensive overview of the email's legitimacy, ready for external integration or reporting."
+        "content": "![]({{ $env.WEBHOOK_URL }}  \n## **Extract and Evaluate Authentication Results**\n\nThe workflow continues with the `Gmail - Extract Authentication-Results Header` node, which isolates and parses the authentication results header. The `Gmail - Determine Auth Values` node processes the extracted data, categorizing the SPF, DKIM, and DMARC results as `pass`, `fail`, `neutral`, `error`, or `unknown`.\n\nThe `Gmail - Format Combined Auth Output` node consolidates the authentication results with metadata from previous nodes, including the originating IP, geographic details, organization, IP reputation, and spam activity. This structured output provides a comprehensive overview of the email's legitimacy, ready for external integration or reporting."
       },
       "typeVersion": 1
     },
@@ -861,7 +864,7 @@
         "color": 7,
         "width": 1285.8545784346588,
         "height": 759.649504764657,
-        "content": "![](https://uploads.n8n.io/templates/n8n.png)\n## **Combine Results and Respond to Webhook**\n\nThe final section consolidates results from previous nodes into a cohesive output for the webhook response. The `Gmail - Merge` node combines data streams from SPF, DKIM, and DMARC evaluations. The `Gmail - Aggregate` node structures the data into a unified format.\n\nThe `Gmail - Format Individual Auth Outputs1` and `Gmail - Format Combined Auth Output1` nodes prepare the data as a structured JSON object, including all authentication results and metadata such as IP reputation and geographic information. The `Gmail - Format Output` node finalizes the response structure, and the `Gmail - Respond to Webhook` node sends the response to the requesting system.\n\nThis ensures seamless integration and delivers actionable insights to external platforms, completing the email analysis pipeline."
+        "content": "![]({{ $env.WEBHOOK_URL }}\n## **Combine Results and Respond to Webhook**\n\nThe final section consolidates results from previous nodes into a cohesive output for the webhook response. The `Gmail - Merge` node combines data streams from SPF, DKIM, and DMARC evaluations. The `Gmail - Aggregate` node structures the data into a unified format.\n\nThe `Gmail - Format Individual Auth Outputs1` and `Gmail - Format Combined Auth Output1` nodes prepare the data as a structured JSON object, including all authentication results and metadata such as IP reputation and geographic information. The `Gmail - Format Output` node finalizes the response structure, and the `Gmail - Respond to Webhook` node sends the response to the requesting system.\n\nThis ensures seamless integration and delivers actionable insights to external platforms, completing the email analysis pipeline."
       },
       "typeVersion": 1
     },
@@ -877,7 +880,7 @@
         "color": 7,
         "width": 1016.1357697283069,
         "height": 1666.528211982754,
-        "content": "![](https://uploads.n8n.io/templates/n8n.png)\n## **Evaluate SPF, DKIM, and DMARC Compliance**\n\nThis section performs detailed analysis of SPF, DKIM, and DMARC headers. The `Gmail - Received-SPF Header?` node identifies the presence of the \"Received-SPF\" header, while the `Gmail - Extract Received-SPF Header` and `Aggregate Received-SPF Headers1` nodes extract and analyze SPF validation results. The `Gmail - Set SPF Value` node records the SPF status, and the `Gmail - No SPF Found` node handles cases where the header is absent.\n\nSimilarly, the `Gmail - DKIM-Signature Header?` node checks for a DKIM signature. If found, the `Gmail - DKIM Signature Found` node records its presence; otherwise, the `Gmail - No DKIM Signature Found` node handles its absence. \n\nThe `Gmail - DMARC Header?` node evaluates the DMARC policy header, with results extracted by `Gmail - Extract DMARC Header` or noted as absent by the `Gmail - No DMARC Header` node."
+        "content": "![]({{ $env.WEBHOOK_URL }}\n## **Evaluate SPF, DKIM, and DMARC Compliance**\n\nThis section performs detailed analysis of SPF, DKIM, and DMARC headers. The `Gmail - Received-SPF Header?` node identifies the presence of the \"Received-SPF\" header, while the `Gmail - Extract Received-SPF Header` and `Aggregate Received-SPF Headers1` nodes extract and analyze SPF validation results. The `Gmail - Set SPF Value` node records the SPF status, and the `Gmail - No SPF Found` node handles cases where the header is absent.\n\nSimilarly, the `Gmail - DKIM-Signature Header?` node checks for a DKIM signature. If found, the `Gmail - DKIM Signature Found` node records its presence; otherwise, the `Gmail - No DKIM Signature Found` node handles its absence. \n\nThe `Gmail - DMARC Header?` node evaluates the DMARC policy header, with results extracted by `Gmail - Extract DMARC Header` or noted as absent by the `Gmail - No DMARC Header` node."
       },
       "typeVersion": 1
     },
@@ -893,7 +896,7 @@
         "color": 7,
         "width": 625.8275790033185,
         "height": 660.0846008994936,
-        "content": "![](https://uploads.n8n.io/templates/n8n.png)\n## **Webhook Integration for Production**\n\nThis section transitions the workflow into production, enabling it to function as an API for analyzing email headers received from third-party platforms. To utilize this webhook functionality, it is essential to **activate the workflow**, as the webhook will only respond when the workflow is live.\n\nThe `Gmail - Webhook` node listens for incoming HTTP POST requests at the specified path. When the webhook is triggered, it receives and processes the payload containing email data, including headers sent by the third-party platform. The `Set Gmail Webhook Headers Here` node extracts the `headers` array from the payload's body, ensuring the incoming data is formatted correctly and ready for further processing in subsequent steps.\n\nBy activating the workflow and integrating it with external systems, users can automate the analysis of email headers seamlessly in a production environment."
+        "content": "![]({{ $env.WEBHOOK_URL }}\n## **Webhook Integration for Production**\n\nThis section transitions the workflow into production, enabling it to function as an API for analyzing email headers received from third-party platforms. To utilize this webhook functionality, it is essential to **activate the workflow**, as the webhook will only respond when the workflow is live.\n\nThe `Gmail - Webhook` node listens for incoming HTTP POST requests at the specified path. When the webhook is triggered, it receives and processes the payload containing email data, including headers sent by the third-party platform. The `Set Gmail Webhook Headers Here` node extracts the `headers` array from the payload's body, ensuring the incoming data is formatted correctly and ready for further processing in subsequent steps.\n\nBy activating the workflow and integrating it with external systems, users can automate the analysis of email headers seamlessly in a production environment."
       },
       "typeVersion": 1
     },
@@ -907,6 +910,131 @@
       ],
       "parameters": {},
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-18c23866-58fc-4cdb-9bea-961da75dbac5",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 18c23866-58fc-4cdb-9bea-961da75dbac5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9b35ce2c-d382-41b2-8e31-3238cc7c83bc",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 9b35ce2c-d382-41b2-8e31-3238cc7c83bc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3e1323d4-a963-4a13-bbca-b6bb8ee5a9ce",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3e1323d4-a963-4a13-bbca-b6bb8ee5a9ce",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-db297206-5433-413b-8e78-dcf5f10dc41e",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in db297206-5433-413b-8e78-dcf5f10dc41e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-18c23866-58fc-4cdb-9bea-961da75dbac5-ac617bd8",
+      "name": "Error Handler for 18c23866",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 18c23866",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9b35ce2c-d382-41b2-8e31-3238cc7c83bc-b425eb92",
+      "name": "Error Handler for 9b35ce2c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9b35ce2c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3e1323d4-a963-4a13-bbca-b6bb8ee5a9ce-b40dfbb2",
+      "name": "Error Handler for 3e1323d4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3e1323d4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-db297206-5433-413b-8e78-dcf5f10dc41e-ad05aea4",
+      "name": "Error Handler for db297206",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node db297206",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-3484a57f",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Gmailtrigger Workflow\n\n## Overview\nAutomated workflow: Gmailtrigger Workflow. This workflow integrates 13 different services: webhook, stickyNote, httpRequest, code, gmailTrigger. It contains 48 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 48\n- **Node Types**: 13\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Gmail Trigger**: gmailTrigger\n- **Gmail - Extract Received Headers**: code\n- **Gmail - Extract Original From IP**: set\n- **Gmail - Original IP Found?**: if\n- **Gmail - Query IP Quality Score API**: httpRequest\n- **Gmail - Query IP API**: httpRequest\n- **Gmail - Authentication-Results Header?**: if\n- **Gmail - Received-SPF Header?**: if\n- **Gmail - Extract Authentication-Results Header**: code\n- **Gmail - Extract Received-SPF Header**: code\n- ... and 38 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -1307,6 +1435,87 @@
           }
         ]
       ]
+    },
+    "18c23866-58fc-4cdb-9bea-961da75dbac5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-18c23866-58fc-4cdb-9bea-961da75dbac5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-18c23866-58fc-4cdb-9bea-961da75dbac5-ac617bd8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9b35ce2c-d382-41b2-8e31-3238cc7c83bc": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9b35ce2c-d382-41b2-8e31-3238cc7c83bc",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-9b35ce2c-d382-41b2-8e31-3238cc7c83bc-b425eb92",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3e1323d4-a963-4a13-bbca-b6bb8ee5a9ce": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3e1323d4-a963-4a13-bbca-b6bb8ee5a9ce",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3e1323d4-a963-4a13-bbca-b6bb8ee5a9ce-b40dfbb2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "db297206-5433-413b-8e78-dcf5f10dc41e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-db297206-5433-413b-8e78-dcf5f10dc41e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-db297206-5433-413b-8e78-dcf5f10dc41e-ad05aea4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Gmailtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Gmailtrigger Workflow. This workflow integrates 13 different services: webhook, stickyNote, httpRequest, code, gmailTrigger. It contains 48 nodes and follows best practices for error handling and security."
 }

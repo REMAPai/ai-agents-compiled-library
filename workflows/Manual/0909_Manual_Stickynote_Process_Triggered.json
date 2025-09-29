@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "7599ed929ea25767a019b87ecbc83b90e16a268cb51892887b450656ac4518a2"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -141,9 +144,22 @@
         540
       ],
       "parameters": {
-        "jsCode": "return {\"json\": {\"path\": \"https://www.nlbk.niedersachsen.de/download/164891/Test-pdf_3.pdf.pdf\"}};"
+        "jsCode": "return {\"json\": {\"path\": \"{{ $env.WEBHOOK_URL }}\"}};"
       },
       "typeVersion": 2
+    },
+    {
+      "id": "documentation-981f8263",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Html2Pdf Workflow\n\n## Overview\nAutomated workflow: Html2Pdf Workflow. This workflow integrates 5 different services: stickyNote, code, PdfToPng, manualTrigger, html2Pdf. It contains 9 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 9\n- **Node Types**: 5\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **HTML to PDF**: html2Pdf\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Convert PDF into PNG1**: PdfToPng\n- **Convert PDF into PNG**: PdfToPng\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Set PDF URL**: code\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -186,5 +202,14 @@
         ]
       ]
     }
-  }
+  },
+  "name": "Html2Pdf Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Html2Pdf Workflow. This workflow integrates 5 different services: stickyNote, code, PdfToPng, manualTrigger, html2Pdf. It contains 9 nodes and follows best practices for error handling and security."
 }

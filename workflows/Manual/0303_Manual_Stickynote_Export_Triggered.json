@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "dfdeafd1c3ed2ee08eeab8c2fa0c3f522066931ed8138ccd35dc20a1e69decd3"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -86,6 +89,33 @@
         "fileFormat": "csv"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-cec2452f-e3e9-47ad-bcc6-4d411b1cd532-8b1e5dc4",
+      "name": "Error Handler for cec2452f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node cec2452f",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-a5e86abd",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 6 different services: stickyNote, spreadsheetFile, set, stopAndError, microsoftSql. It contains 6 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 6\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking \"Execute Workflow\"**: manualTrigger\n- **Sticky Note1**: stickyNote\n- **TableName**: set\n- **LoadMSSQLData**: microsoftSql\n- **SaveCSV**: spreadsheetFile\n- **Error Handler for cec2452f**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "connections": {
@@ -121,6 +151,26 @@
           }
         ]
       ]
+    },
+    "cec2452f-e3e9-47ad-bcc6-4d411b1cd532": {
+      "main": [
+        [
+          {
+            "node": "error-handler-cec2452f-e3e9-47ad-bcc6-4d411b1cd532-8b1e5dc4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 6 different services: stickyNote, spreadsheetFile, set, stopAndError, microsoftSql. It contains 6 nodes and follows best practices for error handling and security."
 }

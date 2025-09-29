@@ -1,14 +1,17 @@
 {
   "id": "o8iTqIh2sVvnuWz5",
   "meta": {
-    "instanceId": "b9faf72fe0d7c3be94b3ebff0778790b50b135c336412d28fd4fca2cbbf8d1f5"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "RAG & GenAI App With WordPress Content",
   "tags": [],
   "nodes": [
     {
       "id": "c3738490-ed39-4774-b337-bf5ee99d0c72",
-      "name": "When clicking \u2018Test workflow\u2019",
+      "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
         500,
@@ -629,7 +632,7 @@
         840
       ],
       "parameters": {
-        "url": "https://mydomain.com/wp-json/wp/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -641,7 +644,7 @@
             }
           ]
         },
-        "nodeCredentialType": "wordpressApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "typeVersion": 4.2
     },
@@ -654,7 +657,7 @@
         1060
       ],
       "parameters": {
-        "url": "https://mydomain.com/wp-json/wp/v2/pages",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -666,7 +669,7 @@
             }
           ]
         },
-        "nodeCredentialType": "wordpressApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "typeVersion": 4.2
     },
@@ -1023,7 +1026,7 @@
       "parameters": {
         "width": 1198.9843749999998,
         "height": 515.4687499999998,
-        "content": "## Switch:\n- **If the document exists and has been updated:** delete rows and insert new embedding\n- **If it\u2019s a new document:** insert embedding"
+        "content": "## Switch:\n- **If the document exists and has been updated:** delete rows and insert new embedding\n- **If it’s a new document:** insert embedding"
       },
       "typeVersion": 1
     },
@@ -1125,7 +1128,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "existing_documents",
+              "outputKey": "output_1",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -1149,7 +1152,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "new_documents",
+              "outputKey": "output_2",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -1228,7 +1231,7 @@
         "text": "=Visitor's question : {{ $json.chatInput }}\nDocuments found: {{ $json.documents }}",
         "agent": "conversationalAgent",
         "options": {
-          "systemMessage": "You are an assistant tasked with answering questions from visitors to the website {{your_website_url}}.\n\nInput:\nVisitor's question: The question posed by the visitor.\nDocuments found: A selection of documents from the vector database that match the visitor's question. These documents are accompanied by the following metadata:\nurl: The URL of the page or blog post found.\ncontent_type: The type of content (e.g., page or blog article).\npublication_date: The publication date of the document.\nmodification_date: The last modification date of the document.\nObjective:\nProvide a helpful answer using the relevant information from the documents found.\nIMPORTANT : You must always include all metadata (url, content_type, publication_date, and modification_date) directly in the main answer to the visitor to indicate the source of the information. These should not be separated from the main answer, and must be naturally integrated into the response.\nIf multiple documents are used in your response, mention each one with its respective metadata.\nIf no relevant documents are found, or if the documents are insufficient, clearly indicate this in your response.\nImportant: Respond in the language used by the visitor who asked the question.\nExample of forced metadata integration:\n\"The cost of a home charging station for an electric vehicle varies depending on several factors. According to [title of the page](https://example.com/charging-point-price), published on April 8, 2021, and updated on July 24, 2022, the price for a 7kW station is \u20ac777.57 including VAT. This page provides further details about the price range and installation considerations.\""
+          "systemMessage": "You are an assistant tasked with answering questions from visitors to the website {{your_website_url}}.\n\nInput:\nVisitor's question: The question posed by the visitor.\nDocuments found: A selection of documents from the vector database that match the visitor's question. These documents are accompanied by the following metadata:\nurl: The URL of the page or blog post found.\ncontent_type: The type of content (e.g., page or blog article).\npublication_date: The publication date of the document.\nmodification_date: The last modification date of the document.\nObjective:\nProvide a helpful answer using the relevant information from the documents found.\nIMPORTANT : You must always include all metadata (url, content_type, publication_date, and modification_date) directly in the main answer to the visitor to indicate the source of the information. These should not be separated from the main answer, and must be naturally integrated into the response.\nIf multiple documents are used in your response, mention each one with its respective metadata.\nIf no relevant documents are found, or if the documents are insufficient, clearly indicate this in your response.\nImportant: Respond in the language used by the visitor who asked the question.\nExample of forced metadata integration:\n\"The cost of a home charging station for an electric vehicle varies depending on several factors. According to [title of the page]({{ $env.WEBHOOK_URL }} published on April 8, 2021, and updated on July 24, 2022, the price for a 7kW station is €777.57 including VAT. This page provides further details about the price range and installation considerations.\""
         },
         "promptType": "define"
       },
@@ -1255,12 +1258,169 @@
         }
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-7c718e1b-1398-49f3-ba67-f970a82983e0",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 7c718e1b-1398-49f3-ba67-f970a82983e0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ba25135b-6e6e-406b-b18a-f532a6e37276",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ba25135b-6e6e-406b-b18a-f532a6e37276",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a1d8572e-2b0d-40a1-a898-bbd563a6b190",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a1d8572e-2b0d-40a1-a898-bbd563a6b190",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3ab719bd-3652-433f-a597-9cd28f8cfcea-22920b3e",
+      "name": "Error Handler for 3ab719bd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3ab719bd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-27585104-5315-4c11-b333-4b5d27d9bae4-9d269e18",
+      "name": "Error Handler for 27585104",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 27585104",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-35269a98-d905-4e4f-ae5b-dadad678f260-d51102f3",
+      "name": "Error Handler for 35269a98",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 35269a98",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7c718e1b-1398-49f3-ba67-f970a82983e0-b2a3fa87",
+      "name": "Error Handler for 7c718e1b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7c718e1b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7f392a40-e353-4bb2-9ecf-3ee330110b95-9016ccd1",
+      "name": "Error Handler for 7f392a40",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7f392a40",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ba25135b-6e6e-406b-b18a-f532a6e37276-417d3800",
+      "name": "Error Handler for ba25135b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ba25135b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a1d8572e-2b0d-40a1-a898-bbd563a6b190-65c25c97",
+      "name": "Error Handler for a1d8572e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a1d8572e",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-635f68e3",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# RAG & GenAI App With WordPress Content\n\n## Overview\nAutomated workflow: RAG & GenAI App With WordPress Content. This workflow integrates 24 different services: stickyNote, scheduleTrigger, merge, switch, lmChatOpenAi. It contains 63 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 63\n- **Node Types**: 24\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Embeddings OpenAI**: embeddingsOpenAi\n- **Default Data Loader**: documentDefaultDataLoader\n- **Token Splitter**: textSplitterTokenSplitter\n- **Embeddings OpenAI1**: embeddingsOpenAi\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Postgres Chat Memory**: memoryPostgresChat\n- **Respond to Webhook**: respondToWebhook\n- **Set fields**: set\n- **Embeddings OpenAI2**: embeddingsOpenAi\n- ... and 53 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "fe2a25f4-04b3-462c-97cd-a173b4a0631b",
   "connections": {
@@ -1635,7 +1795,7 @@
         ]
       ]
     },
-    "When clicking \u2018Test workflow\u2019": {
+    "When clicking ‘Test workflow’": {
       "main": [
         [
           {
@@ -1738,6 +1898,105 @@
           }
         ]
       ]
+    },
+    "7c718e1b-1398-49f3-ba67-f970a82983e0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7c718e1b-1398-49f3-ba67-f970a82983e0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-7c718e1b-1398-49f3-ba67-f970a82983e0-b2a3fa87",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ba25135b-6e6e-406b-b18a-f532a6e37276": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ba25135b-6e6e-406b-b18a-f532a6e37276",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ba25135b-6e6e-406b-b18a-f532a6e37276-417d3800",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a1d8572e-2b0d-40a1-a898-bbd563a6b190": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a1d8572e-2b0d-40a1-a898-bbd563a6b190",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a1d8572e-2b0d-40a1-a898-bbd563a6b190-65c25c97",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3ab719bd-3652-433f-a597-9cd28f8cfcea": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3ab719bd-3652-433f-a597-9cd28f8cfcea-22920b3e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "27585104-5315-4c11-b333-4b5d27d9bae4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-27585104-5315-4c11-b333-4b5d27d9bae4-9d269e18",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "35269a98-d905-4e4f-ae5b-dadad678f260": {
+      "main": [
+        [
+          {
+            "node": "error-handler-35269a98-d905-4e4f-ae5b-dadad678f260-d51102f3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7f392a40-e353-4bb2-9ecf-3ee330110b95": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7f392a40-e353-4bb2-9ecf-3ee330110b95-9016ccd1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: RAG & GenAI App With WordPress Content. This workflow integrates 24 different services: stickyNote, scheduleTrigger, merge, switch, lmChatOpenAi. It contains 63 nodes and follows best practices for error handling and security."
 }

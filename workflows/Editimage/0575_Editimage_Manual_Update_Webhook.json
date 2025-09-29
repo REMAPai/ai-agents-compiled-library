@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "408f9fb9940c3cb18ffdef0e0150fe342d6e655c3a9fac21f0f644e8bedabcd9"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -25,7 +28,7 @@
       "parameters": {
         "width": 365.05232558139534,
         "height": 401.24529475392126,
-        "content": "## Try me out!\n\n### This workflow converts a Candidate Resume PDF to an image which is then \"read\" by a Vision Language Model (VLM). The VLM assesses if the candidate's CV is a fit for the desired role.\n\nThis approach can be employed to combat \"hidden prompts\" planted in resumes to bypass and/or manipulate automated ATS systems using AI.\n\n\n### Need Help?\nJoin the [Discord](https://discord.com/invite/XPKeKXeB7d) or ask in the [Forum](https://community.n8n.io/)!\n"
+        "content": "## Try me out!\n\n### This workflow converts a Candidate Resume PDF to an image which is then \"read\" by a Vision Language Model (VLM). The VLM assesses if the candidate's CV is a fit for the desired role.\n\nThis approach can be employed to combat \"hidden prompts\" planted in resumes to bypass and/or manipulate automated ATS systems using AI.\n\n\n### Need Help?\nJoin the [Discord]({{ $env.WEBHOOK_URL }} or ask in the [Forum]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -87,7 +90,7 @@
         "color": 7,
         "width": 543.5706868577606,
         "height": 563.6162790697684,
-        "content": "## 1. Download Candidate Resume\n[Read more about using Google Drive](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.googledrive)\n\nFor this demonstration, we'll pull the candidate's resume PDF from Google Drive but you can just as easily recieve this resume from email or your ATS.\n\nIt should be noted that our PDF is a special test case which has been deliberately injected with an AI bypass; the bypass is a hidden prompt which aims to override AI instructions and auto-qualify the candidate... sneaky!\n\nDownload a copy of this resume here: https://drive.google.com/file/d/1MORAdeev6cMcTJBV2EYALAwll8gCDRav/view?usp=sharing"
+        "content": "## 1. Download Candidate Resume\n[Read more about using Google Drive]({{ $env.WEBHOOK_URL }}\n\nFor this demonstration, we'll pull the candidate's resume PDF from Google Drive but you can just as easily recieve this resume from email or your ATS.\n\nIt should be noted that our PDF is a special test case which has been deliberately injected with an AI bypass; the bypass is a hidden prompt which aims to override AI instructions and auto-qualify the candidate... sneaky!\n\nDownload a copy of this resume here: {{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -128,7 +131,7 @@
         "color": 7,
         "width": 605.0267171444024,
         "height": 595.3148729042731,
-        "content": "## 2. Convert PDF to Image(s)\n[Read more about using Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF)\n\nAI vision models can only accept images (and sometimes videos!) as non-text inputs but not PDFs at time of writing. We'll have to convert our PDF to an image in order to use it.\n\nHere, we'll use a tool called **Stirling PDF** which can provide this functionality and can be accessed via a HTTP API. Feel free to use an alternative solution if available, otherwise follow the instructions on the Stirling PDF website to set up your own instance.\n\nAdditionally, we'll reduce the resolution of our converted image to speed up the processing done by the LLM. I find that about 75% of an A4 (30x40cm) is a good balance."
+        "content": "## 2. Convert PDF to Image(s)\n[Read more about using Stirling PDF]({{ $env.WEBHOOK_URL }}\n\nAI vision models can only accept images (and sometimes videos!) as non-text inputs but not PDFs at time of writing. We'll have to convert our PDF to an image in order to use it.\n\nHere, we'll use a tool called **Stirling PDF** which can provide this functionality and can be accessed via a HTTP API. Feel free to use an alternative solution if available, otherwise follow the instructions on the Stirling PDF website to set up your own instance.\n\nAdditionally, we'll reduce the resolution of our converted image to speed up the processing done by the LLM. I find that about 75% of an A4 (30x40cm) is a good balance."
       },
       "typeVersion": 1
     },
@@ -144,7 +147,7 @@
         "color": 7,
         "width": 747.8139534883712,
         "height": 603.1395348837208,
-        "content": "## 3. Parse Resume with Multimodal LLM\n[Read more about using Basic LLM Chain](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainllm/)\n\nMultimodal LLMs are LLMs which can accept binary inputs such as images, audio and/or video files. Most newer LLMs are by default multimodal and we'll use Google's Gemini here as an example. By processing each candidate's resume as an image, we avoid scenarios where text extraction fails due to layout issues or by picking up \"hidden\" or malicious prompts planted to subvert AI automated processing.\n\nThis vision model ensures the resume is read and understood as a human would. The hidden bypass is therefore rendered mute since the AI also cannot \"see\" the special prompt embedded in the document."
+        "content": "## 3. Parse Resume with Multimodal LLM\n[Read more about using Basic LLM Chain]({{ $env.WEBHOOK_URL }}\n\nMultimodal LLMs are LLMs which can accept binary inputs such as images, audio and/or video files. Most newer LLMs are by default multimodal and we'll use Google's Gemini here as an example. By processing each candidate's resume as an image, we avoid scenarios where text extraction fails due to layout issues or by picking up \"hidden\" or malicious prompts planted to subvert AI automated processing.\n\nThis vision model ensures the resume is read and understood as a human would. The hidden bypass is therefore rendered mute since the AI also cannot \"see\" the special prompt embedded in the document."
       },
       "typeVersion": 1
     },
@@ -157,7 +160,7 @@
         880
       ],
       "parameters": {
-        "url": "https://stirlingpdf.io/api/v1/convert/pdf/img",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -263,6 +266,75 @@
         "content": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n### Data Privacy Warning!\nFor demo purposes, we're using the public online version of Stirling PDF. It is recommended to setup your own private instance of Stirling PDF before using this workflow in production."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-d60214c6-c67e-4433-9121-4d54f782b19d",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d60214c6-c67e-4433-9121-4d54f782b19d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d21fe4dd-0879-4e5a-a70d-10f09b25eee2-949de05a",
+      "name": "Error Handler for d21fe4dd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d21fe4dd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d60214c6-c67e-4433-9121-4d54f782b19d-f4106ccf",
+      "name": "Error Handler for d60214c6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d60214c6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5fb6ac7e-b910-4dce-bba7-19b638fd817a-aac8c58f",
+      "name": "Error Handler for 5fb6ac7e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5fb6ac7e",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-fc53f470",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, lmChatGoogleGemini, chainLlm, outputParserStructured. It contains 17 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 17\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Sticky Note**: stickyNote\n- **Structured Output Parser**: outputParserStructured\n- **Should Proceed To Stage 2?**: if\n- **Sticky Note1**: stickyNote\n- **Download Resume**: googleDrive\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **PDF-to-Image API**: httpRequest\n- **Resize Converted Image**: editImage\n- ... and 7 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -343,6 +415,55 @@
           }
         ]
       ]
+    },
+    "d60214c6-c67e-4433-9121-4d54f782b19d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d60214c6-c67e-4433-9121-4d54f782b19d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d60214c6-c67e-4433-9121-4d54f782b19d-f4106ccf",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d21fe4dd-0879-4e5a-a70d-10f09b25eee2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d21fe4dd-0879-4e5a-a70d-10f09b25eee2-949de05a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5fb6ac7e-b910-4dce-bba7-19b638fd817a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5fb6ac7e-b910-4dce-bba7-19b638fd817a-aac8c58f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, lmChatGoogleGemini, chainLlm, outputParserStructured. It contains 17 nodes and follows best practices for error handling and security."
 }

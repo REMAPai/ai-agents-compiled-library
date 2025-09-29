@@ -1,15 +1,17 @@
 {
   "id": "PpFVCrTiYoa35q1m",
   "meta": {
-    "instanceId": "b9faf72fe0d7c3be94b3ebff0778790b50b135c336412d28fd4fca2cbbf8d1f5",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Vision-Based AI Agent Scraper - with Google Sheets, ScrapingBee, and Gemini",
   "tags": [],
   "nodes": [
     {
       "id": "90ac8845-342e-4fdb-ae09-cb9d169b4119",
-      "name": "When clicking \u2018Test workflow\u2019",
+      "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
         160,
@@ -27,7 +29,7 @@
         1360
       ],
       "parameters": {
-        "url": "https://app.scrapingbee.com/api/v1",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "queryParameters": {
@@ -138,7 +140,7 @@
         "color": 7,
         "width": 364.53488372093034,
         "height": 652.6453488372096,
-        "content": "## Trigger\nThe default trigger is **When clicking \u2018Test workflow\u2019**, meaning the workflow will **need to be triggered manually**. \n\nYou can replace this by selecting a **trigger of your choice**.\n"
+        "content": "## Trigger\nThe default trigger is **When clicking ‘Test workflow’**, meaning the workflow will **need to be triggered manually**. \n\nYou can replace this by selecting a **trigger of your choice**.\n"
       },
       "typeVersion": 1
     },
@@ -154,7 +156,7 @@
         "color": 7,
         "width": 364.53488372093034,
         "height": 664.2441860465121,
-        "content": "## Google Sheets - List of URLs\n\nThe Google Sheet will contain two sheets: \n- **List of URLs to** scrape \n- **Results** page, populated with the scraping results and AI-extracted data.\n\nHere is an **[example Google Sheet](https://docs.google.com/spreadsheets/d/10Gc7ooUeTBbOOE6bgdNe5vSKRkkcAamonsFSjFevkOE/)** you can use. The \"Results\" sheet is pre-configured for e-commerce website scraping. You can adapt it to your specific needs, but remember to adjust the `Structured Output Parser` node accordingly.\n"
+        "content": "## Google Sheets - List of URLs\n\nThe Google Sheet will contain two sheets: \n- **List of URLs to** scrape \n- **Results** page, populated with the scraping results and AI-extracted data.\n\nHere is an **[example Google Sheet]({{ $env.WEBHOOK_URL }} you can use. The \"Results\" sheet is pre-configured for e-commerce website scraping. You can adapt it to your specific needs, but remember to adjust the `Structured Output Parser` node accordingly.\n"
       },
       "typeVersion": 1
     },
@@ -209,7 +211,7 @@
         "color": 7,
         "width": 364.53488372093034,
         "height": 671.8750000000002,
-        "content": "## ScrapingBee - Get Page Screenshot\n\nThis node uses ScrapingBee, a powerful scraping tool, to capture a screenshot of the desired URL. \nYou can [try ScrapingBee](https://www.scrapingbee.com/) and enjoy 1,000 free requests (non-affiliate link). \n\nEnsure the `screenshot_full_page` parameter is set to *`true`* for a full-page screenshot. This is crucial for vision-based scraping with the AI Agent. \n\nAlternatively, you can **choose to screenshot only a specific part of the page**. However, keep in mind that the **AI Agent will extract data only from the visible section\u2014it has vision**, but not a crystal ball \ud83d\udd2e!\n"
+        "content": "## ScrapingBee - Get Page Screenshot\n\nThis node uses ScrapingBee, a powerful scraping tool, to capture a screenshot of the desired URL. \nYou can [try ScrapingBee]({{ $env.API_BASE_URL }} and enjoy 1,000 free requests (non-affiliate link). \n\nEnsure the `screenshot_full_page` parameter is set to *`true`* for a full-page screenshot. This is crucial for vision-based scraping with the AI Agent. \n\nAlternatively, you can **choose to screenshot only a specific part of the page**. However, keep in mind that the **AI Agent will extract data only from the visible section—it has vision**, but not a crystal ball 🔮!\n"
       },
       "typeVersion": 1
     },
@@ -222,7 +224,7 @@
         460
       ],
       "parameters": {
-        "url": "https://app.scrapingbee.com/api/v1",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
@@ -265,7 +267,7 @@
         "color": 7,
         "width": 1000.334302325581,
         "height": 679.5058139534889,
-        "content": "## Vision-Based Scraping AI Agent\n\nThis is the central node of the workflow, powered by an AI Agent with two key prompts:\n\n- **System Prompt**: Instructs the AI on how and what data to extract from the screenshot. You can customize this to suit your needs. It also includes fallback instructions to call a tool for retrieving the HTML page if data extraction from the screenshot fails. \n- **User Message**: Provides the page URL for context.\n\n### Sub-Nodes\n\n1. **Google Gemini Chat Model** \n Chosen because tests show that **Gemini-1.5-Pro** outperforms GPT-4 and GPT-4-Vision in visual tasks. *Either my prompt wasn\u2019t optimized for GPT models, or GPT might need glasses \ud83d\udc53*. \n**Other multimodal LLMs haven\u2019t been tested yet**.\n\n2. **HTML-Based Scraping Tool** \n A **fallback tool** the agent **uses if it cannot extract data directly from the screenshot**.\n\n3. **Structured Output Parser** \n Formats the **extracted data into an easy-to-use structure**, ready to be added to the **results page in Google Sheets**."
+        "content": "## Vision-Based Scraping AI Agent\n\nThis is the central node of the workflow, powered by an AI Agent with two key prompts:\n\n- **System Prompt**: Instructs the AI on how and what data to extract from the screenshot. You can customize this to suit your needs. It also includes fallback instructions to call a tool for retrieving the HTML page if data extraction from the screenshot fails. \n- **User Message**: Provides the page URL for context.\n\n### Sub-Nodes\n\n1. **Google Gemini Chat Model** \n Chosen because tests show that **Gemini-1.5-Pro** outperforms GPT-4 and GPT-4-Vision in visual tasks. *Either my prompt wasn’t optimized for GPT models, or GPT might need glasses 👓*. \n**Other multimodal LLMs haven’t been tested yet**.\n\n2. **HTML-Based Scraping Tool** \n A **fallback tool** the agent **uses if it cannot extract data directly from the screenshot**.\n\n3. **Structured Output Parser** \n Formats the **extracted data into an easy-to-use structure**, ready to be added to the **results page in Google Sheets**."
       },
       "typeVersion": 1
     },
@@ -302,7 +304,7 @@
         "color": 6,
         "width": 305.625,
         "height": 337.03488372093034,
-        "content": "### Google Gemini Chat Model\n\nThe **default model is gemini-1.5-pro**. It offers excellent performance for this use case, but **it\u2019s not the most cost-effective option\u2014use it judiciously**.\n\n"
+        "content": "### Google Gemini Chat Model\n\nThe **default model is gemini-1.5-pro**. It offers excellent performance for this use case, but **it’s not the most cost-effective option—use it judiciously**.\n\n"
       },
       "typeVersion": 1
     },
@@ -318,7 +320,7 @@
         "color": 6,
         "width": 305.625,
         "height": 337.03488372093034,
-        "content": "### HTML-Based Scraping Tool\n\nThis tool is **invoked when the AI Agent requires the HTML** (*converted to Markdown*) to extract data because the **screenshot alone wasn\u2019t sufficient**.\n"
+        "content": "### HTML-Based Scraping Tool\n\nThis tool is **invoked when the AI Agent requires the HTML** (*converted to Markdown*) to extract data because the **screenshot alone wasn’t sufficient**.\n"
       },
       "typeVersion": 1
     },
@@ -366,7 +368,7 @@
         "color": 7,
         "width": 364.53488372093034,
         "height": 671.8750000000002,
-        "content": "## Google Sheets - Create Rows\n\nThis node **creates rows** in the **Results** sheet using the extracted data. \n\nYou can use the **[example Google Sheet](https://docs.google.com/spreadsheets/d/10Gc7ooUeTBbOOE6bgdNe5vSKRkkcAamonsFSjFevkOE/)** as a template. However, ensure that the **columns in the Results sheet are aligned with the structure of the output** from the `Structured Output Parser node`.\n"
+        "content": "## Google Sheets - Create Rows\n\nThis node **creates rows** in the **Results** sheet using the extracted data. \n\nYou can use the **[example Google Sheet]({{ $env.WEBHOOK_URL }} as a template. However, ensure that the **columns in the Results sheet are aligned with the structure of the output** from the `Structured Output Parser node`.\n"
       },
       "typeVersion": 1
     },
@@ -484,7 +486,7 @@
       "parameters": {
         "text": "=Here is the screenshot you need to use to extract data about the page:\n\n{{ $json.url }}",
         "options": {
-          "systemMessage": "=Extract the following details from the input screenshot:\n\n- Product Titles\n- Product Prices\n- Brands\n- Promotional Information (e.g., if the product is on promo)\n\nStep 1: Image-Based Extraction\nAnalyze the provided screenshot to identify and extract all the required details: product titles, prices, brands, and promotional information.\nEnsure the extraction is thorough and validate the completeness of the information.\nCross-check all products for missing or unclear details.\nHighlight any limitations (e.g., text is unclear, partially cropped, or missing) in the extraction process.\n\nStep 2: HTML-Based Extraction (If Needed)\nIf you determine that any required information is:\n\nIncomplete or missing (e.g., not all titles, prices, or brands could be retrieved).\nAmbiguous or uncertain (e.g., unclear text or potential errors in OCR).\nUnavailable due to the limitations of image processing (e.g., product links).\n\nThen:\n\nCall the HTML-based tool with the input URL to access the page content.\nExtract the required details from the HTML to supplement or replace the image-based results.\nCombine data from both sources (if applicable) to ensure the final result is comprehensive and accurate.\n\nAdditional Notes\nAvoid redundant HTML tool usage\u2014confirm deficiencies in image-based extraction before proceeding.\nFor products on promotion, explicitly label this status in the output.\nReport extraction errors or potential ambiguities (e.g., text illegibility).\n\nIn your output, include all these fields as shown in the example below. If there is no promotion, set \"promo\" to false and \"promo_percent\" to 0.\n\njson\nCopy code\n[{\n \"product_title\": \"The title of the product\",\n \"product_price\": \"The price of the product\",\n \"product_brand\": \"The brand of the product\",\n \"promo\": true,\n \"promo_percent\": 25\n}]",
+          "systemMessage": "=Extract the following details from the input screenshot:\n\n- Product Titles\n- Product Prices\n- Brands\n- Promotional Information (e.g., if the product is on promo)\n\nStep 1: Image-Based Extraction\nAnalyze the provided screenshot to identify and extract all the required details: product titles, prices, brands, and promotional information.\nEnsure the extraction is thorough and validate the completeness of the information.\nCross-check all products for missing or unclear details.\nHighlight any limitations (e.g., text is unclear, partially cropped, or missing) in the extraction process.\n\nStep 2: HTML-Based Extraction (If Needed)\nIf you determine that any required information is:\n\nIncomplete or missing (e.g., not all titles, prices, or brands could be retrieved).\nAmbiguous or uncertain (e.g., unclear text or potential errors in OCR).\nUnavailable due to the limitations of image processing (e.g., product links).\n\nThen:\n\nCall the HTML-based tool with the input URL to access the page content.\nExtract the required details from the HTML to supplement or replace the image-based results.\nCombine data from both sources (if applicable) to ensure the final result is comprehensive and accurate.\n\nAdditional Notes\nAvoid redundant HTML tool usage—confirm deficiencies in image-based extraction before proceeding.\nFor products on promotion, explicitly label this status in the output.\nReport extraction errors or potential ambiguities (e.g., text illegibility).\n\nIn your output, include all these fields as shown in the example below. If there is no promotion, set \"promo\" to false and \"promo_percent\" to 0.\n\njson\nCopy code\n[{\n \"product_title\": \"The title of the product\",\n \"product_price\": \"The price of the product\",\n \"product_brand\": \"The brand of the product\",\n \"promo\": true,\n \"promo_percent\": 25\n}]",
           "passthroughBinaryImages": true
         },
         "promptType": "define",
@@ -531,7 +533,7 @@
         "color": 7,
         "width": 364.53488372093034,
         "height": 357.10392441860495,
-        "content": "## Set Fields - From AI Agent Query\n\nThis node sets the fields from the AI Agent\u2019s query. \n\nIn this template, the only field configured is **url**.\n"
+        "content": "## Set Fields - From AI Agent Query\n\nThis node sets the fields from the AI Agent’s query. \n\nIn this template, the only field configured is **url**.\n"
       },
       "typeVersion": 1
     },
@@ -615,15 +617,130 @@
       "parameters": {
         "width": 829.9937466197946,
         "height": 646.0101744186061,
-        "content": "# \u2728 Vision-Based AI Agent Scraper - with Google Sheets, ScrapingBee, and Gemini\n\n## Important notes :\n### Check legal regulations: \nThis workflow involves scraping, so make sure to check the legal regulations around scraping in your country before getting started. Better safe than sorry!\n\n## Workflow description\nThis workflow leverages a **vision-based AI Agent**, integrated with Google Sheets, ScrapingBee, and the Gemini-1.5-Pro model, to **extract structured data from webpages**. The AI Agent primarily **uses screenshots for data extraction** but switches to HTML scraping when necessary, ensuring high accuracy. \n\nKey features include: \n- **Google Sheets Integration**: Manage URLs to scrape and store structured results. \n- **ScrapingBee**: Capture full-page screenshots and retrieve HTML data for fallback extraction. \n- **AI-Powered Data Parsing**: Use Gemini-1.5-Pro for vision-based scraping and a Structured Output Parser to format extracted data into JSON. \n- **Token Efficiency**: HTML is converted to Markdown to optimize processing costs.\n\nThis template is designed for e-commerce scraping but can be customized for various use cases. \n"
+        "content": "# ✨ Vision-Based AI Agent Scraper - with Google Sheets, ScrapingBee, and Gemini\n\n## Important notes :\n### Check legal regulations: \nThis workflow involves scraping, so make sure to check the legal regulations around scraping in your country before getting started. Better safe than sorry!\n\n## Workflow description\nThis workflow leverages a **vision-based AI Agent**, integrated with Google Sheets, ScrapingBee, and the Gemini-1.5-Pro model, to **extract structured data from webpages**. The AI Agent primarily **uses screenshots for data extraction** but switches to HTML scraping when necessary, ensuring high accuracy. \n\nKey features include: \n- **Google Sheets Integration**: Manage URLs to scrape and store structured results. \n- **ScrapingBee**: Capture full-page screenshots and retrieve HTML data for fallback extraction. \n- **AI-Powered Data Parsing**: Use Gemini-1.5-Pro for vision-based scraping and a Structured Output Parser to format extracted data into JSON. \n- **Token Efficiency**: HTML is converted to Markdown to optimize processing costs.\n\nThis template is designed for e-commerce scraping but can be customized for various use cases. \n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-7a2bfc41-1527-448d-a52c-794ca4c9e7ee",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 7a2bfc41-1527-448d-a52c-794ca4c9e7ee",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-01cbc1eb-2910-49b1-89e6-d32d340e5273",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 01cbc1eb-2910-49b1-89e6-d32d340e5273",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7a2bfc41-1527-448d-a52c-794ca4c9e7ee-3f110a4f",
+      "name": "Error Handler for 7a2bfc41",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7a2bfc41",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-34f50603-a969-425d-8a1a-ec8031a5cdfd-0e664916",
+      "name": "Error Handler for 34f50603",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 34f50603",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1a59a962-f483-4a27-8686-607a7d375584-7b72c15e",
+      "name": "Error Handler for 1a59a962",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1a59a962",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-01cbc1eb-2910-49b1-89e6-d32d340e5273-1db166ad",
+      "name": "Error Handler for 01cbc1eb",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 01cbc1eb",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-226520d1-2edb-4ade-9940-0bae461eb161-946ec693",
+      "name": "Error Handler for 226520d1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 226520d1",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-0db4051d",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Vision-Based AI Agent Scraper - with Google Sheets, ScrapingBee, and Gemini\n\n## Overview\nAutomated workflow: Vision-Based AI Agent Scraper - with Google Sheets, ScrapingBee, and Gemini. This workflow integrates 13 different services: stickyNote, httpRequest, markdown, lmChatGoogleGemini, agent. It contains 36 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 36\n- **Node Types**: 13\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **ScrapingBee- Get page HTML**: httpRequest\n- **Structured Output Parser**: outputParserStructured\n- **Google Gemini Chat Model**: lmChatGoogleGemini\n- **Split Out**: splitOut\n- **Google Sheets - Get list of URLs**: googleSheets\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Set fields**: set\n- ... and 26 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "cf87b8bb-6218-4549-831f-02ff4be611eb",
   "connections": {
@@ -748,7 +865,7 @@
         ]
       ]
     },
-    "When clicking \u2018Test workflow\u2019": {
+    "When clicking ‘Test workflow’": {
       "main": [
         [
           {
@@ -758,6 +875,76 @@
           }
         ]
       ]
+    },
+    "7a2bfc41-1527-448d-a52c-794ca4c9e7ee": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7a2bfc41-1527-448d-a52c-794ca4c9e7ee",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-7a2bfc41-1527-448d-a52c-794ca4c9e7ee-3f110a4f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "01cbc1eb-2910-49b1-89e6-d32d340e5273": {
+      "main": [
+        [
+          {
+            "node": "error-handler-01cbc1eb-2910-49b1-89e6-d32d340e5273",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-01cbc1eb-2910-49b1-89e6-d32d340e5273-1db166ad",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "34f50603-a969-425d-8a1a-ec8031a5cdfd": {
+      "main": [
+        [
+          {
+            "node": "error-handler-34f50603-a969-425d-8a1a-ec8031a5cdfd-0e664916",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1a59a962-f483-4a27-8686-607a7d375584": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1a59a962-f483-4a27-8686-607a7d375584-7b72c15e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "226520d1-2edb-4ade-9940-0bae461eb161": {
+      "main": [
+        [
+          {
+            "node": "error-handler-226520d1-2edb-4ade-9940-0bae461eb161-946ec693",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Vision-Based AI Agent Scraper - with Google Sheets, ScrapingBee, and Gemini. This workflow integrates 13 different services: stickyNote, httpRequest, markdown, lmChatGoogleGemini, agent. It contains 36 nodes and follows best practices for error handling and security."
 }

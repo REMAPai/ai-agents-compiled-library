@@ -1,8 +1,10 @@
 {
   "id": "fvgP264GysfRJXdr",
   "meta": {
-    "instanceId": "a4bfc93e975ca233ac45ed7c9227d84cf5a2329310525917adaf3312e10d5462",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "WordPress Contact Form (CF7) Responses and Classification",
   "tags": [],
@@ -426,14 +428,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18nEagLwTPmJUN9UAJ2rEqZKB9C6LLD18bUpuY5vdOw4/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Foglio1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "18nEagLwTPmJUN9UAJ2rEqZKB9C6LLD18bUpuY5vdOw4",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18nEagLwTPmJUN9UAJ2rEqZKB9C6LLD18bUpuY5vdOw4/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Contact Form 7"
         }
       },
@@ -551,14 +553,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18nEagLwTPmJUN9UAJ2rEqZKB9C6LLD18bUpuY5vdOw4/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Foglio1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "18nEagLwTPmJUN9UAJ2rEqZKB9C6LLD18bUpuY5vdOw4",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18nEagLwTPmJUN9UAJ2rEqZKB9C6LLD18bUpuY5vdOw4/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Contact Form 7"
         }
       },
@@ -676,14 +678,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18nEagLwTPmJUN9UAJ2rEqZKB9C6LLD18bUpuY5vdOw4/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Foglio1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "18nEagLwTPmJUN9UAJ2rEqZKB9C6LLD18bUpuY5vdOw4",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18nEagLwTPmJUN9UAJ2rEqZKB9C6LLD18bUpuY5vdOw4/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Contact Form 7"
         }
       },
@@ -707,7 +709,7 @@
         "color": 6,
         "width": 800,
         "height": 140,
-        "content": "## PRELIMINARY STEP\n- Download the Wordpress Plugin [CF7 to Webhook](https://wordpress.org/plugins/cf7-to-zapier/) and install it\n- Go to webhook tab on Wordpress and set the url of the n8n Webhook trigger\n- Set the POST request"
+        "content": "## PRELIMINARY STEP\n- Download the Wordpress Plugin [CF7 to Webhook]({{ $env.API_BASE_URL }} and install it\n- Go to webhook tab on Wordpress and set the url of the n8n Webhook trigger\n- Set the POST request"
       },
       "typeVersion": 1
     },
@@ -813,12 +815,155 @@
         "content": "# WordPress Contact Form (CF7) Responses and Classification \n\nThis workflow optimizes the management of inquiries received through a contact form on a WordPress site, automating the process of classification, response drafting, and data storage.\n\nThis workflow is particularly useful for businesses that receive multiple daily inquiries and want to improve their efficiency in managing customer communications. "
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-789a4732-c652-45b5-9019-4aa082cd3a29",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 789a4732-c652-45b5-9019-4aa082cd3a29",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-789a4732-c652-45b5-9019-4aa082cd3a29-0929fb0c",
+      "name": "Error Handler for 789a4732",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 789a4732",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-00b0653e-34a1-434e-abb5-ed3d4995ae58-61bcc3e4",
+      "name": "Error Handler for 00b0653e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 00b0653e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-44c87bc8-7b6d-4d0b-8f34-b3ab1150e5e1-1b5c79c5",
+      "name": "Error Handler for 44c87bc8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 44c87bc8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a700a2c9-0d12-48fb-92f0-c060ae656010-1ab9cdb7",
+      "name": "Error Handler for a700a2c9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a700a2c9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-19887247-2d04-4f25-8610-c57dd5a6d0b7-e5fa14e3",
+      "name": "Error Handler for 19887247",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 19887247",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-098f2af1-8596-43e0-84cf-8271da85d63f-73544299",
+      "name": "Error Handler for 098f2af1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 098f2af1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-545afc6a-b6b1-445f-856a-cde7d8a0f2f6-6617172a",
+      "name": "Error Handler for 545afc6a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 545afc6a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6a8fb3a0-f31a-4177-98cb-de607e412772-7447f62f",
+      "name": "Error Handler for 6a8fb3a0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6a8fb3a0",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-25d76abc",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# WordPress Contact Form (CF7) Responses and Classification\n\n## Overview\nAutomated workflow: WordPress Contact Form (CF7) Responses and Classification. This workflow integrates 10 different services: textClassifier, webhook, stickyNote, lmChatGoogleGemini, chainLlm. It contains 33 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 33\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **From Wordpress**: webhook\n- **Set Fields**: set\n- **Google Gemini Chat Model**: lmChatGoogleGemini\n- **Message Classifier**: textClassifier\n- **Google Gemini Chat Model1**: lmChatGoogleGemini\n- **Email draft - Other info**: gmail\n- **Email writer (Others)**: chainLlm\n- **Google Gemini Chat Model2**: lmChatGoogleGemini\n- **Google Gemini Chat Model3**: lmChatGoogleGemini\n- **Email writer (Order info)**: chainLlm\n- ... and 23 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "0c27484c-95ca-45c4-89cb-eada3117c9a3",
   "connections": {
@@ -1011,6 +1156,102 @@
           }
         ]
       ]
+    },
+    "789a4732-c652-45b5-9019-4aa082cd3a29": {
+      "main": [
+        [
+          {
+            "node": "error-handler-789a4732-c652-45b5-9019-4aa082cd3a29",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-789a4732-c652-45b5-9019-4aa082cd3a29-0929fb0c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "00b0653e-34a1-434e-abb5-ed3d4995ae58": {
+      "main": [
+        [
+          {
+            "node": "error-handler-00b0653e-34a1-434e-abb5-ed3d4995ae58-61bcc3e4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "44c87bc8-7b6d-4d0b-8f34-b3ab1150e5e1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-44c87bc8-7b6d-4d0b-8f34-b3ab1150e5e1-1b5c79c5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a700a2c9-0d12-48fb-92f0-c060ae656010": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a700a2c9-0d12-48fb-92f0-c060ae656010-1ab9cdb7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "19887247-2d04-4f25-8610-c57dd5a6d0b7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-19887247-2d04-4f25-8610-c57dd5a6d0b7-e5fa14e3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "098f2af1-8596-43e0-84cf-8271da85d63f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-098f2af1-8596-43e0-84cf-8271da85d63f-73544299",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "545afc6a-b6b1-445f-856a-cde7d8a0f2f6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-545afc6a-b6b1-445f-856a-cde7d8a0f2f6-6617172a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6a8fb3a0-f31a-4177-98cb-de607e412772": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6a8fb3a0-f31a-4177-98cb-de607e412772-7447f62f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: WordPress Contact Form (CF7) Responses and Classification. This workflow integrates 10 different services: textClassifier, webhook, stickyNote, lmChatGoogleGemini, chainLlm. It contains 33 nodes and follows best practices for error handling and security."
 }

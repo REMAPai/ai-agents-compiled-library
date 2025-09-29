@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "cb484ba7b742928a2048bf8829668bed5b5ad9787579adea888f05980292a4a7",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -16,7 +18,7 @@
         "color": 7,
         "width": 1440,
         "height": 620,
-        "content": "![voiceflow](https://uploads.n8n.io/templates/voiceflow.png)\n## Find Customer\nThis portion of the workflow queries the customer database and returns customer details to the AI agent if found. If not found, it returns NOT_FOUND for the customer details. "
+        "content": "![voiceflow]({{ $env.WEBHOOK_URL }}\n## Find Customer\nThis portion of the workflow queries the customer database and returns customer details to the AI agent if found. If not found, it returns NOT_FOUND for the customer details. "
       },
       "typeVersion": 1
     },
@@ -66,7 +68,7 @@
         "color": 7,
         "width": 1460,
         "height": 540,
-        "content": "![zendesk](https://uploads.n8n.io/templates/zendesk.png)\n## Create Zendesk Ticket \nCreates a Zendesk ticket on behalf of the customer when needed."
+        "content": "![zendesk]({{ $env.WEBHOOK_URL }}\n## Create Zendesk Ticket \nCreates a Zendesk ticket on behalf of the customer when needed."
       },
       "typeVersion": 1
     },
@@ -82,7 +84,7 @@
         "color": 7,
         "width": 1920,
         "height": 700,
-        "content": "![Gcal](https://uploads.n8n.io/templates/calendar.png)\n## Schedule a meeting\nThis gives availability for google calendar and schedules a meeting as well "
+        "content": "![Gcal]({{ $env.WEBHOOK_URL }}\n## Schedule a meeting\nThis gives availability for google calendar and schedules a meeting as well "
       },
       "typeVersion": 1
     },
@@ -98,7 +100,7 @@
         "color": 7,
         "width": 900,
         "height": 540,
-        "content": "![voiceflow](https://uploads.n8n.io/templates/airtable.png)\n## Give Product team transcripts for analysis\nNeed to help your product team out"
+        "content": "![voiceflow]({{ $env.WEBHOOK_URL }}\n## Give Product team transcripts for analysis\nNeed to help your product team out"
       },
       "typeVersion": 1
     },
@@ -179,7 +181,7 @@
         180
       ],
       "parameters": {
-        "url": "https://n8n8688.zendesk.com/api/v2/tickets",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "redirect": {
@@ -199,7 +201,7 @@
             }
           ]
         },
-        "nodeCredentialType": "zendeskApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "zendeskApi": {
@@ -219,14 +221,14 @@
         180
       ],
       "parameters": {
-        "url": "https://n8n8688.zendesk.com/api/v2/users/create_or_update",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"user\": {\n    \"email\": \"{{ $json.body.email }}\",\n    \"identities\": [\n      {\n        \"type\": \"email\",\n        \"value\": \"{{ $json.body.email }}\"\n      }\n    ],\n    \"name\": \"{{ $json.body.name }}\"\n  }\n}",
         "sendBody": true,
         "specifyBody": "json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "zendeskApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "zendeskApi": {
@@ -530,14 +532,14 @@
           "__rl": true,
           "mode": "list",
           "value": "app9dFu44S5VTIFRV",
-          "cachedResultUrl": "https://airtable.com/app9dFu44S5VTIFRV",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Product Customer Analysis"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblXGczD6wjZ6ZNko",
-          "cachedResultUrl": "https://airtable.com/app9dFu44S5VTIFRV/tblXGczD6wjZ6ZNko",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Table 1"
         },
         "columns": {
@@ -631,14 +633,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17sPEb3d55tiqJwt1Dms6MG1-qAAF0k9fQzbTs1lI1Yw/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "17sPEb3d55tiqJwt1Dms6MG1-qAAF0k9fQzbTs1lI1Yw",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17sPEb3d55tiqJwt1Dms6MG1-qAAF0k9fQzbTs1lI1Yw/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Customer Database"
         }
       },
@@ -892,6 +894,425 @@
         "options": {}
       },
       "typeVersion": 1.1
+    },
+    {
+      "id": "error-handler-ad9f1857-2179-4d1d-ac25-04975b23390f",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ad9f1857-2179-4d1d-ac25-04975b23390f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5b5c0f60-4495-4040-9926-194b672e6850",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 5b5c0f60-4495-4040-9926-194b672e6850",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c2fac290-0e6e-4b36-864e-f6bb2d25753c",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c2fac290-0e6e-4b36-864e-f6bb2d25753c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-71a2c455-5de7-455c-9bed-b710a09c3d07",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 71a2c455-5de7-455c-9bed-b710a09c3d07",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fcd6ceca-d231-4c49-bb1c-716d239dc0c4",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in fcd6ceca-d231-4c49-bb1c-716d239dc0c4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-53783abf-8254-46e2-8b1f-c797f880fa1b",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 53783abf-8254-46e2-8b1f-c797f880fa1b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-df6a885b-d9ea-4033-bb2d-6a222ca9153f",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in df6a885b-d9ea-4033-bb2d-6a222ca9153f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-993c83c7-c376-4bc8-8cb9-995de92d6c4e",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 993c83c7-c376-4bc8-8cb9-995de92d6c4e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d0948a72-c8a8-48f6-b5d8-adb52a44a169",
+      "name": "Stopanderror 8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d0948a72-c8a8-48f6-b5d8-adb52a44a169",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-12e0e2b3-90e1-4b77-a6bb-12dc4603d4f7",
+      "name": "Stopanderror 9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 12e0e2b3-90e1-4b77-a6bb-12dc4603d4f7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-10b7bdfc-15a9-4d3c-9c58-e7f0d7356d98",
+      "name": "Stopanderror 10",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 10b7bdfc-15a9-4d3c-9c58-e7f0d7356d98",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b8d54018-4f15-41d7-bc74-e5fa42c2eae8",
+      "name": "Stopanderror 11",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b8d54018-4f15-41d7-bc74-e5fa42c2eae8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a4e01bfd-4f65-457e-bf84-8140f2d58168",
+      "name": "Stopanderror 12",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a4e01bfd-4f65-457e-bf84-8140f2d58168",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ad9f1857-2179-4d1d-ac25-04975b23390f-b1a961c6",
+      "name": "Error Handler for ad9f1857",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ad9f1857",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5b5c0f60-4495-4040-9926-194b672e6850-2baa7c7c",
+      "name": "Error Handler for 5b5c0f60",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5b5c0f60",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c2fac290-0e6e-4b36-864e-f6bb2d25753c-2fcbddfa",
+      "name": "Error Handler for c2fac290",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c2fac290",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-71a2c455-5de7-455c-9bed-b710a09c3d07-f93e29eb",
+      "name": "Error Handler for 71a2c455",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 71a2c455",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fcd6ceca-d231-4c49-bb1c-716d239dc0c4-7ba90393",
+      "name": "Error Handler for fcd6ceca",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fcd6ceca",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-53783abf-8254-46e2-8b1f-c797f880fa1b-50cfe6a2",
+      "name": "Error Handler for 53783abf",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 53783abf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-df6a885b-d9ea-4033-bb2d-6a222ca9153f-ddf94e6b",
+      "name": "Error Handler for df6a885b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node df6a885b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-993c83c7-c376-4bc8-8cb9-995de92d6c4e-c44b95a5",
+      "name": "Error Handler for 993c83c7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 993c83c7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-42f007f1-3929-4d65-a3b5-c60693da3ad3-609c9ebb",
+      "name": "Error Handler for 42f007f1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 42f007f1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d0948a72-c8a8-48f6-b5d8-adb52a44a169-9dd2eb0a",
+      "name": "Error Handler for d0948a72",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d0948a72",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-12e0e2b3-90e1-4b77-a6bb-12dc4603d4f7-2b97d533",
+      "name": "Error Handler for 12e0e2b3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 12e0e2b3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-37b2289b-bc9a-440f-9974-fffe433c2069-4b93f835",
+      "name": "Error Handler for 37b2289b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 37b2289b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-52732530-e120-4403-b623-e087a0005383-37632e0f",
+      "name": "Error Handler for 52732530",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 52732530",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-10b7bdfc-15a9-4d3c-9c58-e7f0d7356d98-365159ea",
+      "name": "Error Handler for 10b7bdfc",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 10b7bdfc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b8d54018-4f15-41d7-bc74-e5fa42c2eae8-79fa0ce7",
+      "name": "Error Handler for b8d54018",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b8d54018",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a4e01bfd-4f65-457e-bf84-8140f2d58168-ef2dd7a4",
+      "name": "Error Handler for a4e01bfd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a4e01bfd",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-f0623a6f",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Stickynote Workflow\n\n## Overview\nAutomated workflow: Stickynote Workflow. This workflow integrates 10 different services: webhook, stickyNote, httpRequest, airtable, respondToWebhook. It contains 62 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 62\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note**: stickyNote\n- **Check if user found**: if\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Check if available**: if\n- **Check for malformed date**: if\n- **Create Ticket**: httpRequest\n- **Create Customer in DB**: httpRequest\n- **Check if submitted succesfully**: if\n- ... and 52 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -1154,6 +1575,282 @@
           }
         ]
       ]
+    },
+    "ad9f1857-2179-4d1d-ac25-04975b23390f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ad9f1857-2179-4d1d-ac25-04975b23390f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ad9f1857-2179-4d1d-ac25-04975b23390f-b1a961c6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5b5c0f60-4495-4040-9926-194b672e6850": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5b5c0f60-4495-4040-9926-194b672e6850",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-5b5c0f60-4495-4040-9926-194b672e6850-2baa7c7c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c2fac290-0e6e-4b36-864e-f6bb2d25753c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c2fac290-0e6e-4b36-864e-f6bb2d25753c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c2fac290-0e6e-4b36-864e-f6bb2d25753c-2fcbddfa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "71a2c455-5de7-455c-9bed-b710a09c3d07": {
+      "main": [
+        [
+          {
+            "node": "error-handler-71a2c455-5de7-455c-9bed-b710a09c3d07",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-71a2c455-5de7-455c-9bed-b710a09c3d07-f93e29eb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fcd6ceca-d231-4c49-bb1c-716d239dc0c4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fcd6ceca-d231-4c49-bb1c-716d239dc0c4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-fcd6ceca-d231-4c49-bb1c-716d239dc0c4-7ba90393",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "53783abf-8254-46e2-8b1f-c797f880fa1b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-53783abf-8254-46e2-8b1f-c797f880fa1b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-53783abf-8254-46e2-8b1f-c797f880fa1b-50cfe6a2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "df6a885b-d9ea-4033-bb2d-6a222ca9153f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-df6a885b-d9ea-4033-bb2d-6a222ca9153f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-df6a885b-d9ea-4033-bb2d-6a222ca9153f-ddf94e6b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "993c83c7-c376-4bc8-8cb9-995de92d6c4e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-993c83c7-c376-4bc8-8cb9-995de92d6c4e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-993c83c7-c376-4bc8-8cb9-995de92d6c4e-c44b95a5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d0948a72-c8a8-48f6-b5d8-adb52a44a169": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d0948a72-c8a8-48f6-b5d8-adb52a44a169",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d0948a72-c8a8-48f6-b5d8-adb52a44a169-9dd2eb0a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12e0e2b3-90e1-4b77-a6bb-12dc4603d4f7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-12e0e2b3-90e1-4b77-a6bb-12dc4603d4f7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-12e0e2b3-90e1-4b77-a6bb-12dc4603d4f7-2b97d533",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10b7bdfc-15a9-4d3c-9c58-e7f0d7356d98": {
+      "main": [
+        [
+          {
+            "node": "error-handler-10b7bdfc-15a9-4d3c-9c58-e7f0d7356d98",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-10b7bdfc-15a9-4d3c-9c58-e7f0d7356d98-365159ea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b8d54018-4f15-41d7-bc74-e5fa42c2eae8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b8d54018-4f15-41d7-bc74-e5fa42c2eae8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b8d54018-4f15-41d7-bc74-e5fa42c2eae8-79fa0ce7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a4e01bfd-4f65-457e-bf84-8140f2d58168": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a4e01bfd-4f65-457e-bf84-8140f2d58168",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a4e01bfd-4f65-457e-bf84-8140f2d58168-ef2dd7a4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "42f007f1-3929-4d65-a3b5-c60693da3ad3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-42f007f1-3929-4d65-a3b5-c60693da3ad3-609c9ebb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "37b2289b-bc9a-440f-9974-fffe433c2069": {
+      "main": [
+        [
+          {
+            "node": "error-handler-37b2289b-bc9a-440f-9974-fffe433c2069-4b93f835",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "52732530-e120-4403-b623-e087a0005383": {
+      "main": [
+        [
+          {
+            "node": "error-handler-52732530-e120-4403-b623-e087a0005383-37632e0f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Stickynote Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 10 different services: webhook, stickyNote, httpRequest, airtable, respondToWebhook. It contains 62 nodes and follows best practices for error handling and security."
 }

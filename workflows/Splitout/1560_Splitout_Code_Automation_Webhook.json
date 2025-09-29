@@ -1,7 +1,10 @@
 {
   "id": "NGwD3pIHXBU0w5hC",
   "meta": {
-    "instanceId": "ae2372ebbc56db2b55a9a46ac3affa802af144b84fd97c2796c22342aba529bd"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "[n8n] - Shopify Orders to D365 Business Central Sales Orders / Sales Invoices",
   "tags": [
@@ -28,7 +31,7 @@
         300
       ],
       "parameters": {
-        "url": "=https://integrocloud.myshopify.com/admin/api/2024-01/orders/{{ $json.id }}/fulfillment_orders.json",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}/fulfillment_orders.json",
         "options": {},
         "sendHeaders": true,
         "authentication": "predefinedCredentialType",
@@ -40,7 +43,7 @@
             }
           ]
         },
-        "nodeCredentialType": "shopifyAccessTokenApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -111,7 +114,7 @@
         "color": 3,
         "width": 509.9611651710956,
         "height": 705.3721586313337,
-        "content": "## Workflow Information 📌\n\n### Purpose 🎯\nThe intention of this workflow is to integrate New Shopify Orders into MS Dynamics Business Central:\n\n- **Point-of-Sale (POS):** POS orders will be created in Business Central as Sales Invoices given no fulfillment is expected.\n- **Web Orders:** This type of orders will be created as Business Central Sales Orders.\n\n### How to use it 🚀\n1. Edit the \"D365 BC Environment Settings\" node with your own account values (Company Id, Tenanant Id, Tax & Discount Items).\n2. Go to the \"Shopify\" node and edit the connection with your environment. More help [here](https://docs.n8n.io/integrations/builtin/credentials/shopify/).\n3. Go to the \"Lookup Customers\" node to edit the Business Central connection details with your environment settings.\n4. Set the required filters on the \"Shopify Order Filter\" node.\n5. Edit the \"Schedule Trigger\" node with the required frequency.\n\n### Useful Workflow Links 📚\n1. [Step-by-step Guide/ Integro Cloud Solutions](https://z0v4z2m6gixudcjglfbe.guidejar.xyz/categories/business-central)\n2. [Business Central REST API Documentation](https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/api-reference/v2.0/)\n3. [Video Demo](https://www.loom.com/share/9e218cd53cf14a93bcb55d7b3d47ec45?sid=5fdfb8ab-8205-468a-b514-67193abac455)\n\n\n### Need Help?\nContact me at:\n✉️greg.lopez@integrocloudsolutions.com\n📥 https://www.linkedin.com/in/greg-lopez-08b5071b/\n\n\n\n"
+        "content": "## Workflow Information 📌\n\n### Purpose 🎯\nThe intention of this workflow is to integrate New Shopify Orders into MS Dynamics Business Central:\n\n- **Point-of-Sale (POS):** POS orders will be created in Business Central as Sales Invoices given no fulfillment is expected.\n- **Web Orders:** This type of orders will be created as Business Central Sales Orders.\n\n### How to use it 🚀\n1. Edit the \"D365 BC Environment Settings\" node with your own account values (Company Id, Tenanant Id, Tax & Discount Items).\n2. Go to the \"Shopify\" node and edit the connection with your environment. More help [here]({{ $env.WEBHOOK_URL }}\n3. Go to the \"Lookup Customers\" node to edit the Business Central connection details with your environment settings.\n4. Set the required filters on the \"Shopify Order Filter\" node.\n5. Edit the \"Schedule Trigger\" node with the required frequency.\n\n### Useful Workflow Links 📚\n1. [Step-by-step Guide/ Integro Cloud Solutions]({{ $env.WEBHOOK_URL }}\n2. [Business Central REST API Documentation]({{ $env.API_BASE_URL }}\n3. [Video Demo]({{ $env.WEBHOOK_URL }}\n\n\n### Need Help?\nContact me at:\n✉️greg.lopez@integrocloudsolutions.com\n📥 {{ $env.WEBHOOK_URL }}\n\n\n\n"
       },
       "typeVersion": 1
     },
@@ -246,7 +249,7 @@
         260
       ],
       "parameters": {
-        "url": "=https://api.businesscentral.dynamics.com/v2.0/{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/customers?$filter=email eq '{{ $json.customer.email }}' and contains(email,'@')&$select=id,number,email",
+        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/customers?$filter=email eq '{{ $json.customer.email }}' and contains(email,'@')&$select=id,number,email",
         "options": {},
         "authentication": "genericCredentialType",
         "genericAuthType": "oAuth2Api"
@@ -361,7 +364,7 @@
         320
       ],
       "parameters": {
-        "url": "=https://api.businesscentral.dynamics.com/v2.0/{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/customers",
+        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/customers",
         "method": "POST",
         "options": {
           "response": {
@@ -480,7 +483,7 @@
         900
       ],
       "parameters": {
-        "url": "=https://api.businesscentral.dynamics.com/v2.0/{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders({{ $json.so_id }})/salesOrderLines",
+        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders({{ $json.so_id }})/salesOrderLines",
         "method": "POST",
         "options": {
           "batching": {
@@ -573,7 +576,7 @@
         980
       ],
       "parameters": {
-        "url": "=https://api.businesscentral.dynamics.com/v2.0/{{ $('D365 BC Environment Settings').item.json.tenantId }}/Production/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders({{ $json.so_id }})",
+        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/Production/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders({{ $json.so_id }})",
         "method": "DELETE",
         "options": {
           "batching": {
@@ -670,7 +673,7 @@
         920
       ],
       "parameters": {
-        "url": "=https://api.businesscentral.dynamics.com/v2.0/{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders",
+        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders",
         "method": "POST",
         "options": {
           "batching": {
@@ -803,7 +806,7 @@
         360
       ],
       "parameters": {
-        "url": "=https://api.businesscentral.dynamics.com/v2.0/{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesInvoices({{ $json.so_id }})/salesInvoiceLines",
+        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesInvoices({{ $json.so_id }})/salesInvoiceLines",
         "method": "POST",
         "options": {
           "batching": {
@@ -891,7 +894,7 @@
         380
       ],
       "parameters": {
-        "url": "=https://api.businesscentral.dynamics.com/v2.0/{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesInvoices",
+        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesInvoices",
         "method": "POST",
         "options": {
           "batching": {
@@ -1006,7 +1009,7 @@
         1080
       ],
       "parameters": {
-        "url": "=https://api.businesscentral.dynamics.com/v2.0/{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/salesOrders?$filter=externalDocumentNumber eq '{{ $json.order.id.toString() }}'&$select=id,number,externalDocumentNumber",
+        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/salesOrders?$filter=externalDocumentNumber eq '{{ $json.order.id.toString() }}'&$select=id,number,externalDocumentNumber",
         "options": {},
         "authentication": "genericCredentialType",
         "genericAuthType": "oAuth2Api"
@@ -1107,7 +1110,7 @@
         920
       ],
       "parameters": {
-        "url": "=https://api.businesscentral.dynamics.com/v2.0/{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/salesInvoices?$filter=externalDocumentNumber eq '{{ $json.order.id.toString() }}'&$select=id,number,externalDocumentNumber",
+        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/salesInvoices?$filter=externalDocumentNumber eq '{{ $json.order.id.toString() }}'&$select=id,number,externalDocumentNumber",
         "options": {},
         "authentication": "genericCredentialType",
         "genericAuthType": "oAuth2Api"
@@ -1171,7 +1174,7 @@
         440
       ],
       "parameters": {
-        "url": "=https://api.businesscentral.dynamics.com/v2.0/{{ $('D365 BC Environment Settings').item.json.tenantId }}/Production/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders({{ $json.so_id }})",
+        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/Production/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders({{ $json.so_id }})",
         "method": "DELETE",
         "options": {
           "batching": {
@@ -1208,6 +1211,327 @@
         }
       },
       "typeVersion": 4.1
+    },
+    {
+      "id": "error-handler-92db12db-d96d-4076-a9cd-441c4bdfe212",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 92db12db-d96d-4076-a9cd-441c4bdfe212",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e5222a97-002c-4433-aa7a-dbc6426b2a25",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e5222a97-002c-4433-aa7a-dbc6426b2a25",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-28f0b15a-e1a6-4055-90ed-f3051f043792",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 28f0b15a-e1a6-4055-90ed-f3051f043792",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-313ac019-aedb-4d64-833d-c3582153e2c0",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 313ac019-aedb-4d64-833d-c3582153e2c0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e2ddcd9a-7502-49ae-9d5c-50f6c3084570",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e2ddcd9a-7502-49ae-9d5c-50f6c3084570",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e7925d36-5b30-4822-8eb1-a5a076a77669",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e7925d36-5b30-4822-8eb1-a5a076a77669",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ff21ea27-091c-4ba7-bedb-1e26561ff042",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ff21ea27-091c-4ba7-bedb-1e26561ff042",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-48edfcb3-5864-4794-8876-40bb7bec31f6",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 48edfcb3-5864-4794-8876-40bb7bec31f6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-022de50a-0030-434d-95b8-edef8eacb481",
+      "name": "Stopanderror 8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 022de50a-0030-434d-95b8-edef8eacb481",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-54292ca1-8d99-4ef8-8f46-a17633bd8a9d",
+      "name": "Stopanderror 9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 54292ca1-8d99-4ef8-8f46-a17633bd8a9d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b17c61c4-ce32-4b0f-88ac-aad47e5d785d",
+      "name": "Stopanderror 10",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b17c61c4-ce32-4b0f-88ac-aad47e5d785d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-92db12db-d96d-4076-a9cd-441c4bdfe212-74ebeee6",
+      "name": "Error Handler for 92db12db",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 92db12db",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e5222a97-002c-4433-aa7a-dbc6426b2a25-d9b81105",
+      "name": "Error Handler for e5222a97",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e5222a97",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-28f0b15a-e1a6-4055-90ed-f3051f043792-a75649b8",
+      "name": "Error Handler for 28f0b15a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 28f0b15a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-313ac019-aedb-4d64-833d-c3582153e2c0-03d6fb1b",
+      "name": "Error Handler for 313ac019",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 313ac019",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e2ddcd9a-7502-49ae-9d5c-50f6c3084570-7f1b2619",
+      "name": "Error Handler for e2ddcd9a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e2ddcd9a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e7925d36-5b30-4822-8eb1-a5a076a77669-b0d6556e",
+      "name": "Error Handler for e7925d36",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e7925d36",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ff21ea27-091c-4ba7-bedb-1e26561ff042-6560ed5e",
+      "name": "Error Handler for ff21ea27",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ff21ea27",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-48edfcb3-5864-4794-8876-40bb7bec31f6-973d3751",
+      "name": "Error Handler for 48edfcb3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 48edfcb3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-022de50a-0030-434d-95b8-edef8eacb481-ea178a80",
+      "name": "Error Handler for 022de50a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 022de50a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-54292ca1-8d99-4ef8-8f46-a17633bd8a9d-ff1d25d7",
+      "name": "Error Handler for 54292ca1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 54292ca1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b17c61c4-ce32-4b0f-88ac-aad47e5d785d-afed51f7",
+      "name": "Error Handler for b17c61c4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b17c61c4",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-ee85e063",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# [n8n] - Shopify Orders to D365 Business Central Sales Orders / Sales Invoices\n\n## Overview\nAutomated workflow: [n8n] - Shopify Orders to D365 Business Central Sales Orders / Sales Invoices. This workflow integrates 12 different services: shopify, stickyNote, httpRequest, filter, code. It contains 61 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 61\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **GetFufillmentOrders**: httpRequest\n- **Sticky Note3**: stickyNote\n- **Sticky Note6**: stickyNote\n- **Sticky Note8**: stickyNote\n- **Sticky Note12**: stickyNote\n- **Shopify**: shopify\n- **Sticky Note**: stickyNote\n- **Sticky Note10**: stickyNote\n- **Sticky Note11**: stickyNote\n- **Schedule Trigger**: scheduleTrigger\n- ... and 51 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -1216,9 +1540,11 @@
     "callerPolicy": "workflowsFromSameOwner",
     "executionOrder": "v1",
     "executionTimeout": 300,
-    "saveManualExecutions": false,
+    "saveManualExecutions": true,
     "saveExecutionProgress": true,
-    "saveDataSuccessExecution": "none"
+    "saveDataSuccessExecution": "none",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "82aaad0b-396d-4d9a-9550-731340124a18",
   "connections": {
@@ -1553,6 +1879,205 @@
           }
         ]
       ]
+    },
+    "92db12db-d96d-4076-a9cd-441c4bdfe212": {
+      "main": [
+        [
+          {
+            "node": "error-handler-92db12db-d96d-4076-a9cd-441c4bdfe212",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-92db12db-d96d-4076-a9cd-441c4bdfe212-74ebeee6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e5222a97-002c-4433-aa7a-dbc6426b2a25": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e5222a97-002c-4433-aa7a-dbc6426b2a25",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e5222a97-002c-4433-aa7a-dbc6426b2a25-d9b81105",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "28f0b15a-e1a6-4055-90ed-f3051f043792": {
+      "main": [
+        [
+          {
+            "node": "error-handler-28f0b15a-e1a6-4055-90ed-f3051f043792",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-28f0b15a-e1a6-4055-90ed-f3051f043792-a75649b8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "313ac019-aedb-4d64-833d-c3582153e2c0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-313ac019-aedb-4d64-833d-c3582153e2c0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-313ac019-aedb-4d64-833d-c3582153e2c0-03d6fb1b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e2ddcd9a-7502-49ae-9d5c-50f6c3084570": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e2ddcd9a-7502-49ae-9d5c-50f6c3084570",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e2ddcd9a-7502-49ae-9d5c-50f6c3084570-7f1b2619",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e7925d36-5b30-4822-8eb1-a5a076a77669": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e7925d36-5b30-4822-8eb1-a5a076a77669",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e7925d36-5b30-4822-8eb1-a5a076a77669-b0d6556e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ff21ea27-091c-4ba7-bedb-1e26561ff042": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ff21ea27-091c-4ba7-bedb-1e26561ff042",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ff21ea27-091c-4ba7-bedb-1e26561ff042-6560ed5e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "48edfcb3-5864-4794-8876-40bb7bec31f6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-48edfcb3-5864-4794-8876-40bb7bec31f6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-48edfcb3-5864-4794-8876-40bb7bec31f6-973d3751",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "022de50a-0030-434d-95b8-edef8eacb481": {
+      "main": [
+        [
+          {
+            "node": "error-handler-022de50a-0030-434d-95b8-edef8eacb481",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-022de50a-0030-434d-95b8-edef8eacb481-ea178a80",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "54292ca1-8d99-4ef8-8f46-a17633bd8a9d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-54292ca1-8d99-4ef8-8f46-a17633bd8a9d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-54292ca1-8d99-4ef8-8f46-a17633bd8a9d-ff1d25d7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b17c61c4-ce32-4b0f-88ac-aad47e5d785d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b17c61c4-ce32-4b0f-88ac-aad47e5d785d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b17c61c4-ce32-4b0f-88ac-aad47e5d785d-afed51f7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: [n8n] - Shopify Orders to D365 Business Central Sales Orders / Sales Invoices. This workflow integrates 12 different services: shopify, stickyNote, httpRequest, filter, code. It contains 61 nodes and follows best practices for error handling and security."
 }

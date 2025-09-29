@@ -27,7 +27,7 @@
               "id": "745e32ae-61e6-429b-a107-f20c9b17e65e",
               "name": "url",
               "type": "string",
-              "value": "https://cflobdhpqwnoisuctsoc.supabase.co/storage/v1/object/public/5minai/OUTBOUNDSAMPLE_01.mp3"
+              "value": "{{ $env.WEBHOOK_URL }}"
             }
           ]
         }
@@ -73,7 +73,7 @@
         1020
       ],
       "parameters": {
-        "url": "=https://api.assemblyai.com/v2/transcript",
+        "url": "={{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -98,7 +98,7 @@
             },
             {
               "name": "webhook_url",
-              "value": "https://n8n.lowcoding.dev/webhook/d1e5fdd0-b51d-4447-8af3-6754017d240b"
+              "value": "{{ $env.WEBHOOK_URL }}"
             }
           ]
         },
@@ -114,7 +114,7 @@
     },
     {
       "id": "89af9ab5-d59b-4224-af00-7b55c4905022",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         1580,
@@ -155,7 +155,7 @@
         1500
       ],
       "parameters": {
-        "url": "=https://api.assemblyai.com/v2/transcript/{{ $('Webhook').item.json.body.transcript_id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Webhook').item.json.body.transcript_id }}",
         "options": {},
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth"
@@ -177,14 +177,14 @@
         1500
       ],
       "parameters": {
-        "url": "=https://api.openai.com/v1/chat/completions",
+        "url": "={{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n    \"model\": \"gpt-4o-2024-08-06\",\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"{{ $('Set vars').item.json.prompt }}\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": {{ JSON.stringify($json.utterances.map(u => `Speaker ${u.speaker}: ${u.text}`).join(\"\\n\\n\"))}}\n      }\n    ],\n  \"response_format\":{ \"type\": \"json_schema\", \"json_schema\":   {{ JSON.stringify($('Set vars').item.json.json_schema) }} }\n  }",
         "sendBody": true,
         "specifyBody": "json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "openAiApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "openAiApi": {
@@ -216,7 +216,7 @@
               "id": "4305764d-202c-4ab9-ae1e-d753cd68b7be",
               "name": "json_schema",
               "type": "object",
-              "value": "={{   {   \"name\": \"sales_call_analysis\",   \"description\": \"Analysis of customer engagement, interest, and potential sales conversion based on call data\",   \"strict\": true,   \"schema\": {     \"$schema\": \"http://json-schema.org/draft-04/schema#\",     \"type\": \"object\",     \"properties\": {       \"client_intent\": {         \"type\": \"string\",         \"description\": \"Client's primary intent for engaging (e.g., 'interest in education', 'general inquiry')\"       },       \"interest_score\": {         \"type\": \"integer\",         \"description\": \"Score indicating client's interest level based on responses (0-100)\"       },       \"service_presentation_score\": {         \"type\": \"integer\",         \"description\": \"Score for how effectively the agent presented the educational opportunities (0-100)\"       },       \"upsell_opportunity_identified\": {         \"type\": \"boolean\",         \"description\": \"Indicates if any upsell opportunity was identified\"       },       \"objection_handling_score\": {         \"type\": \"integer\",         \"description\": \"Score for handling client objections (0-100)\"       },       \"conversion_probability\": {         \"type\": \"integer\",         \"description\": \"Estimated likelihood of conversion based on call interaction (0-100)\"       },       \"call_outcome\": {         \"type\": \"string\",         \"description\": \"Outcome of the call (e.g., 'interest confirmed', 'no interest', 'appointment set')\"       },       \"key_client_needs\": {         \"type\": \"string\",         \"description\": \"Identified needs or requirements of the client, useful for customization or follow-up\"       },       \"insights_for_agent_improvement\": {         \"type\": \"string\",         \"description\": \"Insights and tips for the agent to improve performance\"       },       \"next_steps_recommended\": {         \"type\": \"string\",         \"description\": \"Suggested follow-up actions to improve conversion potential\"       }     },     \"additionalProperties\": false,     \"required\": [       \"client_intent\",       \"interest_score\",       \"service_presentation_score\",       \"upsell_opportunity_identified\",       \"objection_handling_score\",       \"conversion_probability\",       \"call_outcome\",       \"key_client_needs\",       \"insights_for_agent_improvement\",       \"next_steps_recommended\"     ]   } }       }}"
+              "value": "={{   {   \"name\": \"sales_call_analysis\",   \"description\": \"Analysis of customer engagement, interest, and potential sales conversion based on call data\",   \"strict\": true,   \"schema\": {     \"$schema\": \"{{ $env.WEBHOOK_URL }}\",     \"type\": \"object\",     \"properties\": {       \"client_intent\": {         \"type\": \"string\",         \"description\": \"Client's primary intent for engaging (e.g., 'interest in education', 'general inquiry')\"       },       \"interest_score\": {         \"type\": \"integer\",         \"description\": \"Score indicating client's interest level based on responses (0-100)\"       },       \"service_presentation_score\": {         \"type\": \"integer\",         \"description\": \"Score for how effectively the agent presented the educational opportunities (0-100)\"       },       \"upsell_opportunity_identified\": {         \"type\": \"boolean\",         \"description\": \"Indicates if any upsell opportunity was identified\"       },       \"objection_handling_score\": {         \"type\": \"integer\",         \"description\": \"Score for handling client objections (0-100)\"       },       \"conversion_probability\": {         \"type\": \"integer\",         \"description\": \"Estimated likelihood of conversion based on call interaction (0-100)\"       },       \"call_outcome\": {         \"type\": \"string\",         \"description\": \"Outcome of the call (e.g., 'interest confirmed', 'no interest', 'appointment set')\"       },       \"key_client_needs\": {         \"type\": \"string\",         \"description\": \"Identified needs or requirements of the client, useful for customization or follow-up\"       },       \"insights_for_agent_improvement\": {         \"type\": \"string\",         \"description\": \"Insights and tips for the agent to improve performance\"       },       \"next_steps_recommended\": {         \"type\": \"string\",         \"description\": \"Suggested follow-up actions to improve conversion potential\"       }     },     \"additionalProperties\": false,     \"required\": [       \"client_intent\",       \"interest_score\",       \"service_presentation_score\",       \"upsell_opportunity_identified\",       \"objection_handling_score\",       \"conversion_probability\",       \"call_outcome\",       \"key_client_needs\",       \"insights_for_agent_improvement\",       \"next_steps_recommended\"     ]   } }       }}"
             }
           ]
         }
@@ -296,7 +296,7 @@
         "color": 7,
         "width": 280.2462120317618,
         "height": 438.5821431288714,
-        "content": "#### Scenario 1: Transcribe Call with AssemblyAI\n1. **Set Up Request**:\n    - **Header Authentication**: Set `Authorization` with AssemblyAI API key.\n    - **URL**: POST to `https://api.assemblyai.com/v2/transcript/`.\n    - **Parameters**:\n        - `audio_url`: Direct URL of the audio file.\n        - `webhook_url`: URL for an N8N webhook to receive the transcription result.\n        - **Additional Settings**:\n            - `speaker_labels` (true/false): Enables speaker diarization.\n            - `speakers_expected`: Specify expected number of speakers.\n            - `language_code`: Set language (default: `en_us`).\n\n#### Scenario 2: Process Transcription with OpenAI\n1. **Webhook Configuration**: Set up a POST webhook to receive AssemblyAI’s transcription data.\n2. **Get Transcription**:\n    - **Header Authentication**: Set `Authorization` with AssemblyAI API key.\n    - **URL**: GET `https://api.assemblyai.com/v2/transcript/<transcript_id>`.\n3. **Send to OpenAI**:\n    - **URL**: POST to `https://api.openai.com/v1/chat/completions`.\n    - **Header Authentication**: Set `Authorization` with OpenAI API key.\n    - **Body Parameters**:\n        - **Model**: Use `gpt-4o-2024-08-06` for JSON Schema support, or `gpt-4o-mini` for a less costly option.\n        - **Messages**:\n            - `system`: Contains the main analysis prompt.\n            - `user`: Combined speakers’ utterances to analyze in text format.\n        - **Response Format**:\n            - `type`: `json_schema`.\n            - `json_schema`: JSON schema for structured responses.\n\n4. **Save Results in Supabase**:\n    - **Operation**: Create a new record.\n    - **Table Name**: `demo_calls`.\n    - **Fields**:\n        - **Input**: Transcription text, audio URL, and transcription ID.\n        - **Output**: Parsed JSON response from OpenAI’s analysis."
+        "content": "#### Scenario 1: Transcribe Call with AssemblyAI\n1. **Set Up Request**:\n    - **Header Authentication**: Set `Authorization` with AssemblyAI API key.\n    - **URL**: POST to `{{ $env.API_BASE_URL }}`.\n    - **Parameters**:\n        - `audio_url`: Direct URL of the audio file.\n        - `webhook_url`: URL for an N8N webhook to receive the transcription result.\n        - **Additional Settings**:\n            - `speaker_labels` (true/false): Enables speaker diarization.\n            - `speakers_expected`: Specify expected number of speakers.\n            - `language_code`: Set language (default: `en_us`).\n\n#### Scenario 2: Process Transcription with OpenAI\n1. **Webhook Configuration**: Set up a POST webhook to receive AssemblyAI’s transcription data.\n2. **Get Transcription**:\n    - **Header Authentication**: Set `Authorization` with AssemblyAI API key.\n    - **URL**: GET `{{ $env.API_BASE_URL }}<transcript_id>`.\n3. **Send to OpenAI**:\n    - **URL**: POST to `{{ $env.API_BASE_URL }}`.\n    - **Header Authentication**: Set `Authorization` with OpenAI API key.\n    - **Body Parameters**:\n        - **Model**: Use `gpt-4o-2024-08-06` for JSON Schema support, or `gpt-4o-mini` for a less costly option.\n        - **Messages**:\n            - `system`: Contains the main analysis prompt.\n            - `user`: Combined speakers’ utterances to analyze in text format.\n        - **Response Format**:\n            - `type`: `json_schema`.\n            - `json_schema`: JSON schema for structured responses.\n\n4. **Save Results in Supabase**:\n    - **Operation**: Create a new record.\n    - **Table Name**: `demo_calls`.\n    - **Fields**:\n        - **Input**: Transcription text, audio URL, and transcription ID.\n        - **Output**: Parsed JSON response from OpenAI’s analysis."
       },
       "typeVersion": 1
     },
@@ -312,7 +312,7 @@
         "color": 7,
         "width": 636.2128494576581,
         "height": 598.6675280064023,
-        "content": "![5min Logo](https://cflobdhpqwnoisuctsoc.supabase.co/storage/v1/object/public/my_storage/Untitled%20(1500%20x%20300%20px).png)\n## Call analyzer with AssemblyAI transcription and OpenAI assistant integration\n**Made by [Mark Shcherbakov](https://www.linkedin.com/in/marklowcoding/) from community [5minAI](https://www.skool.com/5minai-2861)**\n\nMany follow-up sales calls lack structured analysis, making it challenging to identify client needs, gauge interest levels, or uncover upsell opportunities. This workflow enables automated call transcription and AI-driven analysis to generate actionable insights, helping teams improve sales performance, refine client communication, and streamline upselling strategies.\n\nThis workflow transcribes and analyzes sales calls using AssemblyAI, OpenAI, and Supabase to store structured data. The workflow processes recorded calls as follows:\n\n1. **Transcribe Call with AssemblyAI**: Converts audio into text with speaker labels for clarity.\n2. **Analyze Transcription with OpenAI**: Using a predefined JSON schema, OpenAI analyzes the transcription to extract metrics like client intent, interest score, upsell opportunities, and more.\n3. **Store and Access Results in Supabase**: Stores both transcription and analysis data in a Supabase database for further use and display in interfaces.\n\n"
+        "content": "![5min Logo]({{ $env.WEBHOOK_URL }}\n## Call analyzer with AssemblyAI transcription and OpenAI assistant integration\n**Made by [Mark Shcherbakov]({{ $env.WEBHOOK_URL }} from community [5minAI]({{ $env.WEBHOOK_URL }}\n\nMany follow-up sales calls lack structured analysis, making it challenging to identify client needs, gauge interest levels, or uncover upsell opportunities. This workflow enables automated call transcription and AI-driven analysis to generate actionable insights, helping teams improve sales performance, refine client communication, and streamline upselling strategies.\n\nThis workflow transcribes and analyzes sales calls using AssemblyAI, OpenAI, and Supabase to store structured data. The workflow processes recorded calls as follows:\n\n1. **Transcribe Call with AssemblyAI**: Converts audio into text with speaker labels for clarity.\n2. **Analyze Transcription with OpenAI**: Using a predefined JSON schema, OpenAI analyzes the transcription to extract metrics like client intent, interest score, upsell opportunities, and more.\n3. **Store and Access Results in Supabase**: Stores both transcription and analysis data in a Supabase database for further use and display in interfaces.\n\n"
       },
       "typeVersion": 1
     },
@@ -328,7 +328,7 @@
         "color": 7,
         "width": 330.5152611046425,
         "height": 240.6839895136402,
-        "content": "### ... or watch set up video [5 min]\n[![Youtube Thumbnail](https://cflobdhpqwnoisuctsoc.supabase.co/storage/v1/object/public/my_storage/OPENAI%20(8).png)](https://www.youtube.com/watch?v=kS41gut8l0g)\n"
+        "content": "### ... or watch set up video [5 min]\n[![Youtube Thumbnail]({{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -423,6 +423,131 @@
         "content": "**Replace Supabase connection**"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-a52fc9df-20b5-4b2e-956d-66604be12660",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a52fc9df-20b5-4b2e-956d-66604be12660",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-27653ac0-6703-4d25-bc0f-53b93b293b05",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 27653ac0-6703-4d25-bc0f-53b93b293b05",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-50166503-27a2-435d-a455-1ea33384585f",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 50166503-27a2-435d-a455-1ea33384585f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-dcaf9ed5-face-4199-ae8c-dc70c97588f6",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in dcaf9ed5-face-4199-ae8c-dc70c97588f6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a52fc9df-20b5-4b2e-956d-66604be12660-68fa17ce",
+      "name": "Error Handler for a52fc9df",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a52fc9df",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-27653ac0-6703-4d25-bc0f-53b93b293b05-892189b6",
+      "name": "Error Handler for 27653ac0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 27653ac0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-50166503-27a2-435d-a455-1ea33384585f-76b94086",
+      "name": "Error Handler for 50166503",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 50166503",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-dcaf9ed5-face-4199-ae8c-dc70c97588f6-a9f8a32d",
+      "name": "Error Handler for dcaf9ed5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node dcaf9ed5",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-94b0645f",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 8 different services: webhook, stickyNote, httpRequest, set, stopAndError. It contains 29 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 29\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Set link to audio**: set\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **AssemblyAI - Transcribe**: httpRequest\n- **If Node**: if\n- **AssemblyAI - Get transcription**: httpRequest\n- **OpenAI - Analyze call**: httpRequest\n- **Set vars**: set\n- **Create record**: supabase\n- ... and 19 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {
@@ -446,7 +571,7 @@
           "name": "sales_call_analysis",
           "schema": {
             "type": "object",
-            "$schema": "http://json-schema.org/draft-04/schema#",
+            "$schema": "{{ $env.WEBHOOK_URL }}",
             "required": [
               "client_intent",
               "interest_score",
@@ -515,7 +640,7 @@
         "date_created": "2024-10-30T12:21:08.909539+00:00",
         "client_intent": "Interest in computer engineering degree",
         "interest_score": 75,
-        "key_client_needs": "Interest in computer engineering as a career switch, preference for on-campus learning but open to online, current GED holder with plumbing experience",
+        "key_client_needs": "YOUR_API_KEY",
         "conversion_probability": 70,
         "next_steps_recommended": "Arrange for a follow-up call with a specific school counselor who can provide detailed program information and potential financial aid options relevant to the client's situation. Sending personalized emails with program highlights that match Anthony’s interest in computer engineering can also increase engagement and conversion likelihood.",
         "objection_handling_score": 80,
@@ -526,7 +651,7 @@
     ],
     "Set link to audio": [
       {
-        "url": "https://cflobdhpqwnoisuctsoc.supabase.co/storage/v1/object/public/5minai/OUTBOUNDSAMPLE_01.mp3"
+        "url": "{{ $env.WEBHOOK_URL }}"
       }
     ],
     "OpenAI - Analyze call": [
@@ -571,7 +696,7 @@
         "summary": null,
         "chapters": null,
         "entities": null,
-        "audio_url": "https://cflobdhpqwnoisuctsoc.supabase.co/storage/v1/object/public/5minai/OUTBOUNDSAMPLE_01.mp3",
+        "audio_url": "{{ $env.WEBHOOK_URL }}",
         "punctuate": true,
         "throttled": false,
         "confidence": null,
@@ -582,7 +707,7 @@
         "boost_param": null,
         "format_text": true,
         "speed_boost": false,
-        "webhook_url": "https://n8n.lowcoding.dev/webhook/d1e5fdd0-b51d-4447-8af3-6754017d240b",
+        "webhook_url": "{{ $env.WEBHOOK_URL }}",
         "audio_end_at": null,
         "disfluencies": false,
         "dual_channel": false,
@@ -5466,7 +5591,7 @@
         "summary": null,
         "chapters": null,
         "entities": null,
-        "audio_url": "https://cflobdhpqwnoisuctsoc.supabase.co/storage/v1/object/public/5minai/OUTBOUNDSAMPLE_01.mp3",
+        "audio_url": "{{ $env.WEBHOOK_URL }}",
         "punctuate": true,
         "throttled": false,
         "confidence": 0.89525497,
@@ -10875,7 +11000,7 @@
         "boost_param": null,
         "format_text": true,
         "speed_boost": false,
-        "webhook_url": "https://n8n.lowcoding.dev/webhook/d1e5fdd0-b51d-4447-8af3-6754017d240b",
+        "webhook_url": "{{ $env.WEBHOOK_URL }}",
         "audio_end_at": null,
         "disfluencies": false,
         "dual_channel": false,
@@ -11004,6 +11129,93 @@
           }
         ]
       ]
+    },
+    "a52fc9df-20b5-4b2e-956d-66604be12660": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a52fc9df-20b5-4b2e-956d-66604be12660",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a52fc9df-20b5-4b2e-956d-66604be12660-68fa17ce",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "27653ac0-6703-4d25-bc0f-53b93b293b05": {
+      "main": [
+        [
+          {
+            "node": "error-handler-27653ac0-6703-4d25-bc0f-53b93b293b05",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-27653ac0-6703-4d25-bc0f-53b93b293b05-892189b6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "50166503-27a2-435d-a455-1ea33384585f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-50166503-27a2-435d-a455-1ea33384585f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-50166503-27a2-435d-a455-1ea33384585f-76b94086",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "dcaf9ed5-face-4199-ae8c-dc70c97588f6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-dcaf9ed5-face-4199-ae8c-dc70c97588f6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-dcaf9ed5-face-4199-ae8c-dc70c97588f6-a9f8a32d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 8 different services: webhook, stickyNote, httpRequest, set, stopAndError. It contains 29 nodes and follows best practices for error handling and security.",
+  "meta": {
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   }
 }

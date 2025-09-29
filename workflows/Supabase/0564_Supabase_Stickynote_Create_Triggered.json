@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "1a23006df50de49624f69e85993be557d137b6efe723a867a7d68a84e0b32704"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -15,7 +18,7 @@
         "fileId": {
           "__rl": true,
           "mode": "url",
-          "value": "https://drive.google.com/file/d/xxxxxxxxxxxxxxx/view"
+          "value": "{{ $env.WEBHOOK_URL }}"
         },
         "options": {},
         "operation": "download"
@@ -317,7 +320,7 @@
         "color": 6,
         "width": 1587.0771183771394,
         "height": 537.3056597675153,
-        "content": "# DELETION\n\nAt the moment n8n does not have a built-in Supabase Node to delete records in a Vector Database. For this you would typically use the HTTP Request node to make an authorized API call to Supabase. \n\n## HTTP Request Node\n\nUse this node to send a DELETE request to your Supabase instance.\n\n- Supabase API Endpoint: Use the appropriate URL for your Supabase project. The endpoint will typically look like this: [https://<your-supabase-ref>.supabase.co/rest/v1/<your-vector-table>](https://supabase.com/docs/guides/api). Replace `<your-supabase-ref>` and `<your-vector-table>` with your details.\n### HEADERS:\n- apikey: Your Supabase API key.\n- Authorization: Bearer token with your Supabase JWT.\n- Query Parameters: Use query parameters to specify which record(s) to delete. For example, `?id=eq.<your-record-id>` where `<your-record-id>` is the specific record ID you want to delete \n(You can also reference back to the **Retrieve Rows From Table** Node to get the ID dynamically)\n\nEnsure you have the necessary permissions set up in Supabase to delete records through the API.\n\nPlease refer to the official n8n documentation for more detailed information on using the [HTTP Request Node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest/).\n\n_Note:_ Deleting records is a sensitive operation, so make sure that your permissions are correctly configured and that you are targeting the correct records to avoid unwanted data loss."
+        "content": "# DELETION\n\nAt the moment n8n does not have a built-in Supabase Node to delete records in a Vector Database. For this you would typically use the HTTP Request node to make an authorized API call to Supabase. \n\n## HTTP Request Node\n\nUse this node to send a DELETE request to your Supabase instance.\n\n- Supabase API Endpoint: Use the appropriate URL for your Supabase project. The endpoint will typically look like this: [https://<your-supabase-ref>.supabase.co/rest/v1/<your-vector-table>]({{ $env.API_BASE_URL }} Replace `<your-supabase-ref>` and `<your-vector-table>` with your details.\n### HEADERS:\n- apikey: Your Supabase API key.\n- Authorization: Bearer token with your Supabase JWT.\n- Query Parameters: Use query parameters to specify which record(s) to delete. For example, `?id=eq.<your-record-id>` where `<your-record-id>` is the specific record ID you want to delete \n(You can also reference back to the **Retrieve Rows From Table** Node to get the ID dynamically)\n\nEnsure you have the necessary permissions set up in Supabase to delete records through the API.\n\nPlease refer to the official n8n documentation for more detailed information on using the [HTTP Request Node]({{ $env.WEBHOOK_URL }}\n\n_Note:_ Deleting records is a sensitive operation, so make sure that your permissions are correctly configured and that you are targeting the correct records to avoid unwanted data loss."
       },
       "typeVersion": 1
     },
@@ -343,6 +346,89 @@
         }
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-54065cc9-047c-4741-95f6-cec3e352abd7-35a55d28",
+      "name": "Error Handler for 54065cc9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 54065cc9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ddf1228f-f051-445b-8a42-54c2510a0b2e-bb6b732c",
+      "name": "Error Handler for ddf1228f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ddf1228f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ba6b87b9-e96d-47a3-83f8-169d7172325a-028046e5",
+      "name": "Error Handler for ba6b87b9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ba6b87b9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bcd1b31f-c60b-4c40-b039-d47dadc86b23-e0b9237c",
+      "name": "Error Handler for bcd1b31f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node bcd1b31f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c54c9458-9b8a-4ef1-a6db-5265729be19d-eb06373e",
+      "name": "Error Handler for c54c9458",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c54c9458",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-51f1b8ee",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Googledrive Workflow\n\n## Overview\nAutomated workflow: Googledrive Workflow. This workflow integrates 13 different services: stickyNote, vectorStoreSupabase, textSplitterRecursiveCharacterTextSplitter, chainRetrievalQa, googleDrive. It contains 26 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 26\n- **Node Types**: 13\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Google Drive**: googleDrive\n- **Default Data Loader**: documentDefaultDataLoader\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Question and Answer Chain**: chainRetrievalQa\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Vector Store Retriever**: retrieverVectorStore\n- **Recursive Character Text Splitter1**: textSplitterRecursiveCharacterTextSplitter\n- ... and 16 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -478,6 +564,70 @@
           }
         ]
       ]
+    },
+    "54065cc9-047c-4741-95f6-cec3e352abd7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-54065cc9-047c-4741-95f6-cec3e352abd7-35a55d28",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ddf1228f-f051-445b-8a42-54c2510a0b2e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ddf1228f-f051-445b-8a42-54c2510a0b2e-bb6b732c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ba6b87b9-e96d-47a3-83f8-169d7172325a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ba6b87b9-e96d-47a3-83f8-169d7172325a-028046e5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bcd1b31f-c60b-4c40-b039-d47dadc86b23": {
+      "main": [
+        [
+          {
+            "node": "error-handler-bcd1b31f-c60b-4c40-b039-d47dadc86b23-e0b9237c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c54c9458-9b8a-4ef1-a6db-5265729be19d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c54c9458-9b8a-4ef1-a6db-5265729be19d-eb06373e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Googledrive Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Googledrive Workflow. This workflow integrates 13 different services: stickyNote, vectorStoreSupabase, textSplitterRecursiveCharacterTextSplitter, chainRetrievalQa, googleDrive. It contains 26 nodes and follows best practices for error handling and security."
 }

@@ -1,7 +1,10 @@
 {
   "id": "mjCQV12PbF6fw8hR",
   "meta": {
-    "instanceId": "021d3c82ba2d3bc090cbf4fc81c9312668bcc34297e022bb3438c5c88a43a5ff"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "LangChain - Example - Workflow Retriever",
   "tags": [
@@ -117,12 +120,43 @@
         "content": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReplace \"Workflow ID\" with the ID the Subworkflow got saved as"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-f6d16571-0573-4860-aed9-611f93b050ad-17198fce",
+      "name": "Error Handler for f6d16571",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f6d16571",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-bb1151b7",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# LangChain - Example - Workflow Retriever\n\n## Overview\nAutomated workflow: LangChain - Example - Workflow Retriever. This workflow integrates 7 different services: stickyNote, retrieverWorkflow, chainRetrievalQa, set, stopAndError. It contains 8 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 8\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking \"Execute Workflow\"**: manualTrigger\n- **Workflow Retriever**: retrieverWorkflow\n- **Retrieval QA Chain2**: chainRetrievalQa\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Example Prompt**: set\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Error Handler for f6d16571**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "48d3bdae-4cec-4b18-b92a-89215def0c68",
   "connections": {
@@ -169,6 +203,18 @@
           }
         ]
       ]
+    },
+    "f6d16571-0573-4860-aed9-611f93b050ad": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f6d16571-0573-4860-aed9-611f93b050ad-17198fce",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: LangChain - Example - Workflow Retriever. This workflow integrates 7 different services: stickyNote, retrieverWorkflow, chainRetrievalQa, set, stopAndError. It contains 8 nodes and follows best practices for error handling and security."
 }

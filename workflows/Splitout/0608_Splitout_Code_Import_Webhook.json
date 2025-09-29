@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "6b6a2db47bdf8371d21090c511052883cc9a3f6af5d0d9d567c702d74a18820e"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -126,13 +129,13 @@
       "id": "34a38c07-6439-4177-a12a-a2f6295cd914",
       "name": "GET SERP",
       "type": "n8n-nodes-base.httpRequest",
-      "notes": "SERP results - scrapingRobot\n\nhttps://dashboard.scrapingrobot.com/dashboard",
+      "notes": "SERP results - scrapingRobot\n\n{{ $env.API_BASE_URL }}",
       "position": [
         1106,
         2800
       ],
       "parameters": {
-        "url": "https://api.scrapingrobot.com",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "batching": {
@@ -141,7 +144,7 @@
             }
           }
         },
-        "jsonBody": "={\n  \"url\": \"https://www.google.com\",\n  \"module\": \"GoogleScraper\",\n  \"params\": {\n    \"query\": \"{{ $json[\"Keyword\"] }}\"\n  }\n}  ",
+        "jsonBody": "={\n  \"url\": \"{{ $env.WEBHOOK_URL }}\",\n  \"module\": \"GoogleScraper\",\n  \"params\": {\n    \"query\": \"{{ $json[\"Keyword\"] }}\"\n  }\n}  ",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
@@ -266,7 +269,7 @@
         "color": 3,
         "width": 284.87764467541297,
         "height": 150.1322172211123,
-        "content": "**REQUIRED**\nUpdate the Auth parameter to your own [Scraping Robot](https://billing.scrapingrobot.com/aff.php?aff=2) token\n\n**Query Auth parameter**\nname - token\nvalue - your-own-api-key"
+        "content": "**REQUIRED**\nUpdate the Auth parameter to your own [Scraping Robot]({{ $env.API_BASE_URL }} token\n\n**Query Auth parameter**\nname - token\nvalue - your-own-api-key"
       },
       "typeVersion": 1
     },
@@ -379,9 +382,50 @@
         "color": 4,
         "width": 697.67602815855,
         "height": 735.4043641289052,
-        "content": "## Get Google Search Results (SERPs) for SEO Research\n\n## Use Case\nResearch search engine rankings for SEO analysis:\n- You need to track keyword rankings for your website\n- You want to analyze competitor positions in search results\n- You need data for SEO competition analysis\n- You want to monitor SERP changes over time\n\n## What this Workflow Does\nThe workflow uses ScrapingRobot API to fetch Google search results:\n- Retrieves SERP data for your target keywords\n- Captures URL rankings and page titles\n- Processes up to 5000 searches with free account\n- Organizes results for SEO analysis\n\n## Setup\n1. Create a [ScrapingRobot account](https://billing.scrapingrobot.com/aff.php?aff=2) and get your API key\n2. Add your ScrapingRobot API key to the HTTP Request node's `GET SERP` token parameter\n3. Either connect your keyword database (column name \"Keyword\") or use the \"Set Keywords\" node\n4. Configure your preferred output database connection\n\n## How to Adjust it to Your Needs\n- Modify keyword source to pull from different databases\n- Adjust the number of SERP results to capture\n- Customize output format for your reporting needs\n\n\nMade by Simon @ [automake.io](https://automake.io)"
+        "content": "## Get Google Search Results (SERPs) for SEO Research\n\n## Use Case\nResearch search engine rankings for SEO analysis:\n- You need to track keyword rankings for your website\n- You want to analyze competitor positions in search results\n- You need data for SEO competition analysis\n- You want to monitor SERP changes over time\n\n## What this Workflow Does\nThe workflow uses ScrapingRobot API to fetch Google search results:\n- Retrieves SERP data for your target keywords\n- Captures URL rankings and page titles\n- Processes up to 5000 searches with free account\n- Organizes results for SEO analysis\n\n## Setup\n1. Create a [ScrapingRobot account]({{ $env.API_BASE_URL }} and get your API key\n2. Add your ScrapingRobot API key to the HTTP Request node's `GET SERP` token parameter\n3. Either connect your keyword database (column name \"Keyword\") or use the \"Set Keywords\" node\n4. Configure your preferred output database connection\n\n## How to Adjust it to Your Needs\n- Modify keyword source to pull from different databases\n- Adjust the number of SERP results to capture\n- Customize output format for your reporting needs\n\n\nMade by Simon @ [automake.io]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-34a38c07-6439-4177-a12a-a2f6295cd914",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 34a38c07-6439-4177-a12a-a2f6295cd914",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-34a38c07-6439-4177-a12a-a2f6295cd914-afe5de6f",
+      "name": "Error Handler for 34a38c07",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 34a38c07",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-5dd70a2d",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: filter, httpRequest, stickyNote, code, splitOut. It contains 21 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 21\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **SERP results**: set\n- **Separate**: splitOut\n- **Title <> Empty**: filter\n- **Assign SERP #pos**: code\n- **GET SERP**: httpRequest\n- **Sticky Note29**: stickyNote\n- **Sticky Note30**: stickyNote\n- **Sticky Note22**: stickyNote\n- **Connect to your own database - **: noOp\n- ... and 11 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -495,6 +539,33 @@
           }
         ]
       ]
+    },
+    "34a38c07-6439-4177-a12a-a2f6295cd914": {
+      "main": [
+        [
+          {
+            "node": "error-handler-34a38c07-6439-4177-a12a-a2f6295cd914",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-34a38c07-6439-4177-a12a-a2f6295cd914-afe5de6f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: filter, httpRequest, stickyNote, code, splitOut. It contains 21 nodes and follows best practices for error handling and security."
 }

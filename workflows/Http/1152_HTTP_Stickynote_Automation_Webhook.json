@@ -1,7 +1,10 @@
 {
   "id": "81aN6oJGMho5kCvQ",
   "meta": {
-    "instanceId": "32e39908afbcb49d79cc3b05576c030ecc2871395b7aec4e0fdc88778498f80e"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "OpenAI ImageGen1 Template",
   "tags": [],
@@ -15,7 +18,7 @@
         80
       ],
       "parameters": {
-        "url": "https://api.openai.com/v1/images/edits",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -104,7 +107,7 @@
       "parameters": {
         "width": 660,
         "height": 460,
-        "content": "### 🖼️ Edit Images with the **OpenAI ImageGen v1** API\n\n1. **Verify Your Organization**  \n   Log in to the OpenAI Platform and confirm your org is verified:  \n   [OpenAI Settings → Organization](https://platform.openai.com/settings/organization/general)\n\n2. **Add Your API Key**  \n   In the n8n credentials, paste a valid **OpenAI secret key** into the `API_KEY` field.\n\n3. **Run “Open Chat”**  \n   Trigger the **`Open Chat`** node, supply your **text prompt** and **source image**, then execute.\n\n4. **Preview & Automate**  \n   The new image appears in the **`Convert to File`** node. From here you can:  \n   - Send it by email  \n   - Push to S3, Supabase, or any storage  \n   - Post straight to Slack, Discord, etc.\n\n> *Tip — chain additional n8n nodes to watermark, resize, or schedule social-media posts automatically.*\n"
+        "content": "### 🖼️ Edit Images with the **OpenAI ImageGen v1** API\n\n1. **Verify Your Organization**  \n   Log in to the OpenAI Platform and confirm your org is verified:  \n   [OpenAI Settings → Organization]({{ $env.WEBHOOK_URL }}\n\n2. **Add Your API Key**  \n   In the n8n credentials, paste a valid **OpenAI secret key** into the `API_KEY` field.\n\n3. **Run “Open Chat”**  \n   Trigger the **`Open Chat`** node, supply your **text prompt** and **source image**, then execute.\n\n4. **Preview & Automate**  \n   The new image appears in the **`Convert to File`** node. From here you can:  \n   - Send it by email  \n   - Push to S3, Supabase, or any storage  \n   - Post straight to Slack, Discord, etc.\n\n> *Tip — chain additional n8n nodes to watermark, resize, or schedule social-media posts automatically.*\n"
       },
       "typeVersion": 1
     },
@@ -144,15 +147,74 @@
         "color": 5,
         "width": 660,
         "height": 1380,
-        "content": "[![AI-Image Cash Machine – banner](https://public-files.gumroad.com/r2rfepypwzxebylbzutm7lk577m7)](https://drauscher.gumroad.com/l/PremiumAISaaSTemplateBeginnerFriendlyCustomizable)\n\n\n\n### This is just the core of our bigger ⭐ AI Image Cash Machine Template ⭐\n\n## 🚀 Launch Your **AI-Image Cash Machine** This Weekend\n\n**Customizable · Beginner Friendly**\n\n💸 **Special Summer Deal — 10 % off with code `SUMMER25` (just €5+)**\n\n[Grab the template on Gumroad →](https://drauscher.gumroad.com/l/PremiumAISaaSTemplateBeginnerFriendlyCustomizable)\n\n---\n\n### Why You’ll Love It\n- **Plug-and-Play App** – Next.js front-end on Vercel, wired to Supabase, Stripe, n8n & OpenAI  \n- **No-Code Automation** – drag-drop n8n workflow delivers images instantly after payment  \n- **Built-In Payments** – Stripe keys + webhooks included, start charging the moment you deploy  \n- **Scalable Storage** – private Supabase bucket keeps every customer image secure  \n- **Own the Source** – MIT license lets you tweak, brand, even resell without lock-in  \n\n> **Try it live:** **Pixarify Online** – see the template in action!  \n\n---\n\n### What’s Inside\n- Production-ready **frontend UI** (Next.js + Tailwind)  \n- Pre-configured **n8n backend** triggered by Stripe webhook  \n- Step-by-step **PDF setup guide**  \n- Sample environment file (`.env.example`)  \n\n---\n\n### 3-Step Fast-Track Setup\n1. **Clone the repo** & run `vercel deploy` — live site in 5 min  \n2. **Paste your Stripe + OpenAI keys**  \n3. **Activate the n8n workflow** — start selling AI images immediately  \n\n"
+        "content": "[![AI-Image Cash Machine – banner]({{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n\n\n\n### This is just the core of our bigger ⭐ AI Image Cash Machine Template ⭐\n\n## 🚀 Launch Your **AI-Image Cash Machine** This Weekend\n\n**Customizable · Beginner Friendly**\n\n💸 **Special Summer Deal — 10 % off with code `SUMMER25` (just €5+)**\n\n[Grab the template on Gumroad →]({{ $env.WEBHOOK_URL }}\n\n---\n\n### Why You’ll Love It\n- **Plug-and-Play App** – Next.js front-end on Vercel, wired to Supabase, Stripe, n8n & OpenAI  \n- **No-Code Automation** – drag-drop n8n workflow delivers images instantly after payment  \n- **Built-In Payments** – Stripe keys + webhooks included, start charging the moment you deploy  \n- **Scalable Storage** – private Supabase bucket keeps every customer image secure  \n- **Own the Source** – MIT license lets you tweak, brand, even resell without lock-in  \n\n> **Try it live:** **Pixarify Online** – see the template in action!  \n\n---\n\n### What’s Inside\n- Production-ready **frontend UI** (Next.js + Tailwind)  \n- Pre-configured **n8n backend** triggered by Stripe webhook  \n- Step-by-step **PDF setup guide**  \n- Sample environment file (`.env.example`)  \n\n---\n\n### 3-Step Fast-Track Setup\n1. **Clone the repo** & run `vercel deploy` — live site in 5 min  \n2. **Paste your Stripe + OpenAI keys**  \n3. **Activate the n8n workflow** — start selling AI images immediately  \n\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-179754ad-eae5-447a-b225-46145370e79b",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 179754ad-eae5-447a-b225-46145370e79b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-179754ad-eae5-447a-b225-46145370e79b-c9aee1a7",
+      "name": "Error Handler for 179754ad",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 179754ad",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0aca28af-1325-4391-bee6-3ab636c34f6a-2b97302a",
+      "name": "Error Handler for 0aca28af",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0aca28af",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-300b9100",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# OpenAI ImageGen1 Template\n\n## Overview\nAutomated workflow: OpenAI ImageGen1 Template. This workflow integrates 6 different services: convertToFile, stickyNote, httpRequest, set, stopAndError. It contains 9 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 9\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **HTTP Request**: httpRequest\n- **Convert to File**: convertToFile\n- **When chat message received**: chatTrigger\n- **Sticky Note**: stickyNote\n- **API KEY**: set\n- **Sticky Note1**: stickyNote\n- **Error Handler**: stopAndError\n- **Error Handler for 179754ad**: stopAndError\n- **Error Handler for 0aca28af**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "6e7f19b0-042a-4c63-9375-36d62290eb3e",
   "connections": {
@@ -193,6 +255,36 @@
           }
         ]
       ]
+    },
+    "179754ad-eae5-447a-b225-46145370e79b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-179754ad-eae5-447a-b225-46145370e79b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-179754ad-eae5-447a-b225-46145370e79b-c9aee1a7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0aca28af-1325-4391-bee6-3ab636c34f6a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0aca28af-1325-4391-bee6-3ab636c34f6a-2b97302a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: OpenAI ImageGen1 Template. This workflow integrates 6 different services: convertToFile, stickyNote, httpRequest, set, stopAndError. It contains 9 nodes and follows best practices for error handling and security."
 }

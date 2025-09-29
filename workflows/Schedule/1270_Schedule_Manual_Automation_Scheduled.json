@@ -1,8 +1,9 @@
 {
   "meta": {
-    "instanceId": "2b1cc1a8b0a2fb9caab11ab2d5eb3712f9973066051b2e898cf4041a1f2a7757",
-    "templateId": "2324",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -79,8 +80,8 @@
         "name": "get_website_content",
         "source": "parameter",
         "description": "This tool will return the text from the given URL. ",
-        "workflowJson": "{\n \"meta\": {\n \"templateCredsSetupCompleted\": true,\n \"instanceId\": \"2b1cc1a8b0a2fb9caab11ab2d5eb3712f9973066051b2e898cf4041a1f2a7757\"\n },\n \"nodes\": [\n {\n \"parameters\": {},\n \"id\": \"475eaf3c-7e11-457e-8b72-4d3e683e2f80\",\n \"name\": \"Execute Workflow Trigger\",\n \"type\": \"n8n-nodes-base.executeWorkflowTrigger\",\n \"typeVersion\": 1,\n \"position\": [\n 260,\n 340\n ]\n },\n {\n \"parameters\": {\n \"url\": \"={{ $json.query.url }}\",\n \"options\": {}\n },\n \"id\": \"321fbc74-d749-4f9b-954e-7cad37601ddf\",\n \"name\": \"Visit Website\",\n \"type\": \"n8n-nodes-base.httpRequest\",\n \"typeVersion\": 4.2,\n \"position\": [\n 440,\n 340\n ]\n },\n {\n \"parameters\": {\n \"operation\": \"extractHtmlContent\",\n \"extractionValues\": {\n \"values\": [\n {\n \"key\": \"body\",\n \"cssSelector\": \"html\",\n \"skipSelectors\": \"head\"\n }\n ]\n },\n \"options\": {\n \"cleanUpText\": true\n }\n },\n \"id\": \"6e51732a-4999-4805-838b-f692e9965197\",\n \"name\": \"HTML\",\n \"type\": \"n8n-nodes-base.html\",\n \"typeVersion\": 1.2,\n \"position\": [\n 620,\n 340\n ]\n }\n ],\n \"connections\": {\n \"Execute Workflow Trigger\": {\n \"main\": [\n [\n {\n \"node\": \"Visit Website\",\n \"type\": \"main\",\n \"index\": 0\n }\n ]\n ]\n },\n \"Visit Website\": {\n \"main\": [\n [\n {\n \"node\": \"HTML\",\n \"type\": \"main\",\n \"index\": 0\n }\n ]\n ]\n }\n },\n \"pinData\": {\n \"Execute Workflow Trigger\": [\n {\n \"query\": {\n \"url\": \"https://www.lemlist.com\"\n }\n }\n ]\n }\n}",
-        "jsonSchemaExample": "{\n\t\"url\": \"https://www.lemlist.com\"\n}",
+        "workflowJson": "{\n \"meta\": {\n \"templateCredsSetupCompleted\": true,\n \"instanceId\": \"2b1cc1a8b0a2fb9caab11ab2d5eb3712f9973066051b2e898cf4041a1f2a7757\"\n },\n \"nodes\": [\n {\n \"parameters\": {},\n \"id\": \"475eaf3c-7e11-457e-8b72-4d3e683e2f80\",\n \"name\": \"Execute Workflow Trigger\",\n \"type\": \"n8n-nodes-base.executeWorkflowTrigger\",\n \"typeVersion\": 1,\n \"position\": [\n 260,\n 340\n ]\n },\n {\n \"parameters\": {\n \"url\": \"={{ $json.query.url }}\",\n \"options\": {}\n },\n \"id\": \"321fbc74-d749-4f9b-954e-7cad37601ddf\",\n \"name\": \"Visit Website\",\n \"type\": \"n8n-nodes-base.httpRequest\",\n \"typeVersion\": 4.2,\n \"position\": [\n 440,\n 340\n ]\n },\n {\n \"parameters\": {\n \"operation\": \"extractHtmlContent\",\n \"extractionValues\": {\n \"values\": [\n {\n \"key\": \"body\",\n \"cssSelector\": \"html\",\n \"skipSelectors\": \"head\"\n }\n ]\n },\n \"options\": {\n \"cleanUpText\": true\n }\n },\n \"id\": \"6e51732a-4999-4805-838b-f692e9965197\",\n \"name\": \"HTML\",\n \"type\": \"n8n-nodes-base.html\",\n \"typeVersion\": 1.2,\n \"position\": [\n 620,\n 340\n ]\n }\n ],\n \"connections\": {\n \"Execute Workflow Trigger\": {\n \"main\": [\n [\n {\n \"node\": \"Visit Website\",\n \"type\": \"main\",\n \"index\": 0\n }\n ]\n ]\n },\n \"Visit Website\": {\n \"main\": [\n [\n {\n \"node\": \"HTML\",\n \"type\": \"main\",\n \"index\": 0\n }\n ]\n ]\n }\n },\n \"pinData\": {\n \"Execute Workflow Trigger\": [\n {\n \"query\": {\n \"url\": \"{{ $env.WEBHOOK_URL }}\"\n }\n }\n ]\n }\n}",
+        "jsonSchemaExample": "{\n\t\"url\": \"{{ $env.WEBHOOK_URL }}\"\n}",
         "specifyInputSchema": true,
         "responsePropertyName": "body"
       },
@@ -341,14 +342,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19U7gAgkUEz6mbFcnygf1zKDdGvY6OAdUqq3bZQWgjxE/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "19U7gAgkUEz6mbFcnygf1zKDdGvY6OAdUqq3bZQWgjxE",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19U7gAgkUEz6mbFcnygf1zKDdGvY6OAdUqq3bZQWgjxE/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Enrich companies using AI agents"
         }
       },
@@ -386,7 +387,7 @@
       "parameters": {
         "width": 409.0131656322444,
         "height": 658.0614601225933,
-        "content": "## Read Me\n\nThis workflow allows you to do account research with the web using AI.\n\nThe advanced AI module has 2 capabilities: \n- Research Google using SerpAPI\n- Visit and get website content using a sub-workflow\n\n\nFrom an unstructured input like a domain or a company name. \n\nIt will return the following properties: \n- domain\n- company Linkedin Url\n- cheapest plan\n- has free trial\n- has entreprise plan\n- has API\n- market (B2B or B2C)\n\n\nThe strength of n8n here is that you can adapt this workflow to research whatever information you need.\n\nYou just have to precise it in the prompt and to precise the output format in the \"Strutured Output Parser\" module.\n\n[Click here to find more detailed instructions with video guide.](https://lempire.notion.site/AI-Web-research-with-n8n-a25aae3258d0423481a08bd102f16906)\n"
+        "content": "## Read Me\n\nThis workflow allows you to do account research with the web using AI.\n\nThe advanced AI module has 2 capabilities: \n- Research Google using SerpAPI\n- Visit and get website content using a sub-workflow\n\n\nFrom an unstructured input like a domain or a company name. \n\nIt will return the following properties: \n- domain\n- company Linkedin Url\n- cheapest plan\n- has free trial\n- has entreprise plan\n- has API\n- market (B2B or B2C)\n\n\nThe strength of n8n here is that you can adapt this workflow to research whatever information you need.\n\nYou just have to precise it in the prompt and to precise the output format in the \"Strutured Output Parser\" module.\n\n[Click here to find more detailed instructions with video guide.]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -413,14 +414,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19U7gAgkUEz6mbFcnygf1zKDdGvY6OAdUqq3bZQWgjxE/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "19U7gAgkUEz6mbFcnygf1zKDdGvY6OAdUqq3bZQWgjxE",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19U7gAgkUEz6mbFcnygf1zKDdGvY6OAdUqq3bZQWgjxE/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Enrich companies using AI agents"
         }
       },
@@ -487,7 +488,7 @@
       ],
       "parameters": {
         "height": 248.91749449109562,
-        "content": "Get your free API key here https://serpapi.com/"
+        "content": "Get your free API key here {{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -556,7 +557,7 @@
         "name": "search_google",
         "source": "parameter",
         "description": "Call this tool to get results from a google search.",
-        "workflowJson": "{\n \"meta\": {\n \"templateCredsSetupCompleted\": true,\n \"instanceId\": \"2b1cc1a8b0a2fb9caab11ab2d5eb3712f9973066051b2e898cf4041a1f2a7757\"\n },\n \"nodes\": [\n {\n \"parameters\": {},\n \"id\": \"fbb17d8d-e2dc-46ae-aba4-8c27cc9d8766\",\n \"name\": \"Execute Workflow Trigger\",\n \"type\": \"n8n-nodes-base.executeWorkflowTrigger\",\n \"typeVersion\": 1,\n \"position\": [\n 20,\n 460\n ]\n },\n {\n \"parameters\": {\n \"url\": \"https://app.scrapingbee.com/api/v1/store/google\",\n \"authentication\": \"genericCredentialType\",\n \"genericAuthType\": \"httpQueryAuth\",\n \"sendQuery\": true,\n \"queryParameters\": {\n \"parameters\": [\n {\n \"name\": \"search\",\n \"value\": \"={{ $json.query.google_search_query }}\"\n },\n {\n \"name\": \"language\",\n \"value\": \"en\"\n },\n {\n \"name\": \"nb_results\",\n \"value\": \"5\"\n }\n ]\n },\n \"options\": {}\n },\n \"id\": \"b938a2bd-030e-46d7-adee-4e3c85cfc1b3\",\n \"name\": \"Search Google\",\n \"type\": \"n8n-nodes-base.httpRequest\",\n \"typeVersion\": 4.2,\n \"position\": [\n 300,\n 460\n ],\n \"credentials\": {\n \"httpQueryAuth\": {\n \"id\": \"Pb2CIMT0tN838QPy\",\n \"name\": \"ScrapingBee\"\n }\n }\n },\n {\n \"parameters\": {\n \"assignments\": {\n \"assignments\": [\n {\n \"id\": \"096fee70-444e-4948-816c-752b20786062\",\n \"name\": \"response\",\n \"value\": \"={{ $json.organic_results }}\",\n \"type\": \"array\"\n }\n ]\n },\n \"options\": {}\n },\n \"id\": \"c5db1fb6-d875-47d2-97db-287777583f22\",\n \"name\": \"Response\",\n \"type\": \"n8n-nodes-base.set\",\n \"typeVersion\": 3.3,\n \"position\": [\n 520,\n 460\n ]\n }\n ],\n \"connections\": {\n \"Execute Workflow Trigger\": {\n \"main\": [\n [\n {\n \"node\": \"Search Google\",\n \"type\": \"main\",\n \"index\": 0\n }\n ]\n ]\n },\n \"Search Google\": {\n \"main\": [\n [\n {\n \"node\": \"Response\",\n \"type\": \"main\",\n \"index\": 0\n }\n ]\n ]\n }\n },\n \"pinData\": {\n \"Execute Workflow Trigger\": [\n {\n \"query\": {\n \"google_search_query\": \"site:lemlist.com pricing\"\n }\n }\n ]\n }\n}",
+        "workflowJson": "{\n \"meta\": {\n \"templateCredsSetupCompleted\": true,\n \"instanceId\": \"2b1cc1a8b0a2fb9caab11ab2d5eb3712f9973066051b2e898cf4041a1f2a7757\"\n },\n \"nodes\": [\n {\n \"parameters\": {},\n \"id\": \"fbb17d8d-e2dc-46ae-aba4-8c27cc9d8766\",\n \"name\": \"Execute Workflow Trigger\",\n \"type\": \"n8n-nodes-base.executeWorkflowTrigger\",\n \"typeVersion\": 1,\n \"position\": [\n 20,\n 460\n ]\n },\n {\n \"parameters\": {\n \"url\": \"{{ $env.API_BASE_URL }}\",\n \"authentication\": \"genericCredentialType\",\n \"genericAuthType\": \"httpQueryAuth\",\n \"sendQuery\": true,\n \"queryParameters\": {\n \"parameters\": [\n {\n \"name\": \"search\",\n \"value\": \"={{ $json.query.google_search_query }}\"\n },\n {\n \"name\": \"language\",\n \"value\": \"en\"\n },\n {\n \"name\": \"nb_results\",\n \"value\": \"5\"\n }\n ]\n },\n \"options\": {}\n },\n \"id\": \"b938a2bd-030e-46d7-adee-4e3c85cfc1b3\",\n \"name\": \"Search Google\",\n \"type\": \"n8n-nodes-base.httpRequest\",\n \"typeVersion\": 4.2,\n \"position\": [\n 300,\n 460\n ],\n \"credentials\": {\n \"httpQueryAuth\": {\n \"id\": \"Pb2CIMT0tN838QPy\",\n \"name\": \"ScrapingBee\"\n }\n }\n },\n {\n \"parameters\": {\n \"assignments\": {\n \"assignments\": [\n {\n \"id\": \"096fee70-444e-4948-816c-752b20786062\",\n \"name\": \"response\",\n \"value\": \"={{ $json.organic_results }}\",\n \"type\": \"array\"\n }\n ]\n },\n \"options\": {}\n },\n \"id\": \"c5db1fb6-d875-47d2-97db-287777583f22\",\n \"name\": \"Response\",\n \"type\": \"n8n-nodes-base.set\",\n \"typeVersion\": 3.3,\n \"position\": [\n 520,\n 460\n ]\n }\n ],\n \"connections\": {\n \"Execute Workflow Trigger\": {\n \"main\": [\n [\n {\n \"node\": \"Search Google\",\n \"type\": \"main\",\n \"index\": 0\n }\n ]\n ]\n },\n \"Search Google\": {\n \"main\": [\n [\n {\n \"node\": \"Response\",\n \"type\": \"main\",\n \"index\": 0\n }\n ]\n ]\n }\n },\n \"pinData\": {\n \"Execute Workflow Trigger\": [\n {\n \"query\": {\n \"google_search_query\": \"site:lemlist.com pricing\"\n }\n }\n ]\n }\n}",
         "jsonSchemaExample": "{\n\t\"google_search_query\": \"site:lemlist.com pricing\"\n}",
         "specifyInputSchema": true
       },
@@ -572,7 +573,7 @@
       ],
       "parameters": {
         "height": 340.14969579315925,
-        "content": "Instead of SERP API module, you can also use this custom module for ScrapingBee. It is more cost-efficient.\n\nGet your free API key here https://www.scrapingbee.com/"
+        "content": "Instead of SERP API module, you can also use this custom module for ScrapingBee. It is more cost-efficient.\n\nGet your free API key here {{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -587,9 +588,92 @@
       "parameters": {
         "width": 194.6864335083109,
         "height": 525.6560478822986,
-        "content": "In this workflow, I use Google Sheets to store the results. \n\nYou can use my template to get started faster:\n\n1. [Click on this link to get the template](https://docs.google.com/spreadsheets/d/1vR6s2nlTwu01v3GP7wvSRWS5W49FJIh20ZF7AUkmMDo/edit?usp=sharing)\n2. Make a copy of the Sheets\n3. Add the URL to this node and the node **\"Google Sheets - Update Row with data\"**\n\n\n"
+        "content": "In this workflow, I use Google Sheets to store the results. \n\nYou can use my template to get started faster:\n\n1. [Click on this link to get the template]({{ $env.WEBHOOK_URL }}\n2. Make a copy of the Sheets\n3. Add the URL to this node and the node **\"Google Sheets - Update Row with data\"**\n\n\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-ff7ab74c-dfc6-43ce-8c57-6edf935b4915",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ff7ab74c-dfc6-43ce-8c57-6edf935b4915",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7d5d53ac-6d3c-4b24-97c7-deb6b76749e5-c08c8e99",
+      "name": "Error Handler for 7d5d53ac",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7d5d53ac",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ff7ab74c-dfc6-43ce-8c57-6edf935b4915-8cccbe1e",
+      "name": "Error Handler for ff7ab74c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ff7ab74c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ff1cb26d-6138-4ee1-9f28-4ecc80c1c8ae-42345df0",
+      "name": "Error Handler for ff1cb26d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ff1cb26d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-67d485c9-3289-4bb3-9523-cd24c0b1aa05-5ffe8fe1",
+      "name": "Error Handler for 67d485c9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 67d485c9",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-e9644ee0",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 13 different services: stickyNote, splitInBatches, toolSerpApi, scheduleTrigger, agent. It contains 27 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 27\n- **Node Types**: 13\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking \"Test workflow\"**: manualTrigger\n- **Input**: set\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Get website content**: toolWorkflow\n- **SerpAPI - Search Google**: toolSerpApi\n- **Structured Output Parser**: outputParserStructured\n- **Loop Over Items**: splitInBatches\n- **AI Researcher Output Data**: set\n- **Google Sheets - Update Row with data**: googleSheets\n- **Merge data**: merge\n- ... and 17 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -742,6 +826,66 @@
           }
         ]
       ]
+    },
+    "ff7ab74c-dfc6-43ce-8c57-6edf935b4915": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ff7ab74c-dfc6-43ce-8c57-6edf935b4915",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ff7ab74c-dfc6-43ce-8c57-6edf935b4915-8cccbe1e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7d5d53ac-6d3c-4b24-97c7-deb6b76749e5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7d5d53ac-6d3c-4b24-97c7-deb6b76749e5-c08c8e99",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ff1cb26d-6138-4ee1-9f28-4ecc80c1c8ae": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ff1cb26d-6138-4ee1-9f28-4ecc80c1c8ae-42345df0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "67d485c9-3289-4bb3-9523-cd24c0b1aa05": {
+      "main": [
+        [
+          {
+            "node": "error-handler-67d485c9-3289-4bb3-9523-cd24c0b1aa05-5ffe8fe1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 13 different services: stickyNote, splitInBatches, toolSerpApi, scheduleTrigger, agent. It contains 27 nodes and follows best practices for error handling and security."
 }

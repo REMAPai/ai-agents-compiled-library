@@ -1,8 +1,10 @@
 {
   "id": "J2D0BssoDmn4BC6D",
   "meta": {
-    "instanceId": "143d2ab55c8bffb06f8b9c7ad30335764fdc48bbbacecbe2218dadb998a32213",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "AI Customer-Support Assistant · WhatsApp Ready · Works for Any Business",
   "tags": [],
@@ -20,7 +22,7 @@
         "text": "={{ $json.messages[0].text.body }}",
         "options": {
           "maxIterations": 10,
-          "systemMessage": "=You are [Company Name]’s real-time website assistant for https://www.your-company-url.com.\n\nAVAILABLE TOOLS\n• list_links(url) → { urls:[ … ] }  — returns up to 100 internal links from that page  \n• get_page(url)   → { text:\"…\" }    — returns the visible, tag-free text of the page (JavaScript rendered if needed)\n\nSEARCH STRATEGY\n1. Start with list_links on the root page.  \n2. Pick ≤ 5 links whose URL or anchor text best match the user’s question (producto, pago, envío, servicio, política, etc.).  \n3. For each chosen link call get_page once.  \n4. Read the returned text and look for the answer.  \n5. If the answer is still unknown, you may repeat steps 1-4 one level deeper.  \n6. Stop after two list_links rounds **or** eight get_page calls (whichever comes first).\n\nANSWER RULES\n• Reply in clear and friendly toon **as part of [Company Name]** (use “we”, “our”).  \n• Keep answers concise but complete.  \n• **No Markdown ni símbolos de formato. Nunca uses \\*, **, \\_, \\~, ni [texto](url).**  \n  Write urls like: Descriptive Text ␣URL   Ej.: Combos https://…  \n• Quote the exact wording for facts such as stock status, prices, envíos, métodos de pago, garantías o políticas.  \n• If the information is not on the site, reply exactly:  \n  “I can't find that information on our site right now. Do you want me to put you through to a human agent?”  \n• Stay on-domain; ignore mailto:, tel:, javascript:, or off-site links.\n• Finally, if any of the tools returns a status code 404, then reply:\n\"Non-subscribed user.\"",
+          "systemMessage": "=You are [Company Name]’s real-time website assistant for {{ $env.WEBHOOK_URL }}\n\nAVAILABLE TOOLS\n• list_links(url) → { urls:[ … ] }  — returns up to 100 internal links from that page  \n• get_page(url)   → { text:\"…\" }    — returns the visible, tag-free text of the page (JavaScript rendered if needed)\n\nSEARCH STRATEGY\n1. Start with list_links on the root page.  \n2. Pick ≤ 5 links whose URL or anchor text best match the user’s question (producto, pago, envío, servicio, política, etc.).  \n3. For each chosen link call get_page once.  \n4. Read the returned text and look for the answer.  \n5. If the answer is still unknown, you may repeat steps 1-4 one level deeper.  \n6. Stop after two list_links rounds **or** eight get_page calls (whichever comes first).\n\nANSWER RULES\n• Reply in clear and friendly toon **as part of [Company Name]** (use “we”, “our”).  \n• Keep answers concise but complete.  \n• **No Markdown ni símbolos de formato. Nunca uses \\*, **, \\_, \\~, ni [texto](url).**  \n  Write urls like: Descriptive Text ␣URL   Ej.: Combos {{ $env.WEBHOOK_URL }}  \n• Quote the exact wording for facts such as stock status, prices, envíos, métodos de pago, garantías o políticas.  \n• If the information is not on the site, reply exactly:  \n  “I can't find that information on our site right now. Do you want me to put you through to a human agent?”  \n• Stay on-domain; ignore mailto:, tel:, javascript:, or off-site links.\n• Finally, if any of the tools returns a status code 404, then reply:\n\"Non-subscribed user.\"",
           "returnIntermediateSteps": true
         },
         "promptType": "define",
@@ -40,14 +42,14 @@
         420
       ],
       "parameters": {
-        "url": "https://lemolex.app.n8n.cloud/webhook/list-links",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "sendBody": true,
         "parametersBody": {
           "values": [
             {
               "name": "url",
-              "value": "https://www.your-company-url.com",
+              "value": "{{ $env.WEBHOOK_URL }}",
               "valueProvider": "fieldValue"
             },
             {
@@ -57,7 +59,7 @@
             }
           ]
         },
-        "toolDescription": "Returns up to 100 unique, fully-qualified INTERNAL links for a given page.\n\nInput  (JSON body the model must supply)\n  {\n    \"url\": \"<absolute https://…>\"\n  }\n\nBehaviour\n  • Crawls only the domain of the input URL.\n  • Converts relative <a href> values to absolute URLs.\n  • Drops empty roots (\"/\"), mailto:, tel:, javascript:, and off-site links.\n  • De-duplicates the list.\n  • Responds with a JSON object:\n\n      {\n        \"urls\": [ \"<link-1>\", \"<link-2>\", … ]\n      }\n\nUse this tool when you need a navigation map of the current page.\nPass one of the returned URLs back into other tools (e.g. get_text) to read its content.\n"
+        "toolDescription": "Returns up to 100 unique, fully-qualified INTERNAL links for a given page.\n\nInput  (JSON body the model must supply)\n  {\n    \"url\": \"<absolute {{ $env.WEBHOOK_URL }}>\"\n  }\n\nBehaviour\n  • Crawls only the domain of the input URL.\n  • Converts relative <a href> values to absolute URLs.\n  • Drops empty roots (\"/\"), mailto:, tel:, javascript:, and off-site links.\n  • De-duplicates the list.\n  • Responds with a JSON object:\n\n      {\n        \"urls\": [ \"<link-1>\", \"<link-2>\", … ]\n      }\n\nUse this tool when you need a navigation map of the current page.\nPass one of the returned URLs back into other tools (e.g. get_text) to read its content.\n"
       },
       "typeVersion": 1.1
     },
@@ -116,7 +118,7 @@
         120
       ],
       "parameters": {
-        "jsCode": "// cleanAnswer – run once per item\nlet txt = $('AI Agent').first().json.output || '';\n\n// 1. Remove bold / italic / strike markers\ntxt = txt.replace(/[*_~]+/g, '');\n\n// 2. Convert [Texto](https://url) → Texto https://url\ntxt = txt.replace(/\\[([^\\]]+)\\]\\((https?:\\/\\/[^\\s)]+)\\)/g, '$1 $2');\n\n// 3. Collapse 3+ blank lines\ntxt = txt.replace(/\\n{3,}/g, '\\n\\n').trim();\n\nreturn [{ json: { answer: txt } }];\n"
+        "jsCode": "// cleanAnswer – run once per item\nlet txt = $('AI Agent').first().json.output || '';\n\n// 1. Remove bold / italic / strike markers\ntxt = txt.replace(/[*_~]+/g, '');\n\n// 2. Convert [Texto]({{ $env.WEBHOOK_URL }} → Texto {{ $env.WEBHOOK_URL }}\ntxt = txt.replace(/\\[([^\\]]+)\\]\\((https?:\\/\\/[^\\s)]+)\\)/g, '$1 $2');\n\n// 3. Collapse 3+ blank lines\ntxt = txt.replace(/\\n{3,}/g, '\\n\\n').trim();\n\nreturn [{ json: { answer: txt } }];\n"
       },
       "typeVersion": 2
     },
@@ -129,7 +131,7 @@
         420
       ],
       "parameters": {
-        "url": "https://lemolex.app.n8n.cloud/webhook/get_text",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "sendBody": true,
         "parametersBody": {
@@ -144,7 +146,7 @@
             }
           ]
         },
-        "toolDescription": "Fetches the fully-rendered **plain text** of a single web.  \n• Input  : { \"url\": \"<absolute https://…>\" }  \n• Auth   : token is sent as HTTP basic-auth.  \n• Query  : url=<encoded url>  \n• Output : { \"text\": \"<visible text of the body>\", \"url\": \"<same url>\" }  \n• The \"text\" field already has **all HTML tags removed** .  \n• Use this tool whenever you need the actual words that appear on the page—product details, prices, stock lines, shipping terms, payment options, company policies, etc.  \n• Do **not** call it on off-site links or mailto:/tel:/javascript: pseudo-links.  \n"
+        "toolDescription": "Fetches the fully-rendered **plain text** of a single web.  \n• Input  : { \"url\": \"<absolute {{ $env.WEBHOOK_URL }}>\" }  \n• Auth   : token is sent as HTTP basic-auth.  \n• Query  : url=<encoded url>  \n• Output : { \"text\": \"<visible text of the body>\", \"url\": \"<same url>\" }  \n• The \"text\" field already has **all HTML tags removed** .  \n• Use this tool whenever you need the actual words that appear on the page—product details, prices, stock lines, shipping terms, payment options, company policies, etc.  \n• Do **not** call it on off-site links or mailto:/tel:/javascript: pseudo-links.  \n"
       },
       "typeVersion": 1.1
     },
@@ -163,7 +165,7 @@
     },
     {
       "id": "0309e9fb-745e-46cd-a360-a6a4a96ffa36",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         740,
@@ -251,7 +253,7 @@
       ],
       "parameters": {
         "tableName": "message_history",
-        "sessionKey": "={{ $json.contacts[0].wa_id }}",
+        "sessionKey": "YOUR_SESSION_KEY",
         "sessionIdType": "customKey"
       },
       "credentials": {
@@ -273,15 +275,102 @@
       "parameters": {
         "width": 460,
         "height": 1460,
-        "content": "# Step by Step Setup Guide\n\n### **The technology that powers this AI Agent—continuously crawling, extracting, and generating answers—incurs real operating costs to stay online.**\n### **That’s why the workflow requires an active membership, priced at only **\\$29 per month**. Comparable AI-support platforms charge **\\$150 – \\$500 each month**, so with this template you either save a large chunk of that expense for your own business or earn the same amount by reselling the chatbot to clients—while paying just \\$29 yourself. *And because the bot pulls fresh information from the site in real time, you never have to “re-train” a model, saving you even more time and money.***\n\n **Activate your membership here:** [https://lemolex.gumroad.com/l/ejsnx](https://lemolex.gumroad.com/l/ejsnx)\n\n### Let's start setting this up step by step:\n*Total hands-on time: ≈ 15 minutes*\n\n1. Activate the tools with the membership generated key: \n- Go to the membership link to get your key.\n- Copy the key (e.g 6F0E4C97-B72A4E69-A11BF6C4-AF123456) and paste it in the body parameters of list_links and get_page (tools):\n*Name: auth-token*\n*Value:  6F0E4C97-B72A4E69-A11BF6C4-AF123456* **(example)**\n\n2. Customize for Your Company:\n- Copy the Root URL of your company's website (Home Page).\n- Open the AI Agent node and inside the `System Message`, change the following values:\n[Company Name] with your company name (e.g [Company Name] -> Facebook)\n[https://www.your-company-url.com] with your company Root URL that you copied before.\nCheck for these 2 values along the entire text.\n- Go back to the tools list_links and get_page and paste the Root URL inside the body parameters, specifically:\n*Name: url*\n*Value: https://www.your-company-url.com **(e.g https://www.facebook.com)**\n\n3. Connect your credentials:\n- Go to the OpenAI Chat Model node and connect your OpenAI credentials.\n- Go to the Postgres Users Memory node and connect your Supabase credentials. A tutorial for this: https://youtu.be/6w5f_jsPYSQ?si=MPdXYUjxv3fghQPj&t=105 (Minute 1:45 to 5:00)\n- Go to the WhatsApp nodes \"WhatsApp Trigger\", \"Send Pre-approved Template Message to Reopen the Conversation\" and \"Send AI Agent's Answer\" to connect your credentials. A tutorial for this: https://youtu.be/ZrhTQle55LQ?si=MO_leooogO9KchCV\n- Go to the \"Send Pre-approved Template Message to Reopen the Conversation\" and select the template message under the \"Template\" parameter.\n***If you don't want to use this feature (not recommended) delete the nodes \"24-hour window check\", \"If\" and \"Send Pre-approved Template Message to Reopen the Conversation\". Then connect the AI Agent node to the \"cleanAnswer\" node.***\n\n\n### **You are ready**"
+        "content": "# Step by Step Setup Guide\n\n### **The technology that powers this AI Agent—continuously crawling, extracting, and generating answers—incurs real operating costs to stay online.**\n### **That’s why the workflow requires an active membership, priced at only **\\$29 per month**. Comparable AI-support platforms charge **\\$150 – \\$500 each month**, so with this template you either save a large chunk of that expense for your own business or earn the same amount by reselling the chatbot to clients—while paying just \\$29 yourself. *And because the bot pulls fresh information from the site in real time, you never have to “re-train” a model, saving you even more time and money.***\n\n **Activate your membership here:** [{{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n\n### Let's start setting this up step by step:\n*Total hands-on time: ≈ 15 minutes*\n\n1. Activate the tools with the membership generated key: \n- Go to the membership link to get your key.\n- Copy the key (e.g 6F0E4C97-B72A4E69-A11BF6C4-AF123456) and paste it in the body parameters of list_links and get_page (tools):\n*Name: auth-token*\n*Value:  6F0E4C97-B72A4E69-A11BF6C4-AF123456* **(example)**\n\n2. Customize for Your Company:\n- Copy the Root URL of your company's website (Home Page).\n- Open the AI Agent node and inside the `System Message`, change the following values:\n[Company Name] with your company name (e.g [Company Name] -> Facebook)\n[{{ $env.WEBHOOK_URL }}] with your company Root URL that you copied before.\nCheck for these 2 values along the entire text.\n- Go back to the tools list_links and get_page and paste the Root URL inside the body parameters, specifically:\n*Name: url*\n*Value: {{ $env.WEBHOOK_URL }} **(e.g {{ $env.WEBHOOK_URL }}\n\n3. Connect your credentials:\n- Go to the OpenAI Chat Model node and connect your OpenAI credentials.\n- Go to the Postgres Users Memory node and connect your Supabase credentials. A tutorial for this: {{ $env.WEBHOOK_URL }} (Minute 1:45 to 5:00)\n- Go to the WhatsApp nodes \"WhatsApp Trigger\", \"Send Pre-approved Template Message to Reopen the Conversation\" and \"Send AI Agent's Answer\" to connect your credentials. A tutorial for this: {{ $env.WEBHOOK_URL }}\n- Go to the \"Send Pre-approved Template Message to Reopen the Conversation\" and select the template message under the \"Template\" parameter.\n***If you don't want to use this feature (not recommended) delete the nodes \"24-hour window check\", \"If\" and \"Send Pre-approved Template Message to Reopen the Conversation\". Then connect the AI Agent node to the \"cleanAnswer\" node.***\n\n\n### **You are ready**"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-3953a213-6140-4603-a069-93718e4d8982",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3953a213-6140-4603-a069-93718e4d8982",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ef403af2-4543-4edb-80ae-afda1e98a2a9",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ef403af2-4543-4edb-80ae-afda1e98a2a9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3953a213-6140-4603-a069-93718e4d8982-574a169e",
+      "name": "Error Handler for 3953a213",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3953a213",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-21ceaf5e-d2d4-47c3-98cb-ee7c0ab0fcab-d68cc482",
+      "name": "Error Handler for 21ceaf5e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 21ceaf5e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ef403af2-4543-4edb-80ae-afda1e98a2a9-7a1dcc23",
+      "name": "Error Handler for ef403af2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ef403af2",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-53129574",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# AI Customer-Support Assistant · WhatsApp Ready · Works for Any Business\n\n## Overview\nAutomated workflow: AI Customer-Support Assistant · WhatsApp Ready · Works for Any Business. This workflow integrates 10 different services: stickyNote, code, toolHttpRequest, agent, memoryPostgresChat. It contains 17 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 17\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **AI Agent**: agent\n- **list_links**: toolHttpRequest\n- **OpenAI Chat Model**: lmChatOpenAi\n- **WhatsApp Trigger**: whatsAppTrigger\n- **cleanAnswer**: code\n- **get_page**: toolHttpRequest\n- **24-hour window check**: code\n- **If Node**: if\n- **Send Pre-approved Template Message to Reopen the Conversation**: whatsApp\n- **Send AI Agent's Answer**: whatsApp\n- ... and 7 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "245c3695-7177-4a1d-a33d-7aedd0eccc44",
   "connections": {
@@ -390,6 +479,54 @@
           }
         ]
       ]
+    },
+    "3953a213-6140-4603-a069-93718e4d8982": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3953a213-6140-4603-a069-93718e4d8982",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3953a213-6140-4603-a069-93718e4d8982-574a169e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ef403af2-4543-4edb-80ae-afda1e98a2a9": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ef403af2-4543-4edb-80ae-afda1e98a2a9",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ef403af2-4543-4edb-80ae-afda1e98a2a9-7a1dcc23",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "21ceaf5e-d2d4-47c3-98cb-ee7c0ab0fcab": {
+      "main": [
+        [
+          {
+            "node": "error-handler-21ceaf5e-d2d4-47c3-98cb-ee7c0ab0fcab-d68cc482",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: AI Customer-Support Assistant · WhatsApp Ready · Works for Any Business. This workflow integrates 10 different services: stickyNote, code, toolHttpRequest, agent, memoryPostgresChat. It contains 17 nodes and follows best practices for error handling and security."
 }

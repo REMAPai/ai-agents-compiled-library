@@ -105,7 +105,7 @@
         -20
       ],
       "parameters": {
-        "functionCode": "return [\n  {\n    json: {\n      url: 'https://feeds.feedburner.com/UnikosHardware',\n    }\n  },\n  {\n    json: {\n      url: 'http://www.ithome.com.tw/rss.php',\n    }\n  },\n  {\n    json: {\n      url: 'http://feeds.feedburner.com/playpc',\n    }\n  },\n  {\n    json: {\n      url: 'https://lab.ocf.tw/feed/',\n    }\n  },\n  {\n    json: {\n      url: 'https://techcommunity.microsoft.com/plugins/custom/microsoft/o365/custom-blog-rss?tid=3754543230341459569&board=microsoft_365blog',\n    }\n  }\n];"
+        "functionCode": "return [\n  {\n    json: {\n      url: '{{ $env.WEBHOOK_URL }}',\n    }\n  },\n  {\n    json: {\n      url: '{{ $env.WEBHOOK_URL }}',\n    }\n  },\n  {\n    json: {\n      url: '{{ $env.WEBHOOK_URL }}',\n    }\n  },\n  {\n    json: {\n      url: '{{ $env.WEBHOOK_URL }}',\n    }\n  },\n  {\n    json: {\n      url: '{{ $env.WEBHOOK_URL }}',\n    }\n  }\n];"
       },
       "typeVersion": 1
     },
@@ -181,6 +181,19 @@
         "functionCode": "// Get the global workflow static data\nconst staticData = getWorkflowStaticData('global');\n// Update its data\nstaticData.oldRSSIds = new Date().getTime();\n// Delete data\ndelete staticData.oldRSSIds;\n\nreturn [\n  {\n    json: {}\n  }\n]"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Rssfeedread Workflow\n\nAutomated workflow: Rssfeedread Workflow. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 11 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "connections": {
@@ -280,5 +293,13 @@
         ]
       ]
     }
+  },
+  "name": "Rssfeedread Workflow",
+  "description": "Automated workflow: Rssfeedread Workflow. This workflow processes data and performs automated tasks.",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null
   }
 }

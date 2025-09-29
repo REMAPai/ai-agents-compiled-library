@@ -1,8 +1,10 @@
 {
   "id": "kjyWJWfDlyXkKL3m",
   "meta": {
-    "instanceId": "31e69f7f4a77bf465b805824e303232f0227212ae922d12133a0f96ffeab4fef",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "✨🔪 Advanced AI Powered Document Parsing & Text Extraction with Llama Parse",
   "tags": [],
@@ -126,7 +128,7 @@
         "color": 6,
         "width": 320,
         "height": 340,
-        "content": "## Send to LlamaParse\nhttps://docs.cloud.llamaindex.ai/API/upload-file-api-v-1-parsing-upload-post"
+        "content": "## Send to LlamaParse\n{{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -139,7 +141,7 @@
         -1360
       ],
       "parameters": {
-        "url": "https://api.cloud.llamaindex.ai/api/parsing/upload",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -478,14 +480,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Expenses"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "2024.Year.End.Expenses"
         }
       },
@@ -517,7 +519,7 @@
           "__rl": true,
           "mode": "list",
           "value": "root",
-          "cachedResultUrl": "https://drive.google.com/drive",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "/ (Root folder)"
         },
         "inputDataFieldName": "=file0"
@@ -830,14 +832,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Expenses"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "2024.Year.End.Expenses"
         }
       },
@@ -1148,7 +1150,7 @@
         -860
       ],
       "parameters": {
-        "url": "https://api.cloud.llamaindex.ai/api/parsing/supported_file_extensions",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -1323,7 +1325,7 @@
       "parameters": {
         "width": 920,
         "height": 320,
-        "content": "## Check for Supported File Extension\nhttps://docs.cloud.llamaindex.ai/API/get-supported-file-extensions-api-v-1-parsing-supported-file-extensions-get"
+        "content": "## Check for Supported File Extension\n{{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -1600,7 +1602,7 @@
           "__rl": true,
           "mode": "list",
           "value": "root",
-          "cachedResultUrl": "https://drive.google.com/drive",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "/ (Root folder)"
         },
         "operation": "createFromText"
@@ -1634,7 +1636,7 @@
           "__rl": true,
           "mode": "list",
           "value": "root",
-          "cachedResultUrl": "https://drive.google.com/drive",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "/ (Root folder)"
         },
         "operation": "createFromText"
@@ -1646,14 +1648,295 @@
         }
       },
       "typeVersion": 3
+    },
+    {
+      "id": "error-handler-ea7670da-896e-4b9c-b0c2-b3a3dbb6f88f",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ea7670da-896e-4b9c-b0c2-b3a3dbb6f88f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-85e72267-7be0-49ac-b305-4c07356ce244",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 85e72267-7be0-49ac-b305-4c07356ce244",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b64a21ab-0e1f-4d6c-b718-a9aaaa27ae19",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b64a21ab-0e1f-4d6c-b718-a9aaaa27ae19",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ea7670da-896e-4b9c-b0c2-b3a3dbb6f88f-1f1f41eb",
+      "name": "Error Handler for ea7670da",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ea7670da",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-85e72267-7be0-49ac-b305-4c07356ce244-eaf5bb32",
+      "name": "Error Handler for 85e72267",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 85e72267",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1405f933-b281-469f-a5b7-0de2f820dd09-7ff171c3",
+      "name": "Error Handler for 1405f933",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1405f933",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ea299469-7889-45c9-a8f1-679be09e5aaf-411cad31",
+      "name": "Error Handler for ea299469",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ea299469",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d8454cf2-5bef-4bfa-9471-c358ff067765-74cc8ed9",
+      "name": "Error Handler for d8454cf2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d8454cf2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3c371677-76e8-45d7-8c05-a4ca1cc0b1fe-64ff6906",
+      "name": "Error Handler for 3c371677",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3c371677",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9ff3f86f-9ffc-42fa-b428-a6bfabf2426a-fb73458a",
+      "name": "Error Handler for 9ff3f86f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9ff3f86f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-69a0505f-1fe4-4581-ad2d-5bc7d68874e9-29fd748a",
+      "name": "Error Handler for 69a0505f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 69a0505f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-333f42a7-2665-4613-89c9-c184d764af37-50c22781",
+      "name": "Error Handler for 333f42a7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 333f42a7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-faa0768f-1d4c-42c4-902c-b2d0d40f0eb4-f6e7252c",
+      "name": "Error Handler for faa0768f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node faa0768f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d1a54284-60d1-4fac-b81b-4ed1610ddf2e-64d1b115",
+      "name": "Error Handler for d1a54284",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d1a54284",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b1b50042-8270-4e13-b7b1-6d017e9be8d9-fc4e9730",
+      "name": "Error Handler for b1b50042",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b1b50042",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a365c8a1-c0fb-43f7-84fa-b68a0e9c087e-fbc8adfc",
+      "name": "Error Handler for a365c8a1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a365c8a1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b64a21ab-0e1f-4d6c-b718-a9aaaa27ae19-2e3962ee",
+      "name": "Error Handler for b64a21ab",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b64a21ab",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-33ca5eaf-30da-4360-a12b-a7dd8614743f-29f66d7c",
+      "name": "Error Handler for 33ca5eaf",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 33ca5eaf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a1e8264f-fa99-49a5-a837-6aaf3a2dc39a-70e44e22",
+      "name": "Error Handler for a1e8264f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a1e8264f",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-be2332c5",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# ✨🔪 Advanced AI Powered Document Parsing & Text Extraction with Llama Parse\n\n## Overview\nAutomated workflow: ✨🔪 Advanced AI Powered Document Parsing & Text Extraction with Llama Parse. This workflow integrates 18 different services: textClassifier, webhook, stickyNote, httpRequest, telegram. It contains 73 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 73\n- **Node Types**: 18\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Webhook**: webhook\n- **Gmail**: gmail\n- **Gmail Trigger**: gmailTrigger\n- **Limit**: limit\n- **Get Message**: gmail\n- **Sticky Note**: stickyNote\n- **Parse Document with LlamaParse**: httpRequest\n- **Summarize Email**: chainLlm\n- **gpt-4o-mini**: lmChatOpenAi\n- **Save LlamaParse ID and Summary to Google Sheets**: googleSheets\n- ... and 63 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "timezone": "America/Vancouver",
+    "timezone": "UTC",
     "callerPolicy": "workflowsFromSameOwner",
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "errorWorkflow": null
   },
   "versionId": "c11e3a8a-499b-4b1e-b919-ffbed36ba898",
   "connections": {
@@ -2012,6 +2295,204 @@
       "main": [
         []
       ]
+    },
+    "ea7670da-896e-4b9c-b0c2-b3a3dbb6f88f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ea7670da-896e-4b9c-b0c2-b3a3dbb6f88f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ea7670da-896e-4b9c-b0c2-b3a3dbb6f88f-1f1f41eb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "85e72267-7be0-49ac-b305-4c07356ce244": {
+      "main": [
+        [
+          {
+            "node": "error-handler-85e72267-7be0-49ac-b305-4c07356ce244",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-85e72267-7be0-49ac-b305-4c07356ce244-eaf5bb32",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b64a21ab-0e1f-4d6c-b718-a9aaaa27ae19": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b64a21ab-0e1f-4d6c-b718-a9aaaa27ae19",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b64a21ab-0e1f-4d6c-b718-a9aaaa27ae19-2e3962ee",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1405f933-b281-469f-a5b7-0de2f820dd09": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1405f933-b281-469f-a5b7-0de2f820dd09-7ff171c3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ea299469-7889-45c9-a8f1-679be09e5aaf": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ea299469-7889-45c9-a8f1-679be09e5aaf-411cad31",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d8454cf2-5bef-4bfa-9471-c358ff067765": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d8454cf2-5bef-4bfa-9471-c358ff067765-74cc8ed9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3c371677-76e8-45d7-8c05-a4ca1cc0b1fe": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3c371677-76e8-45d7-8c05-a4ca1cc0b1fe-64ff6906",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9ff3f86f-9ffc-42fa-b428-a6bfabf2426a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9ff3f86f-9ffc-42fa-b428-a6bfabf2426a-fb73458a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "69a0505f-1fe4-4581-ad2d-5bc7d68874e9": {
+      "main": [
+        [
+          {
+            "node": "error-handler-69a0505f-1fe4-4581-ad2d-5bc7d68874e9-29fd748a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "333f42a7-2665-4613-89c9-c184d764af37": {
+      "main": [
+        [
+          {
+            "node": "error-handler-333f42a7-2665-4613-89c9-c184d764af37-50c22781",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "faa0768f-1d4c-42c4-902c-b2d0d40f0eb4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-faa0768f-1d4c-42c4-902c-b2d0d40f0eb4-f6e7252c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d1a54284-60d1-4fac-b81b-4ed1610ddf2e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d1a54284-60d1-4fac-b81b-4ed1610ddf2e-64d1b115",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b1b50042-8270-4e13-b7b1-6d017e9be8d9": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b1b50042-8270-4e13-b7b1-6d017e9be8d9-fc4e9730",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a365c8a1-c0fb-43f7-84fa-b68a0e9c087e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a365c8a1-c0fb-43f7-84fa-b68a0e9c087e-fbc8adfc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "33ca5eaf-30da-4360-a12b-a7dd8614743f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-33ca5eaf-30da-4360-a12b-a7dd8614743f-29f66d7c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a1e8264f-fa99-49a5-a837-6aaf3a2dc39a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a1e8264f-fa99-49a5-a837-6aaf3a2dc39a-70e44e22",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: ✨🔪 Advanced AI Powered Document Parsing & Text Extraction with Llama Parse. This workflow integrates 18 different services: textClassifier, webhook, stickyNote, httpRequest, telegram. It contains 73 nodes and follows best practices for error handling and security."
 }

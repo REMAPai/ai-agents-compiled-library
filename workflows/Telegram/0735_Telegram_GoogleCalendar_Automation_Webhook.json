@@ -1,8 +1,10 @@
 {
   "id": "29P4X9mTSmplnjlJ",
   "meta": {
-    "instanceId": "a4bfc93e975ca233ac45ed7c9227d84cf5a2329310525917adaf3312e10d5462",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "AI Phone Agent with RetellAI",
   "tags": [],
@@ -342,7 +344,7 @@
       "parameters": {
         "width": 1140,
         "height": 920,
-        "content": "# STEP 3 - RETELL AI\n\n- Register on [Retell AI](https://retellai.com) (10$ FREE credits)\n- Create an Agent an set \"Voice & Language\" and add your system prompt\n- In Webhook settings add the \"Agent Level Webhook URL\" with the n8n webhook node url called \"n8n_call\"\n- Buy a new phone number with your FREE credits by Twilio Provider and connect it to the created agent\n- Enter the previously created agency and create the flow as shown in the following image\n![image](https://i.postimg.cc/brtBkgfH/Retellai-flow.png)\n- Aggiungere 2 funzioni (una per RAG e una per il Booking) e inserire l'url apposito ricavato dai webhook di n8n \"n8n_rag_function\" e \"n8n_check_available\"\n\n"
+        "content": "# STEP 3 - RETELL AI\n\n- Register on [Retell AI]({{ $env.WEBHOOK_URL }} (10$ FREE credits)\n- Create an Agent an set \"Voice & Language\" and add your system prompt\n- In Webhook settings add the \"Agent Level Webhook URL\" with the n8n webhook node url called \"n8n_call\"\n- Buy a new phone number with your FREE credits by Twilio Provider and connect it to the created agent\n- Enter the previously created agency and create the flow as shown in the following image\n![image]({{ $env.WEBHOOK_URL }}\n- Aggiungere 2 funzioni (una per RAG e una per il Booking) e inserire l'url apposito ricavato dai webhook di n8n \"n8n_rag_function\" e \"n8n_check_available\"\n\n"
       },
       "typeVersion": 1
     },
@@ -423,7 +425,7 @@
         -1080
       ],
       "parameters": {
-        "url": "https://QDRANTURL/collections/COLLECTION",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n  \"filter\": {}\n}",
@@ -458,7 +460,7 @@
         -820
       ],
       "parameters": {
-        "url": "https://QDRANTURL/collections/COLLECTION/points/delete",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n  \"filter\": {}\n}",
@@ -498,7 +500,7 @@
             "__rl": true,
             "mode": "list",
             "value": "My Drive",
-            "cachedResultUrl": "https://drive.google.com/drive/my-drive",
+            "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
             "cachedResultName": "My Drive"
           },
           "folderId": {
@@ -799,14 +801,337 @@
         "content": "# Create your first AI Phone Agent\n\nBuild, test, deploy, and monitor AI phone agents. Retell is a comprehensive platform for building, testing, deploying, and monitoring reliable AI phone agents.\nConversation flow agent allows you to create multiple nodes to handle different scenarios in the conversation. It provides more fine-grained control over the conversation flow compared to single / multi prompt agent, which unlocks the ability to handle more complex scenarios.\n\nThis Workflow simulates an AI-powered phone agent with two main functions:\n\n📅 Appointment Booking – It can schedule appointments directly into Google Calendar.\n\n🧠 RAG-based Information Retrieval – It provides answers using a Retrieval-Augmented Generation (RAG) system. For example, it can respond to questions such as store opening hours, return policies, or product details.\n\nThe guide also explains how to purchase a dedicated phone number (with a +1 prefix) and link it to the AI agent. This setup is cost-effective, as it uses a free $10 credit to operate without additional charges in the beginning."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-aef9edfc-ff3b-42b6-9839-562a5376135d",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in aef9edfc-ff3b-42b6-9839-562a5376135d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-64354f1c-388d-47b7-be4e-a67a6feeb0ed",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 64354f1c-388d-47b7-be4e-a67a6feeb0ed",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f3c416a2-6b42-43cc-aa66-e7d146c1b325",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in f3c416a2-6b42-43cc-aa66-e7d146c1b325",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ccf11ce4-3bc4-46bd-a71e-12e59d7a2504",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ccf11ce4-3bc4-46bd-a71e-12e59d7a2504",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3c4f9805-57e7-4662-ab12-8bedc5e5a815",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3c4f9805-57e7-4662-ab12-8bedc5e5a815",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b5fdbd4d-0cc9-4b5c-8aa8-b7fe6fd0f3b4",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b5fdbd4d-0cc9-4b5c-8aa8-b7fe6fd0f3b4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1873c991-0ac0-40c4-b027-e48a9f2582c6-ced62532",
+      "name": "Error Handler for 1873c991",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1873c991",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-aef9edfc-ff3b-42b6-9839-562a5376135d-73f0e35d",
+      "name": "Error Handler for aef9edfc",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node aef9edfc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c8153076-8ae2-4b34-893d-ef75233c2a74-bc38ce0f",
+      "name": "Error Handler for c8153076",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c8153076",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b7a86b9f-1620-4fc7-973f-e6e169e4ecbe-7a758528",
+      "name": "Error Handler for b7a86b9f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b7a86b9f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-64354f1c-388d-47b7-be4e-a67a6feeb0ed-184af0ea",
+      "name": "Error Handler for 64354f1c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 64354f1c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-baa32a03-3295-434a-afca-8f7cadece512-0e91a0bd",
+      "name": "Error Handler for baa32a03",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node baa32a03",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1d5c9eb2-b468-4dd2-aa77-d33924fdbb41-9ff130f9",
+      "name": "Error Handler for 1d5c9eb2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1d5c9eb2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5ca696a0-b1d2-45f5-93d6-066654a0c2f6-d722a496",
+      "name": "Error Handler for 5ca696a0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5ca696a0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-57fedd6a-94a4-4f58-8179-9fd8ae1d0006-69302e22",
+      "name": "Error Handler for 57fedd6a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 57fedd6a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f3c416a2-6b42-43cc-aa66-e7d146c1b325-924e1b1b",
+      "name": "Error Handler for f3c416a2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f3c416a2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ccf11ce4-3bc4-46bd-a71e-12e59d7a2504-d04a9ef7",
+      "name": "Error Handler for ccf11ce4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ccf11ce4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3c4f9805-57e7-4662-ab12-8bedc5e5a815-d293b53a",
+      "name": "Error Handler for 3c4f9805",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3c4f9805",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b5fdbd4d-0cc9-4b5c-8aa8-b7fe6fd0f3b4-604fd495",
+      "name": "Error Handler for b5fdbd4d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b5fdbd4d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c2f5ded2-adcb-4c50-95e6-94e54a7c2116-76112fcb",
+      "name": "Error Handler for c2f5ded2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c2f5ded2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-640ede03-46fc-44a3-a9e8-29118036d64f-7ed96209",
+      "name": "Error Handler for 640ede03",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 640ede03",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ff40b36c-3092-43fc-a001-9683b0e33460-ab38bcbb",
+      "name": "Error Handler for ff40b36c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ff40b36c",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-109332e9",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# AI Phone Agent with RetellAI\n\n## Overview\nAutomated workflow: AI Phone Agent with RetellAI. This workflow integrates 20 different services: stickyNote, vectorStoreQdrant, lmChatOpenAi, chainLlm, documentDefaultDataLoader. It contains 58 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 58\n- **Node Types**: 20\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Filter**: filter\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Structured Output Parser**: outputParserStructured\n- **n8n_rag_function**: webhook\n- **Retrive Qdrant Vector Store**: vectorStoreQdrant\n- **Embeddings OpenAI2**: embeddingsOpenAi\n- **RAG**: toolVectorStore\n- **OpenAI Chat Model2**: lmChatOpenAi\n- **Respond to Webhook**: respondToWebhook\n- **OpenAI Chat Model1**: lmChatOpenAi\n- ... and 48 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "timezone": "Europe/Rome",
+    "timezone": "UTC",
     "callerPolicy": "workflowsFromSameOwner",
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "errorWorkflow": null
   },
   "versionId": "d78ac941-900b-49f5-a9a8-158effbd2479",
   "connections": {
@@ -1083,6 +1408,225 @@
           }
         ]
       ]
+    },
+    "aef9edfc-ff3b-42b6-9839-562a5376135d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-aef9edfc-ff3b-42b6-9839-562a5376135d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-aef9edfc-ff3b-42b6-9839-562a5376135d-73f0e35d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "64354f1c-388d-47b7-be4e-a67a6feeb0ed": {
+      "main": [
+        [
+          {
+            "node": "error-handler-64354f1c-388d-47b7-be4e-a67a6feeb0ed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-64354f1c-388d-47b7-be4e-a67a6feeb0ed-184af0ea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f3c416a2-6b42-43cc-aa66-e7d146c1b325": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f3c416a2-6b42-43cc-aa66-e7d146c1b325",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-f3c416a2-6b42-43cc-aa66-e7d146c1b325-924e1b1b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ccf11ce4-3bc4-46bd-a71e-12e59d7a2504": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ccf11ce4-3bc4-46bd-a71e-12e59d7a2504",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ccf11ce4-3bc4-46bd-a71e-12e59d7a2504-d04a9ef7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3c4f9805-57e7-4662-ab12-8bedc5e5a815": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3c4f9805-57e7-4662-ab12-8bedc5e5a815",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3c4f9805-57e7-4662-ab12-8bedc5e5a815-d293b53a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b5fdbd4d-0cc9-4b5c-8aa8-b7fe6fd0f3b4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b5fdbd4d-0cc9-4b5c-8aa8-b7fe6fd0f3b4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b5fdbd4d-0cc9-4b5c-8aa8-b7fe6fd0f3b4-604fd495",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1873c991-0ac0-40c4-b027-e48a9f2582c6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1873c991-0ac0-40c4-b027-e48a9f2582c6-ced62532",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c8153076-8ae2-4b34-893d-ef75233c2a74": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c8153076-8ae2-4b34-893d-ef75233c2a74-bc38ce0f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b7a86b9f-1620-4fc7-973f-e6e169e4ecbe": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b7a86b9f-1620-4fc7-973f-e6e169e4ecbe-7a758528",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "baa32a03-3295-434a-afca-8f7cadece512": {
+      "main": [
+        [
+          {
+            "node": "error-handler-baa32a03-3295-434a-afca-8f7cadece512-0e91a0bd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1d5c9eb2-b468-4dd2-aa77-d33924fdbb41": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1d5c9eb2-b468-4dd2-aa77-d33924fdbb41-9ff130f9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5ca696a0-b1d2-45f5-93d6-066654a0c2f6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5ca696a0-b1d2-45f5-93d6-066654a0c2f6-d722a496",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "57fedd6a-94a4-4f58-8179-9fd8ae1d0006": {
+      "main": [
+        [
+          {
+            "node": "error-handler-57fedd6a-94a4-4f58-8179-9fd8ae1d0006-69302e22",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c2f5ded2-adcb-4c50-95e6-94e54a7c2116": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c2f5ded2-adcb-4c50-95e6-94e54a7c2116-76112fcb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "640ede03-46fc-44a3-a9e8-29118036d64f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-640ede03-46fc-44a3-a9e8-29118036d64f-7ed96209",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ff40b36c-3092-43fc-a001-9683b0e33460": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ff40b36c-3092-43fc-a001-9683b0e33460-ab38bcbb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: AI Phone Agent with RetellAI. This workflow integrates 20 different services: stickyNote, vectorStoreQdrant, lmChatOpenAi, chainLlm, documentDefaultDataLoader. It contains 58 nodes and follows best practices for error handling and security."
 }

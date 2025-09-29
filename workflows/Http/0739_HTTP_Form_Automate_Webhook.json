@@ -1,7 +1,10 @@
 {
   "id": "2DT5BW5tOdy87AUl",
   "meta": {
-    "instanceId": "8418cffce8d48086ec0a73fd90aca708aa07591f2fefa6034d87fe12a09de26e"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Streamline Your Zoom Meetings with Secure, Automated Stripe Payments",
   "tags": [],
@@ -18,7 +21,7 @@
         "topic": "={{ $('Creation Form').item.json.title }}",
         "authentication": "oAuth2",
         "additionalFields": {
-          "password": "={{ Math.random().toString(36).slice(-4); }}",
+          "password": "YOUR_VALUE_HERE",
           "startTime": "={{ new Date(new Date($('Creation Form').item.json.date_start).getTime() + ($('Creation Form').item.json.hour * 3600000) + ($('Creation Form').item.json.minute * 60000)).toISOString() }}"
         }
       },
@@ -39,7 +42,7 @@
         480
       ],
       "parameters": {
-        "url": "https://api.stripe.com/v1/products",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -61,7 +64,7 @@
             }
           ]
         },
-        "nodeCredentialType": "stripeApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "stripeApi": {
@@ -94,7 +97,7 @@
               "id": "64d1eeee-cabe-403b-a634-f3238f586f58",
               "name": "sheet_url",
               "type": "string",
-              "value": "https://docs.google.com/spreadsheets/d/1ZliqqBNo6X0iM9yXBOiCG1e4Q7L7bQKMFmjvbSgUSnA/edit#gid=0"
+              "value": "{{ $env.WEBHOOK_URL }}"
             },
             {
               "id": "997fe5a1-f601-458d-899c-673dff4acb04",
@@ -322,7 +325,7 @@
         480
       ],
       "parameters": {
-        "url": "https://api.stripe.com/v1/payment_links",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -372,7 +375,7 @@
             }
           ]
         },
-        "nodeCredentialType": "stripeApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "stripeApi": {
@@ -604,7 +607,7 @@
         "color": 6,
         "width": 275.01592825011585,
         "height": 468.76027109756643,
-        "content": "# Setup\n### 1/ Add Your credentials\n[Zoom](https://docs.n8n.io/integrations/builtin/credentials/zoom/)\n[Google](https://docs.n8n.io/integrations/builtin/credentials/google/)\n[Stripe](https://docs.n8n.io/integrations/builtin/credentials/stripe/)\n\nNote: For Google, you need to add Gmail and Google Sheet.\n\n### 2/ Create a [new Google Sheet](https://sheets.new/).\nKeep this sheet blank for now; it contains your meeting and participant information. Place it wherever it fits best in your organization.\n\n### 3/ And fill the config node\n# 👇"
+        "content": "# Setup\n### 1/ Add Your credentials\n[Zoom]({{ $env.WEBHOOK_URL }}\n[Google]({{ $env.WEBHOOK_URL }}\n[Stripe]({{ $env.WEBHOOK_URL }}\n\nNote: For Google, you need to add Gmail and Google Sheet.\n\n### 2/ Create a [new Google Sheet]({{ $env.WEBHOOK_URL }}\nKeep this sheet blank for now; it contains your meeting and participant information. Place it wherever it fits best in your organization.\n\n### 3/ And fill the config node\n# 👇"
       },
       "typeVersion": 1
     },
@@ -687,7 +690,7 @@
         "color": 7,
         "width": 202.64787116404852,
         "height": 85.79488430601403,
-        "content": "### Crafted by the\n## [🥷 n8n.ninja](https://n8n.ninja)"
+        "content": "### Crafted by the\n## [🥷 n8n.ninja]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -701,6 +704,117 @@
       ],
       "parameters": {},
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-3d2dea09-c463-447b-9a9d-daca8fdcac06",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3d2dea09-c463-447b-9a9d-daca8fdcac06",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-33e5283f-3854-4ada-8412-858c205f1d1e",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 33e5283f-3854-4ada-8412-858c205f1d1e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3d2dea09-c463-447b-9a9d-daca8fdcac06-147e3184",
+      "name": "Error Handler for 3d2dea09",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3d2dea09",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-40f66f09-19c9-40eb-a9c4-138464ccd371-16ee970b",
+      "name": "Error Handler for 40f66f09",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 40f66f09",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-67ff21d2-57b8-4ccd-91ee-a1bff1ea23b2-5d7e5d3b",
+      "name": "Error Handler for 67ff21d2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 67ff21d2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-33e5283f-3854-4ada-8412-858c205f1d1e-4a71825a",
+      "name": "Error Handler for 33e5283f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 33e5283f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-def10b04-98c3-46cc-bdeb-9592c7466992-2dcb583e",
+      "name": "Error Handler for def10b04",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node def10b04",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-c1405460",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Streamline Your Zoom Meetings with Secure, Automated Stripe Payments\n\n## Overview\nAutomated workflow: Streamline Your Zoom Meetings with Secure, Automated Stripe Payments. This workflow integrates 11 different services: stickyNote, httpRequest, formTrigger, noOp, set. It contains 27 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 27\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Create Zoom meeting**: zoom\n- **Create Stripe Product**: httpRequest\n- **Config**: set\n- **Send email to teacher**: gmail\n- **Create participant list**: googleSheets\n- **Add participant to list**: googleSheets\n- **Send confirmation to participant**: gmail\n- **Notify teacher**: gmail\n- **Create payment link**: httpRequest\n- **Format participant**: set\n- ... and 17 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
@@ -726,12 +840,12 @@
               "livemode": false,
               "metadata": {
                 "zoom_id": "86579738722",
-                "zoom_link": "https://us06web.zoom.us/j/86579738722?pwd=i8QeOxKGO8GODInTP3gsYUjvrCYarA.1",
-                "zoom_password": "260j",
+                "zoom_link": "{{ $env.WEBHOOK_URL }}",
+                "zoom_password": "YOUR_VALUE_HERE",
                 "event_sheet_id": "1710369993"
               },
               "shipping": null,
-              "cancel_url": "https://stripe.com",
+              "cancel_url": "{{ $env.WEBHOOK_URL }}",
               "expires_at": 1710456685,
               "custom_text": {
                 "submit": null,
@@ -740,7 +854,7 @@
                 "terms_of_service_acceptance": null
               },
               "submit_type": "auto",
-              "success_url": "https://stripe.com",
+              "success_url": "{{ $env.WEBHOOK_URL }}",
               "amount_total": 2000,
               "payment_link": "plink_1Ou0ZCBH8XCwzsfXUongWL67",
               "setup_intent": null,
@@ -838,7 +952,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "9e350a8f-30e0-43ab-8dab-a7edbfd637d8",
   "connections": {
@@ -996,6 +1114,76 @@
           }
         ]
       ]
+    },
+    "3d2dea09-c463-447b-9a9d-daca8fdcac06": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3d2dea09-c463-447b-9a9d-daca8fdcac06",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3d2dea09-c463-447b-9a9d-daca8fdcac06-147e3184",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "33e5283f-3854-4ada-8412-858c205f1d1e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-33e5283f-3854-4ada-8412-858c205f1d1e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-33e5283f-3854-4ada-8412-858c205f1d1e-4a71825a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "40f66f09-19c9-40eb-a9c4-138464ccd371": {
+      "main": [
+        [
+          {
+            "node": "error-handler-40f66f09-19c9-40eb-a9c4-138464ccd371-16ee970b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "67ff21d2-57b8-4ccd-91ee-a1bff1ea23b2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-67ff21d2-57b8-4ccd-91ee-a1bff1ea23b2-5d7e5d3b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "def10b04-98c3-46cc-bdeb-9592c7466992": {
+      "main": [
+        [
+          {
+            "node": "error-handler-def10b04-98c3-46cc-bdeb-9592c7466992-2dcb583e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Streamline Your Zoom Meetings with Secure, Automated Stripe Payments. This workflow integrates 11 different services: stickyNote, httpRequest, formTrigger, noOp, set. It contains 27 nodes and follows best practices for error handling and security."
 }

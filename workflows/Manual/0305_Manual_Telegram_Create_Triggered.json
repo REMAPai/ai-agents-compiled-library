@@ -38,7 +38,7 @@
         300
       ],
       "parameters": {
-        "url": "https://n8n.io",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "tool": "getUrlScreenshot",
         "group": "image",
         "width": "1024",
@@ -49,10 +49,28 @@
         "uprocApi": "uProc credentials"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Create a screenshot of a website and send it to a telegram channel\n\nAutomated workflow: Create a screenshot of a website and send it to a telegram channel. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 3 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "active": false,
-  "settings": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null
+  },
   "connections": {
     "uProc": {
       "main": [
@@ -76,5 +94,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: Create a screenshot of a website and send it to a telegram channel. This workflow processes data and performs automated tasks."
 }

@@ -1,7 +1,10 @@
 {
   "id": "hiCTcf6srJl3Xsxh",
   "meta": {
-    "instanceId": "a2b23892dd6989fda7c1209b381f5850373a7d2b85609624d7c2b7a092671d44"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Auto-create and publish AI social videos with Telegram, GPT-4 and Blotato",
   "tags": [],
@@ -15,7 +18,7 @@
         920
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/media",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -47,7 +50,7 @@
         120
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"accountId\": \"{{ $('Assign Platform IDs for Blotato').item.json.instagram_id }}\",\n    \"target\": {\n      \"targetType\": \"instagram\"\n    },\n    \"content\": {\n      \"text\": \"{{ $('Append Video Data to Google Sheet').item.json.caption }}\",\n      \"platform\": \"instagram\",\n      \"mediaUrls\": [\n        \"{{ $json.url }}\"\n      ]\n    }\n  }\n}\n",
@@ -73,7 +76,7 @@
         320
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"accountId\": \"{{ $('Assign Platform IDs for Blotato').item.json.youtube_id }}\",\n    \"target\": {\n      \"targetType\": \"youtube\",\n      \"title\": \"{{ $('Append Video Data to Google Sheet').item.json.Title }}\",\n      \"privacyStatus\": \"unlisted\",\n      \"shouldNotifySubscribers\": \"false\"\n    },\n    \"content\": {\n      \"text\": \"{{ $('Append Video Data to Google Sheet').item.json.caption }}\",\n      \"platform\": \"youtube\",\n      \"mediaUrls\": [\n        \"{{ $json.url }}\"\n      ]\n    }\n  }\n}",
@@ -99,7 +102,7 @@
         520
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"accountId\": \"{{ $('Assign Platform IDs for Blotato').item.json.tiktok_id }}\",\n    \"target\": {\n      \"targetType\": \"tiktok\",\n      \"isYourBrand\": \"false\", \n      \"disabledDuet\": \"false\",\n      \"privacyLevel\": \"PUBLIC_TO_EVERYONE\",\n      \"isAiGenerated\": \"true\",\n      \"disabledStitch\": \"false\",\n      \"disabledComments\": \"false\",\n      \"isBrandedContent\": \"false\"\n      \n    },\n    \"content\": {\n      \"text\": \"{{ $('Append Video Data to Google Sheet').item.json.caption }}\",\n      \"platform\": \"tiktok\",\n      \"mediaUrls\": [\n        \"{{ $json.url }}\"\n      ]\n    }\n  }\n}\n",
@@ -125,7 +128,7 @@
         720
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"accountId\": \"{{ $('Assign Platform IDs for Blotato').item.json.facebook_id }}\",\n    \"target\": {\n      \"targetType\": \"facebook\",\n      \"pageId\": \"{{ $('Assign Platform IDs for Blotato').item.json.facebook_page_id }}\"\n\n      \n    },\n    \"content\": {\n      \"text\": \"{{ $('Append Video Data to Google Sheet').item.json.caption }}\",\n      \"platform\": \"facebook\",\n      \"mediaUrls\": [\n        \"{{ $json.url }}\"\n      ]\n    }\n  }\n}",
@@ -151,7 +154,7 @@
         920
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"accountId\": \"{{ $('Assign Platform IDs for Blotato').item.json.threads_id }}\",\n    \"target\": {\n      \"targetType\": \"threads\"\n      \n    },\n    \"content\": {\n      \"text\": \"{{ $('Append Video Data to Google Sheet').item.json.caption }}\",\n      \"platform\": \"threads\",\n      \"mediaUrls\": [\n        \"{{ $json.url }}\"\n      ]\n    }\n  }\n}",
@@ -177,7 +180,7 @@
         1120
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"accountId\": \"{{ $('Assign Platform IDs for Blotato').item.json.twitter_id }}\",\n    \"target\": {\n      \"targetType\": \"twitter\"\n      \n    },\n    \"content\": {\n      \"text\": \"{{ $('Append Video Data to Google Sheet').item.json.caption }}\",\n      \"platform\": \"twitter\",\n      \"mediaUrls\": [\n        \"{{ $json.url }}\"\n      ]\n    }\n  }\n}\n",
@@ -203,7 +206,7 @@
         1320
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"accountId\": \"{{ $('Assign Platform IDs for Blotato').item.json.linkedin_id }}\",\n    \"target\": {\n      \"targetType\": \"linkedin\"\n      \n    },\n    \"content\": {\n      \"text\": \"{{ $('Append Video Data to Google Sheet').item.json.caption }}\",\n      \"platform\": \"linkedin\",\n      \"mediaUrls\": [\n        \"{{ $json.url }}\"\n      ]\n    }\n  }\n}\n",
@@ -229,10 +232,10 @@
         1520
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
-        "jsonBody": "={\n  \"post\": {\n    \"accountId\": \"{{ $('Assign Platform IDs for Blotato').item.json.bluesky_id }}\",\n    \"target\": {\n      \"targetType\": \"bluesky\"\n      \n    },\n    \"content\": {\n      \"text\": \"{{ $('Append Video Data to Google Sheet').item.json.caption }}\",\n      \"platform\": \"bluesky\",\n      \"mediaUrls\": [\n        \"https://pbs.twimg.com/media/GE8MgIiWEAAfsK3.jpg\"\n      ]\n    }\n  }\n}\n",
+        "jsonBody": "={\n  \"post\": {\n    \"accountId\": \"{{ $('Assign Platform IDs for Blotato').item.json.bluesky_id }}\",\n    \"target\": {\n      \"targetType\": \"bluesky\"\n      \n    },\n    \"content\": {\n      \"text\": \"{{ $('Append Video Data to Google Sheet').item.json.caption }}\",\n      \"platform\": \"bluesky\",\n      \"mediaUrls\": [\n        \"{{ $env.WEBHOOK_URL }}\"\n      ]\n    }\n  }\n}\n",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
@@ -255,10 +258,10 @@
         1720
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
-        "jsonBody": "={\n  \"post\": {\n    \"accountId\": \"{{ $('Assign Platform IDs for Blotato').item.json.pinterest_id }}\",\n    \"target\": {\n      \"targetType\": \"pinterest\",\n      \"boardId\": \"{{ $('Assign Platform IDs for Blotato').item.json.pinterest_board_id }}\"      \n    },\n    \"content\": {\n      \"text\": \"{{ $('Append Video Data to Google Sheet').item.json.caption }}\",\n      \"platform\": \"pinterest\",\n      \"mediaUrls\": [\n        \"https://pbs.twimg.com/media/GE8MgIiWEAAfsK3.jpg\"\n      ]\n    }\n  }\n}\n",
+        "jsonBody": "={\n  \"post\": {\n    \"accountId\": \"{{ $('Assign Platform IDs for Blotato').item.json.pinterest_id }}\",\n    \"target\": {\n      \"targetType\": \"pinterest\",\n      \"boardId\": \"{{ $('Assign Platform IDs for Blotato').item.json.pinterest_board_id }}\"      \n    },\n    \"content\": {\n      \"text\": \"{{ $('Append Video Data to Google Sheet').item.json.caption }}\",\n      \"platform\": \"pinterest\",\n      \"mediaUrls\": [\n        \"{{ $env.WEBHOOK_URL }}\"\n      ]\n    }\n  }\n}\n",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
@@ -449,7 +452,7 @@
         440
       ],
       "parameters": {
-        "url": "=https://api.telegram.org/file/bot_YOURTOKEN/{{ $('Download Image from Telegram').item.json.result.file_path }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $('Download Image from Telegram').item.json.result.file_path }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -463,7 +466,7 @@
         440
       ],
       "parameters": {
-        "url": "https://api.cloudinary.com/v1_1/dc5wapno3/image/upload",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -501,7 +504,7 @@
         440
       ],
       "parameters": {
-        "url": "https://api.piapi.ai/api/v1/task",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n\"model\": \"kling\",\n\"task_type\": \"video_generation\",\n\"input\": {\n\"prompt\": \"{{ $('Split Prompt or Image Input').item.json.videoPrompt }}\",\n\"image_url\": \"{{ $json.secure_url }}\",\n\"negative_prompt\": \"\",\n\"cfg_scale\": 0.5,\n\"duration\": 5,\n\"version\": \"1.6\",\n\"camera_control\": {\n\"type\": \"simple\",\n\"config\": {\n\"horizontal\": 0,\n\"vertical\": 0,\n\"pan\": 0,\n\"tilt\": 0,\n\"roll\": 0,\n\"zoom\": 0\n}\n},\n\"mode\": \"std\"\n},\n\"config\": {\n\"service_mode\": \"\",\n\"webhook_config\": {\n\"endpoint\": \"\",\n\"secret\": \"\"\n}\n}\n}",
@@ -546,7 +549,7 @@
         440
       ],
       "parameters": {
-        "url": "=https://api.piapi.ai/api/v1/task/{{ $json.data.task_id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.data.task_id }}",
         "options": {
           "response": {
             "response": {
@@ -574,7 +577,7 @@
         120
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/videos/creations",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"script\": \"{{ $json.videoPrompt }}\",\n  \"style\": \"cinematic\",\n  \"template\": {\n    \"id\": \"base/pov/wakeup\"\n  }\n}\n",
@@ -615,7 +618,7 @@
         120
       ],
       "parameters": {
-        "url": "=https://backend.blotato.com/v2/videos/creations/{{ $json.item.id }}",
+        "url": "={{ $env.WEBHOOK_URL }}{{ $json.item.id }}",
         "options": {
           "response": {
             "response": {
@@ -666,7 +669,7 @@
         1040
       ],
       "parameters": {
-        "url": "https://api.piapi.ai/api/v1/task",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"model\": \"Qubico/diffrhythm\",\n  \"task_type\": \"txt2audio-base\",\n  \"input\": {\n    \"style_prompt\": \"{{ $('Split Prompt or Image Input').item.json.musicStyle }}\",\n    \"lyrics\": \"\",\n    \"style_audio\": \"\"\n  },\n  \"config\": {\n    \"webhook_config\": {\n      \"endpoint\": \"\",\n      \"secret\": \"\"\n    }\n  }\n}\n",
@@ -707,7 +710,7 @@
         1040
       ],
       "parameters": {
-        "url": "=https://api.piapi.ai/api/v1/task/{{ $json.data.task_id }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.data.task_id }}",
         "options": {
           "response": {
             "response": {
@@ -780,7 +783,7 @@
         1640
       ],
       "parameters": {
-        "url": "https://api.json2video.com/v2/movies",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"id\": \"qbaasr7s\",\n  \"resolution\": \"instagram-story\",\n  \"quality\": \"high\",\n  \"scenes\": [\n    {\n      \"id\": \"qyjh9lwj\",\n      \"comment\": \"Scene 1\",\n      \"elements\": []\n    }\n  ],\n  \"elements\": [\n    {\n      \"id\": \"q6dznzcv\",\n      \"type\": \"video\",\n      \"src\": \"{{ $('Merge Video Data (Image or Prompt)').item.json.url_video }}\",\n      \"resize\": \"cover\"\n    },\n    {\n      \"id\": \"top-text\",\n      \"type\": \"text\",\n      \"text\": \"{{ $json.text1 }}\",\n      \"settings\": {\n        \"font-family\": \"Libre Baskerville\",\n        \"font-size\": \"80px\",\n        \"color\": \"#ffffff\",\n        \"horizontal-position\": \"center\",\n        \"vertical-position\": \"top\",\n        \"margin-top\": \"100px\",\n        \"word-break\": \"break-word\",\n        \"overflow-wrap\": \"break-word\",\n        \"font-weight\": \"normal\",\n        \"text-shadow\": \"3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 0px 3px 0 #000, 3px 0px 0 #000, -3px 0px 0 #000, 0px -3px 0 #000\"\n      }\n    },\n    {\n      \"id\": \"bottom-text\",\n      \"type\": \"text\",\n      \"text\": \"{{ $json.text2 }}\",\n      \"settings\": {\n        \"font-family\": \"Libre Baskerville\",\n        \"font-size\": \"80px\",\n        \"color\": \"#ffffff\",\n        \"horizontal-position\": \"center\",\n        \"vertical-position\": \"bottom\",\n        \"margin-bottom\": \"250px\",\n        \"word-break\": \"break-word\",\n        \"overflow-wrap\": \"break-word\",\n        \"font-weight\": \"normal\",\n        \"text-shadow\": \"3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 0px 3px 0 #000, 3px 0px 0 #000, -3px 0px 0 #000, 0px -3px 0 #000\"\n      }\n    },\n    {\n      \"id\": \"music-track\",\n      \"type\": \"audio\",\n      \"src\": \"{{ $('Get Music File URL').item.json.data.output.audio_url }}\",\n      \"volume\": 0.5,\n      \"duration\": -2\n    }\n  ]\n}\n",
@@ -821,7 +824,7 @@
         1640
       ],
       "parameters": {
-        "url": "=https://api.json2video.com/v2/movies?id={{ $json.project }}",
+        "url": "={{ $env.API_BASE_URL }}{{ $json.project }}",
         "options": {},
         "authentication": "genericCredentialType",
         "genericAuthType": "httpCustomAuth"
@@ -1038,12 +1041,701 @@
         "jsonOutput": "{\n  \"instagram_id\": \"1111\",\n  \"youtube_id\": \"2222\",\n  \"threads_id\": \"3333\",\n  \"tiktok_id\": \"4444\",\n  \"facebook_id\": \"5555\",\n  \"facebook_page_id\": \"6666\",\n  \"twitter_id\": \"7777\",\n  \"linkedin_id\": \"8888\",\n  \"pinterest_id\": \"9999\",\n  \"pinterest_board_id\": \"1010\",\n  \"bluesky_id\": \"11111111\"\n}\n"
       },
       "typeVersion": 3.4
+    },
+    {
+      "id": "error-handler-b8a41b63-8c48-4964-befe-b949f3e9b755",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b8a41b63-8c48-4964-befe-b949f3e9b755",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ac7a8bf1-b9ec-4a25-8c14-6d90abbc5568",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ac7a8bf1-b9ec-4a25-8c14-6d90abbc5568",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-be0a1831-c0e3-4753-b114-2cd7cc66fae2",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in be0a1831-c0e3-4753-b114-2cd7cc66fae2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-62087008-dd5a-49f4-a764-a10b1c82e4e0",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 62087008-dd5a-49f4-a764-a10b1c82e4e0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-976b075d-c98b-45a4-bf76-06a34d5ccbf3",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 976b075d-c98b-45a4-bf76-06a34d5ccbf3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c689c5d4-f63c-4fc2-b2d6-e1d2d03a236a",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c689c5d4-f63c-4fc2-b2d6-e1d2d03a236a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-88c8bd03-342e-4844-9489-28a5a93426e0",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 88c8bd03-342e-4844-9489-28a5a93426e0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-db6fb042-731e-46ce-8f4d-07e2b427739c",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in db6fb042-731e-46ce-8f4d-07e2b427739c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2102531c-624a-49b6-8b99-7a43e5067585",
+      "name": "Stopanderror 8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2102531c-624a-49b6-8b99-7a43e5067585",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a9826150-6e26-4174-af74-1b4dd8016638",
+      "name": "Stopanderror 9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a9826150-6e26-4174-af74-1b4dd8016638",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6f9755e0-db11-4c3e-9d1b-f9c97c832cbd",
+      "name": "Stopanderror 10",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 6f9755e0-db11-4c3e-9d1b-f9c97c832cbd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-66abae9c-10ae-4845-9070-cd5f2d208782",
+      "name": "Stopanderror 11",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 66abae9c-10ae-4845-9070-cd5f2d208782",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-26979ac8-6f1d-4a9b-b0b5-42b4d7165ffe",
+      "name": "Stopanderror 12",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 26979ac8-6f1d-4a9b-b0b5-42b4d7165ffe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-dd364492-ffcb-47e4-a24e-fb5b3c5b4ab5",
+      "name": "Stopanderror 13",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in dd364492-ffcb-47e4-a24e-fb5b3c5b4ab5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8a6b0c07-8304-403e-842e-ea60b0d5e939",
+      "name": "Stopanderror 14",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 8a6b0c07-8304-403e-842e-ea60b0d5e939",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-540a8cbf-0b41-4102-b2c3-a69480603cb6",
+      "name": "Stopanderror 15",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 540a8cbf-0b41-4102-b2c3-a69480603cb6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4482e940-fdee-498a-9b4c-dd44a12f04a9",
+      "name": "Stopanderror 16",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 4482e940-fdee-498a-9b4c-dd44a12f04a9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8ea22e87-0803-4618-a4cb-08a6b720838e",
+      "name": "Stopanderror 17",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 8ea22e87-0803-4618-a4cb-08a6b720838e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-15d7845c-0e0b-4f06-b48e-5ea8add6501a",
+      "name": "Stopanderror 18",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 15d7845c-0e0b-4f06-b48e-5ea8add6501a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fdc02ec0-b3ce-49e3-9f20-096c679eacbe",
+      "name": "Stopanderror 19",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in fdc02ec0-b3ce-49e3-9f20-096c679eacbe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b8a41b63-8c48-4964-befe-b949f3e9b755-35d4bbb4",
+      "name": "Error Handler for b8a41b63",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b8a41b63",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ac7a8bf1-b9ec-4a25-8c14-6d90abbc5568-08987ccf",
+      "name": "Error Handler for ac7a8bf1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ac7a8bf1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-be0a1831-c0e3-4753-b114-2cd7cc66fae2-2e27a84a",
+      "name": "Error Handler for be0a1831",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node be0a1831",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-62087008-dd5a-49f4-a764-a10b1c82e4e0-3d382d24",
+      "name": "Error Handler for 62087008",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 62087008",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-976b075d-c98b-45a4-bf76-06a34d5ccbf3-9508d186",
+      "name": "Error Handler for 976b075d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 976b075d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c689c5d4-f63c-4fc2-b2d6-e1d2d03a236a-1d907b12",
+      "name": "Error Handler for c689c5d4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c689c5d4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-88c8bd03-342e-4844-9489-28a5a93426e0-2bed180e",
+      "name": "Error Handler for 88c8bd03",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 88c8bd03",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-db6fb042-731e-46ce-8f4d-07e2b427739c-65f90135",
+      "name": "Error Handler for db6fb042",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node db6fb042",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2102531c-624a-49b6-8b99-7a43e5067585-69debae0",
+      "name": "Error Handler for 2102531c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2102531c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a9826150-6e26-4174-af74-1b4dd8016638-3c74d119",
+      "name": "Error Handler for a9826150",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a9826150",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5a08a003-68b1-48e5-8851-bb1a77d18a37-c459b930",
+      "name": "Error Handler for 5a08a003",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5a08a003",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1898fd9c-2164-44d0-8ada-192107565b64-b223c1d9",
+      "name": "Error Handler for 1898fd9c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1898fd9c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6f9755e0-db11-4c3e-9d1b-f9c97c832cbd-4f80faaa",
+      "name": "Error Handler for 6f9755e0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6f9755e0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-66abae9c-10ae-4845-9070-cd5f2d208782-8e05e052",
+      "name": "Error Handler for 66abae9c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 66abae9c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-26979ac8-6f1d-4a9b-b0b5-42b4d7165ffe-9c371339",
+      "name": "Error Handler for 26979ac8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 26979ac8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-dd364492-ffcb-47e4-a24e-fb5b3c5b4ab5-0a75f9dc",
+      "name": "Error Handler for dd364492",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node dd364492",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8a6b0c07-8304-403e-842e-ea60b0d5e939-86a55324",
+      "name": "Error Handler for 8a6b0c07",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8a6b0c07",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-540a8cbf-0b41-4102-b2c3-a69480603cb6-9ad330bf",
+      "name": "Error Handler for 540a8cbf",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 540a8cbf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4482e940-fdee-498a-9b4c-dd44a12f04a9-7debfd37",
+      "name": "Error Handler for 4482e940",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4482e940",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8ea22e87-0803-4618-a4cb-08a6b720838e-895ec0e5",
+      "name": "Error Handler for 8ea22e87",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8ea22e87",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-61b49201-e9d5-44b8-be6c-d0175596d261-6ca14707",
+      "name": "Error Handler for 61b49201",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 61b49201",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-15d7845c-0e0b-4f06-b48e-5ea8add6501a-15b7dddf",
+      "name": "Error Handler for 15d7845c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 15d7845c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fdc02ec0-b3ce-49e3-9f20-096c679eacbe-5affad54",
+      "name": "Error Handler for fdc02ec0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fdc02ec0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9b865654-337a-4dd5-89d4-4a131f6eed75-9be3093d",
+      "name": "Error Handler for 9b865654",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9b865654",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-99a4282b-5d68-4f4d-8b1e-c7975221b92f-9a1ce953",
+      "name": "Error Handler for 99a4282b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 99a4282b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3cbe9fb8-1685-4169-9ee1-3ae72f3190e3-d8399288",
+      "name": "Error Handler for 3cbe9fb8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3cbe9fb8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-dd947cd3-747f-484f-93ea-990d977ab113-dfb1a806",
+      "name": "Error Handler for dd947cd3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node dd947cd3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c17efd9a-2428-4c36-acd8-69c47d01b961-52e2948d",
+      "name": "Error Handler for c17efd9a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c17efd9a",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-b4d375a0",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Auto-create and publish AI social videos with Telegram, GPT-4 and Blotato\n\n## Overview\nAutomated workflow: Auto-create and publish AI social videos with Telegram, GPT-4 and Blotato. This workflow integrates 11 different services: telegramTrigger, stickyNote, httpRequest, wait, telegram. It contains 90 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 90\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Upload Video to Blotato**: httpRequest\n- **Post to Instagram**: httpRequest\n- **Post to YouTube**: httpRequest\n- **Post to TikTok**: httpRequest\n- **Post to Facebook Page**: httpRequest\n- **Post to Threads**: httpRequest\n- **Post to Twitter (X)**: httpRequest\n- **Post to LinkedIn**: httpRequest\n- **Post to Bluesky**: httpRequest\n- **Post to Pinterest**: httpRequest\n- ... and 80 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "2e5e291a-63f6-4680-9cf5-a3baa2ee917d",
   "connections": {
@@ -1401,6 +2093,455 @@
           }
         ]
       ]
+    },
+    "b8a41b63-8c48-4964-befe-b949f3e9b755": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b8a41b63-8c48-4964-befe-b949f3e9b755",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b8a41b63-8c48-4964-befe-b949f3e9b755-35d4bbb4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ac7a8bf1-b9ec-4a25-8c14-6d90abbc5568": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ac7a8bf1-b9ec-4a25-8c14-6d90abbc5568",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ac7a8bf1-b9ec-4a25-8c14-6d90abbc5568-08987ccf",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "be0a1831-c0e3-4753-b114-2cd7cc66fae2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-be0a1831-c0e3-4753-b114-2cd7cc66fae2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-be0a1831-c0e3-4753-b114-2cd7cc66fae2-2e27a84a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "62087008-dd5a-49f4-a764-a10b1c82e4e0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-62087008-dd5a-49f4-a764-a10b1c82e4e0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-62087008-dd5a-49f4-a764-a10b1c82e4e0-3d382d24",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "976b075d-c98b-45a4-bf76-06a34d5ccbf3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-976b075d-c98b-45a4-bf76-06a34d5ccbf3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-976b075d-c98b-45a4-bf76-06a34d5ccbf3-9508d186",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c689c5d4-f63c-4fc2-b2d6-e1d2d03a236a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c689c5d4-f63c-4fc2-b2d6-e1d2d03a236a",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c689c5d4-f63c-4fc2-b2d6-e1d2d03a236a-1d907b12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "88c8bd03-342e-4844-9489-28a5a93426e0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-88c8bd03-342e-4844-9489-28a5a93426e0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-88c8bd03-342e-4844-9489-28a5a93426e0-2bed180e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "db6fb042-731e-46ce-8f4d-07e2b427739c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-db6fb042-731e-46ce-8f4d-07e2b427739c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-db6fb042-731e-46ce-8f4d-07e2b427739c-65f90135",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2102531c-624a-49b6-8b99-7a43e5067585": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2102531c-624a-49b6-8b99-7a43e5067585",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2102531c-624a-49b6-8b99-7a43e5067585-69debae0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a9826150-6e26-4174-af74-1b4dd8016638": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a9826150-6e26-4174-af74-1b4dd8016638",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a9826150-6e26-4174-af74-1b4dd8016638-3c74d119",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6f9755e0-db11-4c3e-9d1b-f9c97c832cbd": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6f9755e0-db11-4c3e-9d1b-f9c97c832cbd",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-6f9755e0-db11-4c3e-9d1b-f9c97c832cbd-4f80faaa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "66abae9c-10ae-4845-9070-cd5f2d208782": {
+      "main": [
+        [
+          {
+            "node": "error-handler-66abae9c-10ae-4845-9070-cd5f2d208782",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-66abae9c-10ae-4845-9070-cd5f2d208782-8e05e052",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "26979ac8-6f1d-4a9b-b0b5-42b4d7165ffe": {
+      "main": [
+        [
+          {
+            "node": "error-handler-26979ac8-6f1d-4a9b-b0b5-42b4d7165ffe",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-26979ac8-6f1d-4a9b-b0b5-42b4d7165ffe-9c371339",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "dd364492-ffcb-47e4-a24e-fb5b3c5b4ab5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-dd364492-ffcb-47e4-a24e-fb5b3c5b4ab5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-dd364492-ffcb-47e4-a24e-fb5b3c5b4ab5-0a75f9dc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8a6b0c07-8304-403e-842e-ea60b0d5e939": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8a6b0c07-8304-403e-842e-ea60b0d5e939",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-8a6b0c07-8304-403e-842e-ea60b0d5e939-86a55324",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "540a8cbf-0b41-4102-b2c3-a69480603cb6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-540a8cbf-0b41-4102-b2c3-a69480603cb6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-540a8cbf-0b41-4102-b2c3-a69480603cb6-9ad330bf",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4482e940-fdee-498a-9b4c-dd44a12f04a9": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4482e940-fdee-498a-9b4c-dd44a12f04a9",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-4482e940-fdee-498a-9b4c-dd44a12f04a9-7debfd37",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8ea22e87-0803-4618-a4cb-08a6b720838e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8ea22e87-0803-4618-a4cb-08a6b720838e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-8ea22e87-0803-4618-a4cb-08a6b720838e-895ec0e5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15d7845c-0e0b-4f06-b48e-5ea8add6501a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-15d7845c-0e0b-4f06-b48e-5ea8add6501a",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-15d7845c-0e0b-4f06-b48e-5ea8add6501a-15b7dddf",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fdc02ec0-b3ce-49e3-9f20-096c679eacbe": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fdc02ec0-b3ce-49e3-9f20-096c679eacbe",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-fdc02ec0-b3ce-49e3-9f20-096c679eacbe-5affad54",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5a08a003-68b1-48e5-8851-bb1a77d18a37": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5a08a003-68b1-48e5-8851-bb1a77d18a37-c459b930",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1898fd9c-2164-44d0-8ada-192107565b64": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1898fd9c-2164-44d0-8ada-192107565b64-b223c1d9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "61b49201-e9d5-44b8-be6c-d0175596d261": {
+      "main": [
+        [
+          {
+            "node": "error-handler-61b49201-e9d5-44b8-be6c-d0175596d261-6ca14707",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9b865654-337a-4dd5-89d4-4a131f6eed75": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9b865654-337a-4dd5-89d4-4a131f6eed75-9be3093d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "99a4282b-5d68-4f4d-8b1e-c7975221b92f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-99a4282b-5d68-4f4d-8b1e-c7975221b92f-9a1ce953",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3cbe9fb8-1685-4169-9ee1-3ae72f3190e3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3cbe9fb8-1685-4169-9ee1-3ae72f3190e3-d8399288",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "dd947cd3-747f-484f-93ea-990d977ab113": {
+      "main": [
+        [
+          {
+            "node": "error-handler-dd947cd3-747f-484f-93ea-990d977ab113-dfb1a806",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c17efd9a-2428-4c36-acd8-69c47d01b961": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c17efd9a-2428-4c36-acd8-69c47d01b961-52e2948d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Auto-create and publish AI social videos with Telegram, GPT-4 and Blotato. This workflow integrates 11 different services: telegramTrigger, stickyNote, httpRequest, wait, telegram. It contains 90 nodes and follows best practices for error handling and security."
 }

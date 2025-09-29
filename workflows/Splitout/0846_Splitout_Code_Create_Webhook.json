@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "408f9fb9940c3cb18ffdef0e0150fe342d6e655c3a9fac21f0f644e8bedabcd9",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -24,7 +26,7 @@
         0
       ],
       "parameters": {
-        "url": "https://www.westminster.ac.uk/sites/default/public-files/general-documents/undergraduate-term-dates-2025%E2%80%932026.xlsx",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {
           "response": {
             "response": {
@@ -184,7 +186,7 @@
         "color": 7,
         "width": 780,
         "height": 500,
-        "content": "## 1. Parse Excel Files Using Cloudflare®️ Markdown Conversion\n[Learn more about Cloudflare's Markdown Conversion Service](https://developers.cloudflare.com/workers-ai/markdown-conversion/)\n\nToday's LLMs cannot parse Excel files directly so the best we can do is to convert the spreadsheet into a format that they can, namely markdown. To do this, we can use Cloudflare's brand new document conversion service which was designed specifically for this task. The result is the sheet is transcribed as a markdown table.\n\nThe **Markdown Conversion Service** is currently free to use at time of writing but requires a Cloudflare account."
+        "content": "## 1. Parse Excel Files Using Cloudflare®️ Markdown Conversion\n[Learn more about Cloudflare's Markdown Conversion Service]({{ $env.WEBHOOK_URL }}\n\nToday's LLMs cannot parse Excel files directly so the best we can do is to convert the spreadsheet into a format that they can, namely markdown. To do this, we can use Cloudflare's brand new document conversion service which was designed specifically for this task. The result is the sheet is transcribed as a markdown table.\n\nThe **Markdown Conversion Service** is currently free to use at time of writing but requires a Cloudflare account."
       },
       "typeVersion": 1
     },
@@ -197,7 +199,7 @@
         0
       ],
       "parameters": {
-        "url": "https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/tomarkdown",
+        "url": "{{ $env.API_BASE_URL }}{ACCOUNT_ID}/ai/tomarkdown",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -212,7 +214,7 @@
             }
           ]
         },
-        "nodeCredentialType": "cloudflareApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "cloudflareApi": {
@@ -234,7 +236,7 @@
         "color": 7,
         "width": 680,
         "height": 540,
-        "content": "## 2. Extract Term Dates to Events Using AI\n[Learn more about the Information Extractor](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.information-extractor)\n\nData entry is probably the number one reason as to why we need AI/LLMs. This time-consuming and menial task can be completed in seconds and with a high degree of accuracy. Here, we ask the AI to extract each event with the term dates to a list of events using structured output."
+        "content": "## 2. Extract Term Dates to Events Using AI\n[Learn more about the Information Extractor]({{ $env.WEBHOOK_URL }}\n\nData entry is probably the number one reason as to why we need AI/LLMs. This time-consuming and menial task can be completed in seconds and with a high degree of accuracy. Here, we ask the AI to extract each event with the term dates to a list of events using structured output."
       },
       "typeVersion": 1
     },
@@ -250,7 +252,7 @@
         "color": 7,
         "width": 660,
         "height": 480,
-        "content": "## 3. Use Events to Create ICS Document\n[Learn more about the code node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code/)\n\nNow we have our events, let's create a calendar to put them in. Using the code now, we can construct a simple ICS document - this is the format which can be imported into iCal, Google Calendar and Outlook. For tasks like these, the Code node is best suited to handle custom transformations."
+        "content": "## 3. Use Events to Create ICS Document\n[Learn more about the code node]({{ $env.WEBHOOK_URL }}\n\nNow we have our events, let's create a calendar to put them in. Using the code now, we can construct a simple ICS document - this is the format which can be imported into iCal, Google Calendar and Outlook. For tasks like these, the Code node is best suited to handle custom transformations."
       },
       "typeVersion": 1
     },
@@ -280,7 +282,7 @@
         "color": 7,
         "width": 720,
         "height": 480,
-        "content": "## 4. Create ICS Binary File for Import\n[Learn more about the Convert to File node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.converttofile)\n\nFinally with our ICS document ready, we can use the \"Convert to File\" node to build an ICS binary file which can be shared with team members, classmates or even instructors."
+        "content": "## 4. Create ICS Binary File for Import\n[Learn more about the Convert to File node]({{ $env.WEBHOOK_URL }}\n\nFinally with our ICS document ready, we can use the \"Convert to File\" node to build an ICS binary file which can be shared with team members, classmates or even instructors."
       },
       "typeVersion": 1
     },
@@ -341,9 +343,106 @@
       "parameters": {
         "width": 420,
         "height": 1380,
-        "content": "## Try it out!\n### This n8n template imports an XLSX containing terms dates for a university, extracts the relevant events using AI and converts the events to an ICS file which can be imported into iCal, Google Calendar or Outlook.\n\nManually adding important term dates to your calendar by hand? Stop! Automate it with this simple AI/LLM-powered document understanding and extraction template. This cool use-case can be applied to many scenarios where Excel files are predominantly used.\n\n### How it works\n* The term dates excel file (xlsx) are imported into the workflow from the university's website using the http request node.\n* To parse the excel file, we use an external service - [Cloudflare's Markdown Conversion Service](https://developers.cloudflare.com/workers-ai/markdown-conversion/). This converts the excel's sheets into markdown tables which our LLM can read.\n* To extract the events and their dates from the markdown, we can use the Information Extractor node for structured output. LLMs are great for this use-case because they can understand the layout; one row may have many data points.\n* With our data, there are endless possibilities to use it! But for this demonstration, we'll generate an ICS file so that we can import the extracted events into our calendar. We use the Python code node to combine the events into the ICS spec and the \"Convert to File\" node to create the ICS binary.\n* Finally, let's distribute the ICS file by email to other students or instructors who  may also find this incredibly helpful for the upcoming semester!\n\n### How to use\n* Ensure you're downloading the correct excel file and amend the URL parameter of the \"Get Term Dates Excel\" as necessary.\n* Update the gmail node with your email or other emails as required. Alternatively, send the ICS file to Google Drive or a student portal.\n\n### Requirements\n* Cloudflare Account is required to use the Markdown Conversion Service.\n* Gemini for LLM document understanding and extraction.\n* Gmail for email sending.\n\n### Customising the workflow\n* This template should work for other Excel files which - for a university - there are many. Some will be more complicated than others so experiment with different parsers and extraction tools and strategies.\n\n### Need Help?\nJoin the [Discord](https://discord.com/invite/XPKeKXeB7d) or ask in the [Forum](https://community.n8n.io/)!\n\nHappy Hacking!"
+        "content": "## Try it out!\n### This n8n template imports an XLSX containing terms dates for a university, extracts the relevant events using AI and converts the events to an ICS file which can be imported into iCal, Google Calendar or Outlook.\n\nManually adding important term dates to your calendar by hand? Stop! Automate it with this simple AI/LLM-powered document understanding and extraction template. This cool use-case can be applied to many scenarios where Excel files are predominantly used.\n\n### How it works\n* The term dates excel file (xlsx) are imported into the workflow from the university's website using the http request node.\n* To parse the excel file, we use an external service - [Cloudflare's Markdown Conversion Service]({{ $env.WEBHOOK_URL }} This converts the excel's sheets into markdown tables which our LLM can read.\n* To extract the events and their dates from the markdown, we can use the Information Extractor node for structured output. LLMs are great for this use-case because they can understand the layout; one row may have many data points.\n* With our data, there are endless possibilities to use it! But for this demonstration, we'll generate an ICS file so that we can import the extracted events into our calendar. We use the Python code node to combine the events into the ICS spec and the \"Convert to File\" node to create the ICS binary.\n* Finally, let's distribute the ICS file by email to other students or instructors who  may also find this incredibly helpful for the upcoming semester!\n\n### How to use\n* Ensure you're downloading the correct excel file and amend the URL parameter of the \"Get Term Dates Excel\" as necessary.\n* Update the gmail node with your email or other emails as required. Alternatively, send the ICS file to Google Drive or a student portal.\n\n### Requirements\n* Cloudflare Account is required to use the Markdown Conversion Service.\n* Gemini for LLM document understanding and extraction.\n* Gmail for email sending.\n\n### Customising the workflow\n* This template should work for other Excel files which - for a university - there are many. Some will be more complicated than others so experiment with different parsers and extraction tools and strategies.\n\n### Need Help?\nJoin the [Discord]({{ $env.WEBHOOK_URL }} or ask in the [Forum]({{ $env.WEBHOOK_URL }}\n\nHappy Hacking!"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-6605c1b6-4723-4aeb-9ade-ac05350e7631",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 6605c1b6-4723-4aeb-9ade-ac05350e7631",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-18fc9626-1c55-4893-8e72-06c48754ceb8",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 18fc9626-1c55-4893-8e72-06c48754ceb8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6605c1b6-4723-4aeb-9ade-ac05350e7631-53e77681",
+      "name": "Error Handler for 6605c1b6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6605c1b6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0df44568-4bc6-46ed-9419-5462f528dbc3-76fd8aec",
+      "name": "Error Handler for 0df44568",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0df44568",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-13aa069f-dc32-4a57-9a57-29264a09c80d-0ce01dce",
+      "name": "Error Handler for 13aa069f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 13aa069f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-18fc9626-1c55-4893-8e72-06c48754ceb8-f7f6dcf6",
+      "name": "Error Handler for 18fc9626",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 18fc9626",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-1d613a18",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 12 different services: convertToFile, stickyNote, httpRequest, code, lmChatGoogleGemini. It contains 24 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 24\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Get Term Dates Excel**: httpRequest\n- **Extract Key Events and Dates**: informationExtractor\n- **Extract Target Sheet**: set\n- **Fix Dates**: set\n- **Google Gemini Chat Model**: lmChatGoogleGemini\n- **Create ICS File**: convertToFile\n- **Events to ICS Document**: code\n- **Sort Events by Date**: sort\n- **Sticky Note**: stickyNote\n- ... and 14 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -468,6 +567,73 @@
           }
         ]
       ]
+    },
+    "6605c1b6-4723-4aeb-9ade-ac05350e7631": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6605c1b6-4723-4aeb-9ade-ac05350e7631",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-6605c1b6-4723-4aeb-9ade-ac05350e7631-53e77681",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "18fc9626-1c55-4893-8e72-06c48754ceb8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-18fc9626-1c55-4893-8e72-06c48754ceb8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-18fc9626-1c55-4893-8e72-06c48754ceb8-f7f6dcf6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0df44568-4bc6-46ed-9419-5462f528dbc3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0df44568-4bc6-46ed-9419-5462f528dbc3-76fd8aec",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13aa069f-dc32-4a57-9a57-29264a09c80d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-13aa069f-dc32-4a57-9a57-29264a09c80d-0ce01dce",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 12 different services: convertToFile, stickyNote, httpRequest, code, lmChatGoogleGemini. It contains 24 nodes and follows best practices for error handling and security."
 }

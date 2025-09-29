@@ -129,7 +129,7 @@
         "color": 4,
         "width": 260,
         "height": 440,
-        "content": "## How to export your Google keep notes \n* Google has a dedicated service for exporting your google data, called [Google Takeout](https://takeout.google.com/), you'll have to login  it. \n* Click on \"Deselect all\" then select only Google Keep and click on \"Next\". \n- Select the destination (use \"Send download link via mail\" as you'll have to uncompress a zip file before to send it again to Google Drive)\n- Upload to Google Drive all json files from your uncompresed file, to specific directory and you are ready to start!\n"
+        "content": "## How to export your Google keep notes \n* Google has a dedicated service for exporting your google data, called [Google Takeout]({{ $env.WEBHOOK_URL }} you'll have to login  it. \n* Click on \"Deselect all\" then select only Google Keep and click on \"Next\". \n- Select the destination (use \"Send download link via mail\" as you'll have to uncompress a zip file before to send it again to Google Drive)\n- Upload to Google Drive all json files from your uncompresed file, to specific directory and you are ready to start!\n"
       },
       "typeVersion": 1
     },
@@ -148,7 +148,7 @@
             "__rl": true,
             "mode": "list",
             "value": "1BggjRVCqyDnECK_mB2M-PYareptQv99P",
-            "cachedResultUrl": "https://drive.google.com/drive/folders/1BggjRVCqyDnECK_mB2M-PYareptQv99P",
+            "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
             "cachedResultName": "Keep"
           },
           "whatToSearch": "files"
@@ -330,14 +330,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rjgyHw6XU4NTRCx4eXuQ0AIXhY3mWqxg1NiAhrSnuzE/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1rjgyHw6XU4NTRCx4eXuQ0AIXhY3mWqxg1NiAhrSnuzE",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rjgyHw6XU4NTRCx4eXuQ0AIXhY3mWqxg1NiAhrSnuzE/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "googl keep export (10/05/25)"
         }
       },
@@ -482,6 +482,89 @@
         "content": "## Contact me\n### If you need some help with this workflow: Write to me: [thomas@pollup.net](mailto:thomas@pollup.net)\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-68584aab-c5f3-450a-a1e3-cddc8d64082d-d2155808",
+      "name": "Error Handler for 68584aab",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 68584aab",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-313764d0-f115-46d3-a2e3-1fde647f7d85-9f5d885e",
+      "name": "Error Handler for 313764d0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 313764d0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-31eb6398-cca0-4ed1-910a-470fa49c9727-9d346670",
+      "name": "Error Handler for 31eb6398",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 31eb6398",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c1171bd7-5e2d-49e6-a52b-6e9282cb093d-a0c5b20d",
+      "name": "Error Handler for c1171bd7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c1171bd7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0f8d9b1f-f5de-477f-ad50-eeb89bcf8dc7-6ecd47db",
+      "name": "Error Handler for 0f8d9b1f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0f8d9b1f",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-fc042967",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 12 different services: filter, stickyNote, splitInBatches, agent, googleDrive. It contains 24 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 24\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Extract from File**: extractFromFile\n- **If is archived is false**: if\n- **OpenAI Chat Model**: lmChatOpenAi\n- **If extension is json**: filter\n- **Sticky Note**: stickyNote\n- **Search in \"Keep\" folder**: googleDrive\n- **Loop every 10 items**: splitInBatches\n- **Download the files**: googleDrive\n- **Put some AI treatment here if you need it**: agent\n- ... and 14 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "connections": {
@@ -617,6 +700,76 @@
           }
         ]
       ]
+    },
+    "68584aab-c5f3-450a-a1e3-cddc8d64082d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-68584aab-c5f3-450a-a1e3-cddc8d64082d-d2155808",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "313764d0-f115-46d3-a2e3-1fde647f7d85": {
+      "main": [
+        [
+          {
+            "node": "error-handler-313764d0-f115-46d3-a2e3-1fde647f7d85-9f5d885e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "31eb6398-cca0-4ed1-910a-470fa49c9727": {
+      "main": [
+        [
+          {
+            "node": "error-handler-31eb6398-cca0-4ed1-910a-470fa49c9727-9d346670",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c1171bd7-5e2d-49e6-a52b-6e9282cb093d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c1171bd7-5e2d-49e6-a52b-6e9282cb093d-a0c5b20d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0f8d9b1f-f5de-477f-ad50-eeb89bcf8dc7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0f8d9b1f-f5de-477f-ad50-eeb89bcf8dc7-6ecd47db",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 12 different services: filter, stickyNote, splitInBatches, agent, googleDrive. It contains 24 nodes and follows best practices for error handling and security.",
+  "meta": {
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   }
 }

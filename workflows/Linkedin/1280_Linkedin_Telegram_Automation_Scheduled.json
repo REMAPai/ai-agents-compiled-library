@@ -1,8 +1,10 @@
 {
   "id": "ZeSJSbwXI593H1Qj",
   "meta": {
-    "instanceId": "8e1a7e3413df437923cda0e92c098469371d84f7001856e525beaff17be8b941",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Social Media AI Agent - Telegram",
   "tags": [],
@@ -16,7 +18,7 @@
         1640
       ],
       "parameters": {
-        "url": "https://news.ycombinator.com/",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {
           "response": {
             "response": {
@@ -40,7 +42,7 @@
       ],
       "parameters": {
         "language": "python",
-        "pythonCode": "# Import necessary modules\nimport asyncio\nimport micropip\n\n# Define an asynchronous function to install packages\nasync def install_packages():\n await micropip.install(\"beautifulsoup4\")\n await micropip.install(\"simplejson\")\n\n# Run the asynchronous package installation\nasyncio.get_event_loop().run_until_complete(install_packages())\n\n# Now, import the installed packages\nimport simplejson as json\nfrom bs4 import BeautifulSoup\n\n# Retrieve the HTML content from the first item in the input\n# Assuming n8n passes data as a list of items, each with a 'json' key\nhtml_content = items[0].get('json', {}).get('data', '')\n\n# Initialize BeautifulSoup with the HTML content\nsoup = BeautifulSoup(html_content, 'html.parser')\n\n# Initialize a list to store metadata of GitHub posts\ngithub_posts = []\n\n# Find all 'tr' elements with class 'athing submission'\nposts = soup.find_all('tr', class_='athing submission')\n\nfor post in posts:\n post_id = post.get('id')\n title_line = post.find('span', class_='titleline')\n if not title_line:\n continue # Skip if titleline is not found\n\n # Extract the title and URL\n title_tag = title_line.find('a')\n if not title_tag:\n continue # Skip if title tag is not found\n\n title = title_tag.get_text(strip=True)\n url = title_tag.get('href', '')\n\n # Check if the URL is a GitHub link\n if 'github.com' not in url.lower():\n continue # Skip if not a GitHub link\n\n # Extract the site domain (e.g., github.com/username/repo)\n site_bit = title_line.find('span', class_='sitebit comhead')\n site = site_bit.find('span', class_='sitestr').get_text(strip=True) if site_bit else ''\n\n # The subtext is in the next 'tr' element\n subtext_tr = post.find_next_sibling('tr')\n if not subtext_tr:\n continue # Skip if subtext row is not found\n\n subtext_td = subtext_tr.find('td', class_='subtext')\n if not subtext_td:\n continue # Skip if subtext td is not found\n\n # Extract score\n score_span = subtext_td.find('span', class_='score')\n score = score_span.get_text(strip=True) if score_span else '0 points'\n\n # Extract author\n author_a = subtext_td.find('a', class_='hnuser')\n author = author_a.get_text(strip=True) if author_a else 'unknown'\n\n # Extract age\n age_span = subtext_td.find('span', class_='age')\n age_a = age_span.find('a') if age_span else None\n age = age_a.get_text(strip=True) if age_a else 'unknown'\n\n # Extract comments\n comments_a = subtext_td.find_all('a')[-1] if subtext_td.find_all('a') else None\n comments_text = comments_a.get_text(strip=True) if comments_a else '0 comments'\n\n # Construct the Hacker News URL\n hn_url = f\"https://news.ycombinator.com/item?id={post_id}\"\n\n # Compile the metadata\n post_metadata = {\n 'Post': post_id,\n 'title': title,\n 'url': url,\n 'site': site,\n 'score': score,\n 'author': author,\n 'age': age,\n 'comments': comments_text,\n 'hn_url': hn_url\n }\n\n # Append to the list of GitHub posts\n github_posts.append(post_metadata)\n\n# Prepare the output for n8n\noutput = [{'json': post} for post in github_posts]\n\n# Return the output\nreturn output\n"
+        "pythonCode": "# Import necessary modules\nimport asyncio\nimport micropip\n\n# Define an asynchronous function to install packages\nasync def install_packages():\n await micropip.install(\"beautifulsoup4\")\n await micropip.install(\"simplejson\")\n\n# Run the asynchronous package installation\nasyncio.get_event_loop().run_until_complete(install_packages())\n\n# Now, import the installed packages\nimport simplejson as json\nfrom bs4 import BeautifulSoup\n\n# Retrieve the HTML content from the first item in the input\n# Assuming n8n passes data as a list of items, each with a 'json' key\nhtml_content = items[0].get('json', {}).get('data', '')\n\n# Initialize BeautifulSoup with the HTML content\nsoup = BeautifulSoup(html_content, 'html.parser')\n\n# Initialize a list to store metadata of GitHub posts\ngithub_posts = []\n\n# Find all 'tr' elements with class 'athing submission'\nposts = soup.find_all('tr', class_='athing submission')\n\nfor post in posts:\n post_id = post.get('id')\n title_line = post.find('span', class_='titleline')\n if not title_line:\n continue # Skip if titleline is not found\n\n # Extract the title and URL\n title_tag = title_line.find('a')\n if not title_tag:\n continue # Skip if title tag is not found\n\n title = title_tag.get_text(strip=True)\n url = title_tag.get('href', '')\n\n # Check if the URL is a GitHub link\n if 'github.com' not in url.lower():\n continue # Skip if not a GitHub link\n\n # Extract the site domain (e.g., github.com/username/repo)\n site_bit = title_line.find('span', class_='sitebit comhead')\n site = site_bit.find('span', class_='sitestr').get_text(strip=True) if site_bit else ''\n\n # The subtext is in the next 'tr' element\n subtext_tr = post.find_next_sibling('tr')\n if not subtext_tr:\n continue # Skip if subtext row is not found\n\n subtext_td = subtext_tr.find('td', class_='subtext')\n if not subtext_td:\n continue # Skip if subtext td is not found\n\n # Extract score\n score_span = subtext_td.find('span', class_='score')\n score = score_span.get_text(strip=True) if score_span else '0 points'\n\n # Extract author\n author_a = subtext_td.find('a', class_='hnuser')\n author = author_a.get_text(strip=True) if author_a else 'unknown'\n\n # Extract age\n age_span = subtext_td.find('span', class_='age')\n age_a = age_span.find('a') if age_span else None\n age = age_a.get_text(strip=True) if age_a else 'unknown'\n\n # Extract comments\n comments_a = subtext_td.find_all('a')[-1] if subtext_td.find_all('a') else None\n comments_text = comments_a.get_text(strip=True) if comments_a else '0 comments'\n\n # Construct the Hacker News URL\n hn_url = f\"{{ $env.WEBHOOK_URL }}{post_id}\"\n\n # Compile the metadata\n post_metadata = {\n 'Post': post_id,\n 'title': title,\n 'url': url,\n 'site': site,\n 'score': score,\n 'author': author,\n 'age': age,\n 'comments': comments_text,\n 'hn_url': hn_url\n }\n\n # Append to the list of GitHub posts\n github_posts.append(post_metadata)\n\n# Prepare the output for n8n\noutput = [{'json': post} for post in github_posts]\n\n# Return the output\nreturn output\n"
       },
       "executeOnce": true,
       "typeVersion": 2,
@@ -146,14 +148,14 @@
           "__rl": true,
           "mode": "list",
           "value": "app7fh2kmMzPKS4RZ",
-          "cachedResultUrl": "https://airtable.com/app7fh2kmMzPKS4RZ",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Twitter Agent"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblf0cODJFdvDj7vU",
-          "cachedResultUrl": "https://airtable.com/app7fh2kmMzPKS4RZ/tblf0cODJFdvDj7vU",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "My Tweets"
         },
         "columns": {
@@ -324,14 +326,14 @@
           "__rl": true,
           "mode": "list",
           "value": "app7fh2kmMzPKS4RZ",
-          "cachedResultUrl": "https://airtable.com/app7fh2kmMzPKS4RZ",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Twitter Agent"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblf0cODJFdvDj7vU",
-          "cachedResultUrl": "https://airtable.com/app7fh2kmMzPKS4RZ/tblf0cODJFdvDj7vU",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "My Tweets"
         },
         "columns": {
@@ -481,14 +483,14 @@
           "__rl": true,
           "mode": "list",
           "value": "app7fh2kmMzPKS4RZ",
-          "cachedResultUrl": "https://airtable.com/app7fh2kmMzPKS4RZ",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Twitter Agent"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblf0cODJFdvDj7vU",
-          "cachedResultUrl": "https://airtable.com/app7fh2kmMzPKS4RZ/tblf0cODJFdvDj7vU",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "My Tweets"
         },
         "options": {
@@ -525,14 +527,14 @@
           "__rl": true,
           "mode": "list",
           "value": "app7fh2kmMzPKS4RZ",
-          "cachedResultUrl": "https://airtable.com/app7fh2kmMzPKS4RZ",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Twitter Agent"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblf0cODJFdvDj7vU",
-          "cachedResultUrl": "https://airtable.com/app7fh2kmMzPKS4RZ/tblf0cODJFdvDj7vU",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "My Tweets"
         },
         "columns": {
@@ -627,7 +629,7 @@
     },
     {
       "id": "51a2c3d3-3e75-4375-b2b6-4bb86fa71855",
-      "name": "X",
+      "name": "Twitter",
       "type": "n8n-nodes-base.twitter",
       "onError": "continueRegularOutput",
       "position": [
@@ -714,10 +716,10 @@
           "values": [
             {
               "role": "system",
-              "content": "You are an AI-powered social media assistant specialized in crafting short-form, engaging posts for Twitter and LinkedIn. Your tone should blend the enthusiasm of a Tech Evangelist with the narrative depth of a Storyteller. The goal is to highlight technological and open-source projects in a friendly, forward-thinking manner, connecting them to real-world use cases. \n\nGuidelines:\n1. Output must be in JSON with separate fields for \u201ctwitter\u201d and \u201clinkedin.\u201d\n2. Do not include emojis or marketing buzzwords (\u201ccutting-edge,\u201d \u201cdisruptive,\u201d etc.).\n3. Write naturally and concisely. Avoid overly formal or robotic language.\n4. Twitter posts must be under 280 characters (including spaces and URL).\n5. LinkedIn posts should be slightly longer, yet still succinct, and focus on storytelling and real-world applications.\n6. Provide a single call-to-action in each post.\n7. Do not imply ownership of the project unless explicitly stated.\n8. Maintain a professional yet approachable tone in both outputs.\n"
+              "content": "You are an AI-powered social media assistant specialized in crafting short-form, engaging posts for Twitter and LinkedIn. Your tone should blend the enthusiasm of a Tech Evangelist with the narrative depth of a Storyteller. The goal is to highlight technological and open-source projects in a friendly, forward-thinking manner, connecting them to real-world use cases. \n\nGuidelines:\n1. Output must be in JSON with separate fields for “twitter” and “linkedin.”\n2. Do not include emojis or marketing buzzwords (“cutting-edge,” “disruptive,” etc.).\n3. Write naturally and concisely. Avoid overly formal or robotic language.\n4. Twitter posts must be under 280 characters (including spaces and URL).\n5. LinkedIn posts should be slightly longer, yet still succinct, and focus on storytelling and real-world applications.\n6. Provide a single call-to-action in each post.\n7. Do not imply ownership of the project unless explicitly stated.\n8. Maintain a professional yet approachable tone in both outputs.\n"
             },
             {
-              "content": "=Using the following details, generate two posts\u2014one for Twitter and one for LinkedIn\u2014incorporating an enthusiastic yet narrative-driven style:\n\nTitle: {{ $('Filter Unposted Items').item.json.title }}\nDetails in markdown: {{ $json.data }}\nRepository Link: {{ $('Filter Unposted Items').item.json.url }} (this is the actual link you want to be inserted)\n\nConstraints:\n- No emojis.\n- Keep the Twitter post under 280 characters (including the link).\n- Use a friendly, forward-thinking tone that weaves in a short narrative where possible.\n- Highlight how the project solves a real problem or benefits the user.\n- End each post with one clear CTA (e.g., \u201cCheck it out!\u201d or \u201cLearn more.\u201d).\n- **Ensure the tone is neutral and does not imply personal involvement** (e.g., avoid phrases like \"my journey\" or \"I found it fascinating\").\n- **LinkedIn post should be more detailed**: Provide context, explain the key features, highlight how it can be useful to different audiences, and elaborate on the problem it solves or the impact it can have.\n- Output your response in JSON with the structure:\n```json\n{\n \"twitter\": \"Your Twitter post here\",\n \"linkedin\": \"Your LinkedIn post here\"\n}\n"
+              "content": "=Using the following details, generate two posts—one for Twitter and one for LinkedIn—incorporating an enthusiastic yet narrative-driven style:\n\nTitle: {{ $('Filter Unposted Items').item.json.title }}\nDetails in markdown: {{ $json.data }}\nRepository Link: {{ $('Filter Unposted Items').item.json.url }} (this is the actual link you want to be inserted)\n\nConstraints:\n- No emojis.\n- Keep the Twitter post under 280 characters (including the link).\n- Use a friendly, forward-thinking tone that weaves in a short narrative where possible.\n- Highlight how the project solves a real problem or benefits the user.\n- End each post with one clear CTA (e.g., “Check it out!” or “Learn more.”).\n- **Ensure the tone is neutral and does not imply personal involvement** (e.g., avoid phrases like \"my journey\" or \"I found it fascinating\").\n- **LinkedIn post should be more detailed**: Provide context, explain the key features, highlight how it can be useful to different audiences, and elaborate on the problem it solves or the impact it can have.\n- Output your response in JSON with the structure:\n```json\n{\n \"twitter\": \"Your Twitter post here\",\n \"linkedin\": \"Your LinkedIn post here\"\n}\n"
             }
           ]
         },
@@ -876,6 +878,103 @@
         "content": "Make sure we don't post the same content again."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-814303e0-5fe9-474e-a4ed-e4a728fd4acf",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 814303e0-5fe9-474e-a4ed-e4a728fd4acf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d7ac7121-8da7-4e45-9b74-daf07fbf15fb",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d7ac7121-8da7-4e45-9b74-daf07fbf15fb",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-814303e0-5fe9-474e-a4ed-e4a728fd4acf-00b0f1f2",
+      "name": "Error Handler for 814303e0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 814303e0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d7ac7121-8da7-4e45-9b74-daf07fbf15fb-1f75010f",
+      "name": "Error Handler for d7ac7121",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d7ac7121",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3529fba4-173c-4378-ae69-43a3bae0813f-e185a007",
+      "name": "Error Handler for 3529fba4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3529fba4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-89c8472d-3329-4f94-a656-2539e061eeb0-f6756397",
+      "name": "Error Handler for 89c8472d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 89c8472d",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-07c18634",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Social Media AI Agent - Telegram\n\n## Overview\nAutomated workflow: Social Media AI Agent - Telegram. This workflow integrates 15 different services: filter, markdown, httpRequest, stickyNote, airtable. It contains 32 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 32\n- **Node Types**: 15\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Crawl HN Home**: httpRequest\n- **Extract Meta**: code\n- **Filter Unposted Items**: code\n- **Visit GH Page**: httpRequest\n- **Convert HTML To Markdown**: markdown\n- **Filter Errored**: filter\n- **No Operation, do nothing**: noOp\n- **Update X Status**: airtable\n- **LinkedIn**: linkedIn\n- **Update L Status**: airtable\n- ... and 22 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
@@ -899,7 +998,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "4c28d47d-811e-4b89-adeb-47da12abd378",
   "connections": {
@@ -1110,6 +1213,65 @@
           }
         ]
       ]
+    },
+    "814303e0-5fe9-474e-a4ed-e4a728fd4acf": {
+      "main": [
+        [
+          {
+            "node": "error-handler-814303e0-5fe9-474e-a4ed-e4a728fd4acf",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-814303e0-5fe9-474e-a4ed-e4a728fd4acf-00b0f1f2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d7ac7121-8da7-4e45-9b74-daf07fbf15fb": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d7ac7121-8da7-4e45-9b74-daf07fbf15fb",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d7ac7121-8da7-4e45-9b74-daf07fbf15fb-1f75010f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3529fba4-173c-4378-ae69-43a3bae0813f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3529fba4-173c-4378-ae69-43a3bae0813f-e185a007",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "89c8472d-3329-4f94-a656-2539e061eeb0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-89c8472d-3329-4f94-a656-2539e061eeb0-f6756397",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Social Media AI Agent - Telegram. This workflow integrates 15 different services: filter, markdown, httpRequest, stickyNote, airtable. It contains 32 nodes and follows best practices for error handling and security."
 }

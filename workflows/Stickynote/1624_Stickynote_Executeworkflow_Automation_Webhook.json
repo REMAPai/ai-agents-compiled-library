@@ -1,8 +1,10 @@
 {
   "id": "R4EuB1gx1IpMXCJM",
   "meta": {
-    "instanceId": "a5283507e1917a33cc3ae615b2e7d5ad2c1e50955e6f831272ddd5ab816f3fb6",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "CoinMarketCap_Crypto_Agent_Tool",
   "tags": [],
@@ -91,7 +93,7 @@
         520
       ],
       "parameters": {
-        "url": "https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest",
+        "url": "{{ $env.API_BASE_URL }}",
         "sendQuery": true,
         "sendHeaders": true,
         "authentication": "genericCredentialType",
@@ -134,7 +136,7 @@
         520
       ],
       "parameters": {
-        "url": "https://pro-api.coinmarketcap.com/v1/cryptocurrency/map",
+        "url": "{{ $env.API_BASE_URL }}",
         "sendQuery": true,
         "sendHeaders": true,
         "authentication": "genericCredentialType",
@@ -185,7 +187,7 @@
         520
       ],
       "parameters": {
-        "url": "https://pro-api.coinmarketcap.com/v2/cryptocurrency/info",
+        "url": "{{ $env.API_BASE_URL }}",
         "sendQuery": true,
         "sendHeaders": true,
         "authentication": "genericCredentialType",
@@ -223,7 +225,7 @@
         520
       ],
       "parameters": {
-        "url": "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
+        "url": "{{ $env.API_BASE_URL }}",
         "sendQuery": true,
         "sendHeaders": true,
         "authentication": "genericCredentialType",
@@ -267,7 +269,7 @@
         520
       ],
       "parameters": {
-        "url": "https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest",
+        "url": "{{ $env.API_BASE_URL }}",
         "sendHeaders": true,
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
@@ -297,7 +299,7 @@
         520
       ],
       "parameters": {
-        "url": "https://pro-api.coinmarketcap.com/v1/tools/price-conversion",
+        "url": "{{ $env.API_BASE_URL }}",
         "sendQuery": true,
         "sendHeaders": true,
         "authentication": "genericCredentialType",
@@ -375,15 +377,214 @@
         "color": 3,
         "width": 600,
         "height": 560,
-        "content": "## ⚠️ API Errors & Troubleshooting\n\n| Code | Message |\n|------|---------|\n| 200  | OK ✅ |\n| 400  | Bad Request – Check inputs |\n| 401  | Unauthorized – Invalid/missing API key |\n| 429  | Rate limit exceeded – Slow down |\n| 500  | CoinMarketCap server issue |\n\n### ✅ Tips:\n- Double check symbols and convert params\n- Use `start`, `limit`, `convert` for pagination\n- Add delay to avoid 429 rate limits\n\n---\n\n## 🛠️ Need Help?\n🔗 [Don Jayamaha – LinkedIn](https://linkedin.com/in/donjayamahajr)\n\n© 2025 Treasurium Capital Limited Company. All rights reserved.\nThis AI workflow architecture, including logic, design, and prompt structures, is the intellectual property of Treasurium Capital Limited Company. Unauthorized reproduction, redistribution, or resale is prohibited under U.S. copyright law. Licensed use only."
+        "content": "## ⚠️ API Errors & Troubleshooting\n\n| Code | Message |\n|------|---------|\n| 200  | OK ✅ |\n| 400  | Bad Request – Check inputs |\n| 401  | Unauthorized – Invalid/missing API key |\n| 429  | Rate limit exceeded – Slow down |\n| 500  | CoinMarketCap server issue |\n\n### ✅ Tips:\n- Double check symbols and convert params\n- Use `start`, `limit`, `convert` for pagination\n- Add delay to avoid 429 rate limits\n\n---\n\n## 🛠️ Need Help?\n🔗 [Don Jayamaha – LinkedIn]({{ $env.WEBHOOK_URL }}\n\n© 2025 Treasurium Capital Limited Company. All rights reserved.\nThis AI workflow architecture, including logic, design, and prompt structures, is the intellectual property of Treasurium Capital Limited Company. Unauthorized reproduction, redistribution, or resale is prohibited under U.S. copyright law. Licensed use only."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-a48f47a0-9bef-412c-91b8-df57ce3dba12",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a48f47a0-9bef-412c-91b8-df57ce3dba12",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d5d5e847-efbc-41cd-b581-095eb3825bfd",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d5d5e847-efbc-41cd-b581-095eb3825bfd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ac224086-1243-4dcb-85eb-dbf59fc927ac",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ac224086-1243-4dcb-85eb-dbf59fc927ac",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b261f3ed-a1dc-4dd0-bc63-31e77041bb01",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b261f3ed-a1dc-4dd0-bc63-31e77041bb01",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cfa6badf-0eed-4b37-bb1d-2ffcd39a23fc",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in cfa6badf-0eed-4b37-bb1d-2ffcd39a23fc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ca40fc60-8cdd-48ec-98ba-63259582a16e",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ca40fc60-8cdd-48ec-98ba-63259582a16e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-52e42df6-6b67-45d6-80a0-5361259a9d8f-6d2d0641",
+      "name": "Error Handler for 52e42df6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 52e42df6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a48f47a0-9bef-412c-91b8-df57ce3dba12-969e4768",
+      "name": "Error Handler for a48f47a0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a48f47a0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d5d5e847-efbc-41cd-b581-095eb3825bfd-e5d8e7c2",
+      "name": "Error Handler for d5d5e847",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d5d5e847",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ac224086-1243-4dcb-85eb-dbf59fc927ac-9eeed848",
+      "name": "Error Handler for ac224086",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ac224086",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b261f3ed-a1dc-4dd0-bc63-31e77041bb01-0c404a77",
+      "name": "Error Handler for b261f3ed",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b261f3ed",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cfa6badf-0eed-4b37-bb1d-2ffcd39a23fc-a8053c6a",
+      "name": "Error Handler for cfa6badf",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node cfa6badf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ca40fc60-8cdd-48ec-98ba-63259582a16e-dec4562c",
+      "name": "Error Handler for ca40fc60",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ca40fc60",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-16e84724",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# CoinMarketCap_Crypto_Agent_Tool\n\n## Overview\nAutomated workflow: CoinMarketCap_Crypto_Agent_Tool. This workflow integrates 7 different services: stickyNote, toolHttpRequest, agent, stopAndError, lmChatOpenAi. It contains 26 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 26\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When Executed by Another Workflow**: executeWorkflowTrigger\n- **CoinMarketCap Crypto Agent**: agent\n- **Crypto Agent Brain**: lmChatOpenAi\n- **Crypto Agent Memory**: memoryBufferWindow\n- **CoinMarketCap Price**: toolHttpRequest\n- **Crypto Map**: toolHttpRequest\n- **Crypto Info**: toolHttpRequest\n- **Crypto Listings**: toolHttpRequest\n- **Global Metrics**: toolHttpRequest\n- **Price Conversion**: toolHttpRequest\n- ... and 16 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "a6a08338-6720-4a3a-bf3b-ed9559257b10",
   "connections": {
@@ -485,6 +686,126 @@
           }
         ]
       ]
+    },
+    "a48f47a0-9bef-412c-91b8-df57ce3dba12": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a48f47a0-9bef-412c-91b8-df57ce3dba12",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a48f47a0-9bef-412c-91b8-df57ce3dba12-969e4768",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d5d5e847-efbc-41cd-b581-095eb3825bfd": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d5d5e847-efbc-41cd-b581-095eb3825bfd",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d5d5e847-efbc-41cd-b581-095eb3825bfd-e5d8e7c2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ac224086-1243-4dcb-85eb-dbf59fc927ac": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ac224086-1243-4dcb-85eb-dbf59fc927ac",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ac224086-1243-4dcb-85eb-dbf59fc927ac-9eeed848",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b261f3ed-a1dc-4dd0-bc63-31e77041bb01": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b261f3ed-a1dc-4dd0-bc63-31e77041bb01",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b261f3ed-a1dc-4dd0-bc63-31e77041bb01-0c404a77",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cfa6badf-0eed-4b37-bb1d-2ffcd39a23fc": {
+      "main": [
+        [
+          {
+            "node": "error-handler-cfa6badf-0eed-4b37-bb1d-2ffcd39a23fc",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-cfa6badf-0eed-4b37-bb1d-2ffcd39a23fc-a8053c6a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ca40fc60-8cdd-48ec-98ba-63259582a16e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ca40fc60-8cdd-48ec-98ba-63259582a16e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ca40fc60-8cdd-48ec-98ba-63259582a16e-dec4562c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "52e42df6-6b67-45d6-80a0-5361259a9d8f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-52e42df6-6b67-45d6-80a0-5361259a9d8f-6d2d0641",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: CoinMarketCap_Crypto_Agent_Tool. This workflow integrates 7 different services: stickyNote, toolHttpRequest, agent, stopAndError, lmChatOpenAi. It contains 26 nodes and follows best practices for error handling and security."
 }

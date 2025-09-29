@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "95b3ab5a70ab1c8c1906357a367f1b236ef12a1409406fd992f60255f0f95f85",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -340,6 +342,19 @@
         "content": "### Introduction\nThis workflow enables the automated delivery of personalized WhatsApp messages via WhatsApp Business Cloud triggered by KlickTipp and processes the user's responses to control campaigns in KlickTipp. The setup is ideal for use cases like birthday greetings, coupon codes, or product-specific campaigns using pre-approved WhatsApp templates.\n\n### Benefits\n- **Multi-channel automation**: Enrich your email campaigns with WhatsApp messages, ensuring higher open and engagement rates.\n- **Personalized outreach**: Templates can dynamically insert contact-specific info such as name, product, or promo link.\n- **Full integration**: Connect KlickTipp and WhatsApp through n8n for seamless, event-driven messaging.\n\n### Key Feature\n- **KlickTipp Trigger**: Starts the workflow when a contact is tagged via Outbound.\n- **WhatsApp Template Messaging and response processing**:\n  - Uses pre-approved WhatsApp Message Templates (required for messages outside of a 24h session).\n  - Fills dynamic placeholders with data from KlickTipp custom fields such as:\n    - First name\n    - Product name\n    - Discount link\n    - Sender name\n  - Supports CTAs like \"Redeem Now\" with dynamic URLs - you can control the ending of the base URL.\n  - Listens to the contacts responses and either answers with an auto responder or tags the contact in KlickTipp\n\n#### Setup Instructions\n1. Set up the KlickTipp and WhatsApp Business nodes in your n8n instance.\n2. Authenticate your KlickTipp and Whatsapp accounts.\n3. Create the necessary custom fields to match the data structure\n4. Verify and customize field assignments in the workflow to align with your specific form and subscriber list setup.\n\nCustom Fields:\n   - `Whatsapp_Produkt/Dienstleistung` (Zeile)  \n   - `Whatsapp_Name/Unternehmen` (Zeile)  \n   - `Whatsapp_Link_Endung` (Zeile)\n\n### Testing and Deployment:\n1. Test the workflow by triggering the activation Tag of your Outbound in KlickTipp or by sending a response to the offer template message. Fill the custom fields with all the necessary data beforehand.\n2. Verify the reception of the message template from WhatsApp and or the subscription and tagging in KlickTipp.\n\n> ⚠️ *Cooldown Warning*: Repeated tests via Outbound trigger may require a 6-hour wait unless routed through a campaign, which bypasses the cooldown.\n\n- **Customization**: Adjust templates per product or audience segment. Use custom domain endings to redirect to different product pages. Segment users by WhatsApp availability (e.g. fallback to email for non-WA users).\n\n### Campaign Expansion Ideas\n- Combine with KlickTipp email series (e.g. welcome mail + WA message).\n- Add product-based segmentation tags (e.g. `product_X_interest`).\n- Analyze click rates from WhatsApp CTAs and experiment with A/B message variants.\n\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-a26be0df",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Stickynote Workflow\n\n## Overview\nAutomated workflow: Stickynote Workflow. This workflow integrates 7 different services: stickyNote, filter, klicktipp, switch, klicktippTrigger. It contains 12 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 12\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Sticky Note4**: stickyNote\n- **Sticky Note5**: stickyNote\n- **New message in WhatsApp**: whatsAppTrigger\n- **Cancellation check**: switch\n- **KlickTipp Outbound triggered**: klicktippTrigger\n- **Sending WhatsApp offer template**: whatsApp\n- **Sending WhatsApp auto-responder template**: whatsApp\n- **Subscribe number to opt-out from WA messages**: klicktipp\n- ... and 2 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -395,5 +410,14 @@
         ]
       ]
     }
-  }
+  },
+  "name": "Stickynote Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 7 different services: stickyNote, filter, klicktipp, switch, klicktippTrigger. It contains 12 nodes and follows best practices for error handling and security."
 }

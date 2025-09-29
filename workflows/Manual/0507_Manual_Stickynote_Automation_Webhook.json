@@ -1,8 +1,9 @@
 {
   "meta": {
-    "instanceId": "84ba6d895254e080ac2b4916d987aa66b000f88d4d919a6b9c76848f9b8a7616",
-    "templateId": "2294",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -43,7 +44,7 @@
       "parameters": {
         "width": 420,
         "height": 361,
-        "content": "## Authentication\nConversion requests must be authenticated. Please create \n[ConvertAPI account to get authentication secret](https://www.convertapi.com/a/signin)\n\nCreate a query auth credential with __secret__ as name and your secret from the convertAPI dashboard as value"
+        "content": "## Authentication\nConversion requests must be authenticated. Please create \n[ConvertAPI account to get authentication secret]({{ $env.API_BASE_URL }}\n\nCreate a query auth credential with __secret__ as name and your secret from the convertAPI dashboard as value"
       },
       "typeVersion": 1
     },
@@ -56,7 +57,7 @@
         240
       ],
       "parameters": {
-        "url": "https://cdn.convertapi.com/cara/testfiles/document.docx",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -76,7 +77,7 @@
         240
       ],
       "parameters": {
-        "url": "https://v2.convertapi.com/convert/docx/to/pdf",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -116,6 +117,89 @@
       },
       "notesInFlow": true,
       "typeVersion": 4.2
+    },
+    {
+      "id": "error-handler-09d95adb-3c05-4727-8d0b-498870d08cca",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 09d95adb-3c05-4727-8d0b-498870d08cca",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c5e25b57-ff04-4b4c-aab4-d92f8e18409e",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c5e25b57-ff04-4b4c-aab4-d92f8e18409e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-531d78cd-9f44-468a-9f88-30816922eb1b-c08a434d",
+      "name": "Error Handler for 531d78cd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 531d78cd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-09d95adb-3c05-4727-8d0b-498870d08cca-8d63769a",
+      "name": "Error Handler for 09d95adb",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 09d95adb",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c5e25b57-ff04-4b4c-aab4-d92f8e18409e-6242cc83",
+      "name": "Error Handler for c5e25b57",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c5e25b57",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-21d3a891",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 5 different services: stickyNote, httpRequest, readWriteFile, stopAndError, manualTrigger. It contains 10 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 10\n- **Node Types**: 5\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Write Result File to Disk**: readWriteFile\n- **Sticky Note**: stickyNote\n- **Download File**: httpRequest\n- **File conversion**: httpRequest\n- **Error Handler**: stopAndError\n- **Stopanderror 1**: stopAndError\n- **Error Handler for 531d78cd**: stopAndError\n- **Error Handler for 09d95adb**: stopAndError\n- **Error Handler for c5e25b57**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -152,6 +236,62 @@
           }
         ]
       ]
+    },
+    "09d95adb-3c05-4727-8d0b-498870d08cca": {
+      "main": [
+        [
+          {
+            "node": "error-handler-09d95adb-3c05-4727-8d0b-498870d08cca",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-09d95adb-3c05-4727-8d0b-498870d08cca-8d63769a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c5e25b57-ff04-4b4c-aab4-d92f8e18409e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c5e25b57-ff04-4b4c-aab4-d92f8e18409e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c5e25b57-ff04-4b4c-aab4-d92f8e18409e-6242cc83",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "531d78cd-9f44-468a-9f88-30816922eb1b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-531d78cd-9f44-468a-9f88-30816922eb1b-c08a434d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 5 different services: stickyNote, httpRequest, readWriteFile, stopAndError, manualTrigger. It contains 10 nodes and follows best practices for error handling and security."
 }

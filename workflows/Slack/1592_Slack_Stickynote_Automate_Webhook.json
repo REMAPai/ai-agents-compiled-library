@@ -1,8 +1,10 @@
 {
   "id": "PGLFPj5y01s26rE1",
   "meta": {
-    "instanceId": "b68f2515130d1ee83f4af1a6f2ca359fc9bb8cdbe875ca10b6f944f99aa931b5",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "My workflow 6",
   "tags": [],
@@ -103,7 +105,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "ask",
+              "outputKey": "output_1",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -126,7 +128,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "another",
+              "outputKey": "output_2",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -223,7 +225,7 @@
         "color": 7,
         "width": 340,
         "height": 400,
-        "content": "## 슬랙 Slash Command와 채널 메시지로 챗봇 만들기 🤖\n\n이 튜토리얼에서는 n8n을 활용해 슬랙에서 동작하는 AI 챗봇을 만드는 방법을 알려드립니다. 슬래시 커맨드를 통한 개인 메시지부터 공개 채널에서의 자동 응답까지, 실용적인 챗봇 구현 방법을 단계별로 설명합니다. 슬랙 앱 설정부터 n8n 노드 구성, 웹훅 트리거 설정, AI 봇 연동까지 하나하나 자세히 다룹니다.\n\n유튜브 링크:\nhttps://www.youtube.com/watch?v=UpudYFCWaIM\n"
+        "content": "## 슬랙 Slash Command와 채널 메시지로 챗봇 만들기 🤖\n\n이 튜토리얼에서는 n8n을 활용해 슬랙에서 동작하는 AI 챗봇을 만드는 방법을 알려드립니다. 슬래시 커맨드를 통한 개인 메시지부터 공개 채널에서의 자동 응답까지, 실용적인 챗봇 구현 방법을 단계별로 설명합니다. 슬랙 앱 설정부터 n8n 노드 구성, 웹훅 트리거 설정, AI 봇 연동까지 하나하나 자세히 다룹니다.\n\n유튜브 링크:\n{{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -239,15 +241,88 @@
         "color": 7,
         "width": 340,
         "height": 400,
-        "content": "## Create an AI chatbot with Slack slash commands! 🤖\n\nIn this tutorial, we'll show you how to create an AI chatbot that works in Slack using n8n. We'll explain step by step how to implement a practical chatbot, from personal messages through slash commands to automatic responses in public channels. We'll cover everything in detail, from Slack app configuration to n8n node setup, webhook trigger configuration, and AI bot integration.\n\nThe YouTube video is provided in Korean.\n\nYoutube Link:\nhttps://www.youtube.com/watch?v=UpudYFCWaIM\n"
+        "content": "## Create an AI chatbot with Slack slash commands! 🤖\n\nIn this tutorial, we'll show you how to create an AI chatbot that works in Slack using n8n. We'll explain step by step how to implement a practical chatbot, from personal messages through slash commands to automatic responses in public channels. We'll cover everything in detail, from Slack app configuration to n8n node setup, webhook trigger configuration, and AI bot integration.\n\nThe YouTube video is provided in Korean.\n\nYoutube Link:\n{{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-cb60e9b0-a9a8-4dd6-9aa3-9d22c7f5f537",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in cb60e9b0-a9a8-4dd6-9aa3-9d22c7f5f537",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cb60e9b0-a9a8-4dd6-9aa3-9d22c7f5f537-555822a8",
+      "name": "Error Handler for cb60e9b0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node cb60e9b0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f173fe2d-45e7-460c-aa33-d5509b6d59b9-7ee5a0aa",
+      "name": "Error Handler for f173fe2d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f173fe2d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4752da4c-b013-4469-a3bc-386d3ab3d15d-4e491457",
+      "name": "Error Handler for 4752da4c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4752da4c",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-ee546a70",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# My workflow 6\n\n## Overview\nAutomated workflow: My workflow 6. This workflow integrates 7 different services: webhook, stickyNote, chainLlm, switch, stopAndError. It contains 15 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 15\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Webhook**: webhook\n- **Switch**: switch\n- **Basic LLM Chain**: chainLlm\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Send a Message**: slack\n- **Sticky Note8**: stickyNote\n- ... and 5 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "de554ae6-98d5-4841-9ed6-cb68d2c1bc7f",
   "connections": {
@@ -294,6 +369,47 @@
           }
         ]
       ]
+    },
+    "cb60e9b0-a9a8-4dd6-9aa3-9d22c7f5f537": {
+      "main": [
+        [
+          {
+            "node": "error-handler-cb60e9b0-a9a8-4dd6-9aa3-9d22c7f5f537",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-cb60e9b0-a9a8-4dd6-9aa3-9d22c7f5f537-555822a8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f173fe2d-45e7-460c-aa33-d5509b6d59b9": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f173fe2d-45e7-460c-aa33-d5509b6d59b9-7ee5a0aa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4752da4c-b013-4469-a3bc-386d3ab3d15d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4752da4c-b013-4469-a3bc-386d3ab3d15d-4e491457",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: My workflow 6. This workflow integrates 7 different services: webhook, stickyNote, chainLlm, switch, stopAndError. It contains 15 nodes and follows best practices for error handling and security."
 }

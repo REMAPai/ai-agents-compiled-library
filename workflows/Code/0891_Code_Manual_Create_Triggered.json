@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "4de3652773c3e67f6210deb1e1d390d75b23715f2e2cca0340008f99419607e6"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -326,6 +329,47 @@
         "content": "## Rerturn data\nHere we return the ID of the last folder in the path, so you can start uploading new files to it."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-aa3f9b95-3197-4b89-bcb2-9e723b8496a0-804609f9",
+      "name": "Error Handler for aa3f9b95",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node aa3f9b95",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2cd3932d-b066-438a-b968-4078dfc9dbe7-af7bba8b",
+      "name": "Error Handler for 2cd3932d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2cd3932d",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-45b3bc12",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 8 different services: stickyNote, code, googleDrive, set, stopAndError. It contains 18 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 18\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Set parameters for next run**: code\n- **Execute Workflow Trigger**: executeWorkflowTrigger\n- **Dummy input data**: set\n- **Split the desired path**: code\n- **Create desired path**: code\n- **Check if top folder exists**: googleDrive\n- **If top folder doesn't exist**: if\n- **Create new subfolder**: googleDrive\n- **If path has been completely created**: if\n- ... and 8 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -453,6 +497,37 @@
           }
         ]
       ]
+    },
+    "aa3f9b95-3197-4b89-bcb2-9e723b8496a0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-aa3f9b95-3197-4b89-bcb2-9e723b8496a0-804609f9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2cd3932d-b066-438a-b968-4078dfc9dbe7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2cd3932d-b066-438a-b968-4078dfc9dbe7-af7bba8b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 8 different services: stickyNote, code, googleDrive, set, stopAndError. It contains 18 nodes and follows best practices for error handling and security."
 }

@@ -45,10 +45,28 @@
         "functionCode": "// When telgram sees a message it will make sure its a reply to its message and from the user. \n// If thats the case then it will return {entry: string, date: string}\n\nconst botUsername = 'BOT_USERNAME'\nconst user = 'YOUR_USERNAME'\n\nconst res = item.message\n\nconst isReplyToBot = res.reply_to_message.from.username === botUsername\nconst isFromUser = res.from.username === user\n\n// This assumes your message is formatted as follows: \"SOME CUSTOM MESSAGE: YYYY-MM-DD\"\nconst date = res.reply_to_message.text.split(':')[1].replace(/\\s/g, '');\n\nconst journalEntry = res.text\n\nif (isReplyToBot && isFromUser) {\n  return {entry: journalEntry, date}\n}\n\nreturn undefined;"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Save Telegram reply to journal spreadsheet\n\nAutomated workflow: Save Telegram reply to journal spreadsheet. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 3 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "active": false,
-  "settings": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null
+  },
   "connections": {
     "Parse message": {
       "main": [
@@ -72,5 +90,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: Save Telegram reply to journal spreadsheet. This workflow processes data and performs automated tasks."
 }

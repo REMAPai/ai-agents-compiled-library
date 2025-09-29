@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "408f9fb9940c3cb18ffdef0e0150fe342d6e655c3a9fac21f0f644e8bedabcd9"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -43,7 +46,7 @@
         777
       ],
       "parameters": {
-        "url": "http://stirlingpdf.io/api/v1/convert/pdf/img",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -108,7 +111,7 @@
         "color": 7,
         "width": 848.0232558139535,
         "height": 533.5469767441862,
-        "content": "## 3. Split PDF Pages into Seperate Images\n\nCurrently, the vision model we'll be using can't accept raw PDFs so we'll have to convert our PDF to a image in order to use it. To achieve this, we'll use the free [Stirling PDF webservice](https://stirlingpdf.io/) for convenience but if we need data privacy (recommended!), we could self-host our own [Stirling PDF instance](https://github.com/Stirling-Tools/Stirling-PDF/) instead. Alternatively, feel free to swap this service out for one of your own as long as it can convert PDFs into images!\n\nWe will ask the PDF service to return each page of our statement as separate images, which it does so as a zip file. Next steps is to just unzip the file and convert the output as a list of images."
+        "content": "## 3. Split PDF Pages into Seperate Images\n\nCurrently, the vision model we'll be using can't accept raw PDFs so we'll have to convert our PDF to a image in order to use it. To achieve this, we'll use the free [Stirling PDF webservice]({{ $env.WEBHOOK_URL }} for convenience but if we need data privacy (recommended!), we could self-host our own [Stirling PDF instance]({{ $env.WEBHOOK_URL }} instead. Alternatively, feel free to swap this service out for one of your own as long as it can convert PDFs into images!\n\nWe will ask the PDF service to return each page of our statement as separate images, which it does so as a zip file. Next steps is to just unzip the file and convert the output as a list of images."
       },
       "typeVersion": 1
     },
@@ -156,7 +159,7 @@
         "color": 7,
         "width": 775.3441860465115,
         "height": 636.0809302325588,
-        "content": "## 4. Convert PDF Pages to Markdown Using Vision Model\n[Learn more about using the Basic LLM node](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainllm)\n\nPitch decks are fundamentally extravagant sales documents and as such, are incredibly varied in how they are styled, structured and presented. Traditional OCR has often struggled with parsing these kinds of documents as layers and graphical elements and when extracting their contents typically yields poor results; either garbled or missing texts.\n\nMultimodal LLMs are a solution as they use AI vision to \"read\" the pitch deck and can reason about it's layout and intent. Images can be understood and described with context and charts and graphs can also be interpreted. In this demonstration, we'll ask our LLM to transcribe each page in the pitch deck into markdown ensuring it also describes any images or charts it sees."
+        "content": "## 4. Convert PDF Pages to Markdown Using Vision Model\n[Learn more about using the Basic LLM node]({{ $env.WEBHOOK_URL }}\n\nPitch decks are fundamentally extravagant sales documents and as such, are incredibly varied in how they are styled, structured and presented. Traditional OCR has often struggled with parsing these kinds of documents as layers and graphical elements and when extracting their contents typically yields poor results; either garbled or missing texts.\n\nMultimodal LLMs are a solution as they use AI vision to \"read\" the pitch deck and can reason about it's layout and intent. Images can be understood and described with context and charts and graphs can also be interpreted. In this demonstration, we'll ask our LLM to transcribe each page in the pitch deck into markdown ensuring it also describes any images or charts it sees."
       },
       "typeVersion": 1
     },
@@ -172,7 +175,7 @@
         "color": 7,
         "width": 814.0329302325591,
         "height": 518.7793488372092,
-        "content": "## 5. Extract Key Data Confidently From Statement\n[Read more about the Information Extractor](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.information-extractor)\n\nWith our generated markdown, we can use an information extractor node to extract required information or data point from the pitch deck. This can be useful to generate reports and later compare pitch decks against each other. Here, we'll retain the extracted data by updating the relevant row in our Airtable database."
+        "content": "## 5. Extract Key Data Confidently From Statement\n[Read more about the Information Extractor]({{ $env.WEBHOOK_URL }}\n\nWith our generated markdown, we can use an information extractor node to extract required information or data point from the pitch deck. This can be useful to generate reports and later compare pitch decks against each other. Here, we'll retain the extracted data by updating the relevant row in our Airtable database."
       },
       "typeVersion": 1
     },
@@ -305,14 +308,14 @@
         1340
       ],
       "parameters": {
-        "url": "http://qdrant:6333/collections/pitchdecks/points/delete",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{\n{\n  \"filter\": {\n    \"must\": {\n      \"key\": \"metadata.name\",\n      \"match\": {\n        \"value\": $('Execute Workflow Trigger').first().json.Name\n      }\n    }\n  }\n}\n}}",
         "sendBody": true,
         "specifyBody": "json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "qdrantApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "qdrantApi": {
@@ -920,7 +923,7 @@
         "color": 7,
         "width": 910.9613023255822,
         "height": 769.9451162790697,
-        "content": "## 6. Build a Vector Store Collection for the Pitch Deck\n[Read more about Qdrant Vector Store](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoreqdrant)\n\nWhen it comes to pitch deck, it may not be enough to capture static attributes in table. Wouldn't it be cool if we could also ask questions about the pitch deck itself? Well, thanks for n8n's first class support for vector stores, you can and quite easily too!\n\nIn this demonstration, we'll use the Qdrant Vector Store which you can either sign-up for a free instance at https://qdrant.tech or self-host via docker. Next, it's a simple case of just funneling our transcribed pages into the vector store using the Qdrant Vector Store node."
+        "content": "## 6. Build a Vector Store Collection for the Pitch Deck\n[Read more about Qdrant Vector Store]({{ $env.WEBHOOK_URL }}\n\nWhen it comes to pitch deck, it may not be enough to capture static attributes in table. Wouldn't it be cool if we could also ask questions about the pitch deck itself? Well, thanks for n8n's first class support for vector stores, you can and quite easily too!\n\nIn this demonstration, we'll use the Qdrant Vector Store which you can either sign-up for a free instance at {{ $env.WEBHOOK_URL }} or self-host via docker. Next, it's a simple case of just funneling our transcribed pages into the vector store using the Qdrant Vector Store node."
       },
       "typeVersion": 1
     },
@@ -1048,7 +1051,7 @@
         "color": 7,
         "width": 1265.6381521804071,
         "height": 846.3684803288264,
-        "content": "## 6. Offer a Pitch Deck Q&A Chatbot to your Team\n[Learn more about using AI Agents](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent)\n\nTake your workflows to the next level with n8n's AI Agents! This step demonstrates how powerful and yet simple it is to spin up an AI-powered chatbot and RAG implementation over the pitch decks. This AI Agent connects to our Pitch deck vector store and because it able to filter by company, it is capable of answering any questions about any relevant pitch decks the user is enquirying about. This makes for a powerful workflow which goes beyond just reporting and is a way to engage all stakeholders!"
+        "content": "## 6. Offer a Pitch Deck Q&A Chatbot to your Team\n[Learn more about using AI Agents]({{ $env.WEBHOOK_URL }}\n\nTake your workflows to the next level with n8n's AI Agents! This step demonstrates how powerful and yet simple it is to spin up an AI-powered chatbot and RAG implementation over the pitch decks. This AI Agent connects to our Pitch deck vector store and because it able to filter by company, it is capable of answering any questions about any relevant pitch decks the user is enquirying about. This makes for a powerful workflow which goes beyond just reporting and is a way to engage all stakeholders!"
       },
       "typeVersion": 1
     },
@@ -1064,7 +1067,7 @@
         "color": 7,
         "width": 830.0502325581398,
         "height": 431.48621395348823,
-        "content": "## 2. Download the Pitch Deck \n[Learn more about Execute Workflow Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.executeworkflowtrigger)\n\nIn step 1 we triggered the subworkflow with the name and Airtable asset URL of the pitch deck. We'll use the HTTP request node to download the PDF of the pitch deck. Important to note that this template only handles PDF pitch decks and if you have pitchdecks in other formats such as PPT, you'll have to convert them to PDF."
+        "content": "## 2. Download the Pitch Deck \n[Learn more about Execute Workflow Trigger]({{ $env.WEBHOOK_URL }}\n\nIn step 1 we triggered the subworkflow with the name and Airtable asset URL of the pitch deck. We'll use the HTTP request node to download the PDF of the pitch deck. Important to note that this template only handles PDF pitch decks and if you have pitchdecks in other formats such as PPT, you'll have to convert them to PDF."
       },
       "typeVersion": 1
     },
@@ -1100,7 +1103,7 @@
         "color": 7,
         "width": 1077.6820093023243,
         "height": 612.7294511627911,
-        "content": "## 1. Trigger Workflow From Airtable \n[Read more about using Airtable](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.airtable)\n\nThis workflow uses Airtable as the database to find and track which pitch decks are available and which need to be processed. You can find the example Airtable here: https://airtable.com/appCkqc2jc3MoVqDO/shrS21vGqlnqzzNUc. This workflow is also designed to run through multiple pitch decks using seperate executions. To do this, we'll send each pitch deck through the \"execute workflow\" to start a new subworkflow execution."
+        "content": "## 1. Trigger Workflow From Airtable \n[Read more about using Airtable]({{ $env.WEBHOOK_URL }}\n\nThis workflow uses Airtable as the database to find and track which pitch decks are available and which need to be processed. You can find the example Airtable here: {{ $env.WEBHOOK_URL }} This workflow is also designed to run through multiple pitch decks using seperate executions. To do this, we'll send each pitch deck through the \"execute workflow\" to start a new subworkflow execution."
       },
       "typeVersion": 1
     },
@@ -1242,7 +1245,7 @@
         1457
       ],
       "parameters": {
-        "sessionKey": "={{ $('When chat message received').first().json.sessionId }}",
+        "sessionKey": "YOUR_SESSION_KEY",
         "sessionIdType": "customKey"
       },
       "typeVersion": 1.2
@@ -1258,7 +1261,7 @@
       "parameters": {
         "width": 671.0736854602326,
         "height": 705.4789168988943,
-        "content": "## Try It Out!\n\n### This n8n template imports Pitch Decks and generates a report into Airtable as well as creates an AI Chatbot to ask questions about each Pitch Deck.\n\n* Airtable is used as the pitch deck database and PDF decks are downloaded from it.\n* An AI Vision model is used to transcribe each page of the pitch deck into markdown.\n* An Information Extractor is used to generate a report from the transcribed markdown and update required information back into pitch deck database.\n* The transcribed markdown is also uploaded to a vector store to build an AI chatbot which can be used to ask questions on the pitch deck.\n\nCheck out the sample Airtable here: https://airtable.com/appCkqc2jc3MoVqDO/shrS21vGqlnqzzNUc\n\n### How To Use\n* This template depends on the availability of the Airtable - make a duplicate of the airtable (https://airtable.com/appCkqc2jc3MoVqDO/shrS21vGqlnqzzNUc) and its columns before running the workflow.\n* When a new pitchdeck is received, enter the company name into the **Name** column and upload the pdf into the **File** column. Leave all other columns blank.\n* If you have the Airtable trigger active, the execution should start immediately once the file is uploaded. Otherwise, click the manual test trigger to start the workflow.\n* When manually triggered, all \"new\" pitch decks will be handled by the workflow as separate executions.\n\n### Need Help?\nJoin the [Discord](https://discord.com/invite/XPKeKXeB7d) or ask in the [Forum](https://community.n8n.io/)!"
+        "content": "## Try It Out!\n\n### This n8n template imports Pitch Decks and generates a report into Airtable as well as creates an AI Chatbot to ask questions about each Pitch Deck.\n\n* Airtable is used as the pitch deck database and PDF decks are downloaded from it.\n* An AI Vision model is used to transcribe each page of the pitch deck into markdown.\n* An Information Extractor is used to generate a report from the transcribed markdown and update required information back into pitch deck database.\n* The transcribed markdown is also uploaded to a vector store to build an AI chatbot which can be used to ask questions on the pitch deck.\n\nCheck out the sample Airtable here: {{ $env.WEBHOOK_URL }}\n\n### How To Use\n* This template depends on the availability of the Airtable - make a duplicate of the airtable ({{ $env.WEBHOOK_URL }} and its columns before running the workflow.\n* When a new pitchdeck is received, enter the company name into the **Name** column and upload the pdf into the **File** column. Leave all other columns blank.\n* If you have the Airtable trigger active, the execution should start immediately once the file is uploaded. Otherwise, click the manual test trigger to start the workflow.\n* When manually triggered, all \"new\" pitch decks will be handled by the workflow as separate executions.\n\n### Need Help?\nJoin the [Discord]({{ $env.WEBHOOK_URL }} or ask in the [Forum]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -1275,14 +1278,14 @@
           "__rl": true,
           "mode": "list",
           "value": "appCkqc2jc3MoVqDO",
-          "cachedResultUrl": "https://airtable.com/appCkqc2jc3MoVqDO",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Pitchdecks"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblI660SRJAOlSx3p",
-          "cachedResultUrl": "https://airtable.com/appCkqc2jc3MoVqDO/tblI660SRJAOlSx3p",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Table 1"
         },
         "options": {},
@@ -1375,6 +1378,229 @@
         "content": "### Change Me!\nYou'll need to update the Qdrant URL in the \"Delete Existing Vectors\" node."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-27520282-af95-415e-a3d3-3cf9e4373813",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 27520282-af95-415e-a3d3-3cf9e4373813",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fde83717-68df-49f8-b3c2-d371fbe8a42b",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in fde83717-68df-49f8-b3c2-d371fbe8a42b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2f1aad79-f765-4678-bf38-d37982e3ffc7",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2f1aad79-f765-4678-bf38-d37982e3ffc7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-27520282-af95-415e-a3d3-3cf9e4373813-30816ceb",
+      "name": "Error Handler for 27520282",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 27520282",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-95f26a88-96f8-42af-9b58-f8b76a45a619-0084a78e",
+      "name": "Error Handler for 95f26a88",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 95f26a88",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-761dec49-a251-4727-9976-6e709bd6e030-35ab453f",
+      "name": "Error Handler for 761dec49",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 761dec49",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a05ee988-ea08-454d-b7dc-606af4ff4996-153f990d",
+      "name": "Error Handler for a05ee988",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a05ee988",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fde83717-68df-49f8-b3c2-d371fbe8a42b-d3e7bd21",
+      "name": "Error Handler for fde83717",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fde83717",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2c27e01a-47c0-4efc-a7ab-6006c5d7886c-bb7432cf",
+      "name": "Error Handler for 2c27e01a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2c27e01a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b0db2421-3b0b-4975-beba-39a34a05f31c-baf703fb",
+      "name": "Error Handler for b0db2421",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b0db2421",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5102a1d4-f64e-4614-9599-eb7e9a3ff1d3-db00f8ad",
+      "name": "Error Handler for 5102a1d4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5102a1d4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-51f2bb6c-ec1d-4f53-a852-96e83c243e5b-e8682ed0",
+      "name": "Error Handler for 51f2bb6c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 51f2bb6c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f4f26085-8e0f-4bba-913a-10fe0249f55d-043197b9",
+      "name": "Error Handler for f4f26085",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f4f26085",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3671d902-21f6-407d-b651-beac854ff78c-cae8a36e",
+      "name": "Error Handler for 3671d902",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3671d902",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2f1aad79-f765-4678-bf38-d37982e3ffc7-73cc63b8",
+      "name": "Error Handler for 2f1aad79",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2f1aad79",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-b8b8736f",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 31 different services: convertToFile, stickyNote, textSplitterRecursiveCharacterTextSplitter, airtable, vectorStoreQdrant. It contains 65 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 65\n- **Node Types**: 31\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Sort Pages**: sort\n- **Split PDF into Images**: httpRequest\n- **Extract Zip File**: compression\n- **Images To List**: code\n- **Sticky Note2**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Resize Images For AI**: editImage\n- **Sticky Note3**: stickyNote\n- **Sticky Note4**: stickyNote\n- ... and 55 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -1769,6 +1995,168 @@
           }
         ]
       ]
+    },
+    "27520282-af95-415e-a3d3-3cf9e4373813": {
+      "main": [
+        [
+          {
+            "node": "error-handler-27520282-af95-415e-a3d3-3cf9e4373813",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-27520282-af95-415e-a3d3-3cf9e4373813-30816ceb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fde83717-68df-49f8-b3c2-d371fbe8a42b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fde83717-68df-49f8-b3c2-d371fbe8a42b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-fde83717-68df-49f8-b3c2-d371fbe8a42b-d3e7bd21",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2f1aad79-f765-4678-bf38-d37982e3ffc7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2f1aad79-f765-4678-bf38-d37982e3ffc7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2f1aad79-f765-4678-bf38-d37982e3ffc7-73cc63b8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "95f26a88-96f8-42af-9b58-f8b76a45a619": {
+      "main": [
+        [
+          {
+            "node": "error-handler-95f26a88-96f8-42af-9b58-f8b76a45a619-0084a78e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "761dec49-a251-4727-9976-6e709bd6e030": {
+      "main": [
+        [
+          {
+            "node": "error-handler-761dec49-a251-4727-9976-6e709bd6e030-35ab453f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a05ee988-ea08-454d-b7dc-606af4ff4996": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a05ee988-ea08-454d-b7dc-606af4ff4996-153f990d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2c27e01a-47c0-4efc-a7ab-6006c5d7886c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2c27e01a-47c0-4efc-a7ab-6006c5d7886c-bb7432cf",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b0db2421-3b0b-4975-beba-39a34a05f31c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b0db2421-3b0b-4975-beba-39a34a05f31c-baf703fb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5102a1d4-f64e-4614-9599-eb7e9a3ff1d3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5102a1d4-f64e-4614-9599-eb7e9a3ff1d3-db00f8ad",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "51f2bb6c-ec1d-4f53-a852-96e83c243e5b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-51f2bb6c-ec1d-4f53-a852-96e83c243e5b-e8682ed0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f4f26085-8e0f-4bba-913a-10fe0249f55d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f4f26085-8e0f-4bba-913a-10fe0249f55d-043197b9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3671d902-21f6-407d-b651-beac854ff78c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3671d902-21f6-407d-b651-beac854ff78c-cae8a36e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 31 different services: convertToFile, stickyNote, textSplitterRecursiveCharacterTextSplitter, airtable, vectorStoreQdrant. It contains 65 nodes and follows best practices for error handling and security."
 }

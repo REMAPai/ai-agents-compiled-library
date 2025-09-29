@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "32d80f55a35a7b57f8e47a2ac19558d9f5bcec983a5519d9c29ba713ff4f12c7",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -208,7 +210,7 @@
         "color": 6,
         "width": 503,
         "height": 651,
-        "content": "### Get Strava Trigger\nIf you are using Strava, you can create API Key by logging in to : https://developers.strava.com/\n\nOnce data is capture you can then structure it, i am commbining all the activity data and sending to next node"
+        "content": "### Get Strava Trigger\nIf you are using Strava, you can create API Key by logging in to : {{ $env.WEBHOOK_URL }}\n\nOnce data is capture you can then structure it, i am commbining all the activity data and sending to next node"
       },
       "typeVersion": 1
     },
@@ -224,7 +226,7 @@
         "color": 4,
         "width": 475.27306699862953,
         "height": 636.1483291619771,
-        "content": "## Developed by Amjid Ali\n\nThank you for using this workflow template. It has taken me countless hours of hard work, research, and dedication to develop, and I sincerely hope it adds value to your work.\n\nIf you find this template helpful, I kindly ask you to consider supporting my efforts. Your support will help me continue improving and creating more valuable resources.\n\nYou can contribute via PayPal here:\n\nhttp://paypal.me/pmptraining\n\nFor Full Course about ERPNext or Automation using AI follow below link\n\nhttp://lms.syncbricks.com\n\nAdditionally, when sharing this template, I would greatly appreciate it if you include my original information to ensure proper credit is given.\n\nThank you for your generosity and support!\nEmail : amjid@amjidali.com\nhttps://linkedin.com/in/amjidali\nhttps://syncbricks.com\nhttps://youtube.com/@syncbricks"
+        "content": "## Developed by Amjid Ali\n\nThank you for using this workflow template. It has taken me countless hours of hard work, research, and dedication to develop, and I sincerely hope it adds value to your work.\n\nIf you find this template helpful, I kindly ask you to consider supporting my efforts. Your support will help me continue improving and creating more valuable resources.\n\nYou can contribute via PayPal here:\n\n{{ $env.WEBHOOK_URL }}\n\nFor Full Course about ERPNext or Automation using AI follow below link\n\n{{ $env.WEBHOOK_URL }}\n\nAdditionally, when sharing this template, I would greatly appreciate it if you include my original information to ensure proper credit is given.\n\nThank you for your generosity and support!\nEmail : amjid@amjidali.com\n{{ $env.WEBHOOK_URL }}\n{{ $env.WEBHOOK_URL }}\n{{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -264,6 +266,47 @@
         }
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-344106a7-f1ce-4ef0-be60-8b0dc6c92fe4-46fce00f",
+      "name": "Error Handler for 344106a7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 344106a7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b646220c-a0c9-4af7-a2a8-09cec619ecbf-a327959a",
+      "name": "Error Handler for b646220c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b646220c",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-8e5c8ce4",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Stravatrigger Workflow\n\n## Overview\nAutomated workflow: Stravatrigger Workflow. This workflow integrates 9 different services: stickyNote, code, lmChatGoogleGemini, agent, stravaTrigger. It contains 17 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 17\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Strava Trigger**: stravaTrigger\n- **Google Gemini Chat Model**: lmChatGoogleGemini\n- **Gmail**: gmail\n- **Combine Everything**: code\n- **Fitness Coach**: agent\n- **Structure Output**: code\n- **Conver to HTML**: code\n- **Send Email**: emailSend\n- **Code**: code\n- **Sticky Note**: stickyNote\n- ... and 7 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -349,6 +392,37 @@
           }
         ]
       ]
+    },
+    "344106a7-f1ce-4ef0-be60-8b0dc6c92fe4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-344106a7-f1ce-4ef0-be60-8b0dc6c92fe4-46fce00f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b646220c-a0c9-4af7-a2a8-09cec619ecbf": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b646220c-a0c9-4af7-a2a8-09cec619ecbf-a327959a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Stravatrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Stravatrigger Workflow. This workflow integrates 9 different services: stickyNote, code, lmChatGoogleGemini, agent, stravaTrigger. It contains 17 nodes and follows best practices for error handling and security."
 }

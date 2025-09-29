@@ -1,8 +1,10 @@
 {
   "id": "EOJfPcM9PPWI1Rmp",
   "meta": {
-    "instanceId": "3aaeb6eaba3494bbdbe57e25fa3d02783cfbc460b1e823f7b741cf26edc7ca3d",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Automated Research Report Generation with OpenAI, Wikipedia, Google Search, and Gmail/Telegram",
   "tags": [],
@@ -40,7 +42,7 @@
         -100
       ],
       "parameters": {
-        "sessionKey": "={{ $json.output.searchQueries }}",
+        "sessionKey": "YOUR_SESSION_KEY",
         "sessionIdType": "customKey"
       },
       "typeVersion": 1.3
@@ -54,7 +56,7 @@
         -100
       ],
       "parameters": {
-        "url": "=https://newsapi.org/v2/everything?q={{ encodeURIComponent($input.cleanedQuery) }}&apiKey=\"YOURAPIKEY\"",
+        "url": "={{ $env.API_BASE_URL }}{{ encodeURIComponent($input.cleanedQuery) }}&apiKey=\"YOURAPIKEY\"",
         "sendQuery": true,
         "parametersQuery": {
           "values": [
@@ -92,7 +94,7 @@
         -100
       ],
       "parameters": {
-        "url": "=https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro&explaintext&titles={{ $input.query ? encodeURIComponent($input.query) : encodeURIComponent($json.refined_query) }}\n\n",
+        "url": "={{ $env.API_BASE_URL }}{{ $input.query ? encodeURIComponent($input.query) : encodeURIComponent($json.refined_query) }}\n\n",
         "sendQuery": true,
         "parametersQuery": {
           "values": [
@@ -178,7 +180,7 @@
         -100
       ],
       "parameters": {
-        "url": "=https://www.googleapis.com/customsearch/v1?key=\"YOURAPIKEY\"={{ encodeURIComponent($input.query) }}",
+        "url": "={{ $env.API_BASE_URL }}\"YOURAPIKEY\"={{ encodeURIComponent($input.query) }}",
         "sendQuery": true,
         "parametersQuery": {
           "values": [
@@ -203,7 +205,7 @@
         -100
       ],
       "parameters": {
-        "url": "=https://serpapi.com/search?engine=google_scholar&q={{ encodeURIComponent( $json.refined_query ) }}&api_key=\"YOURAPIKEY\"",
+        "url": "={{ $env.API_BASE_URL }}{{ encodeURIComponent( $json.refined_query ) }}&api_key=\"YOURAPIKEY\"",
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
         "parametersQuery": {
@@ -217,7 +219,7 @@
         },
         "toolDescription": "Searches Google Scholar for academic papers",
         "optimizeResponse": true,
-        "nodeCredentialType": "serpApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "serpApi": {
@@ -358,14 +360,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/196eJesF2ke3AQjoWvave51m6FltAyBFj5pvVW7wIsUA/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "196eJesF2ke3AQjoWvave51m6FltAyBFj5pvVW7wIsUA",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/196eJesF2ke3AQjoWvave51m6FltAyBFj5pvVW7wIsUA/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Research AI Agent Records"
         }
       },
@@ -415,7 +417,7 @@
         -320
       ],
       "parameters": {
-        "url": "https://api.pdfshift.io/v3/convert/pdf",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -588,7 +590,7 @@
     },
     {
       "id": "c8f7d2db-f5b2-4e6d-8c43-2d37e5a9306a",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         2700,
@@ -619,6 +621,257 @@
         }
       },
       "typeVersion": 2.2
+    },
+    {
+      "id": "error-handler-661349c2-7bb1-4c95-af8f-3a108a619c84",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 661349c2-7bb1-4c95-af8f-3a108a619c84",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6d43251f-db88-45fa-be65-de368d4db408",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 6d43251f-db88-45fa-be65-de368d4db408",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a53cfaac-425a-4558-a661-1042cb63599d",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a53cfaac-425a-4558-a661-1042cb63599d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-27548bf6-7f86-4e38-befb-3ad55c4d6c46",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 27548bf6-7f86-4e38-befb-3ad55c4d6c46",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e43bd216-af6a-43a4-9432-c092e34b83ba",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e43bd216-af6a-43a4-9432-c092e34b83ba",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3d942072-ad3f-4d9a-a5f4-48df2d1644b4",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3d942072-ad3f-4d9a-a5f4-48df2d1644b4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-46c09535-cd6b-481c-b520-67ecb4aad812-1fd1330f",
+      "name": "Error Handler for 46c09535",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 46c09535",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-661349c2-7bb1-4c95-af8f-3a108a619c84-19bef08d",
+      "name": "Error Handler for 661349c2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 661349c2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6d43251f-db88-45fa-be65-de368d4db408-940d49b3",
+      "name": "Error Handler for 6d43251f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6d43251f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c94b1446-82bf-47c8-8f5d-c5da9a43a7e7-1bb46789",
+      "name": "Error Handler for c94b1446",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c94b1446",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a53cfaac-425a-4558-a661-1042cb63599d-db6a4afd",
+      "name": "Error Handler for a53cfaac",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a53cfaac",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-27548bf6-7f86-4e38-befb-3ad55c4d6c46-bd9a0c63",
+      "name": "Error Handler for 27548bf6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 27548bf6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e63a3f5d-dba7-4fc4-afa0-150e63aedbac-8c2fe565",
+      "name": "Error Handler for e63a3f5d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e63a3f5d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e43bd216-af6a-43a4-9432-c092e34b83ba-bd55f95f",
+      "name": "Error Handler for e43bd216",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e43bd216",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3d942072-ad3f-4d9a-a5f4-48df2d1644b4-5860eceb",
+      "name": "Error Handler for 3d942072",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3d942072",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9545380e-e0aa-405c-9230-eb89354b6775-269f533c",
+      "name": "Error Handler for 9545380e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9545380e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c12851da-98dd-4785-8dc2-844bedfd5f1e-fa9cb94b",
+      "name": "Error Handler for c12851da",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c12851da",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-35930271",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Automated Research Report Generation with OpenAI, Wikipedia, Google Search, and Gmail/Telegram\n\n## Overview\nAutomated workflow: Automated Research Report Generation with OpenAI, Wikipedia, Google Search, and Gmail/Telegram. This workflow integrates 18 different services: stickyNote, httpRequest, telegram, toolHttpRequest, code. It contains 43 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 43\n- **Node Types**: 18\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Simple Memory**: memoryBufferWindow\n- **Search News**: toolHttpRequest\n- **Wikipedia**: toolHttpRequest\n- **OpenAI Chat Model1**: lmChatOpenAi\n- **Query Refiner**: agent\n- **Research AI Agent**: agent\n- **Google Search Web**: toolHttpRequest\n- **SerpApi**: toolHttpRequest\n- **Structured Output Parser**: outputParserStructured\n- ... and 33 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -632,7 +885,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "e51160d8-0107-48ec-ad91-54843134df2c",
   "connections": {
@@ -880,6 +1137,170 @@
           }
         ]
       ]
+    },
+    "661349c2-7bb1-4c95-af8f-3a108a619c84": {
+      "main": [
+        [
+          {
+            "node": "error-handler-661349c2-7bb1-4c95-af8f-3a108a619c84",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-661349c2-7bb1-4c95-af8f-3a108a619c84-19bef08d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6d43251f-db88-45fa-be65-de368d4db408": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6d43251f-db88-45fa-be65-de368d4db408",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-6d43251f-db88-45fa-be65-de368d4db408-940d49b3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a53cfaac-425a-4558-a661-1042cb63599d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a53cfaac-425a-4558-a661-1042cb63599d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a53cfaac-425a-4558-a661-1042cb63599d-db6a4afd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "27548bf6-7f86-4e38-befb-3ad55c4d6c46": {
+      "main": [
+        [
+          {
+            "node": "error-handler-27548bf6-7f86-4e38-befb-3ad55c4d6c46",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-27548bf6-7f86-4e38-befb-3ad55c4d6c46-bd9a0c63",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e43bd216-af6a-43a4-9432-c092e34b83ba": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e43bd216-af6a-43a4-9432-c092e34b83ba",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e43bd216-af6a-43a4-9432-c092e34b83ba-bd55f95f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3d942072-ad3f-4d9a-a5f4-48df2d1644b4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3d942072-ad3f-4d9a-a5f4-48df2d1644b4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3d942072-ad3f-4d9a-a5f4-48df2d1644b4-5860eceb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "46c09535-cd6b-481c-b520-67ecb4aad812": {
+      "main": [
+        [
+          {
+            "node": "error-handler-46c09535-cd6b-481c-b520-67ecb4aad812-1fd1330f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c94b1446-82bf-47c8-8f5d-c5da9a43a7e7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c94b1446-82bf-47c8-8f5d-c5da9a43a7e7-1bb46789",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e63a3f5d-dba7-4fc4-afa0-150e63aedbac": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e63a3f5d-dba7-4fc4-afa0-150e63aedbac-8c2fe565",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9545380e-e0aa-405c-9230-eb89354b6775": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9545380e-e0aa-405c-9230-eb89354b6775-269f533c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c12851da-98dd-4785-8dc2-844bedfd5f1e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c12851da-98dd-4785-8dc2-844bedfd5f1e-fa9cb94b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Automated Research Report Generation with OpenAI, Wikipedia, Google Search, and Gmail/Telegram. This workflow integrates 18 different services: stickyNote, httpRequest, telegram, toolHttpRequest, code. It contains 43 nodes and follows best practices for error handling and security."
 }

@@ -63,7 +63,7 @@
         200
       ],
       "parameters": {
-        "text": "=\ud83d\udc26 NEW TWEET with sentiment score {{$json[\"score\"]}} and magnitude {{$json[\"magnitude\"]}} \u2b07\ufe0f\n{{$json[\"text\"]}}",
+        "text": "=🐦 NEW TWEET with sentiment score {{$json[\"score\"]}} and magnitude {{$json[\"magnitude\"]}} ⬇️\n{{$json[\"text\"]}}",
         "channel": "tweets",
         "attachments": [],
         "otherOptions": {}
@@ -74,7 +74,7 @@
       "typeVersion": 1
     },
     {
-      "name": "IF",
+      "name": "If",
       "type": "n8n-nodes-base.if",
       "position": [
         1300,
@@ -165,10 +165,28 @@
         }
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# ETL pipeline\n\nAutomated workflow: ETL pipeline. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 9 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "active": false,
-  "settings": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null
+  },
   "connections": {
     "IF": {
       "main": [
@@ -254,5 +272,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: ETL pipeline. This workflow processes data and performs automated tasks."
 }

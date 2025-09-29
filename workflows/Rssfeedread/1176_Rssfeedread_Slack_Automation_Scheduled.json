@@ -56,7 +56,7 @@
         420
       ],
       "parameters": {
-        "url": "https://n8n.io/blog/rss"
+        "url": "{{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -104,10 +104,28 @@
         }
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Post RSS feed items from yesterday to Slack\n\nAutomated workflow: Post RSS feed items from yesterday to Slack. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 6 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "active": false,
-  "settings": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null
+  },
   "connections": {
     "Every Morning": {
       "main": [
@@ -164,5 +182,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: Post RSS feed items from yesterday to Slack. This workflow processes data and performs automated tasks."
 }

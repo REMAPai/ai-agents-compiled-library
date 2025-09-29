@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "03e9d14e9196363fe7191ce21dc0bb17387a6e755dcc9acc4f5904752919dca8"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -32,7 +35,7 @@
         "color": 7,
         "width": 455.1635858314854,
         "height": 538.2816200839441,
-        "content": "![slack](https://uploads.n8n.io/templates/slack.png)\n## Events Webhook Trigger\nThe first node receives all messages from Slack API via Subscription Events API. You can find more information about setting up the subscription events API by [clicking here](https://api.slack.com/apis/connections/events-api). The second node extracts the payload from slack into an object that n8n can understand.  "
+        "content": "![slack]({{ $env.WEBHOOK_URL }}\n## Events Webhook Trigger\nThe first node receives all messages from Slack API via Subscription Events API. You can find more information about setting up the subscription events API by [clicking here]({{ $env.API_BASE_URL }} The second node extracts the payload from slack into an object that n8n can understand.  "
       },
       "typeVersion": 1
     },
@@ -48,7 +51,7 @@
         "color": 7,
         "width": 543.689530484159,
         "height": 516.5011820330969,
-        "content": "![theHive](https://uploads.n8n.io/templates/thehive.png)\n## TheHive Trigger\nTo setup TheHive 5's triggers, visit the Settings in TheHive and add a webhook using the url found TheHive node."
+        "content": "![theHive]({{ $env.WEBHOOK_URL }}\n## TheHive Trigger\nTo setup TheHive 5's triggers, visit the Settings in TheHive and add a webhook using the url found TheHive node."
       },
       "typeVersion": 1
     },
@@ -64,7 +67,7 @@
         "color": 7,
         "width": 686.8181233897246,
         "height": 516.5011820330969,
-        "content": "![Slack](https://uploads.n8n.io/templates/slack.png)\n## Post TheHive Case to Slack\nThe Case data is then mapped to Slack Block Kit and pushed to Slack. In Slack, it lives as a database object, mapping the Case Id to the block kit values themselves, so they can be updated in TheHive. "
+        "content": "![Slack]({{ $env.WEBHOOK_URL }}\n## Post TheHive Case to Slack\nThe Case data is then mapped to Slack Block Kit and pushed to Slack. In Slack, it lives as a database object, mapping the Case Id to the block kit values themselves, so they can be updated in TheHive. "
       },
       "typeVersion": 1
     },
@@ -96,7 +99,7 @@
               "id": "2303d403-1329-47b4-9b74-4f679a2cc192",
               "name": "theHiveUrl",
               "type": "string",
-              "value": "http://37.27.1.230:9000"
+              "value": "{{ $env.WEBHOOK_URL }}"
             }
           ]
         }
@@ -112,7 +115,7 @@
         3040
       ],
       "parameters": {
-        "url": "https://slack.com/api/views.open",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "=  {\n    \"trigger_id\": \"{{ $('Edit Fields').item.json['response']['trigger_id'] }}\",\n    \"external_id\": \"TheHive Task Adder\",\n    \"view\": {\n\t\"type\": \"modal\",\n\t\"callback_id\": \"add_task_modal\",\n\t\"title\": {\n\t\t\"type\": \"plain_text\",\n\t\t\"text\": \"Add a Task to Case\",\n\t\t\"emoji\": true\n\t},\n\t\"submit\": {\n\t\t\"type\": \"plain_text\",\n\t\t\"text\": \"Submit\",\n\t\t\"emoji\": true\n\t},\n\t\"close\": {\n\t\t\"type\": \"plain_text\",\n\t\t\"text\": \"Cancel\",\n\t\t\"emoji\": true\n\t},\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"block_id\": \"case_number_context\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $('Edit Fields').item.json[\"response\"][\"message\"][\"blocks\"][1][\"text\"][\"text\"] }}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\"text\": \"{{ $('Edit Fields').item.json.response.message.blocks[0].alt_text }}\",\n\t\t\t\t\t\"emoji\": true\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"input\",\n\t\t\t\"block_id\": \"title_block\",\n\t\t\t\"element\": {\n\t\t\t\t\"type\": \"plain_text_input\",\n\t\t\t\t\"action_id\": \"title_input\",\n\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\"text\": \"Enter the task title\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"label\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"Title\",\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"input\",\n\t\t\t\"block_id\": \"description_block\",\n\t\t\t\"element\": {\n\t\t\t\t\"type\": \"plain_text_input\",\n\t\t\t\t\"action_id\": \"description_input\",\n\t\t\t\t\"multiline\": true,\n\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\"text\": \"Enter a description for the task\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"label\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"Description\",\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"input\",\n\t\t\t\"block_id\": \"group_block\",\n\t\t\t\"element\": {\n\t\t\t\t\"type\": \"plain_text_input\",\n\t\t\t\t\"action_id\": \"group_input\",\n\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\"text\": \"Enter the group name\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"label\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"Group\",\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"actions\",\n\t\t\t\"block_id\": \"case-options\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"checkboxes\",\n\t\t\t\t\t\"options\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\t\t\t\"text\": \":exclamation: *Mandatory*\"\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"description\": {\n\t\t\t\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\t\t\t\"text\": \"Make this case Mandatory\"\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"mandatory\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\t\t\t\"text\": \":triangular_flag_on_post: *Flagged*\"\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"description\": {\n\t\t\t\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\t\t\t\"text\": \"Flag this case\"\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"flagged\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"action_id\": \"submit-task-option\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"input\",\n\t\t\t\"block_id\": \"due_date_block\",\n\t\t\t\"element\": {\n\t\t\t\t\"type\": \"datepicker\",\n\t\t\t\t\"action_id\": \"due_date_input\",\n\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\"text\": \"Select a due date and time\"\n\t\t\t\t},\n\t\t\t\t\"initial_date\": \"{{$today.format('yyyy-MM-dd')}}\"\n\t\t\t},\n\t\t\t\"label\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"Due Date\",\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"input\",\n\t\t\t\"block_id\": \"assignee_block\",\n\t\t\t\"element\": {\n\t\t\t\t\"type\": \"users_select\",\n\t\t\t\t\"action_id\": \"assignee_input\",\n\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\"text\": \"Select an assignee\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"label\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"Assignee\",\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t}\n\t]\n}\n}",
@@ -122,7 +125,7 @@
         "specifyBody": "json",
         "specifyQuery": "json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "slackApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "slackApi": {
@@ -141,7 +144,7 @@
         300
       ],
       "parameters": {
-        "url": "https://slack.com/api/users.lookupByEmail",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "authentication": "predefinedCredentialType",
@@ -153,7 +156,7 @@
             }
           ]
         },
-        "nodeCredentialType": "slackApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "slackApi": {
@@ -185,7 +188,7 @@
               "id": "32a165d5-cd94-454e-bcf9-9254decb63cb",
               "name": "theHiveUrl",
               "type": "string",
-              "value": "=http://37.27.1.230:9000"
+              "value": "={{ $env.WEBHOOK_URL }}"
             }
           ]
         }
@@ -314,7 +317,7 @@
         1160
       ],
       "parameters": {
-        "url": "https://slack.com/api/chat.update",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -344,7 +347,7 @@
             }
           ]
         },
-        "nodeCredentialType": "slackApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
       },
       "credentials": {
         "slackApi": {
@@ -366,7 +369,7 @@
         "color": 7,
         "width": 706.9954015609856,
         "height": 467.56934570944634,
-        "content": "![Slack](https://uploads.n8n.io/templates/slack.png)\n## Assign Case to Others\nSince slack does not send the slack user email, we must take the extra step \nof passing the user ID back to slack, and getting back the email address of \nthe person selecting the buttons. For this to work correctly, TheHive users \nemails and Slack user emails must be the same. "
+        "content": "![Slack]({{ $env.WEBHOOK_URL }}\n## Assign Case to Others\nSince slack does not send the slack user email, we must take the extra step \nof passing the user ID back to slack, and getting back the email address of \nthe person selecting the buttons. For this to work correctly, TheHive users \nemails and Slack user emails must be the same. "
       },
       "typeVersion": 1
     },
@@ -382,7 +385,7 @@
         "color": 7,
         "width": 1400.2199299541444,
         "height": 1720.4067726820667,
-        "content": "![theHive](https://uploads.n8n.io/templates/thehive.png)\n# Streamlined Case Updates via Slack for SOC Analysts\n\n## This workflow segment is crucial for enhancing the responsiveness and efficiency of SOC operations by allowing analysts to update TheHive case attributes directly from Slack. By using form inputs and buttons embedded within Slack messages, analysts can quickly modify case details without switching to TheHive. This integration significantly speeds up case handling and improves the management of security incidents.\n\n\n**Key Operations:**\n- **Dynamic Slack Blocks**: Utilizes custom-built Slack block elements to present actionable items directly within the communication platform.\n- **Immediate Actions**: Enables actions like closing a case as a false positive, updating case severity, TLP (Traffic Light Protocol), PAP (Permissible Action Protocol), and more with simple clicks.\n- **Automated Updates**: Upon interaction, the workflow automatically updates the respective fields in TheHive, ensuring that all case information is current and accurately reflected.\n- **Feedback Loop**: After updating, a confirmation is sent back to Slack, confirming the action taken, which helps in maintaining clear communication and audit trails.\n\n\n**Benefits for SOC Analysts:**\n- **Efficiency**: Reduces the time spent switching between tools and streamlines the case update process.\n- **Accuracy**: Minimizes human error by automating data entry from Slack to TheHive.\n- **Visibility**: Keeps the entire team informed about case status updates in real-time, enhancing collaborative efforts.\n\n\n**Setup Note:**\n- Ensure that your TheHive and Slack integration permissions are configured to allow updates and that users are familiar with the operational workflow.\n- The last set of \"Set\" nodes on the far right of the workflow are designed to split the Slack block kit action into two parts. This split facilitates easier customization of the action options at the bottom of the Slack message. While customization is possible, a good understanding of JSON is desirable to modify these settings effectively.\n\n\nThis integration not only speeds up response times but also leverages the collaborative environment of Slack to keep the SOC team agile and well-informed."
+        "content": "![theHive]({{ $env.WEBHOOK_URL }}\n# Streamlined Case Updates via Slack for SOC Analysts\n\n## This workflow segment is crucial for enhancing the responsiveness and efficiency of SOC operations by allowing analysts to update TheHive case attributes directly from Slack. By using form inputs and buttons embedded within Slack messages, analysts can quickly modify case details without switching to TheHive. This integration significantly speeds up case handling and improves the management of security incidents.\n\n\n**Key Operations:**\n- **Dynamic Slack Blocks**: Utilizes custom-built Slack block elements to present actionable items directly within the communication platform.\n- **Immediate Actions**: Enables actions like closing a case as a false positive, updating case severity, TLP (Traffic Light Protocol), PAP (Permissible Action Protocol), and more with simple clicks.\n- **Automated Updates**: Upon interaction, the workflow automatically updates the respective fields in TheHive, ensuring that all case information is current and accurately reflected.\n- **Feedback Loop**: After updating, a confirmation is sent back to Slack, confirming the action taken, which helps in maintaining clear communication and audit trails.\n\n\n**Benefits for SOC Analysts:**\n- **Efficiency**: Reduces the time spent switching between tools and streamlines the case update process.\n- **Accuracy**: Minimizes human error by automating data entry from Slack to TheHive.\n- **Visibility**: Keeps the entire team informed about case status updates in real-time, enhancing collaborative efforts.\n\n\n**Setup Note:**\n- Ensure that your TheHive and Slack integration permissions are configured to allow updates and that users are familiar with the operational workflow.\n- The last set of \"Set\" nodes on the far right of the workflow are designed to split the Slack block kit action into two parts. This split facilitates easier customization of the action options at the bottom of the Slack message. While customization is possible, a good understanding of JSON is desirable to modify these settings effectively.\n\n\nThis integration not only speeds up response times but also leverages the collaborative environment of Slack to keep the SOC team agile and well-informed."
       },
       "typeVersion": 1
     },
@@ -398,7 +401,7 @@
         "color": 7,
         "width": 988.1220012094333,
         "height": 613.5055433060886,
-        "content": "![slack](https://uploads.n8n.io/templates/slack.png)\n## Add a task to a Case - Process the task details\nOnce the modal window is submitted, this sections then processes the data sent in. Certain fields send data back to the server so the no operation check simply ignores certain types of inputs in the modal until the whole modal is filled out. "
+        "content": "![slack]({{ $env.WEBHOOK_URL }}\n## Add a task to a Case - Process the task details\nOnce the modal window is submitted, this sections then processes the data sent in. Certain fields send data back to the server so the no operation check simply ignores certain types of inputs in the modal until the whole modal is filled out. "
       },
       "typeVersion": 1
     },
@@ -450,7 +453,7 @@
               "id": "c1fccf83-8223-42a2-837e-11eafe5d23fd",
               "name": "slackblocks",
               "type": "string",
-              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"https://i.imgur.com/y2Yw1ZP.png\",\"alt_text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"caseid\"]}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"number\"]}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"title\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"datecreated\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"tags\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"description\"].replace(\"\\n\",\"\\\\n\")}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"caseid\"]}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"caseid\"]}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"status\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"severity\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"tlp\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"pap\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Get Slack User\\'s Email From Slack').item.json.profile.image_32 }}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"Assignee: {{ $('Get Slack User\\'s Email From Slack').item.json.profile.real_name }}\"}]}"
+              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"{{ $env.WEBHOOK_URL }}\",\"alt_text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"caseid\"]}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"number\"]}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"title\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"datecreated\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"tags\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"description\"].replace(\"\\n\",\"\\\\n\")}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"caseid\"]}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"caseid\"]}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"status\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"severity\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"tlp\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Assign').item.json[\"pap\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Get Slack User\\'s Email From Slack').item.json.profile.image_32 }}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"Assignee: {{ $('Get Slack User\\'s Email From Slack').item.json.profile.real_name }}\"}]}"
             }
           ]
         }
@@ -473,7 +476,7 @@
               "id": "c1fccf83-8223-42a2-837e-11eafe5d23fd",
               "name": "slackblocks",
               "type": "string",
-              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"https://i.imgur.com/y2Yw1ZP.png\",\"alt_text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"caseid\"]}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"number\"]}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"title\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"datecreated\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"tags\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"description\"].replace(\"\\n\",\"\\\\n\")}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For Slack - Close').item.json[\"caseid\"]}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For Slack - Close').item.json[\"caseid\"]}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"status\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"severity\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"tlp\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"pap\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Prep Fields For Slack - Close').item.json[\"profilepic\"]}}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"assignee\"] }}\"}]}"
+              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"{{ $env.WEBHOOK_URL }}\",\"alt_text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"caseid\"]}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"number\"]}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"title\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"datecreated\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"tags\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"description\"].replace(\"\\n\",\"\\\\n\")}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For Slack - Close').item.json[\"caseid\"]}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For Slack - Close').item.json[\"caseid\"]}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"status\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"severity\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"tlp\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"pap\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Prep Fields For Slack - Close').item.json[\"profilepic\"]}}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Close').item.json[\"assignee\"] }}\"}]}"
             }
           ]
         }
@@ -496,7 +499,7 @@
               "id": "c1fccf83-8223-42a2-837e-11eafe5d23fd",
               "name": "slackblocks",
               "type": "string",
-              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"https://i.imgur.com/y2Yw1ZP.png\",\"alt_text\":\"{{ $('Prep Fields For Slack - Severity').item.json['caseid']}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['number']}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['title'].replace('\\n','\\\\n')}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['datecreated'].replace('\\n','\\\\n')}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['tags'].replace('\\n','\\\\n')}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['description'].replace('\\n','\\\\n')}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For Slack - Severity').item.json['caseid']}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For Slack - Severity').item.json['caseid']}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['status']}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['severity']}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['tlp']}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['pap']}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Prep Fields For Slack - Severity').item.json['profilepic']}}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['assignee']}}\"}]}"
+              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"{{ $env.WEBHOOK_URL }}\",\"alt_text\":\"{{ $('Prep Fields For Slack - Severity').item.json['caseid']}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['number']}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['title'].replace('\\n','\\\\n')}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['datecreated'].replace('\\n','\\\\n')}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['tags'].replace('\\n','\\\\n')}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['description'].replace('\\n','\\\\n')}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For Slack - Severity').item.json['caseid']}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For Slack - Severity').item.json['caseid']}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['status']}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['severity']}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['tlp']}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['pap']}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Prep Fields For Slack - Severity').item.json['profilepic']}}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Slack - Severity').item.json['assignee']}}\"}]}"
             }
           ]
         }
@@ -519,7 +522,7 @@
               "id": "c1fccf83-8223-42a2-837e-11eafe5d23fd",
               "name": "slackblocks",
               "type": "string",
-              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"https://i.imgur.com/y2Yw1ZP.png\",\"alt_text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"caseid\"]}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"number\"]}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"title\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"datecreated\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"tags\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"description\"].replace(\"\\n\",\"\\\\n\")}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For PAP Slack').item.json[\"caseid\"]}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For PAP Slack').item.json[\"caseid\"]}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"status\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"severity\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"tlp\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"pap\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Prep Fields For PAP Slack').item.json[\"profilepic\"]}}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"assignee\"] }}\"}]}"
+              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"{{ $env.WEBHOOK_URL }}\",\"alt_text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"caseid\"]}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"number\"]}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"title\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"datecreated\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"tags\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"description\"].replace(\"\\n\",\"\\\\n\")}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For PAP Slack').item.json[\"caseid\"]}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For PAP Slack').item.json[\"caseid\"]}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"status\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"severity\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"tlp\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"pap\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Prep Fields For PAP Slack').item.json[\"profilepic\"]}}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For PAP Slack').item.json[\"assignee\"] }}\"}]}"
             }
           ]
         }
@@ -1511,7 +1514,7 @@
               "id": "c1fccf83-8223-42a2-837e-11eafe5d23fd",
               "name": "slackblocks",
               "type": "string",
-              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"https://i.imgur.com/y2Yw1ZP.png\",\"alt_text\":\"{{ $('Prep Fields For Status Slack').item.json[\"caseid\"]}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"number\"]}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"title\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"datecreated\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"tags\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"description\"].replace(\"\\n\",\"\\\\n\")}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For Status Slack').item.json[\"caseid\"]}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For Status Slack').item.json[\"caseid\"]}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"status\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"severity\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"tlp\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"pap\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Prep Fields For Status Slack').item.json[\"profilepic\"]}}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"assignee\"] }}\"}]}"
+              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"{{ $env.WEBHOOK_URL }}\",\"alt_text\":\"{{ $('Prep Fields For Status Slack').item.json[\"caseid\"]}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"number\"]}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"title\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"datecreated\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"tags\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"description\"].replace(\"\\n\",\"\\\\n\")}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For Status Slack').item.json[\"caseid\"]}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For Status Slack').item.json[\"caseid\"]}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"status\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"severity\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"tlp\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"pap\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Prep Fields For Status Slack').item.json[\"profilepic\"]}}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For Status Slack').item.json[\"assignee\"] }}\"}]}"
             }
           ]
         }
@@ -1534,7 +1537,7 @@
               "id": "c1fccf83-8223-42a2-837e-11eafe5d23fd",
               "name": "slackblocks",
               "type": "string",
-              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"https://i.imgur.com/y2Yw1ZP.png\",\"alt_text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"caseid\"]}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"number\"]}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"title\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"datecreated\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"tags\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"description\"].replace(\"\\n\",\"\\\\n\")}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For TLP Slack').item.json[\"caseid\"]}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For TLP Slack').item.json[\"caseid\"]}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"status\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"severity\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"tlp\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"pap\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Prep Fields For TLP Slack').item.json[\"profilepic\"]}}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"assignee\"] }}\"}]}"
+              "value": "={\"type\":\"image\",\"block_id\":\"image_block\",\"image_url\":\"{{ $env.WEBHOOK_URL }}\",\"alt_text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"caseid\"]}}\"},{\"type\":\"header\",\"block_id\":\"header_case_created\",\"text\":{\"type\":\"plain_text\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"number\"]}}\",\"emoji\":true}},{\"type\":\"divider\",\"block_id\":\"divider_1\"},{\"type\":\"section\",\"block_id\":\"section_case_details\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"title\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"datecreated\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"tags\"].replace(\"\\n\",\"\\\\n\")}}\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"description\"].replace(\"\\n\",\"\\\\n\")}}\"}]},{\"type\":\"actions\",\"block_id\":\"actions_case_options\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Close Case as False Positive\",\"emoji\":true},\"style\":\"danger\",\"value\":\"{{ $('Prep Fields For TLP Slack').item.json[\"caseid\"]}}\",\"action_id\":\"close_case\"},{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"Add a Task\",\"emoji\":true},\"value\":\"{{ $('Prep Fields For TLP Slack').item.json[\"caseid\"]}}\",\"action_id\":\"add_task\"}]},{\"type\":\"divider\",\"block_id\":\"divider_2\"},{\"type\":\"header\",\"block_id\":\"header_current_assignment\",\"text\":{\"type\":\"plain_text\",\"text\":\"🔍 Case Details:\",\"emoji\":true}},{\"type\":\"context\",\"block_id\":\"context_status\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"status\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_severity\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"severity\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_tlp\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"tlp\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_pap\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"pap\"]}}\"}]},{\"type\":\"context\",\"block_id\":\"context_assignee\",\"elements\":[{\"type\":\"image\",\"image_url\":\"{{ $('Prep Fields For TLP Slack').item.json[\"profilepic\"]}}\",\"alt_text\":\"Profile Pic\"},{\"type\":\"mrkdwn\",\"text\":\"{{ $('Prep Fields For TLP Slack').item.json[\"assignee\"] }}\"}]}"
             }
           ]
         }
@@ -1564,7 +1567,7 @@
         "color": 7,
         "width": 792.317043267064,
         "height": 631.3919967555308,
-        "content": "![slack](https://uploads.n8n.io/templates/slack.png)\n## Add a task to a Case - Display Modal Popup\nThis section of the workflow focuses on enhancing task management directly within Slack, allowing users to interactively add tasks to cases through a modal popup. \n\nThe workflow acknowledges the modal request using a specialized node that prepares the system for a dynamic interaction, then leverages an HTTP request node to open a modal in Slack via the `https://slack.com/api/views.open` API endpoint. \n\nThis modal is populated with various fields such as task title, description, due date, assignee, and options like marking the task as mandatory or flagged, which are meticulously structured in JSON format to facilitate user input. \n\nEach element in the modal, from text inputs and date pickers to user-select dropdowns, is designed for ease of use, ensuring that task details are comprehensive and contextually relevant. "
+        "content": "![slack]({{ $env.WEBHOOK_URL }}\n## Add a task to a Case - Display Modal Popup\nThis section of the workflow focuses on enhancing task management directly within Slack, allowing users to interactively add tasks to cases through a modal popup. \n\nThe workflow acknowledges the modal request using a specialized node that prepares the system for a dynamic interaction, then leverages an HTTP request node to open a modal in Slack via the `{{ $env.API_BASE_URL }}` API endpoint. \n\nThis modal is populated with various fields such as task title, description, due date, assignee, and options like marking the task as mandatory or flagged, which are meticulously structured in JSON format to facilitate user input. \n\nEach element in the modal, from text inputs and date pickers to user-select dropdowns, is designed for ease of use, ensuring that task details are comprehensive and contextually relevant. "
       },
       "typeVersion": 1
     },
@@ -1580,7 +1583,7 @@
         "color": 7,
         "width": 691.0596729578308,
         "height": 465.39159795232865,
-        "content": "![theHive](https://uploads.n8n.io/templates/thehive.png)\n## Assign Case to Others\nLastly the assignee data is passed into TheHive in \nthe correct format. We then use the Set node to \nbegin the process of building our updated Slack \nmessage. "
+        "content": "![theHive]({{ $env.WEBHOOK_URL }}\n## Assign Case to Others\nLastly the assignee data is passed into TheHive in \nthe correct format. We then use the Set node to \nbegin the process of building our updated Slack \nmessage. "
       },
       "typeVersion": 1
     },
@@ -1596,7 +1599,7 @@
         "color": 7,
         "width": 952.9348524840666,
         "height": 895.6351014818621,
-        "content": "![slack](https://uploads.n8n.io/templates/slack.png)\n# Dynamic Slack Message Updates in Workflow\n\nThis section of the workflow focuses on dynamically updating Slack messages to reflect changes in TheHive case attributes directly from Slack. The process begins by mapping user actions to Slack interactive elements, which are then composed into a final message block. This updated block is sent back to Slack to modify the original message, ensuring all changes are visible in real-time.\n\n**Key Components:**\n- **Map Actions Node**: This node maps user actions from Slack, like changing assignees or case status, into JSON format. It sets the foundation for creating interactive message blocks that users can interact with.\n- **Build Final Block Node**: Combines all interactive elements into a single JSON object, preparing it for posting back to Slack.\n- **Update Message with new Assignee Node**: Utilizes an HTTP request to post the updated message blocks back to Slack using the chat.update API endpoint. This action modifies the original Slack message to display the new, interactive elements.\n\n**Workflow Efficiency:**\n- By automating the update of Slack messages, this process eliminates the need for manual updates and ensures that all stakeholders are viewing the most current case details directly within Slack.\n- Isolating action elements in separate nodes allows for easier modifications and ensures that any changes in the workflow logic are consistently applied.\n\n**Setup Considerations:**\n- Ensure that the Slack API credentials are correctly configured to allow message updates.\n- Familiarize yourself with JSON structure if you need to customize the interactive elements further, as modifications require a good understanding of JSON formatting.\n\nThis method not only enhances the interactivity of Slack communications but also ensures that updates are seamlessly integrated into the workflow, promoting efficiency and ensuring data consistency."
+        "content": "![slack]({{ $env.WEBHOOK_URL }}\n# Dynamic Slack Message Updates in Workflow\n\nThis section of the workflow focuses on dynamically updating Slack messages to reflect changes in TheHive case attributes directly from Slack. The process begins by mapping user actions to Slack interactive elements, which are then composed into a final message block. This updated block is sent back to Slack to modify the original message, ensuring all changes are visible in real-time.\n\n**Key Components:**\n- **Map Actions Node**: This node maps user actions from Slack, like changing assignees or case status, into JSON format. It sets the foundation for creating interactive message blocks that users can interact with.\n- **Build Final Block Node**: Combines all interactive elements into a single JSON object, preparing it for posting back to Slack.\n- **Update Message with new Assignee Node**: Utilizes an HTTP request to post the updated message blocks back to Slack using the chat.update API endpoint. This action modifies the original Slack message to display the new, interactive elements.\n\n**Workflow Efficiency:**\n- By automating the update of Slack messages, this process eliminates the need for manual updates and ensures that all stakeholders are viewing the most current case details directly within Slack.\n- Isolating action elements in separate nodes allows for easier modifications and ensures that any changes in the workflow logic are consistently applied.\n\n**Setup Considerations:**\n- Ensure that the Slack API credentials are correctly configured to allow message updates.\n- Familiarize yourself with JSON structure if you need to customize the interactive elements further, as modifications require a good understanding of JSON formatting.\n\nThis method not only enhances the interactivity of Slack communications but also ensures that updates are seamlessly integrated into the workflow, promoting efficiency and ensuring data consistency."
       },
       "typeVersion": 1
     },
@@ -1612,7 +1615,7 @@
         "color": 7,
         "width": 409.70915573152797,
         "height": 570.3745712311052,
-        "content": "![Imgur](https://uploads.n8n.io/templates/thehive.png)\n## Add a task to a Case - Process the task details\nThe data is then processed in TheHive using the native n8n node. "
+        "content": "![Imgur]({{ $env.WEBHOOK_URL }}\n## Add a task to a Case - Process the task details\nThe data is then processed in TheHive using the native n8n node. "
       },
       "typeVersion": 1
     },
@@ -1628,7 +1631,7 @@
         "color": 7,
         "width": 374.56596023868,
         "height": 628.1281535316614,
-        "content": "![n8n](https://uploads.n8n.io/templates/n8n.png)\n## n8n Switch Node\nThis node checks the messages from Slack and routes them down the appropriate route in the workflow. \n\nIt is an invaluable tool that simplifies our logic immensely. "
+        "content": "![n8n]({{ $env.WEBHOOK_URL }}\n## n8n Switch Node\nThis node checks the messages from Slack and routes them down the appropriate route in the workflow. \n\nIt is an invaluable tool that simplifies our logic immensely. "
       },
       "typeVersion": 1
     },
@@ -1642,7 +1645,7 @@
       ],
       "parameters": {
         "select": "channel",
-        "blocksUi": "={\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"image\",\n\t\t\t\"block_id\": \"image_block\",\n\t\t\t\"image_url\": \"https://i.imgur.com/y2Yw1ZP.png\",\n\t\t\t\"alt_text\": \"{{ $json['caseid'] }}\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"header\",\n\t\t\t\"block_id\": \"header_case_created\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"{{ $json['number'] }}\",\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\",\n\t\t\t\"block_id\": \"divider_1\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"block_id\": \"section_case_details\",\n\t\t\t\"fields\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['title'] }}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['datecreated'] }}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['description'].replaceAll(\"\\n\",\"\\\\n\").replaceAll(\"**\",\"*\")}}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['tags'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"actions\",\n\t\t\t\"block_id\": \"actions_case_options\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Close Case as False Positive\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"style\": \"danger\",\n\t\t\t\t\t\"value\": \"{{ $json['caseid'] }}\",\n\t\t\t\t\t\"action_id\": \"close_case\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Add a Task\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"value\": \"{{ $json['caseid'] }}\",\n\t\t\t\t\t\"action_id\": \"add_task\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\",\n\t\t\t\"block_id\": \"divider_2\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"header\",\n\t\t\t\"block_id\": \"header_current_assignment\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"🔍 Case Details:\",\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"block_id\": \"context_status\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['status_emoji'] }} *Status:* {{ $json['status'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"block_id\": \"context_severity\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['severity_emoji'] }} {{ $json['severity'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"block_id\": \"context_tlp\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['tlp_emoji'] }} {{ $json['tlp'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"block_id\": \"context_pap\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['pap_emoji'] }} {{ $json['pap'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"block_id\": \"context_assignee\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"image\",\n\t\t\t\t\t\"image_url\": \"{{ $json['profilepic'] }}\",\n\t\t\t\t\t\"alt_text\": \"Profile Pic\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"Assignee: {{ $json['assignee'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"actions\",\n\t\t\t\"block_id\": \"actions_assignment_options\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"users_select\",\n\t\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Change Assignee\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"action_id\": \"change-assignee\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"static_select\",\n\t\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Change Status\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"action_id\": \"update-status\",\n\t\t\t\t\t\"options\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"🆕 New\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"1\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"🔄 In progress\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"2\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"📑 Duplicated\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"3\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"❎ False positive\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"4\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"❓ Indeterminate\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"5\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"🔵 Other\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"6\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"✅ True positive\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"7\"\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"static_select\",\n\t\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Change severity\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"action_id\": \"update_severity\",\n\t\t\t\t\t\"options\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Low\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"1\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Medium\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"2\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"High\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"3\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Critical\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"4\"\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"static_select\",\n\t\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Change TLP\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"action_id\": \"update_tlp\",\n\t\t\t\t\t\"options\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"White\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"0\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Amber\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"1\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Green\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"2\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Red\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"3\"\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"static_select\",\n\t\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Change PAP\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"action_id\": \"update_pap\",\n\t\t\t\t\t\"options\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"White\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"0\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Green\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"1\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Amber\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"2\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Red\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"3\"\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \":bee: View the case in TheHive\"\n\t\t\t},\n\t\t\t\"accessory\": {\n\t\t\t\t\"type\": \"button\",\n\t\t\t\t\"style\": \"primary\",\n\t\t\t\t\"text\": {\n\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\"text\": \"View Case\",\n\t\t\t\t\t\"emoji\": true\n\t\t\t\t},\n\t\t\t\t\"value\": \"click_me_123\",\n\t\t\t\t\"url\": \"{{ $('Formatting Dictionaries').item.json.theHiveUrl }}/cases/{{ $json['caseid'] }}/details\",\n\t\t\t\t\"action_id\": \"viewlink\"\n\t\t\t}\n\t\t}\n\t]\n}",
+        "blocksUi": "={\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"image\",\n\t\t\t\"block_id\": \"image_block\",\n\t\t\t\"image_url\": \"{{ $env.WEBHOOK_URL }}\",\n\t\t\t\"alt_text\": \"{{ $json['caseid'] }}\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"header\",\n\t\t\t\"block_id\": \"header_case_created\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"{{ $json['number'] }}\",\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\",\n\t\t\t\"block_id\": \"divider_1\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"block_id\": \"section_case_details\",\n\t\t\t\"fields\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['title'] }}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['datecreated'] }}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['description'].replaceAll(\"\\n\",\"\\\\n\").replaceAll(\"**\",\"*\")}}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['tags'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"actions\",\n\t\t\t\"block_id\": \"actions_case_options\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Close Case as False Positive\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"style\": \"danger\",\n\t\t\t\t\t\"value\": \"{{ $json['caseid'] }}\",\n\t\t\t\t\t\"action_id\": \"close_case\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Add a Task\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"value\": \"{{ $json['caseid'] }}\",\n\t\t\t\t\t\"action_id\": \"add_task\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\",\n\t\t\t\"block_id\": \"divider_2\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"header\",\n\t\t\t\"block_id\": \"header_current_assignment\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"🔍 Case Details:\",\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"block_id\": \"context_status\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['status_emoji'] }} *Status:* {{ $json['status'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"block_id\": \"context_severity\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['severity_emoji'] }} {{ $json['severity'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"block_id\": \"context_tlp\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['tlp_emoji'] }} {{ $json['tlp'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"block_id\": \"context_pap\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"{{ $json['pap_emoji'] }} {{ $json['pap'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"block_id\": \"context_assignee\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"image\",\n\t\t\t\t\t\"image_url\": \"{{ $json['profilepic'] }}\",\n\t\t\t\t\t\"alt_text\": \"Profile Pic\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"Assignee: {{ $json['assignee'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"actions\",\n\t\t\t\"block_id\": \"actions_assignment_options\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"users_select\",\n\t\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Change Assignee\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"action_id\": \"change-assignee\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"static_select\",\n\t\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Change Status\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"action_id\": \"update-status\",\n\t\t\t\t\t\"options\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"🆕 New\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"1\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"🔄 In progress\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"2\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"📑 Duplicated\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"3\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"❎ False positive\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"4\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"❓ Indeterminate\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"5\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"🔵 Other\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"6\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"✅ True positive\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"7\"\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"static_select\",\n\t\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Change severity\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"action_id\": \"update_severity\",\n\t\t\t\t\t\"options\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Low\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"1\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Medium\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"2\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"High\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"3\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Critical\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"4\"\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"static_select\",\n\t\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Change TLP\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"action_id\": \"update_tlp\",\n\t\t\t\t\t\"options\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"White\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"0\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Amber\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"1\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Green\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"2\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Red\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"3\"\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"static_select\",\n\t\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Change PAP\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"action_id\": \"update_pap\",\n\t\t\t\t\t\"options\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"White\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"0\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Green\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"1\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Amber\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"2\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\t\"text\": \"Red\",\n\t\t\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"value\": \"3\"\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \":bee: View the case in TheHive\"\n\t\t\t},\n\t\t\t\"accessory\": {\n\t\t\t\t\"type\": \"button\",\n\t\t\t\t\"style\": \"primary\",\n\t\t\t\t\"text\": {\n\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\"text\": \"View Case\",\n\t\t\t\t\t\"emoji\": true\n\t\t\t\t},\n\t\t\t\t\"value\": \"click_me_123\",\n\t\t\t\t\"url\": \"{{ $('Formatting Dictionaries').item.json.theHiveUrl }}/cases/{{ $json['caseid'] }}/details\",\n\t\t\t\t\"action_id\": \"viewlink\"\n\t\t\t}\n\t\t}\n\t]\n}",
         "channelId": {
           "__rl": true,
           "mode": "list",
@@ -3007,7 +3010,7 @@
         "color": 5,
         "width": 431.4429614751546,
         "height": 532.2137131625435,
-        "content": "![Imgur](https://uploads.n8n.io/templates/hivemodal.png)"
+        "content": "![Imgur]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -3023,7 +3026,7 @@
         "color": 5,
         "width": 431.4429614751546,
         "height": 453.21603562878454,
-        "content": "![Imgur](https://uploads.n8n.io/templates/thehivereport.png)\n### New cases will appear in slack in this format with the ability to quickly change variables in TheHive with quick actions baked in. "
+        "content": "![Imgur]({{ $env.WEBHOOK_URL }}\n### New cases will appear in slack in this format with the ability to quickly change variables in TheHive with quick actions baked in. "
       },
       "typeVersion": 1
     },
@@ -3039,7 +3042,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "Assign to User",
+              "outputKey": "output_1",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -3061,7 +3064,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Close Case",
+              "outputKey": "output_2",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -3085,7 +3088,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Update Severity",
+              "outputKey": "output_3",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -3109,7 +3112,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Add Task",
+              "outputKey": "output_4",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -3133,7 +3136,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Task Modal Details",
+              "outputKey": "output_5",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -3157,7 +3160,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Update Pap",
+              "outputKey": "output_6",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -3181,7 +3184,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Update Status",
+              "outputKey": "output_7",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -3205,7 +3208,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Update TLP",
+              "outputKey": "output_8",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -3229,7 +3232,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "View Link",
+              "outputKey": "output_9",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -3270,7 +3273,7 @@
         "color": 7,
         "width": 839.546315272846,
         "height": 472.04545691749547,
-        "content": "![slack](https://uploads.n8n.io/templates/slack.png)\n## 🤝Responding to Slack when someone clicks a link \nThis section of the workflow ensures that when a user interacts with a Slack message that invokes an n8n webhook, the server promptly acknowledges this with a \"200\" or \"204\" HTTP status response. This sticky note underscores the importance of a quick and positive response to maintain seamless interactions and ensure Slack receives the necessary feedback to conclude the user's action successfully."
+        "content": "![slack]({{ $env.WEBHOOK_URL }}\n## 🤝Responding to Slack when someone clicks a link \nThis section of the workflow ensures that when a user interacts with a Slack message that invokes an n8n webhook, the server promptly acknowledges this with a \"200\" or \"204\" HTTP status response. This sticky note underscores the importance of a quick and positive response to maintain seamless interactions and ensure Slack receives the necessary feedback to conclude the user's action successfully."
       },
       "typeVersion": 1
     },
@@ -3719,7 +3722,7 @@
       "parameters": {
         "width": 670.2591130283372,
         "height": 1196.0687210874733,
-        "content": "![theHive](https://uploads.n8n.io/templates/thehive.png)\n# Streamline Case Management in TheHive via Slack!\n\n## Our **TheHive Slack Integration** empowers SOC analysts by allowing them to efficiently manage and update case attributes directly within Slack, reducing the need to switch contexts and enhancing response time.\n\n\n**Key Features:**\n- **Direct Case Management**: Modify case details such as assignee, severity, status, and more through intuitive form inputs embedded within Slack messages.\n- **Seamless Integration**: Assumes matching email addresses between TheHive and Slack users for straightforward assignee updates. Note: Ensure email consistency to avoid assignment errors.\n- **Instant Case Actions**: Quickly close cases as false positives or adjust threat levels with minimal clicks, directly impacting case status in TheHive and reflecting updates immediately in Slack.\n- **Task Management**: Add tasks to cases through a user-friendly modal popup, fostering better task tracking and delegation within your team.\n\n\n**Operational Benefits:**\n- **Efficiency**: Enables analysts to perform multiple case actions without leaving Slack, streamlining workflows and saving valuable time.\n- **Accuracy**: Reduces the chances of human error by providing a controlled interface for case updates.\n- **Agility**: Enhances the SOC team's agility by providing tools for rapid response and case management, crucial for effective security operations.\n\n\n**Setup Tips:**\n- Verify that all SOC team members have matching email IDs in TheHive and Slack.\n- Familiarize your team with the Slack form inputs and ensure they understand the importance of accurate data entry.\n- Regularly review and update the integration settings to accommodate any changes in your security operations protocols.\n\n\n**Need Help?**\n- For detailed setup instructions or troubleshooting, refer to our [Integration Guide](https://docs.thehive-project.org) or reach out on our [Support Forum](https://community.thehive-project.org).\n\n\nLeverage this integration to maximize your SOC team's efficiency and responsiveness, ensuring that case management is as streamlined and effective as possible.\n"
+        "content": "![theHive]({{ $env.WEBHOOK_URL }}\n# Streamline Case Management in TheHive via Slack!\n\n## Our **TheHive Slack Integration** empowers SOC analysts by allowing them to efficiently manage and update case attributes directly within Slack, reducing the need to switch contexts and enhancing response time.\n\n\n**Key Features:**\n- **Direct Case Management**: Modify case details such as assignee, severity, status, and more through intuitive form inputs embedded within Slack messages.\n- **Seamless Integration**: Assumes matching email addresses between TheHive and Slack users for straightforward assignee updates. Note: Ensure email consistency to avoid assignment errors.\n- **Instant Case Actions**: Quickly close cases as false positives or adjust threat levels with minimal clicks, directly impacting case status in TheHive and reflecting updates immediately in Slack.\n- **Task Management**: Add tasks to cases through a user-friendly modal popup, fostering better task tracking and delegation within your team.\n\n\n**Operational Benefits:**\n- **Efficiency**: Enables analysts to perform multiple case actions without leaving Slack, streamlining workflows and saving valuable time.\n- **Accuracy**: Reduces the chances of human error by providing a controlled interface for case updates.\n- **Agility**: Enhances the SOC team's agility by providing tools for rapid response and case management, crucial for effective security operations.\n\n\n**Setup Tips:**\n- Verify that all SOC team members have matching email IDs in TheHive and Slack.\n- Familiarize your team with the Slack form inputs and ensure they understand the importance of accurate data entry.\n- Regularly review and update the integration settings to accommodate any changes in your security operations protocols.\n\n\n**Need Help?**\n- For detailed setup instructions or troubleshooting, refer to our [Integration Guide]({{ $env.WEBHOOK_URL }} or reach out on our [Support Forum]({{ $env.WEBHOOK_URL }}\n\n\nLeverage this integration to maximize your SOC team's efficiency and responsiveness, ensuring that case management is as streamlined and effective as possible.\n"
       },
       "typeVersion": 1
     },
@@ -3927,6 +3930,453 @@
         "responseMode": "responseNode"
       },
       "typeVersion": 2
+    },
+    {
+      "id": "error-handler-86f90f83-c115-4561-8c0f-432c2ebb18b5",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 86f90f83-c115-4561-8c0f-432c2ebb18b5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e2874195-4b4e-4288-937f-201e4a361438",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e2874195-4b4e-4288-937f-201e4a361438",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b7747c0c-52ec-415b-aa55-ce399b53054b",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b7747c0c-52ec-415b-aa55-ce399b53054b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-edfedf66-df2a-421e-a53d-11ee32623be0",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in edfedf66-df2a-421e-a53d-11ee32623be0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-791fea8b-67b3-4dd8-943f-29f750485a10",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 791fea8b-67b3-4dd8-943f-29f750485a10",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-14f59582-7a18-44ab-bb1e-19d5141dace5",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 14f59582-7a18-44ab-bb1e-19d5141dace5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-55b3ecfa-2be6-41f5-818c-5980f896832f",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 55b3ecfa-2be6-41f5-818c-5980f896832f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4a4ef31e-de26-4e4e-b0f5-bef77c8c2801",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 4a4ef31e-de26-4e4e-b0f5-bef77c8c2801",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cb7647b0-199c-4aa8-84d3-748bb52f1e7e",
+      "name": "Stopanderror 8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in cb7647b0-199c-4aa8-84d3-748bb52f1e7e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ad83c6b0-cde4-48b6-b505-8f9e1ded2066",
+      "name": "Stopanderror 9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ad83c6b0-cde4-48b6-b505-8f9e1ded2066",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f2668b62-cd3c-41d6-ada3-37e6ba331b90",
+      "name": "Stopanderror 10",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in f2668b62-cd3c-41d6-ada3-37e6ba331b90",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a46648ce-f125-4de6-95cf-9c61c466e43c",
+      "name": "Stopanderror 11",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a46648ce-f125-4de6-95cf-9c61c466e43c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1915c609-edf2-4bfe-95db-88ab31ae4fa6",
+      "name": "Stopanderror 12",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 1915c609-edf2-4bfe-95db-88ab31ae4fa6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ebcd8020-b157-4c0f-a726-80dd4864cbcf",
+      "name": "Stopanderror 13",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ebcd8020-b157-4c0f-a726-80dd4864cbcf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-86f90f83-c115-4561-8c0f-432c2ebb18b5-50e77e7f",
+      "name": "Error Handler for 86f90f83",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 86f90f83",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e2874195-4b4e-4288-937f-201e4a361438-8c8a1a3f",
+      "name": "Error Handler for e2874195",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e2874195",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b7747c0c-52ec-415b-aa55-ce399b53054b-5e526ec6",
+      "name": "Error Handler for b7747c0c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b7747c0c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4fd498e7-31cf-4d9f-b888-ede79e42e79f-327787e8",
+      "name": "Error Handler for 4fd498e7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4fd498e7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-edfedf66-df2a-421e-a53d-11ee32623be0-94fd9c95",
+      "name": "Error Handler for edfedf66",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node edfedf66",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-791fea8b-67b3-4dd8-943f-29f750485a10-c6954819",
+      "name": "Error Handler for 791fea8b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 791fea8b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-14f59582-7a18-44ab-bb1e-19d5141dace5-6693576f",
+      "name": "Error Handler for 14f59582",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 14f59582",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-55b3ecfa-2be6-41f5-818c-5980f896832f-00267f63",
+      "name": "Error Handler for 55b3ecfa",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 55b3ecfa",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4a4ef31e-de26-4e4e-b0f5-bef77c8c2801-4967ac1f",
+      "name": "Error Handler for 4a4ef31e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4a4ef31e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cb7647b0-199c-4aa8-84d3-748bb52f1e7e-9084ab29",
+      "name": "Error Handler for cb7647b0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node cb7647b0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ad83c6b0-cde4-48b6-b505-8f9e1ded2066-528daae1",
+      "name": "Error Handler for ad83c6b0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ad83c6b0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f2668b62-cd3c-41d6-ada3-37e6ba331b90-a4815c94",
+      "name": "Error Handler for f2668b62",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f2668b62",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a46648ce-f125-4de6-95cf-9c61c466e43c-bea66ab6",
+      "name": "Error Handler for a46648ce",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a46648ce",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-aa35e086-ace4-413a-9cd8-bed51dad94e7-12f50879",
+      "name": "Error Handler for aa35e086",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node aa35e086",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1915c609-edf2-4bfe-95db-88ab31ae4fa6-72e22a62",
+      "name": "Error Handler for 1915c609",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1915c609",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c87cdbc8-9f86-46a1-9789-7ad992b6f01d-4b4b54cc",
+      "name": "Error Handler for c87cdbc8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c87cdbc8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ebcd8020-b157-4c0f-a726-80dd4864cbcf-daf43d94",
+      "name": "Error Handler for ebcd8020",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ebcd8020",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-c12297c6",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Thehiveprojecttrigger Workflow\n\n## Overview\nAutomated workflow: Thehiveprojecttrigger Workflow. This workflow integrates 12 different services: webhook, stickyNote, httpRequest, theHiveProjectTrigger, theHiveProject. It contains 94 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 94\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **TheHive Trigger**: theHiveProjectTrigger\n- **Sticky Note**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Edit Fields**: set\n- **Task Modal**: httpRequest\n- **HTTP Request**: httpRequest\n- **Formatting Dictionaries**: set\n- **Prep Fields For Slack**: set\n- **Update Message with new Assignee**: httpRequest\n- ... and 84 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -4422,6 +4872,300 @@
           }
         ]
       ]
+    },
+    "86f90f83-c115-4561-8c0f-432c2ebb18b5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-86f90f83-c115-4561-8c0f-432c2ebb18b5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-86f90f83-c115-4561-8c0f-432c2ebb18b5-50e77e7f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e2874195-4b4e-4288-937f-201e4a361438": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e2874195-4b4e-4288-937f-201e4a361438",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e2874195-4b4e-4288-937f-201e4a361438-8c8a1a3f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b7747c0c-52ec-415b-aa55-ce399b53054b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b7747c0c-52ec-415b-aa55-ce399b53054b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b7747c0c-52ec-415b-aa55-ce399b53054b-5e526ec6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "edfedf66-df2a-421e-a53d-11ee32623be0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-edfedf66-df2a-421e-a53d-11ee32623be0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-edfedf66-df2a-421e-a53d-11ee32623be0-94fd9c95",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "791fea8b-67b3-4dd8-943f-29f750485a10": {
+      "main": [
+        [
+          {
+            "node": "error-handler-791fea8b-67b3-4dd8-943f-29f750485a10",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-791fea8b-67b3-4dd8-943f-29f750485a10-c6954819",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14f59582-7a18-44ab-bb1e-19d5141dace5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-14f59582-7a18-44ab-bb1e-19d5141dace5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-14f59582-7a18-44ab-bb1e-19d5141dace5-6693576f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "55b3ecfa-2be6-41f5-818c-5980f896832f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-55b3ecfa-2be6-41f5-818c-5980f896832f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-55b3ecfa-2be6-41f5-818c-5980f896832f-00267f63",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4a4ef31e-de26-4e4e-b0f5-bef77c8c2801": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4a4ef31e-de26-4e4e-b0f5-bef77c8c2801",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-4a4ef31e-de26-4e4e-b0f5-bef77c8c2801-4967ac1f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cb7647b0-199c-4aa8-84d3-748bb52f1e7e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-cb7647b0-199c-4aa8-84d3-748bb52f1e7e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-cb7647b0-199c-4aa8-84d3-748bb52f1e7e-9084ab29",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ad83c6b0-cde4-48b6-b505-8f9e1ded2066": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ad83c6b0-cde4-48b6-b505-8f9e1ded2066",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ad83c6b0-cde4-48b6-b505-8f9e1ded2066-528daae1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f2668b62-cd3c-41d6-ada3-37e6ba331b90": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f2668b62-cd3c-41d6-ada3-37e6ba331b90",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-f2668b62-cd3c-41d6-ada3-37e6ba331b90-a4815c94",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a46648ce-f125-4de6-95cf-9c61c466e43c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a46648ce-f125-4de6-95cf-9c61c466e43c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a46648ce-f125-4de6-95cf-9c61c466e43c-bea66ab6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1915c609-edf2-4bfe-95db-88ab31ae4fa6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1915c609-edf2-4bfe-95db-88ab31ae4fa6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-1915c609-edf2-4bfe-95db-88ab31ae4fa6-72e22a62",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ebcd8020-b157-4c0f-a726-80dd4864cbcf": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ebcd8020-b157-4c0f-a726-80dd4864cbcf",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ebcd8020-b157-4c0f-a726-80dd4864cbcf-daf43d94",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4fd498e7-31cf-4d9f-b888-ede79e42e79f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4fd498e7-31cf-4d9f-b888-ede79e42e79f-327787e8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "aa35e086-ace4-413a-9cd8-bed51dad94e7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-aa35e086-ace4-413a-9cd8-bed51dad94e7-12f50879",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c87cdbc8-9f86-46a1-9789-7ad992b6f01d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c87cdbc8-9f86-46a1-9789-7ad992b6f01d-4b4b54cc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Thehiveprojecttrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Thehiveprojecttrigger Workflow. This workflow integrates 12 different services: webhook, stickyNote, httpRequest, theHiveProjectTrigger, theHiveProject. It contains 94 nodes and follows best practices for error handling and security."
 }

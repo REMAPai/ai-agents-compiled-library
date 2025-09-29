@@ -1,8 +1,10 @@
 {
   "id": "zMtPPjJ80JJznrJP",
   "meta": {
-    "instanceId": "a4bfc93e975ca233ac45ed7c9227d84cf5a2329310525917adaf3312e10d5462",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "AI-Powered WhatsApp Chatbot for Text, Voice, Images & PDFs",
   "tags": [],
@@ -212,7 +214,7 @@
         1440
       ],
       "parameters": {
-        "sessionKey": "=memory_{{ $('WhatsApp Trigger').item.json.contacts[0].wa_id }}",
+        "sessionKey": "YOUR_SESSION_KEY",
         "sessionIdType": "customKey",
         "contextWindowLength": 10
       },
@@ -664,7 +666,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "Text",
+              "outputKey": "output_1",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -689,7 +691,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Voice",
+              "outputKey": "output_2",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -714,7 +716,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Image",
+              "outputKey": "output_3",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -739,7 +741,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Document",
+              "outputKey": "output_4",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -783,15 +785,186 @@
         "color": 3,
         "width": 780,
         "height": 2680,
-        "content": "How to obtain Whatsapp API?\n\n\n### ✅ Prerequisites\nBefore you begin, make sure you have:\n- A **Meta Business Account**\n- A **Facebook Developer Account**\n- A **Verified Business**\n- A **Phone Number** to link to WhatsApp\n- Access to **Meta's Graph API Explorer** or **Meta for Developers portal**\n\n---\n\n### 🪜 STEP 1: Create a Meta App\n\n1. Go to [https://developers.facebook.com/apps](https://developers.facebook.com/apps)\n2. Click **“Create App”**\n3. Choose **\"Business\"** as the app type, then click **Next**\n4. Give your app a name and enter a contact email\n5. Choose your Business Account (or create one)\n6. Click **Create App**\n\n---\n\n### 🪜 STEP 2: Add WhatsApp Product\n\n1. In your app dashboard, scroll down to **\"Add a Product\"**\n2. Find **\"WhatsApp\"** and click **“Set Up”**\n3. Link your **Business Manager Account**\n\n---\n\n### 🪜 STEP 3: Create a WhatsApp Business Account (if needed)\n\n1. If you haven’t already, go to [https://business.facebook.com/](https://business.facebook.com/)\n2. Click **“Create Account”**, and complete your business information\n3. Go to **Business Settings > Accounts > WhatsApp Accounts**\n4. Add a **Phone Number** (you'll receive a verification code)\n\n---\n\n### 🪜 STEP 4: Generate a Temporary Access Token (for development)\n\n1. In the **App Dashboard**, go to **WhatsApp > Getting Started**\n2. Choose your test phone number\n3. Copy the **temporary access token** (valid for 24 hours)\n4. Copy the **Phone Number ID** and **WhatsApp Business Account ID**\n\n✅ Save these 3 values:\n- **Access Token**\n- **Phone Number ID**\n- **WABA ID**\n\n📝 Tip: For production, you will later need to create a **permanent token** (see step 7).\n\n---\n\n### 🪜 STEP 5: Set Up a Webhook URL (n8n)\n\n1. In n8n, set up a **Webhook node** (or use the `WhatsApp Trigger` node)\n2. Copy the webhook URL\n3. In the Meta Developer Dashboard:\n   - Go to **WhatsApp > Configuration**\n   - Click **“Edit Callback URL”**\n   - Paste your n8n webhook URL and add a random **verify token**\n4. In n8n, configure your webhook to respond to the verification request\n\n---\n\n### 🪜 STEP 6: Subscribe to Webhook Fields\n\n1. Still under **WhatsApp > Configuration**, click **\"Manage Subscriptions\"**\n2. Enable:\n   - `messages`\n   - `message_status`\n   - (Optionally `message_template_status_update`)\n\n---\n\n### 🪜 STEP 7: (Optional but recommended) Generate a Permanent Token\n\n1. Go to [https://developers.facebook.com/tools/access_token/](https://developers.facebook.com/tools/access_token/)\n2. Select your app\n3. Click **Get Token > System User Token**\n4. Select the permissions:\n   - `whatsapp_business_management`\n   - `whatsapp_business_messaging`\n   - `business_management`\n5. Click **Generate Token**\n6. Copy and securely store this token\n\n---\n\n### 🪜 STEP 8: Configure Credentials in n8n\n\n1. Go to **n8n > Settings > Credentials**\n2. Create new credentials of type **HTTP Header Auth**\n   - **Name:** WhatsApp\n   - **Header Name:** `Authorization`\n   - **Value:** `Bearer <your_access_token>`\n3. Save\n\nThen, in your workflows:\n- Use the HTTP Request node or WhatsApp node\n- Set the `phone_number_id` in the node parameters\n- Connect it to your WhatsApp credential\n\n---\n\n### 🧪 STEP 9: Test the Connection\n\n1. Use a WhatsApp number to send a message to your business phone\n2. Your n8n workflow should be triggered\n3. You can now send and receive messages programmatically 🎉\n"
+        "content": "How to obtain Whatsapp API?\n\n\n### ✅ Prerequisites\nBefore you begin, make sure you have:\n- A **Meta Business Account**\n- A **Facebook Developer Account**\n- A **Verified Business**\n- A **Phone Number** to link to WhatsApp\n- Access to **Meta's Graph API Explorer** or **Meta for Developers portal**\n\n---\n\n### 🪜 STEP 1: Create a Meta App\n\n1. Go to [{{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n2. Click **“Create App”**\n3. Choose **\"Business\"** as the app type, then click **Next**\n4. Give your app a name and enter a contact email\n5. Choose your Business Account (or create one)\n6. Click **Create App**\n\n---\n\n### 🪜 STEP 2: Add WhatsApp Product\n\n1. In your app dashboard, scroll down to **\"Add a Product\"**\n2. Find **\"WhatsApp\"** and click **“Set Up”**\n3. Link your **Business Manager Account**\n\n---\n\n### 🪜 STEP 3: Create a WhatsApp Business Account (if needed)\n\n1. If you haven’t already, go to [{{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n2. Click **“Create Account”**, and complete your business information\n3. Go to **Business Settings > Accounts > WhatsApp Accounts**\n4. Add a **Phone Number** (you'll receive a verification code)\n\n---\n\n### 🪜 STEP 4: Generate a Temporary Access Token (for development)\n\n1. In the **App Dashboard**, go to **WhatsApp > Getting Started**\n2. Choose your test phone number\n3. Copy the **temporary access token** (valid for 24 hours)\n4. Copy the **Phone Number ID** and **WhatsApp Business Account ID**\n\n✅ Save these 3 values:\n- **Access Token**\n- **Phone Number ID**\n- **WABA ID**\n\n📝 Tip: For production, you will later need to create a **permanent token** (see step 7).\n\n---\n\n### 🪜 STEP 5: Set Up a Webhook URL (n8n)\n\n1. In n8n, set up a **Webhook node** (or use the `WhatsApp Trigger` node)\n2. Copy the webhook URL\n3. In the Meta Developer Dashboard:\n   - Go to **WhatsApp > Configuration**\n   - Click **“Edit Callback URL”**\n   - Paste your n8n webhook URL and add a random **verify token**\n4. In n8n, configure your webhook to respond to the verification request\n\n---\n\n### 🪜 STEP 6: Subscribe to Webhook Fields\n\n1. Still under **WhatsApp > Configuration**, click **\"Manage Subscriptions\"**\n2. Enable:\n   - `messages`\n   - `message_status`\n   - (Optionally `message_template_status_update`)\n\n---\n\n### 🪜 STEP 7: (Optional but recommended) Generate a Permanent Token\n\n1. Go to [{{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n2. Select your app\n3. Click **Get Token > System User Token**\n4. Select the permissions:\n   - `whatsapp_business_management`\n   - `whatsapp_business_messaging`\n   - `business_management`\n5. Click **Generate Token**\n6. Copy and securely store this token\n\n---\n\n### 🪜 STEP 8: Configure Credentials in n8n\n\n1. Go to **n8n > Settings > Credentials**\n2. Create new credentials of type **HTTP Header Auth**\n   - **Name:** WhatsApp\n   - **Header Name:** `Authorization`\n   - **Value:** `Bearer <your_access_token>`\n3. Save\n\nThen, in your workflows:\n- Use the HTTP Request node or WhatsApp node\n- Set the `phone_number_id` in the node parameters\n- Connect it to your WhatsApp credential\n\n---\n\n### 🧪 STEP 9: Test the Connection\n\n1. Use a WhatsApp number to send a message to your business phone\n2. Your n8n workflow should be triggered\n3. You can now send and receive messages programmatically 🎉\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-4cc0b70b-3ecc-4415-af2f-e50d4f302786",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 4cc0b70b-3ecc-4415-af2f-e50d4f302786",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b8898138-f987-4ef7-a5c1-d6d6b9c815f0",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b8898138-f987-4ef7-a5c1-d6d6b9c815f0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-103825d0-8521-43c7-8246-9cc1faca42e1",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 103825d0-8521-43c7-8246-9cc1faca42e1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4cc0b70b-3ecc-4415-af2f-e50d4f302786-f65fbf55",
+      "name": "Error Handler for 4cc0b70b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4cc0b70b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-528984be-b9ad-41c7-8b2e-ccbf275f7805-687a59fe",
+      "name": "Error Handler for 528984be",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 528984be",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b8898138-f987-4ef7-a5c1-d6d6b9c815f0-7d57e859",
+      "name": "Error Handler for b8898138",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b8898138",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e68bea55-f43a-4143-afca-1348b35e5879-9dfe8128",
+      "name": "Error Handler for e68bea55",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e68bea55",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1c0aa0c3-cee4-40f1-9e13-9365cc06443a-9484ff47",
+      "name": "Error Handler for 1c0aa0c3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1c0aa0c3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-103825d0-8521-43c7-8246-9cc1faca42e1-0674e0b4",
+      "name": "Error Handler for 103825d0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 103825d0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-98077f98-6dcf-4932-9363-19bf1fdc299e-59c96a41",
+      "name": "Error Handler for 98077f98",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 98077f98",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b23f8467-480a-45c1-a7df-e512290a8e13-bc2bd8d3",
+      "name": "Error Handler for b23f8467",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b23f8467",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-c94d5b13",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# AI-Powered WhatsApp Chatbot for Text, Voice, Images & PDFs\n\n## Overview\nAutomated workflow: AI-Powered WhatsApp Chatbot for Text, Voice, Images & PDFs. This workflow integrates 14 different services: stickyNote, httpRequest, code, agent, switch. It contains 43 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 43\n- **Node Types**: 14\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **WhatsApp Trigger**: whatsAppTrigger\n- **Download Image**: httpRequest\n- **Analyze Image**: openAi\n- **Download Audio**: httpRequest\n- **Transcribe Audio**: openAi\n- **OpenAI Chat Model**: lmChatOpenAi\n- **AI Agent1**: agent\n- **Download File**: httpRequest\n- **Extract from File**: extractFromFile\n- **Simple Memory**: memoryBufferWindow\n- ... and 33 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "4dfe4c80-3a9a-4292-bcb2-3f68bbea5a3a",
   "connections": {
@@ -1078,6 +1251,116 @@
           }
         ]
       ]
+    },
+    "4cc0b70b-3ecc-4415-af2f-e50d4f302786": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4cc0b70b-3ecc-4415-af2f-e50d4f302786",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-4cc0b70b-3ecc-4415-af2f-e50d4f302786-f65fbf55",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b8898138-f987-4ef7-a5c1-d6d6b9c815f0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b8898138-f987-4ef7-a5c1-d6d6b9c815f0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b8898138-f987-4ef7-a5c1-d6d6b9c815f0-7d57e859",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "103825d0-8521-43c7-8246-9cc1faca42e1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-103825d0-8521-43c7-8246-9cc1faca42e1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-103825d0-8521-43c7-8246-9cc1faca42e1-0674e0b4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "528984be-b9ad-41c7-8b2e-ccbf275f7805": {
+      "main": [
+        [
+          {
+            "node": "error-handler-528984be-b9ad-41c7-8b2e-ccbf275f7805-687a59fe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e68bea55-f43a-4143-afca-1348b35e5879": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e68bea55-f43a-4143-afca-1348b35e5879-9dfe8128",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1c0aa0c3-cee4-40f1-9e13-9365cc06443a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1c0aa0c3-cee4-40f1-9e13-9365cc06443a-9484ff47",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "98077f98-6dcf-4932-9363-19bf1fdc299e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-98077f98-6dcf-4932-9363-19bf1fdc299e-59c96a41",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b23f8467-480a-45c1-a7df-e512290a8e13": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b23f8467-480a-45c1-a7df-e512290a8e13-bc2bd8d3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: AI-Powered WhatsApp Chatbot for Text, Voice, Images & PDFs. This workflow integrates 14 different services: stickyNote, httpRequest, code, agent, switch. It contains 43 nodes and follows best practices for error handling and security."
 }

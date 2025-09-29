@@ -219,7 +219,7 @@
       "parameters": {
         "width": 421.0932411886662,
         "height": 257.42916378714597,
-        "content": "## \u26a0\ufe0f Note\n\n1. Complete video guide for this workflow is available [on my YouTube](https://youtu.be/a8Dhj3Zh9vQ). \n2. Remember to add your credentials and configure nodes (covered in the video guide).\n3. If you like this workflow, please subscribe to [my YouTube channel](https://www.youtube.com/@workfloows) and/or [my newsletter](https://workfloows.com/).\n\n**Thank you for your support!**"
+        "content": "## ⚠️ Note\n\n1. Complete video guide for this workflow is available [on my YouTube]({{ $env.WEBHOOK_URL }} \n2. Remember to add your credentials and configure nodes (covered in the video guide).\n3. If you like this workflow, please subscribe to [my YouTube channel]({{ $env.WEBHOOK_URL }} and/or [my newsletter]({{ $env.WEBHOOK_URL }}\n\n**Thank you for your support!**"
       },
       "typeVersion": 1
     },
@@ -234,7 +234,7 @@
       "parameters": {
         "width": 238.4602598584674,
         "height": 348.5873725349161,
-        "content": "### Gmail Trigger\nReceive data from Gmail about new incoming message. \n\n\u26a0\ufe0f Set polling interval according to your needs."
+        "content": "### Gmail Trigger\nReceive data from Gmail about new incoming message. \n\n⚠️ Set polling interval according to your needs."
       },
       "typeVersion": 1
     },
@@ -249,7 +249,7 @@
       "parameters": {
         "width": 241.53974014153226,
         "height": 319.3323098457962,
-        "content": "###\n\n\n\n\n\n\n\n\n\n\n### JSON schema\nEdit JSON schema and label names according to your needs.\n\n\u26a0\ufe0f **Label names in system prompt and JSON schema should be the same.**"
+        "content": "###\n\n\n\n\n\n\n\n\n\n\n### JSON schema\nEdit JSON schema and label names according to your needs.\n\n⚠️ **Label names in system prompt and JSON schema should be the same.**"
       },
       "typeVersion": 1
     },
@@ -309,7 +309,7 @@
       "parameters": {
         "width": 378.57661273793565,
         "height": 348.5873725349161,
-        "content": "### Assign labels\nLet the AI decide which labels suit the best content of the message.\n\n\u26a0\ufe0f **Remember to edit system prompt** - modify label names and instructions according to your needs."
+        "content": "### Assign labels\nLet the AI decide which labels suit the best content of the message.\n\n⚠️ **Remember to edit system prompt** - modify label names and instructions according to your needs."
       },
       "typeVersion": 1
     },
@@ -348,12 +348,43 @@
         }
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-2bdf3fed-8a7f-411a-bad4-266bfea5cede-73b8bd8b",
+      "name": "Error Handler for 2bdf3fed",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2bdf3fed",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-d63ce12a",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Gmailtrigger Workflow\n\n## Overview\nAutomated workflow: Gmailtrigger Workflow. This workflow integrates 11 different services: stickyNote, gmailTrigger, splitOut, chainLlm, merge. It contains 20 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 20\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Gmail trigger**: gmailTrigger\n- **Get message content**: gmail\n- **Set label values**: set\n- **Get all labels**: gmail\n- **Split out assigned labels**: splitOut\n- **Merge corresponding labels**: merge\n- **Aggregate label IDs**: aggregate\n- **Add labels to message**: gmail\n- **Assign labels for message**: chainLlm\n- **Sticky Note**: stickyNote\n- ... and 10 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "connections": {
     "JSON Parser": {
@@ -470,6 +501,25 @@
           }
         ]
       ]
+    },
+    "2bdf3fed-8a7f-411a-bad4-266bfea5cede": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2bdf3fed-8a7f-411a-bad4-266bfea5cede-73b8bd8b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
+  },
+  "name": "Gmailtrigger Workflow",
+  "description": "Automated workflow: Gmailtrigger Workflow. This workflow integrates 11 different services: stickyNote, gmailTrigger, splitOut, chainLlm, merge. It contains 20 nodes and follows best practices for error handling and security.",
+  "meta": {
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   }
 }

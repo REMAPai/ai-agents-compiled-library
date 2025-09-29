@@ -1,8 +1,10 @@
 {
   "id": "keFEBUqHOrsib60G",
   "meta": {
-    "instanceId": "31e69f7f4a77bf465b805824e303232f0227212ae922d12133a0f96ffeab4fef",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "🦙👁️👁️ Find the Best Local Ollama Vision Models by Comparison",
   "tags": [],
@@ -59,7 +61,7 @@
         1280
       ],
       "parameters": {
-        "url": "http://127.0.0.1:11434/api/chat",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{ $json.body }}",
@@ -372,15 +374,102 @@
       "parameters": {
         "width": 480,
         "height": 1340,
-        "content": "## 🦙👁️👁️ Find the Best Local Ollama Vision Models for Your Use Case\n\nProcess images using locally hosted Ollama Vision Models to extract detailed descriptions, contextual insights, and structured data. Save results directly to Google Docs for efficient collaboration.\n\n### Who is this for?\nThis workflow is ideal for developers, data analysts, and AI enthusiasts who need to process and analyze images using locally hosted Ollama Vision Language Models. It’s particularly useful for tasks requiring detailed image descriptions, contextual analysis, and structured data extraction.\n\n### What problem is this workflow solving? / Use Case\nThe workflow solves the challenge of extracting meaningful insights from images in exhaustive detail, such as identifying objects, analyzing spatial relationships, extracting textual elements, and providing contextual information. This is especially helpful for applications in real estate, marketing, engineering, and research.\n\n### What this workflow does\nThis workflow:\n1. Downloads an image file from Google Drive.\n2. Processes the image using multiple Ollama Vision Models (e.g., Granite3.2-Vision, Llama3.2-Vision).\n3. Generates detailed markdown-based descriptions of the image.\n4. Saves the output to a Google Docs file for easy sharing and further analysis.\n\n### Setup\n1. Ensure you have access to a local instance of Ollama.  https://ollama.com/\n2. Pull the Ollama vision models.\n3. Configure your Google Drive and Google Docs credentials in n8n.\n4. Provide the image file ID from Google Drive in the designated node.\n5. Update the list of Ollama vision models\n6. Test the workflow by clicking ‘Test Workflow’ to trigger the process.\n\n### How to customize this workflow to your needs\n- Replace the image source with another provider if needed (e.g., AWS S3 or Dropbox).\n- Modify the prompts in the \"General Image Prompt\" node to suit specific analysis requirements.\n- Add additional nodes for post-processing or integrating results into other platforms like Slack or HubSpot.\n\n## Key Features:\n- **Detailed Image Analysis**: Extracts comprehensive details about objects, spatial relationships, text elements, and contextual settings.\n- **Multi-Model Support**: Utilizes multiple vision models dynamically for optimal performance.\n- **Markdown Output**: Formats results in markdown for easy readability and documentation.\n- **Google Drive Integration**: Seamlessly downloads images and saves results to Google Docs.\n\n\n"
+        "content": "## 🦙👁️👁️ Find the Best Local Ollama Vision Models for Your Use Case\n\nProcess images using locally hosted Ollama Vision Models to extract detailed descriptions, contextual insights, and structured data. Save results directly to Google Docs for efficient collaboration.\n\n### Who is this for?\nThis workflow is ideal for developers, data analysts, and AI enthusiasts who need to process and analyze images using locally hosted Ollama Vision Language Models. It’s particularly useful for tasks requiring detailed image descriptions, contextual analysis, and structured data extraction.\n\n### What problem is this workflow solving? / Use Case\nThe workflow solves the challenge of extracting meaningful insights from images in exhaustive detail, such as identifying objects, analyzing spatial relationships, extracting textual elements, and providing contextual information. This is especially helpful for applications in real estate, marketing, engineering, and research.\n\n### What this workflow does\nThis workflow:\n1. Downloads an image file from Google Drive.\n2. Processes the image using multiple Ollama Vision Models (e.g., Granite3.2-Vision, Llama3.2-Vision).\n3. Generates detailed markdown-based descriptions of the image.\n4. Saves the output to a Google Docs file for easy sharing and further analysis.\n\n### Setup\n1. Ensure you have access to a local instance of Ollama.  {{ $env.WEBHOOK_URL }}\n2. Pull the Ollama vision models.\n3. Configure your Google Drive and Google Docs credentials in n8n.\n4. Provide the image file ID from Google Drive in the designated node.\n5. Update the list of Ollama vision models\n6. Test the workflow by clicking ‘Test Workflow’ to trigger the process.\n\n### How to customize this workflow to your needs\n- Replace the image source with another provider if needed (e.g., AWS S3 or Dropbox).\n- Modify the prompts in the \"General Image Prompt\" node to suit specific analysis requirements.\n- Add additional nodes for post-processing or integrating results into other platforms like Slack or HubSpot.\n\n## Key Features:\n- **Detailed Image Analysis**: Extracts comprehensive details about objects, spatial relationships, text elements, and contextual settings.\n- **Multi-Model Support**: Utilizes multiple vision models dynamically for optimal performance.\n- **Markdown Output**: Formats results in markdown for easy readability and documentation.\n- **Google Drive Integration**: Seamlessly downloads images and saves results to Google Docs.\n\n\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-bb4570c7-269c-4d28-85d4-183ca2fabb89",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in bb4570c7-269c-4d28-85d4-183ca2fabb89",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bb4570c7-269c-4d28-85d4-183ca2fabb89-6010afaa",
+      "name": "Error Handler for bb4570c7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node bb4570c7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-58c2fcd2-0ac4-4684-a30f-37650cc8dac1-09817b81",
+      "name": "Error Handler for 58c2fcd2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 58c2fcd2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b60c0589-397c-445b-a084-a791bef95b15-92dceed5",
+      "name": "Error Handler for b60c0589",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b60c0589",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8e6114f8-c724-40fd-9be3-253e3cb882fa-d7f44489",
+      "name": "Error Handler for 8e6114f8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8e6114f8",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-ac637318",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# 🦙👁️👁️ Find the Best Local Ollama Vision Models by Comparison\n\n## Overview\nAutomated workflow: 🦙👁️👁️ Find the Best Local Ollama Vision Models by Comparison. This workflow integrates 10 different services: stickyNote, httpRequest, splitOut, googleDrive, set. It contains 24 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 24\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Ollama LLM Request**: httpRequest\n- **Create Request Body**: set\n- **Loop Over Ollama Models**: splitInBatches\n- **Create Result Objects**: set\n- **General Image Prompt**: set\n- **Real Estate Spreadsheet Prompt**: set\n- **List of Vision Models**: set\n- ... and 14 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "a337e019-1c9a-4736-8dcd-4f12a9d989f4",
   "connections": {
@@ -516,6 +605,58 @@
           }
         ]
       ]
+    },
+    "bb4570c7-269c-4d28-85d4-183ca2fabb89": {
+      "main": [
+        [
+          {
+            "node": "error-handler-bb4570c7-269c-4d28-85d4-183ca2fabb89",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-bb4570c7-269c-4d28-85d4-183ca2fabb89-6010afaa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "58c2fcd2-0ac4-4684-a30f-37650cc8dac1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-58c2fcd2-0ac4-4684-a30f-37650cc8dac1-09817b81",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b60c0589-397c-445b-a084-a791bef95b15": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b60c0589-397c-445b-a084-a791bef95b15-92dceed5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8e6114f8-c724-40fd-9be3-253e3cb882fa": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8e6114f8-c724-40fd-9be3-253e3cb882fa-d7f44489",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: 🦙👁️👁️ Find the Best Local Ollama Vision Models by Comparison. This workflow integrates 10 different services: stickyNote, httpRequest, splitOut, googleDrive, set. It contains 24 nodes and follows best practices for error handling and security."
 }

@@ -12,7 +12,6 @@ A professionally organized collection of **2,053 n8n workflows
 
 *
 
-* R
 > 
 
 #

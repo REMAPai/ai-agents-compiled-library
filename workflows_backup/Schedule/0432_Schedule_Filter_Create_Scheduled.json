@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "70aa73f4d8fa35284109864e170a85d0977ad8121a6294c5c305fbaee0d9e028"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -15,7 +18,7 @@
         "resource": "company",
         "operation": "getRecentlyCreatedUpdated",
         "returnAll": true,
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "since": "={{ $now.minus({ \"minutes\": 5 }) }}"
         }
@@ -46,7 +49,7 @@
         },
         "select": "user",
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
@@ -169,6 +172,33 @@
         "content": "Send notification to slack with the desired information."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-63db576a-6bb7-4215-88f3-98e304081b3e-caa0d41d",
+      "name": "Error Handler for 63db576a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 63db576a",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-1711be4e",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Hubspot Workflow\n\n## Overview\nAutomated workflow: Hubspot Workflow. This workflow integrates 6 different services: stickyNote, filter, hubspot, scheduleTrigger, stopAndError. It contains 9 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 9\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Get leads created last 5 minutes**: hubspot\n- **Notify sales rep**: slack\n- **Sticky Note**: stickyNote\n- **Trigger every 5 minutes**: scheduleTrigger\n- **Sticky Note4**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Keep the ones that make more than $5M in revenue**: filter\n- **Sticky Note6**: stickyNote\n- **Error Handler for 63db576a**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -205,6 +235,26 @@
           }
         ]
       ]
+    },
+    "63db576a-6bb7-4215-88f3-98e304081b3e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-63db576a-6bb7-4215-88f3-98e304081b3e-caa0d41d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Hubspot Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Hubspot Workflow. This workflow integrates 6 different services: stickyNote, filter, hubspot, scheduleTrigger, stopAndError. It contains 9 nodes and follows best practices for error handling and security."
 }

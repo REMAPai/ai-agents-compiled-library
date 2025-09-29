@@ -26,7 +26,7 @@
         370
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $now.year }}-W{{ $now.weekNumber }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -61,7 +61,7 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "script#__NEXT_DATA__"
             }
           ]
@@ -137,7 +137,7 @@
         510
       ],
       "parameters": {
-        "url": "={{ $json.recipe.websiteUrl }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -314,19 +314,19 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "[data-test-id=\"recipe-description\"]"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "[data-test-id=\"ingredients-list\"]"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "[data-test-id=\"utensils\"]"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "[data-test-id=\"instructions\"]",
               "skipSelectors": "img,a"
             }
@@ -442,7 +442,7 @@
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -459,7 +459,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -478,11 +478,11 @@
         940
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -519,7 +519,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -1178,5 +1178,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 18 different services: stickyNote, httpRequest, embeddingsMistralCloud, wait, textSplitterRecursiveCharacterTextSplitter. It contains 41 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 18 different services: stickyNote, httpRequest, embeddingsMistralCloud, wait, textSplitterRecursiveCharacterTextSplitter. It contains 41 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

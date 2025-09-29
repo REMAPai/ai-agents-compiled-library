@@ -20,7 +20,7 @@
       },
       "credentials": {
         "zendeskApi": {
-          "id": "24",
+          "id": "{{ $credentials.zendeskApi.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -71,7 +71,7 @@
       },
       "credentials": {
         "zendeskApi": {
-          "id": "24",
+          "id": "{{ $credentials.zendeskApi.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -107,11 +107,11 @@
         "channel": "={{$node[\"Configure\"].parameter[\"values\"][\"string\"][0][\"value\"]}}",
         "attachments": [],
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
-          "id": "28",
+          "id": "{{ $credentials.slackOAuth2Api.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -132,11 +132,11 @@
         "otherOptions": {
           "thread_ts": "={{$node[\"Determine\"].json[\"Slack Thread ID\"]}}"
         },
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
-          "id": "28",
+          "id": "{{ $credentials.slackOAuth2Api.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -377,5 +377,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Zendesk Workflow. This workflow integrates 8 different services: webhook, stickyNote, code, set, stopAndError. It contains 13 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Zendesk Workflow. This workflow integrates 8 different services: webhook, stickyNote, code, set, stopAndError. It contains 13 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

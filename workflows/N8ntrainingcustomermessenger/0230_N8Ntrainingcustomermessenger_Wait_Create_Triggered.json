@@ -8,7 +8,8 @@
         520
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "3df43e99-7bfa-404d-aadb-f73f21361e0b"
     },
     {
       "name": "Note1",
@@ -22,7 +23,8 @@
         "height": 360,
         "content": "## 2. Wait for an external event\nUse this operation when an external step is needed in order to continue with the rest of the workflow.\nFor example - a workflow sends a purchase approval link to the merchant (using Gmail, Slack etc..) and waits for the merchant to click on it before continuing with the rest of the steps.\n\nIn this example, the `Customer Messenger` node mimics the email or messaging node.\n"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "a0e5f7d8-b4b7-4f3f-b39d-1d2cbffae9b9"
     },
     {
       "name": "Note",
@@ -36,7 +38,8 @@
         "height": 120,
         "content": "### Click the `Execute Workflow` button and double click on the nodes to see the input and output items."
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "2e989507-f16c-43ee-a028-f36be7369ef9"
     },
     {
       "name": "Create approval URL",
@@ -57,7 +60,8 @@
         "options": {},
         "keepOnlySet": true
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "29d03913-63bc-401b-98e8-cbdd594ed7ad"
     },
     {
       "name": "Wait for external approval",
@@ -71,7 +75,8 @@
         "resume": "webhook",
         "options": {}
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "4addb2b3-9138-4da4-939c-76416783b42d"
     },
     {
       "name": "Rest of the workflow placeholder",
@@ -81,7 +86,8 @@
         520
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "968ad78f-db0c-4d1c-a51f-09b086fcd4f0"
     },
     {
       "name": "Customer Datastore",
@@ -94,7 +100,8 @@
         "operation": "getAllPeople",
         "returnAll": true
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "27c4c20a-5e54-4eb3-8440-2b36fbb44eb7"
     },
     {
       "name": "SplitInBatches",
@@ -107,7 +114,8 @@
         "options": {},
         "batchSize": 1
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "5f0724ee-89c2-4433-8995-d2b5169fb127"
     },
     {
       "name": "Note4",
@@ -121,7 +129,8 @@
         "height": 360,
         "content": "## 1. Rate Limiting \nSometimes you need to slow down how often you are contacting a service.\n\nIn this example, `Customer Datastore` node simulates the big batches of requests coming at once, the `SplitInBatches` node handles each one individually in a loop, and the `Wait` node creates a 2 second delay between each message to a customer."
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "c0b24e21-5509-4e22-a00c-8996dbf6da2a"
     },
     {
       "name": "Wait for time interval",
@@ -135,7 +144,8 @@
         "unit": "seconds",
         "amount": 2
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "2453b34f-df88-4189-806e-115896369fb6"
     },
     {
       "name": "If - Are we Finished?",
@@ -154,7 +164,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "2f87ab6d-0f00-414d-a456-99175e1c7509"
     },
     {
       "name": "Customer Messenger - Send URL to merchant",
@@ -167,7 +178,8 @@
         "message": "={{$json[\"URL\"]}}",
         "customerId": "1"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "8d38129d-efdb-49fe-ae1f-273e1dacbc2d"
     },
     {
       "name": "Customer Messenger - Send message to client",
@@ -180,7 +192,8 @@
         "message": "=\nHi {{$node[\"Customer Datastore\"].json[\"name\"]}}\nThis message was sent at {{$now.toLocaleString(DateTime.TIME_WITH_SECONDS)}}",
         "customerId": "={{$node[\"Customer Datastore\"].json[\"id\"]}}"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "161f4b6a-1f3e-4398-ac52-1e657604b114"
     },
     {
       "id": "documentation-a537c970",
@@ -318,5 +331,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

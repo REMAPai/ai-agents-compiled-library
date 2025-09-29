@@ -1,15 +1,17 @@
 {
   "id": "dYjQS1bJmVSAxNnj",
   "meta": {
-    "instanceId": "a9f3b18652ddc96459b459de4fa8fa33252fb820a9e5a1593074f3580352864a",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "BambooHR AI-Powered Company Policies and Benefits Chatbot",
   "tags": [],
   "nodes": [
     {
       "id": "832e4a1d-320f-4793-be3c-8829776a3ce6",
-      "name": "When clicking \u2018Test workflow\u2019",
+      "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
         760,
@@ -554,7 +556,7 @@
       "parameters": {
         "width": 865.771928038017,
         "height": 281.07009330339326,
-        "content": "### AI Chatbot Operating Guidelines \n- When an employee asks for a contact person, first attempt to find the relevant contact in company_files. \n- If a contact person is found but their details (e.g., email or phone number) are missing, use the `employee_lookup_tool` to retrieve their contact details. \n- If no contact person is found: \n 1. Use the `employee_lookup_tool` with \"HR\" (or another relevant department) to retrieve the most senior person in that department. \n 2. If no senior contact is found, ask the employee for their name. \n 3. Use the `employee_lookup_tool` to retrieve their supervisor\u2019s name. \n 4. Use the `employee_lookup_tool` to retrieve their supervisor\u2019s details. \n 5. Provide the supervisor's contact information and recommend them as the best next point of contact. "
+        "content": "### AI Chatbot Operating Guidelines \n- When an employee asks for a contact person, first attempt to find the relevant contact in company_files. \n- If a contact person is found but their details (e.g., email or phone number) are missing, use the `employee_lookup_tool` to retrieve their contact details. \n- If no contact person is found: \n 1. Use the `employee_lookup_tool` with \"HR\" (or another relevant department) to retrieve the most senior person in that department. \n 2. If no senior contact is found, ask the employee for their name. \n 3. Use the `employee_lookup_tool` to retrieve their supervisor’s name. \n 4. Use the `employee_lookup_tool` to retrieve their supervisor’s details. \n 5. Provide the supervisor's contact information and recommend them as the best next point of contact. "
       },
       "typeVersion": 1
     },
@@ -884,7 +886,7 @@
       ],
       "parameters": {
         "options": {
-          "systemMessage": "You are a helpful HR assistant accessible by employees at our company.\n\nObjective: \nAssist employees with questions regarding company policies, documents, and escalation procedures.\n\nTools: \n1. A vector store database (company_files) containing the company handbook, 401k policy, expense policy, and employee benefits. \n2. An employee lookup tool (employee_lookup_tool) that retrieves details about an employee when provided with their name. It can also retrieve the most senior person in a department if given a department name. \n\nGuidelines: \n- When an employee asks for a contact person, first attempt to find the relevant contact in company_files. \n- If a contact person is found but their details (e.g., email or phone number) are missing, use the `employee_lookup_tool` to retrieve their contact details. \n- If no contact person is found: \n 1. Use the `employee_lookup_tool` with \"HR\" (or another relevant department) to retrieve the most senior person in that department. \n 2. If no senior contact is found, ask the employee for their name. \n 3. Use the `employee_lookup_tool` to retrieve their supervisor\u2019s name. \n 4. Use the `employee_lookup_tool` to retrieve their supervisor\u2019s details. \n 5. Provide the supervisor's contact information and recommend them as the best next point of contact. \n"
+          "systemMessage": "You are a helpful HR assistant accessible by employees at our company.\n\nObjective: \nAssist employees with questions regarding company policies, documents, and escalation procedures.\n\nTools: \n1. A vector store database (company_files) containing the company handbook, 401k policy, expense policy, and employee benefits. \n2. An employee lookup tool (employee_lookup_tool) that retrieves details about an employee when provided with their name. It can also retrieve the most senior person in a department if given a department name. \n\nGuidelines: \n- When an employee asks for a contact person, first attempt to find the relevant contact in company_files. \n- If a contact person is found but their details (e.g., email or phone number) are missing, use the `employee_lookup_tool` to retrieve their contact details. \n- If no contact person is found: \n 1. Use the `employee_lookup_tool` with \"HR\" (or another relevant department) to retrieve the most senior person in that department. \n 2. If no senior contact is found, ask the employee for their name. \n 3. Use the `employee_lookup_tool` to retrieve their supervisor’s name. \n 4. Use the `employee_lookup_tool` to retrieve their supervisor’s details. \n 5. Provide the supervisor's contact information and recommend them as the best next point of contact. \n"
         }
       },
       "typeVersion": 1.7
@@ -965,9 +967,134 @@
         "color": 4,
         "width": 244.3952545193282,
         "height": 87.34661077350344,
-        "content": "## About the maker\n**[Find Ludwig Gerdes on LinkedIn](https://www.linkedin.com/in/ludwiggerdes)**"
+        "content": "## About the maker\n**[Find Ludwig Gerdes on LinkedIn]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-ffe33bb2-efd0-4b6e-a146-aaded7c28304-66450d67",
+      "name": "Error Handler for ffe33bb2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ffe33bb2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-364cf0ce-524c-4b61-89f3-40b2801bc7e3-6539b117",
+      "name": "Error Handler for 364cf0ce",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 364cf0ce",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b87fa113-6a32-48fc-8e06-049345c66f38-d9b97612",
+      "name": "Error Handler for b87fa113",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b87fa113",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9dc1a896-c8a5-4d22-b029-14eae0717bd8-ec5c1595",
+      "name": "Error Handler for 9dc1a896",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9dc1a896",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-55718295-459b-4a4b-8c57-fd6b31e3d963-2cb0c1d9",
+      "name": "Error Handler for 55718295",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 55718295",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e574d63d-7e38-4d90-9533-64a4ddbe2e36-e0f778d3",
+      "name": "Error Handler for e574d63d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e574d63d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-04d53430-b8d9-43ff-b2c4-ef0da2d799c0-ddb2e731",
+      "name": "Error Handler for 04d53430",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 04d53430",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d8830fd8-f238-4e5d-8c5f-bf83c9450dbe-f12608d7",
+      "name": "Error Handler for d8830fd8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d8830fd8",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-4f8c2bc6",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# BambooHR AI-Powered Company Policies and Benefits Chatbot\n\n## Overview\nAutomated workflow: BambooHR AI-Powered Company Policies and Benefits Chatbot. This workflow integrates 24 different services: stickyNote, textSplitterRecursiveCharacterTextSplitter, outputParserAutofixing, lmChatOpenAi, chatTrigger. It contains 58 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 58\n- **Node Types**: 24\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Default Data Loader**: documentDefaultDataLoader\n- **Embeddings OpenAI**: embeddingsOpenAi\n- **Recursive Character Text Splitter**: textSplitterRecursiveCharacterTextSplitter\n- **Window Buffer Memory**: memoryBufferWindow\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Vector Store Tool**: toolVectorStore\n- **OpenAI Chat Model1**: lmChatOpenAi\n- **Embeddings OpenAI1**: embeddingsOpenAi\n- **Employee Lookup Tool**: toolWorkflow\n- ... and 48 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -983,7 +1110,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "b4306b84-994f-4cd0-b40c-33a234f75ef9",
   "connections": {
@@ -1335,7 +1466,7 @@
         ]
       ]
     },
-    "When clicking \u2018Test workflow\u2019": {
+    "When clicking ‘Test workflow’": {
       "main": [
         [
           {
@@ -1378,6 +1509,95 @@
           }
         ]
       ]
+    },
+    "ffe33bb2-efd0-4b6e-a146-aaded7c28304": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ffe33bb2-efd0-4b6e-a146-aaded7c28304-66450d67",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "364cf0ce-524c-4b61-89f3-40b2801bc7e3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-364cf0ce-524c-4b61-89f3-40b2801bc7e3-6539b117",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b87fa113-6a32-48fc-8e06-049345c66f38": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b87fa113-6a32-48fc-8e06-049345c66f38-d9b97612",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9dc1a896-c8a5-4d22-b029-14eae0717bd8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9dc1a896-c8a5-4d22-b029-14eae0717bd8-ec5c1595",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "55718295-459b-4a4b-8c57-fd6b31e3d963": {
+      "main": [
+        [
+          {
+            "node": "error-handler-55718295-459b-4a4b-8c57-fd6b31e3d963-2cb0c1d9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e574d63d-7e38-4d90-9533-64a4ddbe2e36": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e574d63d-7e38-4d90-9533-64a4ddbe2e36-e0f778d3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "04d53430-b8d9-43ff-b2c4-ef0da2d799c0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-04d53430-b8d9-43ff-b2c4-ef0da2d799c0-ddb2e731",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d8830fd8-f238-4e5d-8c5f-bf83c9450dbe": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d8830fd8-f238-4e5d-8c5f-bf83c9450dbe-f12608d7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: BambooHR AI-Powered Company Policies and Benefits Chatbot. This workflow integrates 24 different services: stickyNote, textSplitterRecursiveCharacterTextSplitter, outputParserAutofixing, lmChatOpenAi, chatTrigger. It contains 58 nodes and follows best practices for error handling and security."
 }

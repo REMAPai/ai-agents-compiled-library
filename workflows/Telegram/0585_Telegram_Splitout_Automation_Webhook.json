@@ -56,14 +56,14 @@
         340
       ],
       "parameters": {
-        "url": "={{$json.repos.replace('{{ $env.WEBHOOK_URL }}','{{ $env.API_BASE_URL }}')}}/hooks",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\"name\":\"web\",\"active\":true,\"events\":[\"push\",\"pull_request\"],\"config\":{\"url\":\"{{ $env.WEBHOOK_URL }}\",\"content_type\":\"json\",\"insecure_ssl\":\"0\"}}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -109,11 +109,11 @@
         760
       ],
       "parameters": {
-        "url": "={{ $json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -373,10 +373,10 @@
         760
       ],
       "parameters": {
-        "url": "={{ $json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -781,5 +781,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: webhook, stickyNote, httpRequest, telegram, splitOut. It contains 29 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: webhook, stickyNote, httpRequest, telegram, splitOut. It contains 29 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

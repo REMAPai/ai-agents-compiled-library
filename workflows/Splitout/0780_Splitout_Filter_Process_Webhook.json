@@ -239,11 +239,11 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": ".wp-block-post-content"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": ".wp-block-post-title"
             }
           ]
@@ -279,11 +279,11 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "#content"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": ".article-title"
             }
           ]
@@ -825,7 +825,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -956,7 +956,7 @@
         "jsonBody": "={\n  \"model\": false,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $json.system_prompt.replace(/\\n/g, \" \").replace(/\\s+/g, \" \").trim() }}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $json.user_prompt.replace(/\\n/g, \" \").replace(/\\s+/g, \" \").trim() }}\"\n    }\n  ],\n  \"stream\": false,\n  \"reasoning_effort\": false\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -997,7 +997,7 @@
             "industry": "={{ Array.isArray($json.output.industry) ? $json.output.industry.join(', ') : $json.output.industry }}",
             "valuation": "={{ JSON.stringify($json.output.valuation) }}",
             "hq_location": "={{ $json.output.hq_location.city }}, {{ $json.output.hq_location.country }}",
-            "source_urls": "={{ $('Pick data (Perplexity)').item.json.links.map((item, idx) => `${idx + 1}: ${item}`).join('\\n') }}",
+            "source_urls": "{{ $env.BASE_URL }}",
             "company_name": "={{ $json.output.company_name }}",
             "founder_names": "={{ Array.isArray($json.output.founder_names) ? $json.output.founder_names.join(', ') : $json.output.founder_names }}",
             "founding_year": "={{ $json.output.founding_year }}",
@@ -1455,7 +1455,7 @@
         -220
       ],
       "parameters": {
-        "url": "={{ $json['urlset.url'].loc }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -1469,7 +1469,7 @@
         120
       ],
       "parameters": {
-        "url": "={{ $json.loc }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -2141,5 +2141,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 19 different services: stickyNote, airtable, merge, outputParserAutofixing, executeWorkflow. It contains 63 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 19 different services: stickyNote, airtable, merge, outputParserAutofixing, executeWorkflow. It contains 63 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

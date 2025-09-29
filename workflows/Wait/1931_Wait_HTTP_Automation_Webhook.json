@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Flux Dev Image Generation Fal.ai",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "00f3a7d9-9931-40a4-8eb5-5b9086d6995c",
@@ -24,7 +27,7 @@
         "jsonBody": "={\n  \"prompt\": \"{{ $json.Prompt }}\",\n  \"image_size\": {\n  \"width\": {{ $json.Width }},\n  \"height\": {{ $json.Height }}\n},\n  \"num_inference_steps\": {{ $json.Steps }},\n  \"guidance_scale\": {{ $json.Guidance }},\n  \"num_images\": 1,\n  \"enable_safety_checker\": true\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -44,9 +47,9 @@
         -20
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.request_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -66,7 +69,7 @@
         -20
       ],
       "parameters": {
-        "url": "={{ $json.images[0].url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -152,9 +155,9 @@
         0
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.request_id }}/status",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {

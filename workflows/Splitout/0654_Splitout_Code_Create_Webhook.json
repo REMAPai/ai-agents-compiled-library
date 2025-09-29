@@ -226,9 +226,9 @@
         460
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.TableId }}/",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -326,13 +326,13 @@
         460
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('On form submission1').first().json.TableId }}/?user_field_names=true",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{ $json.toJsonString() }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -404,7 +404,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -433,7 +433,7 @@
         460
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('On form submission1').first().json.TableId }}/{{ $('Baserow Create Row').first().json.id }}/?user_field_names=true",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {
           "lowercaseHeaders": false
@@ -442,7 +442,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -484,11 +484,11 @@
         160
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('On form submission').first().json.BaseId }}/{{ $('Airtable Create Record').first().json.id }}/{{ $json.fieldLabel }}/uploadAttachment",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -505,7 +505,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "airtableTokenApi": {
@@ -1426,5 +1426,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Airtable Workflow. This workflow integrates 10 different services: filter, formTrigger, httpRequest, stickyNote, airtable. It contains 44 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Airtable Workflow. This workflow integrates 10 different services: filter, formTrigger, httpRequest, stickyNote, airtable. It contains 44 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -103,7 +103,7 @@
         880
       ],
       "parameters": {
-        "url": "={{ $json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonHeaders": "{\n    \"accept\": \"application/json\",\n    \"Cache-Control\": \"no-cache\",\n    \"Content-Type\": \"application/json\",\n    \"x-api-key\": \"your-api-key\"\n}",
@@ -132,7 +132,7 @@
             "Date Added": "={{ $now.toUTC().toFormat('yyyy-MM-dd') }}\n",
             "Start Date": "={{ $('Split Out Batched Decision Maker Response').item.json.employment_history[0].start_date }}",
             "Company Domain": "={{ $('Split Out Batched Decision Maker Response').item.json.organization.primary_domain }}",
-            "LinkedIn Profile URL": "={{ $('Split Out Batched Decision Maker Response').item.json.linkedin_url }}",
+            "LinkedIn Profile URL": "{{ $env.BASE_URL }}",
             "GPT Department Classification": "={{ $json.message.content }}"
           },
           "schema": [
@@ -364,7 +364,7 @@
             "Start Date": "=",
             "Email Address": "={{ $json.email }}",
             "Email Verified": "={{ $json.email_status === 'verified' ? 'Yes' : 'No' }}\n",
-            "LinkedIn Profile URL": "={{ $json.linkedin_url }}"
+            "LinkedIn Profile URL": "{{ $env.BASE_URL }}"
           },
           "schema": [
             {
@@ -859,7 +859,7 @@
           "cachedResultName": "n8n-messages"
         },
         "operation": "sendAndWait",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "typeVersion": 2.3
     },
@@ -1368,7 +1368,7 @@
         "otherOptions": {
           "includeLinkToWorkflow": true
         },
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "typeVersion": 2.3
     },
@@ -2213,5 +2213,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Googlesheetstrigger Workflow. This workflow integrates 14 different services: filter, httpRequest, stickyNote, code, googleSheetsTrigger. It contains 53 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Googlesheetstrigger Workflow. This workflow integrates 14 different services: filter, httpRequest, stickyNote, code, googleSheetsTrigger. It contains 53 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ]
 }

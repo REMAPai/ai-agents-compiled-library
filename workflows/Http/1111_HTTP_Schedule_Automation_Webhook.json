@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Automating Betting Data Retrieval with TheOddsAPI and Airtable",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "3f7d9313-2a46-4869-a1f5-33976352961c",
@@ -103,10 +106,10 @@
         -200
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -150,7 +153,7 @@
             "id": "={{ $json.id }}",
             "away_team": "={{ $json.away_team }}",
             "home_team": "={{ $json.home_team }}",
-            "sports_key": "YOUR_API_KEY",
+            "sports_key": "YOUR_CREDENTIAL_HERE",
             "sport_title": "={{ $json.sport_title }}",
             "commence_time": "={{ $json.commence_time }}"
           },
@@ -283,7 +286,7 @@
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [

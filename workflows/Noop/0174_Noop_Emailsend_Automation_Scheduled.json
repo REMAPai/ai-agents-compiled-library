@@ -16,7 +16,8 @@
       "credentials": {
         "stravaOAuth2Api": "Strava OAuth2 Creds"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "83b7ca9a-24cb-42d2-ba1b-5a4e90c8c302"
     },
     {
       "name": "Accountability Settings",
@@ -59,7 +60,8 @@
         "options": {},
         "keepOnlySet": true
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "ee30ac7b-f7f5-497e-8286-f0cfc4d671ce"
     },
     {
       "name": "Check Activity Level",
@@ -79,7 +81,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "b01d7d05-1348-4da6-883c-d5c5e45c9785"
     },
     {
       "name": "Enough Activity",
@@ -89,7 +92,8 @@
         220
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "1bfd8628-f1b3-418e-8897-c91749d5adce"
     },
     {
       "name": "Send Email",
@@ -107,7 +111,8 @@
       "credentials": {
         "smtp": "Email Creds"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "f84739ce-a42e-4ecf-b373-6d6ce0b90d37"
     },
     {
       "name": "Check Daily at 11:AM",
@@ -125,7 +130,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "e9ca11fe-78d4-4ab4-888c-0d6cb784a41e"
     },
     {
       "id": "documentation-node",
@@ -139,6 +145,20 @@
       "parameters": {
         "content": "# Activity Encouragement\n\nAutomated workflow: Activity Encouragement. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 6 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
       }
+    },
+    {
+      "id": "error-handler-f84739ce-a42e-4ecf-b373-6d6ce0b90d37-fad3f22d",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution",
+        "options": {}
+      }
     }
   ],
   "active": false,
@@ -146,7 +166,8 @@
     "executionOrder": "v1",
     "saveManualExecutions": true,
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": null
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "connections": {
     "Strava": {
@@ -199,7 +220,30 @@
           }
         ]
       ]
+    },
+    "f84739ce-a42e-4ecf-b373-6d6ce0b90d37": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f84739ce-a42e-4ecf-b373-6d6ce0b90d37-fad3f22d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "description": "Automated workflow: Activity Encouragement. This workflow processes data and performs automated tasks."
+  "description": "Automated workflow: Activity Encouragement. This workflow processes data and performs automated tasks.",
+  "meta": {
+    "instanceId": "workflow-a080cb73",
+    "versionId": "1.0.0",
+    "createdAt": "2025-09-29T06:39:58.716746",
+    "updatedAt": "2025-09-29T06:39:58.716759",
+    "owner": "n8n-user",
+    "license": "MIT"
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

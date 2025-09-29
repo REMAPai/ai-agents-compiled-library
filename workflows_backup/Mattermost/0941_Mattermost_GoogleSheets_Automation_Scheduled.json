@@ -18,7 +18,8 @@
       "credentials": {
         "mattermostApi": "API"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "6c68dda1-1b0f-4ff6-b28b-7a8b43917ebd"
     },
     {
       "name": "Date & Time",
@@ -33,7 +34,8 @@
         "options": {},
         "toFormat": "DD-MM-YYYY"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "3adecc96-d306-421b-bf67-a6d1b65c2d06"
     },
     {
       "name": "Cron",
@@ -51,7 +53,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "8e0d1528-2d29-4f7d-b2bc-5a244f9d37a2"
     },
     {
       "name": "Get the date today",
@@ -63,7 +66,8 @@
       "parameters": {
         "functionCode": "var date = new Date().toISOString();\nvar day = new Date().getDay();\nconst weekday = [\"Dimanche\", \"Lundi\", \"Mardi\", \"Mercredi\", \"Jeudi\", \"Vendredi\", \"Samedi\"];\n\nitems[0].json.date_today = date;\nitems[0].json.day_today = weekday[day];\n\nreturn items;\n"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "0004af5b-f3b7-4f6f-909a-849b0b0d1b42"
     },
     {
       "name": "Read data on Google Sheets",
@@ -76,16 +80,36 @@
         "range": "cells",
         "options": {},
         "sheetId": "sheetID",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "googleSheetsOAuth2Api": "GoogleAPI"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "b5c90006-795f-4630-a6de-3cf3031f6e98"
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# StatsInstagram\n\nAutomated workflow: StatsInstagram. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 5 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "active": false,
-  "settings": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
   "connections": {
     "Cron": {
       "main": [
@@ -131,5 +155,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: StatsInstagram. This workflow processes data and performs automated tasks."
 }

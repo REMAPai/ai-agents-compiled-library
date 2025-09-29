@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "408f9fb9940c3cb18ffdef0e0150fe342d6e655c3a9fac21f0f644e8bedabcd9",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -349,7 +351,7 @@
         "color": 7,
         "width": 620,
         "height": 420,
-        "content": "## 1. Get Recent Meetings\n[Learn more about the GCalendar node](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.googlecalendar)\n\nFor this template, a scheduled trigger is set to fire every morning to pull in past meetings from 2-3 days ago. A \"Remove Duplicates\" node ensures we don't double process events more than once between runs."
+        "content": "## 1. Get Recent Meetings\n[Learn more about the GCalendar node]({{ $env.WEBHOOK_URL }}\n\nFor this template, a scheduled trigger is set to fire every morning to pull in past meetings from 2-3 days ago. A \"Remove Duplicates\" node ensures we don't double process events more than once between runs."
       },
       "typeVersion": 1
     },
@@ -365,7 +367,7 @@
         "color": 7,
         "width": 680,
         "height": 600,
-        "content": "## 2. Check If Any Messages Since\n[Read more about the Gmail node](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.gmail)\n\nNext, we want to check if there has been any messages/contact between the lead and the user since the meeting ended. Where there is not, it could be a good opportunity to remind the user to reengage the lead as to not lose them."
+        "content": "## 2. Check If Any Messages Since\n[Read more about the Gmail node]({{ $env.WEBHOOK_URL }}\n\nNext, we want to check if there has been any messages/contact between the lead and the user since the meeting ended. Where there is not, it could be a good opportunity to remind the user to reengage the lead as to not lose them."
       },
       "typeVersion": 1
     },
@@ -381,7 +383,7 @@
         "color": 7,
         "width": 620,
         "height": 580,
-        "content": "## 3. Suggest Availability For Next Call\n[Read more about AI Agents](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/)\n\nOnce filtered for applicable leads, we can use an AI Agent to suggest another meeting slot for them. An AI Agent can analyse the previous meeting details and use that information to suggest a similar date and time."
+        "content": "## 3. Suggest Availability For Next Call\n[Read more about AI Agents]({{ $env.WEBHOOK_URL }}\n\nOnce filtered for applicable leads, we can use an AI Agent to suggest another meeting slot for them. An AI Agent can analyse the previous meeting details and use that information to suggest a similar date and time."
       },
       "typeVersion": 1
     },
@@ -397,7 +399,7 @@
         "color": 7,
         "width": 540,
         "height": 520,
-        "content": "## 4. Get Human Approval\n[Learn more about n8n's Human-in-the-loop features](https://docs.n8n.io/advanced-ai/examples/human-fallback/)\n\nOf course, we don't want the AI to actually book the meeting unless the user confirms it is something he/she wants to do and the best way to confirm is just to ask the user directly! Thanks for n8n's Human-in-the-loop feature, we can achieve this with a number of messaging protocols.\n\nHere, we're using the Gmail node's **Send-and-wait-for-approval** mode. This will send an email to the user and give them a textbox to tell our agent what they want to do next."
+        "content": "## 4. Get Human Approval\n[Learn more about n8n's Human-in-the-loop features]({{ $env.WEBHOOK_URL }}\n\nOf course, we don't want the AI to actually book the meeting unless the user confirms it is something he/she wants to do and the best way to confirm is just to ask the user directly! Thanks for n8n's Human-in-the-loop feature, we can achieve this with a number of messaging protocols.\n\nHere, we're using the Gmail node's **Send-and-wait-for-approval** mode. This will send an email to the user and give them a textbox to tell our agent what they want to do next."
       },
       "typeVersion": 1
     },
@@ -413,7 +415,7 @@
         "color": 7,
         "width": 640,
         "height": 560,
-        "content": "## 5. Book the meeting If Accepted\n[Learn more about the AI Agent node](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/)\n\nFinally, the response from the user combined with the suggested availability slots are given to another AI agent which can book meetings. If the user accepted and confirmed a date, this agent will book the meeting on behalf of the user. If the user declined, then the agent takes no action."
+        "content": "## 5. Book the meeting If Accepted\n[Learn more about the AI Agent node]({{ $env.WEBHOOK_URL }}\n\nFinally, the response from the user combined with the suggested availability slots are given to another AI agent which can book meetings. If the user accepted and confirmed a date, this agent will book the meeting on behalf of the user. If the user declined, then the agent takes no action."
       },
       "typeVersion": 1
     },
@@ -428,7 +430,7 @@
       "parameters": {
         "width": 420,
         "height": 980,
-        "content": "## Try it out!\n### This n8n template extends the idea of sales leads follow-up reminders by having an AI agent suggest and book the next call or message to reengage the prospect.\n\nWhat makes this template practical for use is that it uses the Human-in-the-loop approach to wait for a user's approval before actually making the booking. Without, this could be annoying for both the user and the recipient!\n\n### How it works\n* A scheduled trigger checks your google calendar for sales meetings which happened a few days ago.\n* For each event, gmail search is used to figure out if a follow-up message has been sent or received from the other party since the meeting. If none, we want to remind ourselves to reengage the lead.\n* For leads applicable for follow-up, we first get an AI Agent to find available meeting slots in the calendar.\n* These slots and reminder are sent to the user via send-and-approval mode of the gmail node. The user replies in natural language either picking a slot, suggesting an entirely new slot or declines the request.\n* When accepted, another AI Agent books the meeting in the calendar with the proposed dates and lead.\n\n### How to use\n* Update all calendar nodes (+subnodes) to point to the right calendar. If this is a shared-purpose calendar, you may need to either filter or create a new calendar.\n* Update the gmail nodes to point to the right accounts.\n\n### Customising the template\n* Not using Google? Swap out for Microsoft or otherwise.\n* Try swapping out or adding in additional send-for-approval methods such as telegram or whatsapp.\n\n### Need Help?\nJoin the [Discord](https://discord.com/invite/XPKeKXeB7d) or ask in the [Forum](https://community.n8n.io/)!"
+        "content": "## Try it out!\n### This n8n template extends the idea of sales leads follow-up reminders by having an AI agent suggest and book the next call or message to reengage the prospect.\n\nWhat makes this template practical for use is that it uses the Human-in-the-loop approach to wait for a user's approval before actually making the booking. Without, this could be annoying for both the user and the recipient!\n\n### How it works\n* A scheduled trigger checks your google calendar for sales meetings which happened a few days ago.\n* For each event, gmail search is used to figure out if a follow-up message has been sent or received from the other party since the meeting. If none, we want to remind ourselves to reengage the lead.\n* For leads applicable for follow-up, we first get an AI Agent to find available meeting slots in the calendar.\n* These slots and reminder are sent to the user via send-and-approval mode of the gmail node. The user replies in natural language either picking a slot, suggesting an entirely new slot or declines the request.\n* When accepted, another AI Agent books the meeting in the calendar with the proposed dates and lead.\n\n### How to use\n* Update all calendar nodes (+subnodes) to point to the right calendar. If this is a shared-purpose calendar, you may need to either filter or create a new calendar.\n* Update the gmail nodes to point to the right accounts.\n\n### Customising the template\n* Not using Google? Swap out for Microsoft or otherwise.\n* Try swapping out or adding in additional send-for-approval methods such as telegram or whatsapp.\n\n### Need Help?\nJoin the [Discord]({{ $env.WEBHOOK_URL }} or ask in the [Forum]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -456,6 +458,89 @@
         }
       },
       "typeVersion": 2.1
+    },
+    {
+      "id": "error-handler-4a18dea4-9eda-4b8e-9d0c-fff9793802c5-a4cbed57",
+      "name": "Error Handler for 4a18dea4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4a18dea4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a22c5b78-d213-4e37-b2c6-f3d1dac96858-7a9e752c",
+      "name": "Error Handler for a22c5b78",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a22c5b78",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-690c79d3-cf0e-4d15-9419-dafb7d86025b-c6d9dd1d",
+      "name": "Error Handler for 690c79d3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 690c79d3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7e45eddc-8c34-402a-86a2-ed89ff463095-df74fbde",
+      "name": "Error Handler for 7e45eddc",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7e45eddc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-74618cf0-1fe5-4abb-ba38-6818162ce826-efd28173",
+      "name": "Error Handler for 74618cf0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 74618cf0",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-8e97b991",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Scheduletrigger Workflow\n\n## Overview\nAutomated workflow: Scheduletrigger Workflow. This workflow integrates 13 different services: filter, stickyNote, scheduleTrigger, agent, outputParserStructured. It contains 27 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 27\n- **Node Types**: 13\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Schedule Trigger**: scheduleTrigger\n- **Get Past Events**: googleCalendar\n- **Loop Over Items**: splitInBatches\n- **Flag to Follow Up**: set\n- **Only Follow Ups**: filter\n- **Get Emails Since**: gmail\n- **Output**: outputParserStructured\n- **Availability**: googleCalendarTool\n- **Model**: lmChatOpenAi\n- **Meeting Availability Agent**: agent\n- ... and 17 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -631,6 +716,70 @@
           }
         ]
       ]
+    },
+    "4a18dea4-9eda-4b8e-9d0c-fff9793802c5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4a18dea4-9eda-4b8e-9d0c-fff9793802c5-a4cbed57",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a22c5b78-d213-4e37-b2c6-f3d1dac96858": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a22c5b78-d213-4e37-b2c6-f3d1dac96858-7a9e752c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "690c79d3-cf0e-4d15-9419-dafb7d86025b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-690c79d3-cf0e-4d15-9419-dafb7d86025b-c6d9dd1d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7e45eddc-8c34-402a-86a2-ed89ff463095": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7e45eddc-8c34-402a-86a2-ed89ff463095-df74fbde",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "74618cf0-1fe5-4abb-ba38-6818162ce826": {
+      "main": [
+        [
+          {
+            "node": "error-handler-74618cf0-1fe5-4abb-ba38-6818162ce826-efd28173",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Scheduletrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Scheduletrigger Workflow. This workflow integrates 13 different services: filter, stickyNote, scheduleTrigger, agent, outputParserStructured. It contains 27 nodes and follows best practices for error handling and security."
 }

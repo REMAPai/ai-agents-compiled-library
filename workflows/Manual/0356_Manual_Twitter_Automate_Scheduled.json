@@ -11,7 +11,8 @@
         850
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "7770b446-671f-40a2-ad0e-88f9228896b1"
     },
     {
       "name": "Filter Tweet Data",
@@ -40,7 +41,8 @@
         "options": {},
         "keepOnlySet": true
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "d072d51c-5fdc-4518-ab32-bde1456d6049"
     },
     {
       "name": "Only get new tweets",
@@ -52,7 +54,8 @@
       "parameters": {
         "functionCode": "const staticData = getWorkflowStaticData('global');\nconst newTweetIds = items.map(item => item.json[\"Tweet ID\"]);\nconst oldTweetIds = staticData.oldTweetIds; \n\nif (!oldTweetIds) {\n  staticData.oldTweetIds = newTweetIds;\n  return items;\n}\n\n\nconst actualNewTweetIds = newTweetIds.filter((id) => !oldTweetIds.includes(id));\nconst actualNewTweets = items.filter((data) => actualNewTweetIds.includes(data.json['Tweet ID']));\nstaticData.oldTweetIds = [...actualNewTweetIds, ...oldTweetIds];\n\nreturn actualNewTweets;\n"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "a9ff92fc-c971-4b21-8717-3f2d07cd96a1"
     },
     {
       "name": "n8n.io mentions",
@@ -69,7 +72,8 @@
       "credentials": {
         "twitterOAuth1Api": "Twitter Credentials"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "e0773949-f15a-432a-a852-b1b7330afbfd"
     },
     {
       "name": "RocketChat",
@@ -87,7 +91,8 @@
       "credentials": {
         "rocketchatApi": "Rocket Chat API"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "42f96e43-2898-4b2c-961f-031048c32833"
     },
     {
       "name": "Cron",
@@ -107,11 +112,12 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "9325bf7d-cd71-420c-a139-850779d72660"
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -124,7 +130,7 @@
     },
     {
       "id": "documentation-00f15288",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -201,5 +207,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

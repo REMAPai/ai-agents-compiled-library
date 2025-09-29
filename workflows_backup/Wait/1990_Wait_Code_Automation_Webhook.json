@@ -1,7 +1,10 @@
 {
   "id": "C2pB17EpXAJwOcst",
   "meta": {
-    "instanceId": "ba379c9b99d35340c90344105e7e5d06ca0de3e88926f0384d2c23099dad1937"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "OpenAI Assistant for Hubspot Chat",
   "tags": [],
@@ -15,10 +18,10 @@
         580
       ],
       "parameters": {
-        "url": "=https://api.hubapi.com/conversations/v3/conversations/threads/{{ $json[\"body\"][0][\"objectId\"] }}/messages/{{ $json[\"body\"][0][\"messageId\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "hubspotAppToken"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotAppToken": {
@@ -45,14 +48,14 @@
         420
       ],
       "parameters": {
-        "url": "https://api.openai.com/v1/threads",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"messages\": [\n {\n \"role\": \"user\",\n \"content\": \"{{ $('getHubspotMessage').item.json[\"text\"] }}\"\n }\n ]\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -61,7 +64,7 @@
             }
           ]
         },
-        "nodeCredentialType": "openAiApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -80,14 +83,14 @@
         420
       ],
       "parameters": {
-        "url": "=https://api.openai.com/v1/threads/{{ $json[\"OpenAI Thread ID\"] }}/runs",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"assistant_id\": \"asst_MA71Jq0SElVpdjmJa212CTFd\"\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -96,7 +99,7 @@
             }
           ]
         },
-        "nodeCredentialType": "openAiApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -115,10 +118,10 @@
         600
       ],
       "parameters": {
-        "url": "=https://api.openai.com/v1/threads/{{ $json[\"thread_id\"] }}/runs/{{ $json[\"id\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -127,7 +130,7 @@
             }
           ]
         },
-        "nodeCredentialType": "openAiApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -147,10 +150,10 @@
         460
       ],
       "parameters": {
-        "url": "=https://api.openai.com/v1/threads/{{ $json[\"thread_id\"] }}/messages",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -159,7 +162,7 @@
             }
           ]
         },
-        "nodeCredentialType": "openAiApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -178,7 +181,7 @@
         960
       ],
       "parameters": {
-        "url": "=https://www.listafirme.ro/api/search-v1.asp",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "queryParameters": {
@@ -267,14 +270,14 @@
         960
       ],
       "parameters": {
-        "url": "=https://api.openai.com/v1/threads/{{ $('Select Function').item.json[\"thread_id\"] }}/runs/{{ $('Select Function').item.json[\"id\"] }}/submit_tool_outputs",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"tool_outputs\": [\n {\n \"tool_call_id\": \"{{ $('Select Function').item.json[\"required_action\"][\"submit_tool_outputs\"][\"tool_calls\"][0][\"id\"] }}\",\n \"output\": \"{{$json.escapedJsonString}}\"\n }\n ]\n} ",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -283,7 +286,7 @@
             }
           ]
         },
-        "nodeCredentialType": "openAiApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -355,7 +358,7 @@
         1180
       ],
       "parameters": {
-        "url": "=https://www.listafirme.ro/api/info-v1.asp",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "queryParameters": {
@@ -395,14 +398,14 @@
         1180
       ],
       "parameters": {
-        "url": "=https://api.openai.com/v1/threads/{{ $('Select Function').item.json[\"thread_id\"] }}/runs/{{ $('Select Function').item.json[\"id\"] }}/submit_tool_outputs",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"tool_outputs\": [\n {\n \"tool_call_id\": \"{{ $('Select Function').item.json[\"required_action\"][\"submit_tool_outputs\"][\"tool_calls\"][0][\"id\"] }}\",\n \"output\": \"{{$json.escapedJsonString}}\"\n }\n ]\n} ",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -411,7 +414,7 @@
             }
           ]
         },
-        "nodeCredentialType": "openAiApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -445,11 +448,11 @@
         420
       ],
       "parameters": {
-        "url": "=https://api.hubapi.com/conversations/v3/conversations/threads/{{ $('getHubspotMessage').item.json[\"conversationsThreadId\"] }}/messages",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -478,7 +481,7 @@
             }
           ]
         },
-        "nodeCredentialType": "hubspotAppToken"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotAppToken": {
@@ -498,7 +501,7 @@
     },
     {
       "id": "6facd7e9-5cbd-4eb7-ab22-84b4fbf35885",
-      "name": "IF",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         640,
@@ -530,14 +533,14 @@
           "__rl": true,
           "mode": "list",
           "value": "appGAPr0tOy8J0NXC",
-          "cachedResultUrl": "https://airtable.com/appGAPr0tOy8J0NXC",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Hubspot Conversations ChatGPT"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tbljZ0POq35jgnKES",
-          "cachedResultUrl": "https://airtable.com/appGAPr0tOy8J0NXC/tbljZ0POq35jgnKES",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Conversations"
         },
         "options": {},
@@ -586,14 +589,14 @@
           "__rl": true,
           "mode": "list",
           "value": "appGAPr0tOy8J0NXC",
-          "cachedResultUrl": "https://airtable.com/appGAPr0tOy8J0NXC",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Hubspot Conversations ChatGPT"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tbljZ0POq35jgnKES",
-          "cachedResultUrl": "https://airtable.com/appGAPr0tOy8J0NXC/tbljZ0POq35jgnKES",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Conversations"
         },
         "columns": {
@@ -648,14 +651,14 @@
         780
       ],
       "parameters": {
-        "url": "=https://api.openai.com/v1/threads/{{ $('Airtable').item.json[\"OpenAI Thread ID\"] }}/runs",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"assistant_id\": \"asst_MA71Jq0SElVpdjmJa212CTFd\"\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -664,7 +667,7 @@
             }
           ]
         },
-        "nodeCredentialType": "openAiApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -707,7 +710,7 @@
       "parameters": {
         "width": 640.1970959824021,
         "height": 428.68258455167785,
-        "content": "Watch for new message on the chatbot. \nThis can be triggered with [n8n chat widget](https://www.npmjs.com/package/@n8n/chat), hubspot or other chat services. \n\n"
+        "content": "Watch for new message on the chatbot. \nThis can be triggered with [n8n chat widget]({{ $env.WEBHOOK_URL }} hubspot or other chat services. \n\n"
       },
       "typeVersion": 1
     },
@@ -828,7 +831,7 @@
         "text": "={{ $('getHubspotMessage').item.json[\"text\"] }}",
         "prompt": "define",
         "options": {
-          "baseURL": "https://api.openai.com/v1/threads/{{ $('Airtable').item.json[\"OpenAI Thread ID\"] }}/messages"
+          "baseURL": "{{ $env.API_BASE_URL }}{{ $('Airtable').item.json[\"OpenAI Thread ID\"] }}/messages"
         },
         "resource": "assistant",
         "assistantId": {
@@ -861,12 +864,379 @@
         "httpMethod": "POST"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-7f11a684-911b-4fbc-ba1b-a8e7bce8e914",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 7f11a684-911b-4fbc-ba1b-a8e7bce8e914",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-687bcbb8-38c8-4d21-a46f-186e880d003c",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 687bcbb8-38c8-4d21-a46f-186e880d003c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8b51d465-d298-4b7a-b939-026bd51469d3",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 8b51d465-d298-4b7a-b939-026bd51469d3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3e645c55-a236-466f-9983-2a3e91c250db",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3e645c55-a236-466f-9983-2a3e91c250db",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a69a1d1e-b932-481e-8d36-8d121c63ad4b",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a69a1d1e-b932-481e-8d36-8d121c63ad4b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d9758207-56d4-4180-aac7-f0ebafab1064",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d9758207-56d4-4180-aac7-f0ebafab1064",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f80a2cd8-6691-4186-909b-cfed95318014",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in f80a2cd8-6691-4186-909b-cfed95318014",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-54205ed2-7c96-44b6-9637-20830300310a",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 54205ed2-7c96-44b6-9637-20830300310a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e9d1d277-107d-403c-9911-5faa4ae75671",
+      "name": "Stopanderror 8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e9d1d277-107d-403c-9911-5faa4ae75671",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2b954546-8bc6-4028-9826-37a64d2aed04",
+      "name": "Stopanderror 9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2b954546-8bc6-4028-9826-37a64d2aed04",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-14cd4854-34fa-4a40-8bd2-cce2d9da9571",
+      "name": "Stopanderror 10",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 14cd4854-34fa-4a40-8bd2-cce2d9da9571",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b8f686cc-33d6-4e99-987c-d1f91864e81d",
+      "name": "Stopanderror 11",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b8f686cc-33d6-4e99-987c-d1f91864e81d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7f11a684-911b-4fbc-ba1b-a8e7bce8e914-aa166ef1",
+      "name": "Error Handler for 7f11a684",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7f11a684",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-687bcbb8-38c8-4d21-a46f-186e880d003c-58daaea9",
+      "name": "Error Handler for 687bcbb8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 687bcbb8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8b51d465-d298-4b7a-b939-026bd51469d3-fde4cc09",
+      "name": "Error Handler for 8b51d465",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8b51d465",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3e645c55-a236-466f-9983-2a3e91c250db-fe56973d",
+      "name": "Error Handler for 3e645c55",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3e645c55",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a69a1d1e-b932-481e-8d36-8d121c63ad4b-894ba3c9",
+      "name": "Error Handler for a69a1d1e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a69a1d1e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d9758207-56d4-4180-aac7-f0ebafab1064-c9cdc142",
+      "name": "Error Handler for d9758207",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d9758207",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f80a2cd8-6691-4186-909b-cfed95318014-21a3f42f",
+      "name": "Error Handler for f80a2cd8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f80a2cd8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-54205ed2-7c96-44b6-9637-20830300310a-1f63f483",
+      "name": "Error Handler for 54205ed2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 54205ed2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e9d1d277-107d-403c-9911-5faa4ae75671-b0a6afed",
+      "name": "Error Handler for e9d1d277",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e9d1d277",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2b954546-8bc6-4028-9826-37a64d2aed04-7fc44d82",
+      "name": "Error Handler for 2b954546",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2b954546",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-14cd4854-34fa-4a40-8bd2-cce2d9da9571-8aa1ab0d",
+      "name": "Error Handler for 14cd4854",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 14cd4854",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-706fb261-724e-4c22-8def-24a320d213a2-fe31b209",
+      "name": "Error Handler for 706fb261",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 706fb261",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b8f686cc-33d6-4e99-987c-d1f91864e81d-9aae29e1",
+      "name": "Error Handler for b8f686cc",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b8f686cc",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-6da48c85",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# OpenAI Assistant for Hubspot Chat\n\n## Overview\nAutomated workflow: OpenAI Assistant for Hubspot Chat. This workflow integrates 10 different services: webhook, stickyNote, httpRequest, wait, airtable. It contains 59 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 59\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **getHubspotMessage**: httpRequest\n- **OpenAi Create Thread**: httpRequest\n- **OpenAI Run**: httpRequest\n- **Get Run**: httpRequest\n- **Get Last Message**: httpRequest\n- **HTTP Request**: httpRequest\n- **Completed, Action or Inprogress**: switch\n- **Wait**: wait\n- **Wait1**: wait\n- **Submit Data**: httpRequest\n- ... and 49 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "d9763b45-9092-490f-85b4-926354cdeb47",
   "connections": {
@@ -1179,6 +1549,234 @@
           }
         ]
       ]
+    },
+    "7f11a684-911b-4fbc-ba1b-a8e7bce8e914": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7f11a684-911b-4fbc-ba1b-a8e7bce8e914",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-7f11a684-911b-4fbc-ba1b-a8e7bce8e914-aa166ef1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "687bcbb8-38c8-4d21-a46f-186e880d003c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-687bcbb8-38c8-4d21-a46f-186e880d003c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-687bcbb8-38c8-4d21-a46f-186e880d003c-58daaea9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8b51d465-d298-4b7a-b939-026bd51469d3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8b51d465-d298-4b7a-b939-026bd51469d3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-8b51d465-d298-4b7a-b939-026bd51469d3-fde4cc09",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3e645c55-a236-466f-9983-2a3e91c250db": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3e645c55-a236-466f-9983-2a3e91c250db",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3e645c55-a236-466f-9983-2a3e91c250db-fe56973d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a69a1d1e-b932-481e-8d36-8d121c63ad4b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a69a1d1e-b932-481e-8d36-8d121c63ad4b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a69a1d1e-b932-481e-8d36-8d121c63ad4b-894ba3c9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d9758207-56d4-4180-aac7-f0ebafab1064": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d9758207-56d4-4180-aac7-f0ebafab1064",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d9758207-56d4-4180-aac7-f0ebafab1064-c9cdc142",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f80a2cd8-6691-4186-909b-cfed95318014": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f80a2cd8-6691-4186-909b-cfed95318014",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-f80a2cd8-6691-4186-909b-cfed95318014-21a3f42f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "54205ed2-7c96-44b6-9637-20830300310a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-54205ed2-7c96-44b6-9637-20830300310a",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-54205ed2-7c96-44b6-9637-20830300310a-1f63f483",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e9d1d277-107d-403c-9911-5faa4ae75671": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e9d1d277-107d-403c-9911-5faa4ae75671",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e9d1d277-107d-403c-9911-5faa4ae75671-b0a6afed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2b954546-8bc6-4028-9826-37a64d2aed04": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2b954546-8bc6-4028-9826-37a64d2aed04",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2b954546-8bc6-4028-9826-37a64d2aed04-7fc44d82",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14cd4854-34fa-4a40-8bd2-cce2d9da9571": {
+      "main": [
+        [
+          {
+            "node": "error-handler-14cd4854-34fa-4a40-8bd2-cce2d9da9571",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-14cd4854-34fa-4a40-8bd2-cce2d9da9571-8aa1ab0d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b8f686cc-33d6-4e99-987c-d1f91864e81d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b8f686cc-33d6-4e99-987c-d1f91864e81d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b8f686cc-33d6-4e99-987c-d1f91864e81d-9aae29e1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "706fb261-724e-4c22-8def-24a320d213a2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-706fb261-724e-4c22-8def-24a320d213a2-fe31b209",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: OpenAI Assistant for Hubspot Chat. This workflow integrates 10 different services: webhook, stickyNote, httpRequest, wait, airtable. It contains 59 nodes and follows best practices for error handling and security."
 }

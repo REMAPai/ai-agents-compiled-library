@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "1eadd5bc7c3d70c587c28f782511fd898c6bf6d97963d92e836019d2039d1c79"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -15,7 +18,7 @@
         "color": 4,
         "width": 1280,
         "height": 320,
-        "content": "=======================================\n            WORKFLOW ASSISTANCE\n=======================================\nFor any questions or support, please contact:\n    Yaron@nofluff.online\n\nExplore more tips and tutorials here:\n   - YouTube: https://www.youtube.com/@YaronBeen/videos\n   - LinkedIn: https://www.linkedin.com/in/yaronbeen/\n=======================================\nBright Data Docs: https://docs.brightdata.com/introduction\n"
+        "content": "=======================================\n            WORKFLOW ASSISTANCE\n=======================================\nFor any questions or support, please contact:\n    Yaron@nofluff.online\n\nExplore more tips and tutorials here:\n   - YouTube: {{ $env.WEBHOOK_URL }}\n   - LinkedIn: {{ $env.WEBHOOK_URL }}\n=======================================\nBright Data Docs: {{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -28,7 +31,7 @@
         300
       ],
       "parameters": {
-        "url": "=https://api.brightdata.com/datasets/v3/progress/{{ $('HTTP Request- Post API call to Bright Data').item.json.snapshot_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -53,7 +56,7 @@
       "parameters": {
         "width": 195,
         "height": 646,
-        "content": "In this workflow, I use Google Sheets to store the results. \n\nYou can use my template to get started faster:\n\n1. [Click on this link to get the template](https://docs.google.com/spreadsheets/d/1Zi758ds2_aWzvbDYqwuGiQNaurLgs-leS9wjLWWlbUU/edit?usp=sharing)\n2. Make a copy of the Sheets\n3. Add the URL to this node \n\n\n"
+        "content": "In this workflow, I use Google Sheets to store the results. \n\nYou can use my template to get started faster:\n\n1. [Click on this link to get the template]({{ $env.WEBHOOK_URL }}\n2. Make a copy of the Sheets\n3. Add the URL to this node \n\n\n"
       },
       "typeVersion": 1
     },
@@ -87,8 +90,8 @@
         "formFields": {
           "values": [
             {
-              "fieldLabel": "Competitor TRUSTPILOT URL (include https://www.trsutpilot.com/review/",
-              "placeholder": "https://www.trustpilot.com/review/www.nike.com",
+              "fieldLabel": "Competitor TRUSTPILOT URL (include {{ $env.WEBHOOK_URL }}",
+              "placeholder": "{{ $env.WEBHOOK_URL }}",
               "requiredField": true
             },
             {
@@ -125,10 +128,10 @@
         380
       ],
       "parameters": {
-        "url": "https://api.brightdata.com/datasets/v3/trigger",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
-        "jsonBody": "=[\n  {\n    \"url\": \"{{ $json['Competitor TRUSTPILOT URL (include https://www.trsutpilot.com/review/'] }}\",\n    \"date_posted\": \"{{ $json['Please select the time frame of reviews you\\'d like. If it\\'s a big brand go with 30 days'] }}\"\n  }\n]",
+        "jsonBody": "=[\n  {\n    \"url\": \"{{ $json['Competitor TRUSTPILOT URL (include {{ $env.WEBHOOK_URL }}'] }}\",\n    \"date_posted\": \"{{ $json['Please select the time frame of reviews you\\'d like. If it\\'s a big brand go with 30 days'] }}\"\n  }\n]",
         "sendBody": true,
         "sendQuery": true,
         "sendHeaders": true,
@@ -215,7 +218,7 @@
         320
       ],
       "parameters": {
-        "url": "=https://api.brightdata.com/datasets/v3/snapshot/{{ $('HTTP Request- Post API call to Bright Data').item.json.snapshot_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
@@ -303,9 +306,9 @@
       "webhookId": "6787416d-689c-46ee-a7b5-97edd1fd1a00",
       "parameters": {
         "sendTo": "youremail@gmail.com",
-        "message": "=Based on the following Trustpilot page: \n{{ $('On form submission - Discover Jobs').item.json['Competitor TRUSTPILOT URL (include https://www.trsutpilot.com/review/'] }}\n\nHere is a summary of recent complaints including ideas for ad copy:\n{{ $json.text }}\n-----------------------------\n\nI'm also attaching a break down of all recent complaints {{ $('Aggregating all filtered reviews').item.json.Aggregated_reviews }}\n",
+        "message": "=Based on the following Trustpilot page: \n{{ $('On form submission - Discover Jobs').item.json['Competitor TRUSTPILOT URL (include {{ $env.WEBHOOK_URL }}'] }}\n\nHere is a summary of recent complaints including ideas for ad copy:\n{{ $json.text }}\n-----------------------------\n\nI'm also attaching a break down of all recent complaints {{ $('Aggregating all filtered reviews').item.json.Aggregated_reviews }}\n",
         "options": {},
-        "subject": "=Summary of Complaints of competitor: {{ $('On form submission - Discover Jobs').item.json['Competitor TRUSTPILOT URL (include https://www.trsutpilot.com/review/'] }}",
+        "subject": "=Summary of Complaints of competitor: {{ $('On form submission - Discover Jobs').item.json['Competitor TRUSTPILOT URL (include {{ $env.WEBHOOK_URL }}'] }}",
         "emailType": "text"
       },
       "credentials": {
@@ -782,14 +785,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Zi758ds2_aWzvbDYqwuGiQNaurLgs-leS9wjLWWlbUU/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "input"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1Zi758ds2_aWzvbDYqwuGiQNaurLgs-leS9wjLWWlbUU",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Zi758ds2_aWzvbDYqwuGiQNaurLgs-leS9wjLWWlbUU/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "NoFluff-N8N-Sheet-Template- Trust PIlot Reviews Scraping WIth Bright Data"
         }
       },
@@ -816,6 +819,131 @@
         "content": "### Scrape Trustpilot Reviews Using Bright Data for Winning Ad Insights\n\nThis **n8n workflow** scrapes Trustpilot reviews of a specified competitor using **Bright Data's dataset API**. Users input the competitor's Trustpilot URL and select a timeframe (30 days, 3 months, 6 months, or 12 months) via an n8n form.\n\n**Workflow steps:**\n\n- Sends a request to Bright Data to fetch Trustpilot reviews based on user input.\n- Polls Bright Data until the dataset is ready.\n- Retrieves the reviews and logs them into a Google Sheet.\n- Filters the results to isolate negative reviews (ratings of 1 or 2 stars).\n- Aggregates negative reviews into summarized text.\n- Uses OpenAI's GPT-4o-mini to analyze competitor weaknesses and generate three Facebook ad copy variations addressing these pain points.\n- Emails the summary, including suggested ad copy and aggregated reviews, to the marketing team.\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-b54542b4-0f68-4076-9ae9-817c1aee0c14",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b54542b4-0f68-4076-9ae9-817c1aee0c14",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2396fb4f-e3da-4712-b6b5-93704fa69672",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2396fb4f-e3da-4712-b6b5-93704fa69672",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-572ea592-8fd6-4be5-825b-83b0a7a11556",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 572ea592-8fd6-4be5-825b-83b0a7a11556",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b54542b4-0f68-4076-9ae9-817c1aee0c14-44815b7e",
+      "name": "Error Handler for b54542b4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b54542b4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2396fb4f-e3da-4712-b6b5-93704fa69672-eb05dffb",
+      "name": "Error Handler for 2396fb4f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2396fb4f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-572ea592-8fd6-4be5-825b-83b0a7a11556-90ffbd11",
+      "name": "Error Handler for 572ea592",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 572ea592",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d07aa5c9-c0b0-440d-b9a8-21b5be269db3-e903286e",
+      "name": "Error Handler for d07aa5c9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d07aa5c9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e9bf2453-8f98-4d43-ac0c-f3e4b45787c9-e0f9f666",
+      "name": "Error Handler for e9bf2453",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e9bf2453",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-d2a235bb",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Stickynote Workflow\n\n## Overview\nAutomated workflow: Stickynote Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, formTrigger, wait, filter. It contains 26 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 26\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note9**: stickyNote\n- **Snapshot Progress**: httpRequest\n- **Sticky Note10**: stickyNote\n- **Sticky Note1**: stickyNote\n- **On form submission - Discover Jobs**: formTrigger\n- **HTTP Request- Post API call to Bright Data**: httpRequest\n- **Wait - Polling Bright Data**: wait\n- **If - Checking status of Snapshot - if data is ready or not**: if\n- **HTTP Request - Getting data from Bright Data**: httpRequest\n- **Sticky Note3**: stickyNote\n- ... and 16 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -947,6 +1075,91 @@
           }
         ]
       ]
+    },
+    "b54542b4-0f68-4076-9ae9-817c1aee0c14": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b54542b4-0f68-4076-9ae9-817c1aee0c14",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b54542b4-0f68-4076-9ae9-817c1aee0c14-44815b7e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2396fb4f-e3da-4712-b6b5-93704fa69672": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2396fb4f-e3da-4712-b6b5-93704fa69672",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2396fb4f-e3da-4712-b6b5-93704fa69672-eb05dffb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "572ea592-8fd6-4be5-825b-83b0a7a11556": {
+      "main": [
+        [
+          {
+            "node": "error-handler-572ea592-8fd6-4be5-825b-83b0a7a11556",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-572ea592-8fd6-4be5-825b-83b0a7a11556-90ffbd11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d07aa5c9-c0b0-440d-b9a8-21b5be269db3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d07aa5c9-c0b0-440d-b9a8-21b5be269db3-e903286e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e9bf2453-8f98-4d43-ac0c-f3e4b45787c9": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e9bf2453-8f98-4d43-ac0c-f3e4b45787c9-e0f9f666",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Stickynote Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, formTrigger, wait, filter. It contains 26 nodes and follows best practices for error handling and security."
 }

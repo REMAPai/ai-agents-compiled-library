@@ -209,14 +209,14 @@
         1120
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Set Variables').item.json.collectionName }}/points/scroll",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"limit\": 500,\n  \"filter\":{\n    \"must\": [\n      {\n        \"key\": \"metadata.question\",\n        \"match\": { \"value\": \"{{ $('For Each Question...').item.json.question }}\" }\n      },\n      {\n        \"key\": \"metadata.survey\",\n        \"match\": { \"value\": \"{{ $('Set Variables').item.json.surveyName }}\" }\n      }\n    ]\n  },\n  \"with_vector\":true\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -235,14 +235,14 @@
         800
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Set Variables').first().json.collectionName }}/points",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{\n  {\n    \"ids\": $json.points,\n    \"with_payload\": true\n  }\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -837,10 +837,10 @@
         900
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.sheetID }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1606,5 +1606,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Embeddingsopenai Workflow. This workflow integrates 19 different services: stickyNote, textSplitterRecursiveCharacterTextSplitter, vectorStoreQdrant, lmChatOpenAi, executeWorkflow. It contains 55 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Embeddingsopenai Workflow. This workflow integrates 19 different services: stickyNote, textSplitterRecursiveCharacterTextSplitter, vectorStoreQdrant, lmChatOpenAi, executeWorkflow. It contains 55 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

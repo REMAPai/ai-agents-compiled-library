@@ -43,7 +43,7 @@
         160
       ],
       "parameters": {
-        "url": "={{ $json.video_url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -57,7 +57,7 @@
         160
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $vars.GeminiKey }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -96,7 +96,7 @@
         160
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $vars.GeminiKey }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n    \"contents\": [\n        {\n            \"role\": \"user\",\n            \"parts\": [\n                {\n                    \"fileData\": {\n                        \"fileUri\": \"{{ $json.file.uri }}\",\n                        \"mimeType\": \"{{ $json.file.mimeType }}\"\n                    }\n                },\n                {\n                    \"text\": \"Describe in detail what is visually happening in the video, including key elements, actions, colors, and branding. Note the style, tone, and any notable creative techniques being used.\"\n                }\n            ]\n        }\n    ],\n    \"generationConfig\": {\n        \"temperature\": 1.4,\n        \"topK\": 40,\n        \"topP\": 0.95,\n        \"maxOutputTokens\": 8192,\n        \"responseModalities\": [\"Text\"]\n    }\n}\n",

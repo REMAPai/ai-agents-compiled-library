@@ -50,7 +50,7 @@
         300
       ],
       "parameters": {
-        "url": "={{ $json.n8n }}/rest/login",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -101,7 +101,7 @@
         300
       ],
       "parameters": {
-        "url": "={{ $('set credentials').first().json.n8n }}/rest/tags",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "redirect": {
             "redirect": {}
@@ -157,7 +157,7 @@
         300
       ],
       "parameters": {
-        "url": "={{ $('set credentials').item.json.n8n }}/rest/projects/my-projects",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -256,7 +256,7 @@
         480
       ],
       "parameters": {
-        "url": "={{ $('set credentials').item.json.n8n }}/rest/projects/{{ $('filter owned projects').item.json.id }}/folders?filter={\"excludeFolderIdAndDescendants\":\"\",\"name\":\"{{ $json.name }}\"}&sortBy=updatedAt:desc",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
@@ -361,7 +361,7 @@
         720
       ],
       "parameters": {
-        "url": "={{ $('set credentials').item.json.n8n }}/rest/workflows/{{ $json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "sendBody": true,
@@ -451,7 +451,7 @@
         640
       ],
       "parameters": {
-        "url": "={{ $('set credentials').item.json.n8n }}/rest/projects/{{ $('filter owned projects').item.json.id }}/folders",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -1672,5 +1672,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Set Workflow. This workflow integrates 14 different services: filter, httpRequest, formTrigger, stickyNote, code. It contains 52 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Set Workflow. This workflow integrates 14 different services: filter, httpRequest, formTrigger, stickyNote, code. It contains 52 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

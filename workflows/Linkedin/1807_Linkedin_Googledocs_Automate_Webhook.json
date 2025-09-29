@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "✨🩷Automated Social Media Content Publishing Factory + System Prompt Composition",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "74fb48a6-1acd-4693-9b8e-39b36c5649a9",
@@ -447,7 +450,7 @@
         -560
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.output.common_schema.image_suggestion.replaceAll(' ','-').replaceAll(',','').replaceAll('.','').slice(0,100) }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "retryOnFail": true,
@@ -578,7 +581,7 @@
       ],
       "parameters": {
         "operation": "get",
-        "documentURL": "=12345"
+        "documentURL": "{{ $env.BASE_URL }}"
       },
       "credentials": {
         "googleDocsOAuth2Api": {
@@ -598,7 +601,7 @@
       ],
       "parameters": {
         "operation": "get",
-        "documentURL": "=12345"
+        "documentURL": "{{ $env.BASE_URL }}"
       },
       "credentials": {
         "googleDocsOAuth2Api": {
@@ -665,7 +668,7 @@
         "method": "POST",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -678,7 +681,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "facebookGraphApi": {
@@ -855,7 +858,7 @@
         -1340
       ],
       "parameters": {
-        "url": "={{ $('Extract as JSON').item.json.data.social_image.medium.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "retryOnFail": true,

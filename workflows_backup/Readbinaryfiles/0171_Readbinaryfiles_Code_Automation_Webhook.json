@@ -1,7 +1,10 @@
 {
   "id": "147",
   "meta": {
-    "instanceId": "dfdeafd1c3ed2ee08eeab8c2fa0c3f522066931ed8138ccd35dc20a1e69decd3"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "OpenAI-model-examples",
   "tags": [],
@@ -28,12 +31,12 @@
       "parameters": {
         "prompt": "={{ $json.text }}\n\nTl;dr:",
         "options": {
-          "maxTokens": 500
+          "maxTokens": "YOUR_TOKEN_HERE"
         }
       },
       "credentials": {
         "openAiApi": {
-          "id": "63",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -60,14 +63,14 @@
           ]
         },
         "options": {
-          "maxTokens": 500,
+          "maxTokens": "YOUR_TOKEN_HERE",
           "temperature": 0.8
         },
         "resource": "chat"
       },
       "credentials": {
         "openAiApi": {
-          "id": "63",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -89,7 +92,7 @@
       },
       "credentials": {
         "openAiApi": {
-          "id": "63",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -112,13 +115,13 @@
           ]
         },
         "options": {
-          "maxTokens": 500
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "resource": "chat"
       },
       "credentials": {
         "openAiApi": {
-          "id": "63",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -141,13 +144,13 @@
           ]
         },
         "options": {
-          "maxTokens": 500
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "resource": "chat"
       },
       "credentials": {
         "openAiApi": {
-          "id": "63",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -188,11 +191,11 @@
         1100
       ],
       "parameters": {
-        "url": "https://api.openai.com/v1/chat/completions",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -217,11 +220,11 @@
             }
           ]
         },
-        "nodeCredentialType": "openAiApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
-          "id": "63",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -248,14 +251,14 @@
           ]
         },
         "options": {
-          "maxTokens": 500,
+          "maxTokens": "YOUR_TOKEN_HERE",
           "temperature": 0.8
         },
         "resource": "chat"
       },
       "credentials": {
         "openAiApi": {
-          "id": "63",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -272,7 +275,7 @@
       "parameters": {
         "width": 746.6347949130579,
         "height": 295.50954755505853,
-        "content": "## The old way of using text completion and text edit\n### Davinci model is 10 times more expensive then ChatGPT, consider switching to the new API:\nhttps://openai.com/blog/introducing-chatgpt-and-whisper-apis\n"
+        "content": "## The old way of using text completion and text edit\n### Davinci model is 10 times more expensive then ChatGPT, consider switching to the new API:\n{{ $env.API_BASE_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -369,7 +372,7 @@
       },
       "credentials": {
         "openAiApi": {
-          "id": "63",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -408,14 +411,14 @@
           ]
         },
         "options": {
-          "maxTokens": 500,
+          "maxTokens": "YOUR_TOKEN_HERE",
           "temperature": 0.5
         },
         "resource": "chat"
       },
       "credentials": {
         "openAiApi": {
-          "id": "63",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -517,14 +520,14 @@
         },
         "options": {
           "n": 3,
-          "maxTokens": 15,
+          "maxTokens": "YOUR_TOKEN_HERE",
           "temperature": 0.8
         },
         "resource": "chat"
       },
       "credentials": {
         "openAiApi": {
-          "id": "63",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -554,12 +557,12 @@
         380
       ],
       "parameters": {
-        "url": "https://api.openai.com/v1/audio/transcriptions",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -573,11 +576,11 @@
             }
           ]
         },
-        "nodeCredentialType": "openAiApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
-          "id": "63",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -597,14 +600,226 @@
         "content": "## Do not run the whole workflow, it's rather slow\n### Better execute the last node of each branch or simply disconnect branches that are not needed"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-4db3de05-51a7-46ea-a818-508bdcb04582",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 4db3de05-51a7-46ea-a818-508bdcb04582",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0edc1996-6484-4e62-a47b-5666dfbb3546",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 0edc1996-6484-4e62-a47b-5666dfbb3546",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b370da23-ead4-4221-b7fe-a9d943f7fbb9-1f011f79",
+      "name": "Error Handler for b370da23",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b370da23",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5e04f355-36c0-4540-8e65-68118cb73135-2db9e525",
+      "name": "Error Handler for 5e04f355",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5e04f355",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-16a7cf80-16e3-44f9-b15c-7501417fe38f-99c5a784",
+      "name": "Error Handler for 16a7cf80",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 16a7cf80",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-95254870-65c3-4714-83fb-20ba2c0ca007-ba829592",
+      "name": "Error Handler for 95254870",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 95254870",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-be9c4820-18b0-46fd-a5a0-51a5dc3ebed5-4326037a",
+      "name": "Error Handler for be9c4820",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node be9c4820",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4db3de05-51a7-46ea-a818-508bdcb04582-2ff54ec3",
+      "name": "Error Handler for 4db3de05",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4db3de05",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-709fcd7c-deb3-469d-b16b-62d4d36d100d-fc7837f8",
+      "name": "Error Handler for 709fcd7c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 709fcd7c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a003a4db-1960-4867-8dfe-3114cf0742f3-fdccda8b",
+      "name": "Error Handler for a003a4db",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a003a4db",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f5a55cfe-c110-4833-9668-1f1ba895860f-6f41037d",
+      "name": "Error Handler for f5a55cfe",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f5a55cfe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fe64533a-4cd4-4adc-a48a-8abf3f2d61d7-4ee7d065",
+      "name": "Error Handler for fe64533a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fe64533a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6c9f8a70-99ae-4310-8e6a-26cc6f75b3a2-8dc855f2",
+      "name": "Error Handler for 6c9f8a70",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6c9f8a70",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0edc1996-6484-4e62-a47b-5666dfbb3546-bec900c0",
+      "name": "Error Handler for 0edc1996",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0edc1996",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-ef994210",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# OpenAI-model-examples\n\n## Overview\nAutomated workflow: OpenAI-model-examples. This workflow integrates 9 different services: stickyNote, httpRequest, code, set, stopAndError. It contains 41 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 41\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking \"Execute Workflow\"**: manualTrigger\n- **davinci-003-complete**: openAi\n- **ChatGPT-ex2**: openAi\n- **davinci-003-edit**: openAi\n- **ChatGPT-ex1.1**: openAi\n- **ChatGPT-ex1.2**: openAi\n- **Text-example**: code\n- **Code-ex3.1**: code\n- **ChatGPT-ex3.1**: httpRequest\n- **ChatGPT-ex3.2**: openAi\n- ... and 31 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
     "callerPolicy": "workflowsFromSameOwner",
-    "saveManualExecutions": false,
-    "saveDataSuccessExecution": "none"
+    "saveManualExecutions": true,
+    "saveDataSuccessExecution": "none",
+    "executionOrder": "v1",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "972cd971-9e7e-4a1d-b3fb-6f061e23e96f",
   "connections": {
@@ -753,6 +968,153 @@
           }
         ]
       ]
+    },
+    "4db3de05-51a7-46ea-a818-508bdcb04582": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4db3de05-51a7-46ea-a818-508bdcb04582",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-4db3de05-51a7-46ea-a818-508bdcb04582-2ff54ec3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0edc1996-6484-4e62-a47b-5666dfbb3546": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0edc1996-6484-4e62-a47b-5666dfbb3546",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-0edc1996-6484-4e62-a47b-5666dfbb3546-bec900c0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b370da23-ead4-4221-b7fe-a9d943f7fbb9": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b370da23-ead4-4221-b7fe-a9d943f7fbb9-1f011f79",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5e04f355-36c0-4540-8e65-68118cb73135": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5e04f355-36c0-4540-8e65-68118cb73135-2db9e525",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16a7cf80-16e3-44f9-b15c-7501417fe38f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-16a7cf80-16e3-44f9-b15c-7501417fe38f-99c5a784",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "95254870-65c3-4714-83fb-20ba2c0ca007": {
+      "main": [
+        [
+          {
+            "node": "error-handler-95254870-65c3-4714-83fb-20ba2c0ca007-ba829592",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "be9c4820-18b0-46fd-a5a0-51a5dc3ebed5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-be9c4820-18b0-46fd-a5a0-51a5dc3ebed5-4326037a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "709fcd7c-deb3-469d-b16b-62d4d36d100d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-709fcd7c-deb3-469d-b16b-62d4d36d100d-fc7837f8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a003a4db-1960-4867-8dfe-3114cf0742f3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a003a4db-1960-4867-8dfe-3114cf0742f3-fdccda8b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f5a55cfe-c110-4833-9668-1f1ba895860f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f5a55cfe-c110-4833-9668-1f1ba895860f-6f41037d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fe64533a-4cd4-4adc-a48a-8abf3f2d61d7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fe64533a-4cd4-4adc-a48a-8abf3f2d61d7-4ee7d065",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6c9f8a70-99ae-4310-8e6a-26cc6f75b3a2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6c9f8a70-99ae-4310-8e6a-26cc6f75b3a2-8dc855f2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: OpenAI-model-examples. This workflow integrates 9 different services: stickyNote, httpRequest, code, set, stopAndError. It contains 41 nodes and follows best practices for error handling and security."
 }

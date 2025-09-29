@@ -234,14 +234,14 @@
         480
       ],
       "parameters": {
-        "url": "=https://reports.api.clockify.me/v1/workspaces/{{ $('Globals').item.json.workspace_id }}/reports/detailed",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"dateRangeStart\": \"{{ $json.startDate }}T00:00:00Z\",\n  \"dateRangeEnd\": \"{{ $json.endDate }}T23:59:59.999Z\",\n  \"detailedFilter\": {\n    \"page\": 1,\n    \"pageSize\": 50\n  },\n  \"exportType\": \"json\"\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "clockifyApi": {

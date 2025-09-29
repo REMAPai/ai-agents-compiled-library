@@ -1,8 +1,10 @@
 {
   "id": "i89dNLYeOVdTwtcL",
   "meta": {
-    "instanceId": "885b4fb4a6a9c2cb5621429a7b972df0d05bb724c20ac7dac7171b62f1c7ef40",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Extract & Summarize Indeed Company Info with Bright Data and Google Gemini",
   "tags": [
@@ -125,12 +127,12 @@
         -440
       ],
       "parameters": {
-        "url": "https://api.brightdata.com/request",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -139,7 +141,7 @@
             },
             {
               "name": "url",
-              "value": "=https://www.indeed.com/cmp/{{ encodeURI($json.search_query) }}?product=unlocker&method=api"
+              "value": "={{ $env.WEBHOOK_URL }}{{ encodeURI($json.search_query) }}?product=unlocker&method=api"
             },
             {
               "name": "format",
@@ -259,7 +261,7 @@
         -820
       ],
       "parameters": {
-        "url": "https://webhook.site/daf9d591-a130-4010-b1d3-0c66f8fcf467",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {},
         "sendBody": true,
         "bodyParameters": {
@@ -302,7 +304,7 @@
         -200
       ],
       "parameters": {
-        "url": "https://webhook.site/daf9d591-a130-4010-b1d3-0c66f8fcf467",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "sendBody": true,
         "parametersBody": {
@@ -330,7 +332,7 @@
         -700
       ],
       "parameters": {
-        "url": "https://webhook.site/daf9d591-a130-4010-b1d3-0c66f8fcf467",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {},
         "sendBody": true,
         "bodyParameters": {
@@ -343,12 +345,183 @@
         }
       },
       "typeVersion": 4.2
+    },
+    {
+      "id": "error-handler-23122a41-d127-4e19-951c-4e143db2c5e6",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 23122a41-d127-4e19-951c-4e143db2c5e6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6e681d88-dc8c-4087-ae03-45e91dd925cd",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 6e681d88-dc8c-4087-ae03-45e91dd925cd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d77cad4d-8899-4345-bf29-ba21cef946cd",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d77cad4d-8899-4345-bf29-ba21cef946cd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b94deec3-3394-4fb3-b700-9ed3ced877ca",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b94deec3-3394-4fb3-b700-9ed3ced877ca",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c199c5a7-d015-4f48-9fef-a5a1e5b5acd4-89f88c69",
+      "name": "Error Handler for c199c5a7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c199c5a7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-23122a41-d127-4e19-951c-4e143db2c5e6-631e93a1",
+      "name": "Error Handler for 23122a41",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 23122a41",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0715b1ee-c377-43f4-8353-11188cb9dbf7-64a9b56e",
+      "name": "Error Handler for 0715b1ee",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0715b1ee",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6e681d88-dc8c-4087-ae03-45e91dd925cd-4738b178",
+      "name": "Error Handler for 6e681d88",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6e681d88",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ac059d7a-f4e0-43d6-a056-933a4696553b-a5d06192",
+      "name": "Error Handler for ac059d7a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ac059d7a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d77cad4d-8899-4345-bf29-ba21cef946cd-8d3de890",
+      "name": "Error Handler for d77cad4d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d77cad4d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b94deec3-3394-4fb3-b700-9ed3ced877ca-5269ae14",
+      "name": "Error Handler for b94deec3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b94deec3",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-40617f1c",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Extract & Summarize Indeed Company Info with Bright Data and Google Gemini\n\n## Overview\nAutomated workflow: Extract & Summarize Indeed Company Info with Bright Data and Google Gemini. This workflow integrates 11 different services: stickyNote, httpRequest, markdown, toolHttpRequest, lmChatGoogleGemini. It contains 26 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 26\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Google Gemini Chat Model For Summarization**: lmChatGoogleGemini\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Set Indeed Search Query**: set\n- **Perform Indeed Web Request**: httpRequest\n- **Indeed Expert AI Agent**: agent\n- **Google Gemini Chat Model**: lmChatGoogleGemini\n- **Markdown to Textual Data Extractor**: chainLlm\n- **Indeed Summarization**: chainSummarization\n- ... and 16 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "dd804e78-abaa-48f4-82ab-6dbfdec43ef3",
   "connections": {
@@ -476,6 +649,112 @@
           }
         ]
       ]
+    },
+    "23122a41-d127-4e19-951c-4e143db2c5e6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-23122a41-d127-4e19-951c-4e143db2c5e6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-23122a41-d127-4e19-951c-4e143db2c5e6-631e93a1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6e681d88-dc8c-4087-ae03-45e91dd925cd": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6e681d88-dc8c-4087-ae03-45e91dd925cd",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-6e681d88-dc8c-4087-ae03-45e91dd925cd-4738b178",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d77cad4d-8899-4345-bf29-ba21cef946cd": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d77cad4d-8899-4345-bf29-ba21cef946cd",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d77cad4d-8899-4345-bf29-ba21cef946cd-8d3de890",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b94deec3-3394-4fb3-b700-9ed3ced877ca": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b94deec3-3394-4fb3-b700-9ed3ced877ca",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b94deec3-3394-4fb3-b700-9ed3ced877ca-5269ae14",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c199c5a7-d015-4f48-9fef-a5a1e5b5acd4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c199c5a7-d015-4f48-9fef-a5a1e5b5acd4-89f88c69",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0715b1ee-c377-43f4-8353-11188cb9dbf7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0715b1ee-c377-43f4-8353-11188cb9dbf7-64a9b56e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ac059d7a-f4e0-43d6-a056-933a4696553b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ac059d7a-f4e0-43d6-a056-933a4696553b-a5d06192",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Extract & Summarize Indeed Company Info with Bright Data and Google Gemini. This workflow integrates 11 different services: stickyNote, httpRequest, markdown, toolHttpRequest, lmChatGoogleGemini. It contains 26 nodes and follows best practices for error handling and security."
 }

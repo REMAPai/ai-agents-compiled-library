@@ -314,8 +314,8 @@
         "jsonBody": "={{\n{\n  \"filter\": {\n    \"must\": {\n      \"key\": \"metadata.name\",\n      \"match\": {\n        \"value\": $('Execute Workflow Trigger').first().json.Name\n      }\n    }\n  }\n}\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -1080,7 +1080,7 @@
         780
       ],
       "parameters": {
-        "url": "={{ $json.File[0].url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -1134,7 +1134,7 @@
           ]
         },
         "triggerField": "File",
-        "authentication": "airtableTokenApi",
+        "authentication": "{{ $credentials.airtableTokenApi }}",
         "additionalFields": {
           "fields": "Name,File,Executive Summary",
           "formula": "=AND(\n  Name != \"\",\n  File,\n  OR(\n    {Executive Summary} = \"\",\n    {Executive Summary} = BLANK()\n  )\n)"
@@ -1245,7 +1245,7 @@
         1457
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey"
       },
       "typeVersion": 1.2
@@ -2158,5 +2158,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 31 different services: convertToFile, stickyNote, textSplitterRecursiveCharacterTextSplitter, airtable, vectorStoreQdrant. It contains 65 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 31 different services: convertToFile, stickyNote, textSplitterRecursiveCharacterTextSplitter, airtable, vectorStoreQdrant. It contains 65 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

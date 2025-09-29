@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Query List of Sign-in IPs",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "9d54681d-7f8b-4996-b734-96626c9134dc",
@@ -19,7 +22,7 @@
         180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json['Last 24 Hours'] }}&timeSort=asc&size=10000&scroll=5s",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -96,7 +99,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -210,7 +213,7 @@
         20
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json['Last 24 Hours'] }}&timeSort=asc&size=10000&scroll=5s",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -234,7 +237,7 @@
         -140
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}\n&start={{ $json['Last 24 Hours'] }}&timeSort=asc&size=10000&scroll=5s",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {

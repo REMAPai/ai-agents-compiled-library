@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Real Estate Market Scanning",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "db8f34be-8475-4be6-b070-79a8185fad69",
@@ -70,7 +73,7 @@
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -197,9 +200,9 @@
         260
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "typeVersion": 4.1

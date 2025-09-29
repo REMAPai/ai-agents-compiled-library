@@ -8,7 +8,7 @@
   "\"position\"": "[",
   "\"parameters\"": "{",
   "\"typeVersion\"": "1",
-  "\"url\"": "\"={{ $env.WEBHOOK_URL }}\",",
+  "\"url\"": "{{ $env.BASE_URL }}",
   "\"options\"": "{},",
   "\"jsCode\"": "\"const pageData = JSON.parse($input.first().json.data)\\nreturn pageData.props.pageProps.ssrPayload.courses.slice(0, 10);\"",
   "\"trimValues\"": "false,",
@@ -16,11 +16,11 @@
   "\"operation\"": "\"extractHtmlContent\",",
   "\"extractionValues\"": "{",
   "\"values\"": "[",
-  "\"key\"": "YOUR_API_KEY",
+  "\"key\"": "YOUR_CREDENTIAL_HERE",
   "\"cssSelector\"": "\"[data-test-id=\\\"instructions\\\"]\",",
   "\"assignments\"": "[",
   "\"value\"": "\"hello_fresh\",",
-  "\"credentials\"": "YOUR_CREDENTIAL_ID",
+  "\"credentials\"": "YOUR_CREDENTIAL_HERE",
   "\"mistralCloudApi\"": "{",
   "\"metadata\"": "{",
   "\"metadataValues\"": "[",
@@ -43,7 +43,7 @@
   "\"sendBody\"": "true,",
   "\"authentication\"": "\"predefinedCredentialType\",",
   "\"bodyParameters\"": "{",
-  "\"nodeCredentialType\"": "YOUR_CREDENTIAL_ID",
+  "\"nodeCredentialType\"": "YOUR_CREDENTIAL_HERE",
   "\"qdrantApi\"": "{",
   "\"language\"": "\"python\",",
   "\"pythonCode\"": "\"import sqlite3\\ncon = sqlite3.connect(\\\"hello_fresh_1.db\\\")\\n\\ncur = con.cursor()\\ncur.execute(\\\"CREATE TABLE IF NOT EXISTS recipes (id TEXT PRIMARY KEY, name TEXT, data TEXT, cuisine TEXT, category TEXT, tag TEXT, week TEXT);\\\")\\n\\nfor item in _input.all():\\n cur.execute('INSERT OR REPLACE INTO recipes VALUES(?,?,?,?,?,?,?)', (\\n item.json.id,\\n item.json.name,\\n item.json.data,\\n ','.join(item.json.cuisine),\\n item.json.category,\\n ','.join(item.json.tag),\\n item.json.week\\n ))\\n\\ncon.commit()\\ncon.close()\\n\\nreturn [{ \\\"affected_rows\\\": len(_input.all()) }]\"",
@@ -88,7 +88,7 @@
   "nodes": [
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -101,7 +101,7 @@
     },
     {
       "id": "documentation-dddfcefe",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -127,5 +127,10 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "name": "Unnamed Workflow",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "YouTube Videos with AI Summaries on Discord",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "48c87027-7eea-40b9-a73c-4e002b748783",
@@ -41,7 +44,7 @@
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -54,7 +57,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "youTubeOAuth2Api": {
@@ -73,10 +76,10 @@
         220
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.caption.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "youTubeOAuth2Api": {
@@ -97,7 +100,7 @@
       "parameters": {
         "options": {},
         "operation": "text",
-        "destinationKey": "YOUR_API_KEY"
+        "destinationKey": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 1
     },
@@ -144,7 +147,7 @@
       "parameters": {
         "content": "=🌟 New Video Alert! 🌟\n\n**{{ $('YouTube Video Trigger').item.json[\"title\"] }}**\n\n*What’s it about?*\n\n{{ $json[\"message\"][\"content\"] }}\n\n[Watch NOW]({{ $('YouTube Video Trigger').item.json[\"link\"] }}) and remember to share your thoughts!",
         "options": {},
-        "authentication": "webhook"
+        "authentication": "{{ $credentials.webhook }}"
       },
       "credentials": {
         "discordWebhookApi": {

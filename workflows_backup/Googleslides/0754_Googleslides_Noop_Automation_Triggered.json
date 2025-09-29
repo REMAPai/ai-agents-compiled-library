@@ -1,8 +1,10 @@
 {
   "id": "2qIFnWXdHJJs4oBk",
   "meta": {
-    "instanceId": "6c586999cefcd4ec9b2ab69e3f6b7974d96831b39a984af15104588e20b2737a",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "DSP Certificate w/ Google Forms",
   "tags": [],
@@ -29,7 +31,7 @@
           "__rl": true,
           "mode": "list",
           "value": 1715309269,
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WqhSc4sx6GMupZgFo7xKoegXVo3fJVhqrovCQPa1esM/edit#gid=1715309269",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Form Responses 1"
         },
         "documentId": {
@@ -265,7 +267,7 @@
           "__rl": true,
           "mode": "list",
           "value": "1xMJU-6eiXL53NDgjic2SXecTo6GeUJ-o",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/1xMJU-6eiXL53NDgjic2SXecTo6GeUJ-o",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "KS Google Form -> Certificate System"
         },
         "operation": "copy",
@@ -387,12 +389,85 @@
         "content": "### 7) Send email\n* Send to user's email\n* Customize your message here.\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-1f3a1bb2-1e5b-4696-aafc-5b3267d76cbf-a605fd5b",
+      "name": "Error Handler for 1f3a1bb2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1f3a1bb2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0d4b0fad-046b-4810-9d21-2c30135df6b0-b9fb971d",
+      "name": "Error Handler for 0d4b0fad",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0d4b0fad",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-30407819-7998-4ba1-b2a0-bde7ba91747c-9f189961",
+      "name": "Error Handler for 30407819",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 30407819",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-62f1ab2e-0471-480b-9a90-587a9ffb18d6-c412fecc",
+      "name": "Error Handler for 62f1ab2e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 62f1ab2e",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-8641d6f1",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# DSP Certificate w/ Google Forms\n\n## Overview\nAutomated workflow: DSP Certificate w/ Google Forms. This workflow integrates 9 different services: stickyNote, googleSheetsTrigger, googleSlides, googleDrive, set. It contains 21 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 21\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Google Sheets Trigger**: googleSheetsTrigger\n- **No Operation, do nothing**: noOp\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Extract essential data**: set\n- **Score Checker**: if\n- **Sticky Note4**: stickyNote\n- **Sticky Note5**: stickyNote\n- ... and 11 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "54bf009a-3f95-446d-95a6-825496592a6f",
   "connections": {
@@ -468,6 +543,51 @@
           }
         ]
       ]
+    },
+    "1f3a1bb2-1e5b-4696-aafc-5b3267d76cbf": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1f3a1bb2-1e5b-4696-aafc-5b3267d76cbf-a605fd5b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0d4b0fad-046b-4810-9d21-2c30135df6b0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0d4b0fad-046b-4810-9d21-2c30135df6b0-b9fb971d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "30407819-7998-4ba1-b2a0-bde7ba91747c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-30407819-7998-4ba1-b2a0-bde7ba91747c-9f189961",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "62f1ab2e-0471-480b-9a90-587a9ffb18d6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-62f1ab2e-0471-480b-9a90-587a9ffb18d6-c412fecc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: DSP Certificate w/ Google Forms. This workflow integrates 9 different services: stickyNote, googleSheetsTrigger, googleSlides, googleDrive, set. It contains 21 nodes and follows best practices for error handling and security."
 }

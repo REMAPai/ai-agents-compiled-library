@@ -83,7 +83,7 @@
         "options": {},
         "sendBody": true,
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -116,9 +116,9 @@
         480
       ],
       "parameters": {
-        "url": "={{ $json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -232,10 +232,10 @@
         720
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.id }}?$select=internetMessageHeaders,body",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -248,7 +248,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "microsoftOutlookOAuth2Api": {
@@ -302,7 +302,7 @@
           "cachedResultName": "CHATGPT-4O-LATEST"
         },
         "options": {
-          "maxTokens": 1500
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "resource": "image",
         "inputType": "base64",
@@ -310,7 +310,7 @@
       },
       "credentials": {
         "openAiApi": {
-          "id": "76",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -373,7 +373,7 @@
         480
       ],
       "parameters": {
-        "issueKey": "YOUR_API_KEY",
+        "issueKey": "YOUR_CREDENTIAL_HERE",
         "resource": "issueAttachment"
       },
       "credentials": {
@@ -784,5 +784,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Gmailtrigger Workflow. This workflow integrates 9 different services: stickyNote, httpRequest, code, gmailTrigger, microsoftOutlookTrigger. It contains 25 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Gmailtrigger Workflow. This workflow integrates 9 different services: stickyNote, httpRequest, code, gmailTrigger, microsoftOutlookTrigger. It contains 25 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

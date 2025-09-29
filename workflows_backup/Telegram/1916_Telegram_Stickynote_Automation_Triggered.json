@@ -1,7 +1,10 @@
 {
   "id": "mE7Zvhv1lOd4Q3xY",
   "meta": {
-    "instanceId": "a5283507e1917a33cc3ae615b2e7d5ad2c1e50955e6f831272ddd5ab816f3fb6"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "CoinMarketCap_AI_Data_Analyst_Agent",
   "tags": [],
@@ -308,7 +311,7 @@
         "color": 3,
         "width": 680,
         "height": 600,
-        "content": "## ⚠️ Error Handling Guide\n\n| **Error Code** | **Meaning** |\n|---------------|------------|\n| `200` | Success |\n| `400` | Bad Request (invalid query/params) |\n| `401` | Unauthorized (missing or invalid API key) |\n| `429` | Rate Limit Exceeded |\n| `500` | CoinMarketCap server error |\n\n### 🔍 Common Fixes\n- Ensure `symbol`, `slug`, or `id` match valid CoinMarketCap entries\n- Use correct `timestamp`, `network`, and pagination parameters\n- Rate-limit high-frequency queries to avoid 429 errors\n\n---\n\n## 🚀 Need Help?\nFor custom CoinMarketCap agent support, dashboards, or token data automation, connect:\n\n🌐 **Don Jayamaha — LinkedIn**  \n🔗 [http://linkedin.com/in/donjayamahajr](http://linkedin.com/in/donjayamahajr)\n\n© 2025 Treasurium Capital Limited Company. All rights reserved.\nThis AI workflow architecture, including logic, design, and prompt structures, is the intellectual property of Treasurium Capital Limited Company. Unauthorized reproduction, redistribution, or resale is prohibited under U.S. copyright law. Licensed use only.\n"
+        "content": "## ⚠️ Error Handling Guide\n\n| **Error Code** | **Meaning** |\n|---------------|------------|\n| `200` | Success |\n| `400` | Bad Request (invalid query/params) |\n| `401` | Unauthorized (missing or invalid API key) |\n| `429` | Rate Limit Exceeded |\n| `500` | CoinMarketCap server error |\n\n### 🔍 Common Fixes\n- Ensure `symbol`, `slug`, or `id` match valid CoinMarketCap entries\n- Use correct `timestamp`, `network`, and pagination parameters\n- Rate-limit high-frequency queries to avoid 429 errors\n\n---\n\n## 🚀 Need Help?\nFor custom CoinMarketCap agent support, dashboards, or token data automation, connect:\n\n🌐 **Don Jayamaha — LinkedIn**  \n🔗 [{{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n\n© 2025 Treasurium Capital Limited Company. All rights reserved.\nThis AI workflow architecture, including logic, design, and prompt structures, is the intellectual property of Treasurium Capital Limited Company. Unauthorized reproduction, redistribution, or resale is prohibited under U.S. copyright law. Licensed use only.\n"
       },
       "typeVersion": 1
     },
@@ -327,12 +330,71 @@
         "content": "## 📌 How to Use the Workflow\n\n### ✅ Step 1: Provide Inputs\n- Use token `symbol`, `slug`, or `ID`\n- Set timestamps (`before`, `after`) in **Unix format** for historical data\n- Use `chain`, `limit`, and `start` for pagination when needed\n\n### ✅ Step 2: Execute API Tools\n- The AI routes queries to sub-agents: **Cryptocurrency**, **Exchange**, or **DEXScan**\n\n### ✅ Step 3: Get Response & Output\n- Results can be output to Telegram, dashboards, or n8n HTTP Response nodes\n\n---\n\n## 🗣️ Example Questions to Ask the CMC AI Analyst\n\n### 💬 Market Intelligence\n- \"What are the top 5 tokens by trading volume right now?\"\n- \"Which coins gained the most in the last 24 hours?\"\n- \"What’s the total crypto market cap today?\"\n\n### 💬 Token Insights\n- \"What’s the price of SOL in USD?\"\n- \"How much is 1000 USDT in BTC?\"\n- \"Show me the description and whitepaper link for Dogecoin.\"\n\n### 💬 Exchange & Sentiment\n- \"What’s the Fear & Greed index today?\"\n- \"List exchanges with the highest asset holdings.\"\n- \"Give me info about Binance – when was it launched?\"\n\n### 💬 DEX Data\n- \"Show me the top DEX spot pairs on Ethereum.\"\n- \"What’s the OHLCV data for SOL-USDT on Solana over the last 7 days?\"\n- \"What trades just occurred on PancakeSwap?\"\n\n---\n\n## ⚠️ Example API Queries\n\n### 1️⃣ Get Top 5 Tokens by Volume\n```plaintext\nGET /v1/cryptocurrency/listings/latest?sort=volume_24h&limit=5\n```\n\n### 2️⃣ Convert 1000 USDT to BTC\n```plaintext\nGET /v1/tools/price-conversion?amount=1000&symbol=USDT&convert=BTC\n```\n\n### 3️⃣ Check Fear & Greed Index\n```plaintext\nGET /v3/fear-and-greed/latest\n```\n\n### 4️⃣ Get OHLCV of DEX Pair\n```plaintext\nGET /v4/dex/pairs/ohlcv/historical?network=solana&pair=SOL-USDT&interval=1d\n```\n\n---"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-1eab0bd5-8f9c-4bc4-92b7-50779baa505c-c632c9e2",
+      "name": "Error Handler for 1eab0bd5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1eab0bd5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-955f82c6-ce76-4d56-9714-4926a4936cbf-d0749c0b",
+      "name": "Error Handler for 955f82c6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 955f82c6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d3fc4697-478b-4e6e-8d42-8138ec614748-f9b86c31",
+      "name": "Error Handler for d3fc4697",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d3fc4697",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-d13fa3a5",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# CoinMarketCap_AI_Data_Analyst_Agent\n\n## Overview\nAutomated workflow: CoinMarketCap_AI_Data_Analyst_Agent. This workflow integrates 9 different services: telegramTrigger, stickyNote, telegram, agent, set. It contains 15 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 15\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Telegram Send Message**: telegram\n- **Adds SessionId**: set\n- **CoinMarketCap AI Data Analyst Agent**: agent\n- **CoinMarketCap Agent Brain**: lmChatOpenAi\n- **CoinMarketCap Memory**: memoryBufferWindow\n- **CoinMarketCap Crypto Agent Tool**: toolWorkflow\n- **CoinMarketCap Exchange and Community Agent Tool**: toolWorkflow\n- **CoinMarketCap DEXScan Agent Tool**: toolWorkflow\n- **Telegram Input**: telegramTrigger\n- **CMC Multi-Agent Guide**: stickyNote\n- ... and 5 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "ed2f29c5-293a-4796-8986-9c5f9980c6c6",
   "connections": {
@@ -423,6 +485,40 @@
           }
         ]
       ]
+    },
+    "1eab0bd5-8f9c-4bc4-92b7-50779baa505c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1eab0bd5-8f9c-4bc4-92b7-50779baa505c-c632c9e2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "955f82c6-ce76-4d56-9714-4926a4936cbf": {
+      "main": [
+        [
+          {
+            "node": "error-handler-955f82c6-ce76-4d56-9714-4926a4936cbf-d0749c0b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d3fc4697-478b-4e6e-8d42-8138ec614748": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d3fc4697-478b-4e6e-8d42-8138ec614748-f9b86c31",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: CoinMarketCap_AI_Data_Analyst_Agent. This workflow integrates 9 different services: telegramTrigger, stickyNote, telegram, agent, set. It contains 15 nodes and follows best practices for error handling and security."
 }

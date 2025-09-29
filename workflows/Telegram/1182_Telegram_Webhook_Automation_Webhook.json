@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "🤖 Telegram Messaging Agent for Text/Audio/Images",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "1656be7a-7a27-47f3-b511-3634a65a97a2",
@@ -128,7 +131,7 @@
         -260
       ],
       "parameters": {
-        "url": "=https://api.telegram.org/{{ $json.token }}/setWebhook",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "queryParameters": {
@@ -167,7 +170,7 @@
         -260
       ],
       "parameters": {
-        "url": "=https://api.telegram.org/{{ $json.token }}/getWebhookInfo",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -245,7 +248,7 @@
         "color": 7,
         "width": 800,
         "height": 860,
-        "content": "# How to set up a Telegram Bot WebHook\n\n## WebHook Setup Process\n\n**Basic Concept**\nA WebHook allows your Telegram bot to automatically receive updates instead of manually polling the Bot API.\n\n**Setup Method**\nTo set a WebHook, make a GET request using this URL format:\n```\nhttps://api.telegram.org/bot{my_bot_token}/setWebhook?url={url_to_send_updates_to}\n```\nWhere:\n- `my_bot_token`: Your bot token from BotFather\n- `url_to_send_updates_to`: Your HTTPS endpoint that handles bot updates\n\n\n**Verification**\nTo verify the WebHook setup, use:\n```\nhttps://api.telegram.org/bot{my_bot_token}/getWebhookInfo\n```\n\nA successful response looks like:\n```json\n{\n \"ok\": true,\n \"result\": {\n   \"url\": \"https://www.example.com/my-telegram-bot/\",\n   \"has_custom_certificate\": false,\n   \"pending_update_count\": 0,\n   \"max_connections\": 40\n }\n}\n```\n\n\nThis method provides a simple and efficient way to handle Telegram bot updates automatically through webhooks rather than manual polling."
+        "content": "# How to set up a Telegram Bot WebHook\n\n## WebHook Setup Process\n\n**Basic Concept**\nA WebHook allows your Telegram bot to automatically receive updates instead of manually polling the Bot API.\n\n**Setup Method**\nTo set a WebHook, make a GET request using this URL format:\n```\n{{ $env.WEBHOOK_URL }}\n```\nWhere:\n- `my_bot_token`: Your bot token from BotFather\n- `url_to_send_updates_to`: Your HTTPS endpoint that handles bot updates\n\n\n**Verification**\nTo verify the WebHook setup, use:\n```\nhttps://api.telegram.org/bot{my_bot_token}/getWebhookInfo\n```\n\nA successful response looks like:\n```json\n{\n \"ok\": true,\n \"result\": {\n   \"url\": \"https://www.example.com/my-telegram-bot/\",\n   \"has_custom_certificate\": false,\n   \"pending_update_count\": 0,\n   \"max_connections\": 40\n }\n}\n```\n\n\nThis method provides a simple and efficient way to handle Telegram bot updates automatically through webhooks rather than manual polling."
       },
       "typeVersion": 1
     },
@@ -444,7 +447,7 @@
         -260
       ],
       "parameters": {
-        "url": "=https://api.telegram.org/{{ $json.token }}/setWebhook",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "queryParameters": {
@@ -705,13 +708,13 @@
               "id": "d2b9ab83-44ad-4741-aac9-1feed974c015",
               "name": "test_url",
               "type": "string",
-              "value": "https://[your-url]/webhook-test/[your-endpoint]"
+              "value": "{{ $env.WEBHOOK_URL }}"
             },
             {
               "id": "0c671fbf-aa2c-42ef-9e8b-398ac38358d0",
               "name": "production_url",
               "type": "string",
-              "value": "https://[your-url]/webhook/[your-endpoint]"
+              "value": "{{ $env.WEBHOOK_URL }}"
             }
           ]
         }
@@ -850,7 +853,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -874,7 +877,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -899,7 +902,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_3",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,

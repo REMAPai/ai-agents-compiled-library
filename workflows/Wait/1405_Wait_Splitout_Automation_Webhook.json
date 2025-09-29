@@ -113,7 +113,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -127,7 +127,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -258,7 +258,7 @@
           ]
         },
         "options": {
-          "maxTokens": 500
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "resource": "chat",
         "requestOptions": {}
@@ -362,7 +362,7 @@
         1220
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Request Audio Crop').item.json.Data.FileRequestId }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -409,7 +409,7 @@
         1140
       ],
       "parameters": {
-        "url": "={{ $json.Data.DownloadLink }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -423,7 +423,7 @@
         820
       ],
       "parameters": {
-        "url": "={{ $json.audioUrl }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -987,5 +987,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Gmail Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, wait, code, scheduleTrigger. It contains 34 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Gmail Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, wait, code, scheduleTrigger. It contains 34 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

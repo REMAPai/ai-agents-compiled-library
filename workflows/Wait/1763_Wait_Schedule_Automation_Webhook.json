@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Image-to-3D",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "8cc77575-854f-4359-8faa-fc78b8c23b65",
@@ -29,9 +32,9 @@
         400
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create 3D Image').item.json.request_id }}/status ",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -359,7 +362,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -387,9 +390,9 @@
         780
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.request_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -409,7 +412,7 @@
         780
       ],
       "parameters": {
-        "url": "={{ $json.model_mesh.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2

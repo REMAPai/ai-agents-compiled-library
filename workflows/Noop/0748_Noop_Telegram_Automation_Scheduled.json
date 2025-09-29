@@ -17,7 +17,8 @@
       "credentials": {
         "telegramApi": ""
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "64084e30-507e-45ef-bbbf-b295b4b29392"
     },
     {
       "name": "RSS Feed Read",
@@ -29,7 +30,8 @@
       "parameters": {
         "url": ""
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "50de2337-548c-4cba-9773-070598a0c715"
     },
     {
       "name": "Latest Read",
@@ -41,10 +43,11 @@
       "parameters": {
         "functionCode": "const staticData = this.getWorkflowStaticData('global');\n\nlatestRead = staticData.latestRead;\n\nfor (let item of items) {\n  item.json.latestRead = latestRead || '2021-06-01';\n}\n\nreturn items;"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "e6e8e82a-997f-4c55-9c6d-808b3c34e2e6"
     },
     {
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         40,
@@ -68,7 +71,8 @@
           "boolean": []
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "0ce0898d-bf6e-4dc8-8898-3bc0720f93b2"
     },
     {
       "name": "Write Latest Read",
@@ -80,7 +84,8 @@
       "parameters": {
         "functionCode": "const staticData = this.getWorkflowStaticData('global');\n\nif (items.length > 0) {\n  staticData.latestRead = items[0].json.isoDate || staticData.latestRead;\n}\n\n\nreturn items;"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "b3a53ea9-5d08-4aa9-9c8a-81494e91332b"
     },
     {
       "name": "NoOp",
@@ -90,7 +95,8 @@
         270
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "6addae59-5e9b-4c10-b561-4df95bc7b64e"
     },
     {
       "name": "Cron",
@@ -109,7 +115,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "1fe24299-94a1-4d45-8c87-6eef192f5c58"
     },
     {
       "id": "documentation-node",
@@ -127,7 +134,7 @@
   ],
   "active": true,
   "settings": {
-    "timezone": "Asia/Taipei",
+    "timezone": "UTC",
     "errorWorkflow": null,
     "saveExecutionProgress": "DEFAULT",
     "executionOrder": "v1",
@@ -198,5 +205,17 @@
       ]
     }
   },
-  "description": "Automated workflow: RSS to Telegram. This workflow processes data and performs automated tasks."
+  "description": "Automated workflow: RSS to Telegram. This workflow processes data and performs automated tasks.",
+  "meta": {
+    "instanceId": "workflow-ff7dae7d",
+    "versionId": "1.0.0",
+    "createdAt": "2025-09-29T06:39:58.750203",
+    "updatedAt": "2025-09-29T06:39:58.750214",
+    "owner": "n8n-user",
+    "license": "MIT"
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

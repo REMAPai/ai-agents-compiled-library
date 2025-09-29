@@ -15,9 +15,9 @@
         660
       ],
       "parameters": {
-        "url": "={{ $('Set parameters').item.json.confluence_base_url }}/wiki/rest/api/template/{{ $json.template_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -37,11 +37,11 @@
         660
       ],
       "parameters": {
-        "url": "={{ $('Set parameters').item.json.confluence_base_url }}/wiki/rest/api/content/",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -381,5 +381,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 6 different services: webhook, stickyNote, httpRequest, code, set. It contains 12 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 6 different services: webhook, stickyNote, httpRequest, code, set. It contains 12 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "api"
+  ]
 }

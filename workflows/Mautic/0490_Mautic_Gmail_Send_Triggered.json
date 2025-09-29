@@ -6,7 +6,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Unsubscribe Mautic contacts from automated unsubscribe emails",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "communication"
+  ],
   "nodes": [
     {
       "id": "55d6a64b-88e2-4162-a93a-b31ad32b94fd",
@@ -30,7 +34,7 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "3",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "Gmail account"
         }
       },
@@ -75,11 +79,11 @@
         "resource": "contactSegment",
         "contactId": "={{ $json[\"id\"] }}",
         "segmentId": 3,
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "mauticOAuth2Api": {
-          "id": "4",
+          "id": "{{ $credentials.mauticOAuth2Api.id }}",
           "name": "Mautic account"
         }
       },
@@ -98,11 +102,11 @@
         "contactId": "={{ $json[\"id\"] }}",
         "operation": "remove",
         "segmentId": 1,
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "mauticOAuth2Api": {
-          "id": "4",
+          "id": "{{ $credentials.mauticOAuth2Api.id }}",
           "name": "Mautic account"
         }
       },
@@ -124,7 +128,7 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "3",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "Gmail account"
         }
       },
@@ -142,12 +146,12 @@
       "parameters": {
         "contactId": "{{ $json[\"id\"] }}",
         "operation": "editDoNotContactList",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {}
       },
       "credentials": {
         "mauticOAuth2Api": {
-          "id": "4",
+          "id": "{{ $credentials.mauticOAuth2Api.id }}",
           "name": "Mautic account"
         }
       },
@@ -195,11 +199,11 @@
           "rawData": false
         },
         "operation": "getAll",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "mauticOAuth2Api": {
-          "id": "4",
+          "id": "{{ $credentials.mauticOAuth2Api.id }}",
           "name": "Mautic account"
         }
       },

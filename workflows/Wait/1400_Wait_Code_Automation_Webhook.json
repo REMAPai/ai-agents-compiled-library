@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "AutoQoutesV2_template",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "2ff58bb4-7079-44fe-a2ac-b4af9fa5b30e",
@@ -58,7 +61,7 @@
         0
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.data.task_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -289,7 +292,7 @@
         280
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.data.task_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -751,7 +754,7 @@
         280
       ],
       "parameters": {
-        "url": "={{ $json.data.output.video_url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -814,7 +817,7 @@
         860
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "body": "={\n  \"snippet\": {\n    \"title\": \"{{ $('Get data from Google Sheet').item.json['Quote (Thai)'] }}\",\n    \"description\": \"{{ $('Get data from Google Sheet').item.json['Quote (Thai)'] }}\\n{{ $('Get data from Google Sheet').item.json['Pen Name (Thai)'] }}\",\n    \"defaultLanguage\": \"en\",\n    \"defaultAudioLanguage\": \"en\"\n  },\n  \"status\": {\n    \"privacyStatus\": \"public\",\n    \"license\": \"youtube\",\n    \"embeddable\": true,\n    \"publicStatsViewable\": true,\n    \"madeForKids\": false\n  }\n}",
         "method": "POST",
         "options": {
@@ -827,7 +830,7 @@
         "sendBody": true,
         "contentType": "raw",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "rawContentType": "RAW/JSON",
         "headerParameters": {
           "parameters": [
@@ -841,7 +844,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "youTubeOAuth2Api": {
@@ -874,13 +877,13 @@
         860
       ],
       "parameters": {
-        "url": "={{ $('Initiate YouTube Resumable Upload').item.json.headers.location }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -890,7 +893,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "youTubeOAuth2Api": {

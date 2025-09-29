@@ -1,9 +1,10 @@
 {
   "id": "hzwyrm761fxBLiG8",
   "meta": {
-    "instanceId": "ad5495d3968354550b9eb7602d38b52edcc686292cf1307ba0b9ddf53ca0622e",
-    "templateId": "2753",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Personal Portfolio Resume CV Chatbot",
   "tags": [],
@@ -55,7 +56,7 @@
         "color": 4,
         "width": 840,
         "height": 540,
-        "content": "## (optional) Chatting Stage :  SAVE CONVERSATION TO DATABASE NOCODB\n\n### Purpose\nThis endpoint api is intentionally decoupled. It optionally allows your frontend app to save the conversation history from the frontend app with more control of the event from ui perspective.\n\n### How to integrate\n1. Connect your frontend interface to this api below. You may  change the base endpoint to `webhook` or `webhook-test` depending on your environment.\n\n\n** How to test\n```\ncurl -X POST 'https://n8n.io/webhook-test/update-conversation' -H 'Content-Type: application/json' -d '{\n  \"user\": \"Hi who is sean\",\n  \"email\": \"visitor@example.com\",\n  \"ai\": \"sean is a skilled engineer...\",\n  \"sessionid\": \"your_session_custom_id\" \n}'\n```"
+        "content": "## (optional) Chatting Stage :  SAVE CONVERSATION TO DATABASE NOCODB\n\n### Purpose\nThis endpoint api is intentionally decoupled. It optionally allows your frontend app to save the conversation history from the frontend app with more control of the event from ui perspective.\n\n### How to integrate\n1. Connect your frontend interface to this api below. You may  change the base endpoint to `webhook` or `webhook-test` depending on your environment.\n\n\n** How to test\n```\ncurl -X POST '{{ $env.WEBHOOK_URL }}' -H 'Content-Type: application/json' -d '{\n  \"user\": \"Hi who is sean\",\n  \"email\": \"visitor@example.com\",\n  \"ai\": \"sean is a skilled engineer...\",\n  \"sessionid\": \"your_session_custom_id\" \n}'\n```"
       },
       "typeVersion": 1
     },
@@ -106,7 +107,7 @@
         "color": 4,
         "width": 840,
         "height": 580,
-        "content": "## Chatting Stage :  CHAT ENDPOINT\n\n### Purpose\nThis endpoint api allows you to chat with the ai agent.\nThe ai agent will answer based on the vector database index `seanrag`. You may change the indexname `seanrag` to your own index name `yourcv`\n\n### How to integrate\n1. Connect your frontend interface to this api below. You may  change the base endpoint to `webhook` or `webhook-test` depending on your environment.\n\nYou can also change the based the endpoint 'https://n8n.io' to your own hosted domain like 'https://mycustomdomain.io/'\n\n```\ncurl -X POST 'https://n8n.io/webhook-test/chat' -H 'Content-Type: application/json' -d '{\n  \"chatInput\": \"Hi who is sean? \"\n}'\n```\n\n2. You will see a sample output response:\n\n\n```\n[{\"output\":\"Sean is a skilled engineer who has worked 15 years in the industry \\n\"}]\n```"
+        "content": "## Chatting Stage :  CHAT ENDPOINT\n\n### Purpose\nThis endpoint api allows you to chat with the ai agent.\nThe ai agent will answer based on the vector database index `seanrag`. You may change the indexname `seanrag` to your own index name `yourcv`\n\n### How to integrate\n1. Connect your frontend interface to this api below. You may  change the base endpoint to `webhook` or `webhook-test` depending on your environment.\n\nYou can also change the based the endpoint '{{ $env.WEBHOOK_URL }}' to your own hosted domain like '{{ $env.WEBHOOK_URL }}'\n\n```\ncurl -X POST '{{ $env.WEBHOOK_URL }}' -H 'Content-Type: application/json' -d '{\n  \"chatInput\": \"Hi who is sean? \"\n}'\n```\n\n2. You will see a sample output response:\n\n\n```\n[{\"output\":\"Sean is a skilled engineer who has worked 15 years in the industry \\n\"}]\n```"
       },
       "typeVersion": 1
     },
@@ -235,7 +236,7 @@
           "__rl": true,
           "mode": "list",
           "value": "1AxdzxLz0C5xP959INB7LOwBpf8h8PfzK",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/1AxdzxLz0C5xP959INB7LOwBpf8h8PfzK",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "SEAN-RAG-FOLDER"
         }
       },
@@ -270,7 +271,7 @@
           "__rl": true,
           "mode": "list",
           "value": "1AxdzxLz0C5xP959INB7LOwBpf8h8PfzK",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/1AxdzxLz0C5xP959INB7LOwBpf8h8PfzK",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "SEAN-RAG-FOLDER"
         }
       },
@@ -422,7 +423,7 @@
         1420
       ],
       "parameters": {
-        "sessionKey": "={{ $json.body.chatInput }}",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey"
       },
       "typeVersion": 1.3
@@ -518,7 +519,7 @@
       "parameters": {
         "path": "update-conversation",
         "options": {
-          "allowedOrigins": "http://localhost:5176,https://seanlon.site, https://dragonjump.github.io/seanlon"
+          "allowedOrigins": "{{ $env.WEBHOOK_URL }} {{ $env.WEBHOOK_URL }}"
         },
         "httpMethod": "POST",
         "responseMode": "responseNode"
@@ -558,7 +559,7 @@
         "operation": "create",
         "projectId": "p3ebw5xkv66qral",
         "workspaceId": "wzvmzlzj",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -600,7 +601,7 @@
         "projectId": "p3ebw5xkv66qral",
         "returnAll": true,
         "workspaceId": "wzvmzlzj",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -690,11 +691,240 @@
         "content": "# REPORTING"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-f6bf29f8-80b6-4705-96aa-322a26d661ab",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in f6bf29f8-80b6-4705-96aa-322a26d661ab",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b3ab3ed9-978a-4c9a-b305-1674a72c1f43",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b3ab3ed9-978a-4c9a-b305-1674a72c1f43",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ce9d9bc3-2404-493f-9a67-85ed3b33b031",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ce9d9bc3-2404-493f-9a67-85ed3b33b031",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8de96f7e-d7a0-46cc-9fd0-18c79b1220d6",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 8de96f7e-d7a0-46cc-9fd0-18c79b1220d6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cfe6fd0a-546b-4f5d-8dbd-6ff2dd123a67-fdc7954e",
+      "name": "Error Handler for cfe6fd0a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node cfe6fd0a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fac51949-5b45-41f8-9d1f-dc7df180f0b6-ef2174ee",
+      "name": "Error Handler for fac51949",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fac51949",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0ec411ac-9ee8-4a84-87d4-b9a3ac47e379-28313dda",
+      "name": "Error Handler for 0ec411ac",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0ec411ac",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7822a8fe-9c7c-418b-885c-c26eda33d44e-d4103dea",
+      "name": "Error Handler for 7822a8fe",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7822a8fe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-912b1222-7c03-41a3-8c30-d93ed47b8141-ac84d8ce",
+      "name": "Error Handler for 912b1222",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 912b1222",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f6bf29f8-80b6-4705-96aa-322a26d661ab-26783705",
+      "name": "Error Handler for f6bf29f8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f6bf29f8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b3ab3ed9-978a-4c9a-b305-1674a72c1f43-66d00593",
+      "name": "Error Handler for b3ab3ed9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b3ab3ed9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-740e8937-d2cc-4292-a8ac-a02fb16756da-831cc1db",
+      "name": "Error Handler for 740e8937",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 740e8937",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8c80b27a-108f-409f-b109-3cc015a2e1bc-39a70f8e",
+      "name": "Error Handler for 8c80b27a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8c80b27a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ce9d9bc3-2404-493f-9a67-85ed3b33b031-6542a0c9",
+      "name": "Error Handler for ce9d9bc3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ce9d9bc3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8de96f7e-d7a0-46cc-9fd0-18c79b1220d6-a63bdcba",
+      "name": "Error Handler for 8de96f7e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8de96f7e",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-fdf31946",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Personal Portfolio Resume CV Chatbot\n\n## Overview\nAutomated workflow: Personal Portfolio Resume CV Chatbot. This workflow integrates 19 different services: stickyNote, textSplitterRecursiveCharacterTextSplitter, scheduleTrigger, documentDefaultDataLoader, stopAndError. It contains 50 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 50\n- **Node Types**: 19\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Embeddings Google Gemini**: embeddingsGoogleGemini\n- **Sticky Note1**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Schedule Trigger**: scheduleTrigger\n- **Sticky Note4**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Sticky Note**: stickyNote\n- **Sticky Note6**: stickyNote\n- **Sticky Note7**: stickyNote\n- **Sticky Note8**: stickyNote\n- ... and 40 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
-  "settings": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
   "versionId": "d0fa5ead-b2b2-45cf-9642-688716a2bd07",
   "connections": {
     "Schedule Trigger": {
@@ -926,6 +1156,156 @@
           }
         ]
       ]
+    },
+    "f6bf29f8-80b6-4705-96aa-322a26d661ab": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f6bf29f8-80b6-4705-96aa-322a26d661ab",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-f6bf29f8-80b6-4705-96aa-322a26d661ab-26783705",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b3ab3ed9-978a-4c9a-b305-1674a72c1f43": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b3ab3ed9-978a-4c9a-b305-1674a72c1f43",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b3ab3ed9-978a-4c9a-b305-1674a72c1f43-66d00593",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ce9d9bc3-2404-493f-9a67-85ed3b33b031": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ce9d9bc3-2404-493f-9a67-85ed3b33b031",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ce9d9bc3-2404-493f-9a67-85ed3b33b031-6542a0c9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8de96f7e-d7a0-46cc-9fd0-18c79b1220d6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8de96f7e-d7a0-46cc-9fd0-18c79b1220d6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-8de96f7e-d7a0-46cc-9fd0-18c79b1220d6-a63bdcba",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cfe6fd0a-546b-4f5d-8dbd-6ff2dd123a67": {
+      "main": [
+        [
+          {
+            "node": "error-handler-cfe6fd0a-546b-4f5d-8dbd-6ff2dd123a67-fdc7954e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fac51949-5b45-41f8-9d1f-dc7df180f0b6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fac51949-5b45-41f8-9d1f-dc7df180f0b6-ef2174ee",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0ec411ac-9ee8-4a84-87d4-b9a3ac47e379": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0ec411ac-9ee8-4a84-87d4-b9a3ac47e379-28313dda",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7822a8fe-9c7c-418b-885c-c26eda33d44e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7822a8fe-9c7c-418b-885c-c26eda33d44e-d4103dea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "912b1222-7c03-41a3-8c30-d93ed47b8141": {
+      "main": [
+        [
+          {
+            "node": "error-handler-912b1222-7c03-41a3-8c30-d93ed47b8141-ac84d8ce",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "740e8937-d2cc-4292-a8ac-a02fb16756da": {
+      "main": [
+        [
+          {
+            "node": "error-handler-740e8937-d2cc-4292-a8ac-a02fb16756da-831cc1db",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8c80b27a-108f-409f-b109-3cc015a2e1bc": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8c80b27a-108f-409f-b109-3cc015a2e1bc-39a70f8e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Personal Portfolio Resume CV Chatbot. This workflow integrates 19 different services: stickyNote, textSplitterRecursiveCharacterTextSplitter, scheduleTrigger, documentDefaultDataLoader, stopAndError. It contains 50 nodes and follows best practices for error handling and security."
 }

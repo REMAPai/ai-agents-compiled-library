@@ -10,7 +10,8 @@
         160
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "6cd88172-3b77-4ac1-a41b-251fae9fd48b"
     },
     {
       "name": "YouTube",
@@ -31,7 +32,8 @@
       "credentials": {
         "youTubeOAuth2Api": "Google n8n"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "9cccacd5-5aee-422f-8712-0aa5fccb2400"
     },
     {
       "name": "Filter new items",
@@ -43,7 +45,8 @@
       "parameters": {
         "functionCode": "const staticData = getWorkflowStaticData('global');\nconst newIds = items.map(item => item.json[\"resourceId\"][\"videoId\"]);\nconst oldIds = staticData.oldIds; \n\nif (!oldIds) {\n  staticData.oldIds = newIds;\n  return items;\n}\n\n\nconst actualNewIds = newIds.filter((id) => !oldIds.includes(id));\nconst actualNew = items.filter((data) => actualNewIds.includes(data.json[\"resourceId\"][\"videoId\"]));\nstaticData.oldIds = [...actualNewIds, ...oldIds];\n\nreturn actualNew;\n"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "3ffea276-4dc8-46d8-9596-4beb446f1df1"
     },
     {
       "name": "Flatten JSON",
@@ -55,7 +58,8 @@
       "parameters": {
         "functionCode": "item = item[\"snippet\"]\n\nreturn item;"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "459b921c-d004-413e-b112-8ba76caac1a7"
     },
     {
       "name": "Raindrop Bookmark",
@@ -77,7 +81,8 @@
       "credentials": {
         "raindropOAuth2Api": "Raindrop"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "61ae5210-2575-47cb-9a18-b308e9706f59"
     },
     {
       "name": "Every 30 mins",
@@ -97,11 +102,12 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "41962cf7-abbe-4d16-82ad-08071c3ba119"
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -114,7 +120,7 @@
     },
     {
       "id": "documentation-c1d93d71",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -197,5 +203,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

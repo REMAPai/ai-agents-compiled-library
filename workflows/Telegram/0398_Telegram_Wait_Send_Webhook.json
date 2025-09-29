@@ -43,7 +43,7 @@
                   {
                     "text": "={{ $('Github Gist').item.json.files[\"email.html\"].filename }}",
                     "additionalFields": {
-                      "url": "={{'{{ $env.WEBHOOK_URL }}'+ $('Github Gist').item.json.id}}"
+                      "url": "{{ $env.BASE_URL }}"
                     }
                   }
                 ]
@@ -80,7 +80,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -89,7 +89,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -151,7 +151,7 @@
         900
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $item(\"0\").$node[\"Github Gist\"].json[\"id\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {
           "redirect": {
@@ -159,7 +159,7 @@
           }
         },
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -168,7 +168,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "notesInFlow": true,
       "typeVersion": 4.1
@@ -420,5 +420,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Emailreadimap Workflow. This workflow integrates 6 different services: stickyNote, httpRequest, wait, telegram, stopAndError. It contains 14 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Emailreadimap Workflow. This workflow integrates 6 different services: stickyNote, httpRequest, wait, telegram, stopAndError. It contains 14 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "communication"
+  ]
 }

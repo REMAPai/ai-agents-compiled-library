@@ -75,7 +75,7 @@
         480
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey"
       },
       "typeVersion": 1.3
@@ -140,7 +140,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -163,7 +163,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -188,7 +188,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_3",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -213,7 +213,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_4",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -740,7 +740,7 @@
         1360
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Execute Workflow Trigger').item.json.query.base_id }}/{{ $('Execute Workflow Trigger').item.json.query.table_id }}/listRecords",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "pagination": {
@@ -762,8 +762,8 @@
         "jsonBody": "={{ \n  Object.fromEntries(\n    Object.entries({\n      sort: $('Execute Workflow Trigger').item.json.query.sort,\n limit: $('Execute Workflow Trigger').item.json.query.limit,\nfields: $('Execute Workflow Trigger').item.json.query.fields,\nfilterByFormula:  $('Merge').item.json.choices == undefined ? undefined : JSON.parse($json.choices[0].message.content).filter\n    }).filter(([key, value]) => value !== undefined)\n  )\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "httpQueryAuth": {
@@ -786,14 +786,14 @@
         1420
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": {{ JSON.stringify($('Set schema and prompt').item.json.prompt) }}\n      },\n      {\n        \"role\": \"user\",\n        \"content\": \"{{ $('Execute Workflow Trigger').item.json.query.filter_desc }}\"\n      }],\n  \"response_format\":{ \"type\": \"json_schema\", \"json_schema\":  {{ $('Set schema and prompt').item.json.schema }}\n\n }\n  }",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -842,7 +842,7 @@
         1720
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -868,10 +868,10 @@
         1720
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.data[0].attachments[0]?.file_id ?? $json.data[0].content.find(x=>x.type==\"image_file\")?.image_file.file_id }}/content",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -880,7 +880,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -899,10 +899,10 @@
         1720
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('OpenAI - Create thread').item.json.id }}/messages",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -911,7 +911,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -930,12 +930,12 @@
         1720
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('OpenAI - Create thread').item.json.id }}/runs",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -964,7 +964,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -983,12 +983,12 @@
         1720
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('OpenAI - Create thread').item.json.id }}/messages ",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -1009,7 +1009,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -1032,7 +1032,7 @@
         "method": "POST",
         "options": {},
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -1041,7 +1041,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -1814,5 +1814,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

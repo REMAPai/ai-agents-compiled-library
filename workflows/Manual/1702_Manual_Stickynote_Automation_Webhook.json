@@ -47,7 +47,7 @@
         560
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.voice_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\"text\":\"{{ $json.text }}\",\"model_id\":\"eleven_multilingual_v2\",\"voice_settings\":{\"stability\":0.5,\"similarity_boost\":0.5}}",
@@ -55,7 +55,7 @@
         "sendQuery": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -129,7 +129,7 @@
         560
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set ElevenLabs voice ID and text').item.json.voice_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\"text\":\"{{ $json[\"text\"].replaceAll('\"', '\\\\\"').trim() }}\",\"model_id\":\"eleven_multilingual_v2\",\"voice_settings\":{\"stability\":0.5,\"similarity_boost\":0.5}}",
@@ -137,7 +137,7 @@
         "sendQuery": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -178,7 +178,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -192,7 +192,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -536,5 +536,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Lmchatopenai Workflow. This workflow integrates 7 different services: stickyNote, httpRequest, chainLlm, set, stopAndError. It contains 19 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Lmchatopenai Workflow. This workflow integrates 7 different services: stickyNote, httpRequest, chainLlm, set, stopAndError. It contains 19 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

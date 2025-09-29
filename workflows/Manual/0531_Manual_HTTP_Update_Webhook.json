@@ -146,7 +146,7 @@
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -159,7 +159,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "serpApi": {
@@ -229,7 +229,7 @@
         "options": {},
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -626,7 +626,7 @@
         "text": "=Focus on the {{ $json.Title }} in the image - we'll refer to this as the \"object\". Identify the following attributes of the object. If you cannot determine confidently, then leave blank and move to next attribute.\n* Decription of the object.\n* The model/make of the object.\n* The material(s) used in the construction of the object.\n* The color(s) of the object\n* The condition of the object. Use one of poor, good, excellent.\n",
         "options": {},
         "resource": "image",
-        "imageUrls": "={{ $json.Image[0].thumbnails.large.url }}",
+        "imageUrls": "{{ $env.BASE_URL }}",
         "operation": "analyze"
       },
       "credentials": {
@@ -666,7 +666,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -688,7 +688,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -1123,5 +1123,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 14 different services: stickyNote, httpRequest, airtable, agent, outputParserStructured. It contains 35 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 14 different services: stickyNote, httpRequest, airtable, agent, outputParserStructured. It contains 35 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

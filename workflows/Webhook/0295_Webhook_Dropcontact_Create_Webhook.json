@@ -22,12 +22,12 @@
           "lastName": "={{ $json[\"properties\"][\"lastname\"][\"value\"] }}",
           "firstName": "={{ $json[\"properties\"][\"firstname\"][\"value\"] }}",
           "companyName": "={{ $json[\"properties\"][\"company\"][\"value\"] }}",
-          "linkedinUrl": "={{ $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"people_linkedin_url\"] }}"
+          "linkedinUrl": "{{ $env.BASE_URL }}"
         }
       },
       "credentials": {
         "lemlistApi": {
-          "id": "32",
+          "id": "{{ $credentials.lemlistApi.id }}",
           "name": "lemlist.net"
         }
       },
@@ -47,7 +47,7 @@
           "body": "={{ $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"company_name\"] }} is hiring a {{ $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"job_offers\"][0][\"job_name\"] }}\n\nlink:{{ $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"job_offers\"][0][\"job_link\"] }}\ncontext: {{ $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"job_offers\"][0][\"context_keywords\"] }} "
         },
         "resource": "engagement",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "associations": {
             "companyIds": "={{ $node[\"HubSpot Update Account\"].json[\"companyId\"] || $node[\"HubSpot Create Account\"].json[\"companyId\"] }}",
@@ -57,7 +57,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "68",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot - Sales & CS"
         }
       },
@@ -118,7 +118,7 @@
       },
       "credentials": {
         "dropcontactApi": {
-          "id": "1",
+          "id": "{{ $credentials.dropcontactApi.id }}",
           "name": "Dropcontact account"
         }
       },
@@ -146,11 +146,11 @@
         },
         "resource": "company",
         "operation": "searchByDomain",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "68",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot - Sales & CS"
         }
       },
@@ -220,11 +220,11 @@
         "channel": "Customer Success - Customer News",
         "attachments": [],
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
-          "id": "5",
+          "id": "{{ $credentials.slackOAuth2Api.id }}",
           "name": "Slack account"
         }
       },
@@ -247,11 +247,11 @@
           "numberOfEmployees": "={{ $json[\"properties\"][\"numberofemployees\"][\"value\"] || $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"company_staff_count\"] }}",
           "linkedInCompanyPage": "={{ $json[\"properties\"][\"linkedin_company_page\"][\"value\"] || $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"company_linkedin_url\"] }} "
         },
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "68",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot - Sales & CS"
         }
       },
@@ -269,7 +269,7 @@
         "resource": "contact",
         "operation": "search",
         "returnAll": true,
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "filterGroupsUi": {
           "filterGroupsValues": [
             {
@@ -297,7 +297,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "68",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot - Sales & CS"
         }
       },
@@ -315,9 +315,9 @@
       "parameters": {
         "name": "={{ $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"company_name\"] }}",
         "resource": "company",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
-          "websiteUrl": "={{ $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"company_domain\"] }}",
+          "websiteUrl": "{{ $env.BASE_URL }}",
           "description": "={{ $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"company_description\"] }}",
           "yearFounded": "={{ $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"company_founded_year\"] }}",
           "linkedInCompanyPage": "={{ $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"company_linkedin_url\"] }}"
@@ -325,7 +325,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "68",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot - Sales & CS"
         }
       },
@@ -362,7 +362,7 @@
       "parameters": {
         "email": "={{ $node[\"Dropcontact\"].json[\"email\"][0][\"email\"] }}",
         "resource": "contact",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "jobTitle": "={{ $json[\"properties\"][\"jobtitle\"] || $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"people_current_position\"] }}",
           "lastName": "={{ $json[\"properties\"][\"lastname\"] || $node[\"Lonescale - New  Job Intent\"].json[\"body\"][\"people_last_name\"] }} ",
@@ -380,7 +380,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "68",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot - Sales & CS"
         }
       },
@@ -401,11 +401,11 @@
         "channel": "Customer Success - Customer News",
         "attachments": [],
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
-          "id": "5",
+          "id": "{{ $credentials.slackOAuth2Api.id }}",
           "name": "Slack account"
         }
       },
@@ -457,7 +457,7 @@
           "subject": "Hiring Signal - New lead to contact"
         },
         "resource": "engagement",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "associations": {
             "companyIds": "={{ $node[\"HubSpot Update Account\"].json[\"companyId\"] || $node[\"HubSpot Create Account\"].json[\"companyId\"] }}",
@@ -467,7 +467,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "68",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot - Sales & CS"
         }
       },
@@ -489,7 +489,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -544,7 +544,7 @@
     },
     {
       "id": "documentation-cd54be22",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -778,5 +778,9 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": null,
     "timezone": "UTC"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

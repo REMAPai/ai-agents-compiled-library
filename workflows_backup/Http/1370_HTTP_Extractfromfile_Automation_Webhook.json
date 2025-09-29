@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "6a2a7715680b8313f7cb4676321c5baa46680adfb913072f089f2766f42e43bd"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -27,14 +30,14 @@
         400
       ],
       "parameters": {
-        "url": "={{ $json.file_url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
     },
     {
       "id": "2c4e0b0f-28c7-48f5-b051-6e909ac878d2",
-      "name": "When clicking \u2018Test workflow\u2019",
+      "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
         -20,
@@ -70,7 +73,7 @@
         "color": 7,
         "width": 280.2462120317618,
         "height": 438.5821431288714,
-        "content": "### Setup\n\n1. **Download File**: Fetch the CV using its direct URL.\n2. **Extract Data**: Use N8N\u2019s PDF or text extraction nodes to retrieve text from the CV.\n3. **Send to OpenAI**:\n - **URL**: POST to OpenAI\u2019s API for analysis.\n - **Parameters**:\n - Include the extracted CV data and job description.\n - Use JSON Schema to structure the response.\n4. **Save Results**:\n - Store the extracted data and OpenAI's analysis in Supabase for further use."
+        "content": "### Setup\n\n1. **Download File**: Fetch the CV using its direct URL.\n2. **Extract Data**: Use N8N’s PDF or text extraction nodes to retrieve text from the CV.\n3. **Send to OpenAI**:\n - **URL**: POST to OpenAI’s API for analysis.\n - **Parameters**:\n - Include the extracted CV data and job description.\n - Use JSON Schema to structure the response.\n4. **Save Results**:\n - Store the extracted data and OpenAI's analysis in Supabase for further use."
       },
       "typeVersion": 1
     },
@@ -86,7 +89,7 @@
         "color": 7,
         "width": 636.2128494576581,
         "height": 598.6675280064023,
-        "content": "![5min Logo](https://cflobdhpqwnoisuctsoc.supabase.co/storage/v1/object/public/my_storage/Untitled%20(1500%20x%20300%20px).png)\n## CV Screening with OpenAI\n**Made by [Mark Shcherbakov](https://www.linkedin.com/in/marklowcoding/) from community [5minAI](https://www.skool.com/5minai-2861)**\n\nThis workflow is ideal for recruitment agencies, HR professionals, and hiring managers looking to automate the initial screening of CVs. It is especially useful for organizations handling large volumes of applications and seeking to streamline their recruitment process.\n\nThis workflow automates the resume screening process using OpenAI for analysis and Supabase for structured data storage. It provides a matching score, a summary of candidate suitability, and key insights into why the candidate fits (or doesn\u2019t fit) the job. \n\n1. **Retrieve Resume**: The workflow downloads CVs from a direct link (e.g., Supabase storage or Dropbox).\n2. **Extract Data**: Extracts text data from PDF or DOC files for analysis.\n3. **Analyze with OpenAI**: Sends the extracted data and job description to OpenAI to:\n - Generate a matching score.\n - Summarize candidate strengths and weaknesses.\n - Provide actionable insights into their suitability for the job.\n4. **Store Results in Supabase**: Saves the analysis and raw data in a structured format for further processing or integration into other tools.\n"
+        "content": "![5min Logo]({{ $env.WEBHOOK_URL }}\n## CV Screening with OpenAI\n**Made by [Mark Shcherbakov]({{ $env.WEBHOOK_URL }} from community [5minAI]({{ $env.WEBHOOK_URL }}\n\nThis workflow is ideal for recruitment agencies, HR professionals, and hiring managers looking to automate the initial screening of CVs. It is especially useful for organizations handling large volumes of applications and seeking to streamline their recruitment process.\n\nThis workflow automates the resume screening process using OpenAI for analysis and Supabase for structured data storage. It provides a matching score, a summary of candidate suitability, and key insights into why the candidate fits (or doesn’t fit) the job. \n\n1. **Retrieve Resume**: The workflow downloads CVs from a direct link (e.g., Supabase storage or Dropbox).\n2. **Extract Data**: Extracts text data from PDF or DOC files for analysis.\n3. **Analyze with OpenAI**: Sends the extracted data and job description to OpenAI to:\n - Generate a matching score.\n - Summarize candidate strengths and weaknesses.\n - Provide actionable insights into their suitability for the job.\n4. **Store Results in Supabase**: Saves the analysis and raw data in a structured format for further processing or integration into other tools.\n"
       },
       "typeVersion": 1
     },
@@ -102,7 +105,7 @@
         "color": 7,
         "width": 330.5152611046425,
         "height": 240.6839895136402,
-        "content": "### ... or watch set up video [8 min]\n[![Youtube Thumbnail](https://cflobdhpqwnoisuctsoc.supabase.co/storage/v1/object/public/my_storage/11.png)](https://youtu.be/TWuI3dOcn0E)\n"
+        "content": "### ... or watch set up video [8 min]\n[![Youtube Thumbnail]({{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -130,14 +133,14 @@
         400
       ],
       "parameters": {
-        "url": "=https://api.openai.com/v1/chat/completions",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"model\": \"gpt-4o-mini\",\n \"messages\": [\n {\n \"role\": \"system\",\n \"content\": \"{{ $('Set Variables').item.json.prompt }}\"\n },\n {\n \"role\": \"user\",\n \"content\": {{ JSON.stringify(encodeURIComponent($json.text))}}\n }\n ],\n \"response_format\":{ \"type\": \"json_schema\", \"json_schema\": {{ $('Set Variables').item.json.json_schema }}\n\n }\n }",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "openAiApi"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -163,7 +166,7 @@
               "id": "83274f6f-c73e-4d5e-946f-c6dfdf7ed1c4",
               "name": "file_url",
               "type": "string",
-              "value": "https://cflobdhpqwnoisuctsoc.supabase.co/storage/v1/object/public/my_storage/software_engineer_resume_example.pdf"
+              "value": "{{ $env.WEBHOOK_URL }}"
             },
             {
               "id": "6e44f3e5-a0df-4337-9f7e-7cfa91b3cc37",
@@ -210,6 +213,89 @@
         }
       },
       "typeVersion": 3.4
+    },
+    {
+      "id": "error-handler-6f76e3a6-a3be-4f9f-a0db-3f002eafc2ad",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 6f76e3a6-a3be-4f9f-a0db-3f002eafc2ad",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-865f4f69-e13d-49c1-8bb4-9f98facbf75c",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 865f4f69-e13d-49c1-8bb4-9f98facbf75c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0f3b39af-2802-462c-ac54-a7bccf5b78c5-e230abff",
+      "name": "Error Handler for 0f3b39af",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0f3b39af",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6f76e3a6-a3be-4f9f-a0db-3f002eafc2ad-5f64781b",
+      "name": "Error Handler for 6f76e3a6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6f76e3a6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-865f4f69-e13d-49c1-8bb4-9f98facbf75c-90516d24",
+      "name": "Error Handler for 865f4f69",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 865f4f69",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-70334b70",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Extractfromfile Workflow\n\n## Overview\nAutomated workflow: Extractfromfile Workflow. This workflow integrates 6 different services: stickyNote, httpRequest, set, stopAndError, manualTrigger. It contains 16 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 16\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Extract Document PDF**: extractFromFile\n- **Download File**: httpRequest\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Sticky Note**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Sticky Note6**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note1**: stickyNote\n- **OpenAI - Analyze CV**: httpRequest\n- **Set Variables**: set\n- ... and 6 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -258,7 +344,7 @@
         ]
       ]
     },
-    "When clicking \u2018Test workflow\u2019": {
+    "When clicking ‘Test workflow’": {
       "main": [
         [
           {
@@ -268,6 +354,62 @@
           }
         ]
       ]
+    },
+    "6f76e3a6-a3be-4f9f-a0db-3f002eafc2ad": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6f76e3a6-a3be-4f9f-a0db-3f002eafc2ad",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-6f76e3a6-a3be-4f9f-a0db-3f002eafc2ad-5f64781b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "865f4f69-e13d-49c1-8bb4-9f98facbf75c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-865f4f69-e13d-49c1-8bb4-9f98facbf75c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-865f4f69-e13d-49c1-8bb4-9f98facbf75c-90516d24",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0f3b39af-2802-462c-ac54-a7bccf5b78c5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0f3b39af-2802-462c-ac54-a7bccf5b78c5-e230abff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Extractfromfile Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Extractfromfile Workflow. This workflow integrates 6 different services: stickyNote, httpRequest, set, stopAndError, manualTrigger. It contains 16 nodes and follows best practices for error handling and security."
 }

@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Automated Content Generation & Publishing - Wordpress",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "9cd63357-19dc-4420-baa9-1e1389c7120f",
@@ -73,7 +76,7 @@
           "value": {
             "title": "={{ $json.message.content.title }}",
             "content": "={{ $json.message.content.content }}",
-            "Image search keyword": "YOUR_API_KEY"
+            "Image search keyword": "YOUR_CREDENTIAL_HERE"
           },
           "schema": [
             {
@@ -257,7 +260,7 @@
         280
       ],
       "parameters": {
-        "url": "=https://api.pexels.com/v1/search?per_page=1&orientation=landscape&query={{ $json[\"Image search keyword\"] }}\n",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,

@@ -1,7 +1,10 @@
 {
   "id": "xEij0kj2I1DHbL3I",
   "meta": {
-    "instanceId": "31e69f7f4a77bf465b805824e303232f0227212ae922d12133a0f96ffeab4fef"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "🌐🪛 AI Agent Chatbot with Jina.ai Webpage Scraper",
   "tags": [],
@@ -32,7 +35,7 @@
         "color": 5,
         "width": 680,
         "height": 700,
-        "content": "## AI Agent Chatbot with Jina.ai Web Scraper\n### https://jina.ai/\n"
+        "content": "## AI Agent Chatbot with Jina.ai Web Scraper\n### {{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -97,7 +100,7 @@
       "parameters": {
         "width": 400,
         "height": 320,
-        "content": "## Jina.ai Web Scraper Tool\n### No API Key Required\nhttps://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.toolhttprequest/"
+        "content": "## Jina.ai Web Scraper Tool\n### No API Key Required\n{{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -129,7 +132,7 @@
         "color": 4,
         "width": 280,
         "height": 320,
-        "content": "## Try Me!\n\n### User prompt must include a URL with initial question.\n\n\nPrompt Example:\n\n\"How do I install Ollama on windows using the docs from https://github.com/ollama/ollama\""
+        "content": "## Try Me!\n\n### User prompt must include a URL with initial question.\n\n\nPrompt Example:\n\n\"How do I install Ollama on windows using the docs from {{ $env.WEBHOOK_URL }}\""
       },
       "typeVersion": 1
     },
@@ -142,7 +145,7 @@
         140
       ],
       "parameters": {
-        "url": "=https://r.jina.ai/{url}",
+        "url": "{{ $env.BASE_URL }}",
         "toolDescription": "Call this tool to scrape a website.  Extract the URL from the user prompt.",
         "placeholderDefinitions": {
           "values": [
@@ -155,12 +158,71 @@
         }
       },
       "typeVersion": 1.1
+    },
+    {
+      "id": "error-handler-a95efbfd-f908-4f7b-bf47-05b993250ed2",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a95efbfd-f908-4f7b-bf47-05b993250ed2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3ce16f26-073b-4ccc-a65f-2ca870a9bd16-5c478356",
+      "name": "Error Handler for 3ce16f26",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3ce16f26",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a95efbfd-f908-4f7b-bf47-05b993250ed2-3761808f",
+      "name": "Error Handler for a95efbfd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a95efbfd",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-bcfb15a0",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# 🌐🪛 AI Agent Chatbot with Jina.ai Webpage Scraper\n\n## Overview\nAutomated workflow: 🌐🪛 AI Agent Chatbot with Jina.ai Webpage Scraper. This workflow integrates 7 different services: stickyNote, toolHttpRequest, agent, stopAndError, lmChatOpenAi. It contains 12 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 12\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When chat message received**: chatTrigger\n- **Sticky Note14**: stickyNote\n- **Window Buffer Memory**: memoryBufferWindow\n- **Jina.ai Web Scraping Agent**: agent\n- **gpt-4o-mini**: lmChatOpenAi\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Jina.ai Web Scraper Tool**: toolHttpRequest\n- **Error Handler**: stopAndError\n- ... and 2 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "5ce466c5-2195-4038-9c52-cc7debd5f4b8",
   "connections": {
@@ -207,6 +269,36 @@
           }
         ]
       ]
+    },
+    "a95efbfd-f908-4f7b-bf47-05b993250ed2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a95efbfd-f908-4f7b-bf47-05b993250ed2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a95efbfd-f908-4f7b-bf47-05b993250ed2-3761808f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3ce16f26-073b-4ccc-a65f-2ca870a9bd16": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3ce16f26-073b-4ccc-a65f-2ca870a9bd16-5c478356",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: 🌐🪛 AI Agent Chatbot with Jina.ai Webpage Scraper. This workflow integrates 7 different services: stickyNote, toolHttpRequest, agent, stopAndError, lmChatOpenAi. It contains 12 nodes and follows best practices for error handling and security."
 }

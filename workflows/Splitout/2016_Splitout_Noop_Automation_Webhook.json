@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "YouTube Comment Sentiment Analyzer",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "0bacd739-7ea3-42f5-8986-2f7d47628ee9",
@@ -82,7 +85,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Youtube Videos Comments"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -192,7 +195,7 @@
           }
         },
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth",
         "queryParameters": {
           "parameters": [
@@ -410,7 +413,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Youtube Videos Comments"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -431,7 +434,7 @@
       "parameters": {
         "columns": {
           "value": {
-            "video_urls": "={{ $('Get Video Urls from Google Sheet').item.json.video_urls }}",
+            "video_urls": "{{ $env.BASE_URL }}",
             "next_fetch_time": "={{ $now.plus(5, 'min').toISO() }}",
             "last_fetched_time": "={{ $now.toISO() }}"
           },
@@ -488,7 +491,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Youtube Videos Comments"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {

@@ -22,7 +22,7 @@
       },
       "credentials": {
         "lemlistApi": {
-          "id": "45",
+          "id": "{{ $credentials.lemlistApi.id }}",
           "name": "Lemlist - \"lemlist\" team API key"
         }
       },
@@ -42,7 +42,7 @@
           "subject": "=OOO - Follow up with {{ $json[\"properties\"][\"firstname\"][\"value\"] }} {{ $json[\"properties\"][\"lastname\"][\"value\"] }}"
         },
         "resource": "engagement",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "associations": {
             "contactIds": "={{ $json[\"vid\"] }}"
@@ -51,7 +51,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "14",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "Hubspot account"
         }
       },
@@ -117,15 +117,15 @@
         160
       ],
       "parameters": {
-        "url": "=https://api.lemlist.com/api/campaigns/YOUR_CAMPAIGN_ID/leads/{{$json[\"leadEmail\"]}}/interested",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "requestMethod": "POST",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "lemlistApi": {
-          "id": "45",
+          "id": "{{ $credentials.lemlistApi.id }}",
           "name": "Lemlist - \"lemlist\" team API key"
         }
       },
@@ -141,7 +141,7 @@
       ],
       "parameters": {
         "stage": "79009480",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "dealName": "=New Deal with {{ $json[\"identity-profiles\"][0][\"identities\"][0][\"value\"] }}",
           "associatedVids": "={{$json[\"canonical-vid\"]}}"
@@ -149,7 +149,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "14",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "Hubspot account"
         }
       },
@@ -166,7 +166,7 @@
       "parameters": {
         "email": "={{ $json[\"leadEmail\"] }}",
         "resource": "contact",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "lastName": "={{ $json[\"leadLastName\"] }}",
           "firstName": "={{ $json[\"leadFirstName\"] }}"
@@ -174,7 +174,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "14",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "Hubspot account"
         }
       },
@@ -193,7 +193,7 @@
         "channel": "Your channel name",
         "attachments": [],
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "typeVersion": 1
     },
@@ -208,7 +208,7 @@
       "parameters": {
         "email": "={{ $json[\"leadEmail\"] }}",
         "resource": "contact",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "lastName": "={{ $json[\"leadLastName\"] }}",
           "firstName": "={{ $json[\"leadFirstName\"] }}"
@@ -216,7 +216,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "14",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "Hubspot account"
         }
       },
@@ -235,7 +235,7 @@
         "channel": "Your channel name",
         "attachments": [],
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "typeVersion": 1
     },
@@ -256,7 +256,7 @@
       },
       "credentials": {
         "lemlistApi": {
-          "id": "45",
+          "id": "{{ $credentials.lemlistApi.id }}",
           "name": "Lemlist - \"lemlist\" team API key"
         }
       },
@@ -274,13 +274,13 @@
         "prompt": "=The following is a list of emails and the categories they fall into:\nCategories=[\"interested\", \"Out of office\", \"unsubscribe\", \"other\"]\n\nInterested is when the reply is positive.\"\n\n{{$json[\"text\"].replaceAll(/^\\s+|\\s+$/g, '').replace(/(\\r\\n|\\n|\\r)/gm, \"\")}}\\\"\nCategory:",
         "options": {
           "topP": 1,
-          "maxTokens": 6,
+          "maxTokens": "YOUR_TOKEN_HERE",
           "temperature": 0
         }
       },
       "credentials": {
         "openAiApi": {
-          "id": "67",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "Lucas Open AI"
         }
       },
@@ -302,7 +302,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -371,7 +371,7 @@
     },
     {
       "id": "documentation-e7f41a0d",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -552,5 +552,9 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": null,
     "timezone": "UTC"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

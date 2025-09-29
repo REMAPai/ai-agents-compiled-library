@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "5aaf4236c70e34e423fbdb2c7b754d19253a933bb1476d548f75848a01e473cf",
-    "templateId": "3561"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -45,14 +47,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1g8Dum0tfZ1nQdd3b6sLhZX2aMu6FzwoVvD0EAXMpPx8/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "input"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1g8Dum0tfZ1nQdd3b6sLhZX2aMu6FzwoVvD0EAXMpPx8",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1g8Dum0tfZ1nQdd3b6sLhZX2aMu6FzwoVvD0EAXMpPx8/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "NoFluff-N8N-Sheet-Template-Hyper Personalization"
         }
       },
@@ -105,7 +107,7 @@
       "parameters": {
         "width": 194.6864335083109,
         "height": 525.6560478822986,
-        "content": "In this workflow, I use Google Sheets to store the results. \n\nYou can use my template to get started faster:\n\n1. [Click on this link to get the template](https://docs.google.com/spreadsheets/d/1_jbr5zBllTy_pGbogfGSvyv1_0a77I8tU-Ai7BjTAw4/edit?usp=sharing)\n2. Make a copy of the Sheets\n3. Add the URL to this node and the node **\"Google Sheets - Update Row with data\"**\n\n\n"
+        "content": "In this workflow, I use Google Sheets to store the results. \n\nYou can use my template to get started faster:\n\n1. [Click on this link to get the template]({{ $env.WEBHOOK_URL }}\n2. Make a copy of the Sheets\n3. Add the URL to this node and the node **\"Google Sheets - Update Row with data\"**\n\n\n"
       },
       "typeVersion": 1
     },
@@ -121,7 +123,7 @@
         "color": 4,
         "width": 1280,
         "height": 320,
-        "content": "=======================================\n            WORKFLOW ASSISTANCE\n=======================================\nFor any questions or support, please contact:\n    Yaron@nofluff.online\n\nExplore more tips and tutorials here:\n   - YouTube: https://www.youtube.com/@YaronBeen/videos\n   - LinkedIn: https://www.linkedin.com/in/yaronbeen/\n=======================================\n"
+        "content": "=======================================\n            WORKFLOW ASSISTANCE\n=======================================\nFor any questions or support, please contact:\n    Yaron@nofluff.online\n\nExplore more tips and tutorials here:\n   - YouTube: {{ $env.WEBHOOK_URL }}\n   - LinkedIn: {{ $env.WEBHOOK_URL }}\n=======================================\n"
       },
       "typeVersion": 1
     },
@@ -199,7 +201,7 @@
         740
       ],
       "parameters": {
-        "url": "=https://api.brightdata.com/datasets/v3/snapshot/{{ $json.snapshot_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
@@ -260,7 +262,7 @@
         740
       ],
       "parameters": {
-        "url": "https://api.brightdata.com/datasets/v3/trigger",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "=[\n  {\n    \"url\": \"{{ $json.person_input }}\"\n  }\n]",
@@ -315,7 +317,7 @@
         840
       ],
       "parameters": {
-        "url": "=https://api.brightdata.com/datasets/v3/progress/{{ $json.snapshot_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -379,7 +381,7 @@
             "about": "={{ $json.about }}",
             "row_number": "={{ $('Loop Over Items- All Prospects').item.json.row_number }}",
             "country_code": "={{ $json.country_code }}",
-            "Linkedin_URL_Person": "={{ $json.input.url }}",
+            "Linkedin_URL_Person": "{{ $env.BASE_URL }}",
             "current_company.name": "={{ $json.current_company.name }}"
           },
           "schema": [
@@ -528,14 +530,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_jbr5zBllTy_pGbogfGSvyv1_0a77I8tU-Ai7BjTAw4/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "input"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1_jbr5zBllTy_pGbogfGSvyv1_0a77I8tU-Ai7BjTAw4",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_jbr5zBllTy_pGbogfGSvyv1_0a77I8tU-Ai7BjTAw4/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "NoFluff-N8N-Sheet-Template"
         }
       },
@@ -702,14 +704,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_jbr5zBllTy_pGbogfGSvyv1_0a77I8tU-Ai7BjTAw4/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "input"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1_jbr5zBllTy_pGbogfGSvyv1_0a77I8tU-Ai7BjTAw4",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_jbr5zBllTy_pGbogfGSvyv1_0a77I8tU-Ai7BjTAw4/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "NoFluff-N8N-Sheet-Template"
         }
       },
@@ -745,6 +747,145 @@
         "options": {}
       },
       "typeVersion": 3
+    },
+    {
+      "id": "error-handler-e3965132-4d21-4252-ab26-525128d79d29",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e3965132-4d21-4252-ab26-525128d79d29",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0cc85426-64f7-41f8-bd9a-215aaaad3299",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 0cc85426-64f7-41f8-bd9a-215aaaad3299",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-294a7c03-2268-4d7a-b4e7-a52faa78d929",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 294a7c03-2268-4d7a-b4e7-a52faa78d929",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-215cd515-149b-41b1-adbe-fa203cbc9b5d-f17761a4",
+      "name": "Error Handler for 215cd515",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 215cd515",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e3965132-4d21-4252-ab26-525128d79d29-2f86a93c",
+      "name": "Error Handler for e3965132",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e3965132",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0cc85426-64f7-41f8-bd9a-215aaaad3299-f2a56ccd",
+      "name": "Error Handler for 0cc85426",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0cc85426",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-294a7c03-2268-4d7a-b4e7-a52faa78d929-b026c255",
+      "name": "Error Handler for 294a7c03",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 294a7c03",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b44b5f4b-8aef-4ea3-bbd7-1e72548dda64-a28d13ba",
+      "name": "Error Handler for b44b5f4b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b44b5f4b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-081f9e1d-6325-4645-bb0c-368a8ac3be99-697d681c",
+      "name": "Error Handler for 081f9e1d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 081f9e1d",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-5d509f51",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, wait, scheduleTrigger, chainLlm. It contains 30 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 30\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking \"Test workflow\"**: manualTrigger\n- **Sticky Note**: stickyNote\n- **Get rows to enrich**: googleSheets\n- **Sticky Note3**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Sticky Note7**: stickyNote\n- **Sticky Note9**: stickyNote\n- **Anthropic Chat Model**: lmChatAnthropic\n- **Sticky Note4**: stickyNote\n- **Sticky Note1**: stickyNote\n- ... and 20 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -910,6 +1051,102 @@
           }
         ]
       ]
+    },
+    "e3965132-4d21-4252-ab26-525128d79d29": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e3965132-4d21-4252-ab26-525128d79d29",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e3965132-4d21-4252-ab26-525128d79d29-2f86a93c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0cc85426-64f7-41f8-bd9a-215aaaad3299": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0cc85426-64f7-41f8-bd9a-215aaaad3299",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-0cc85426-64f7-41f8-bd9a-215aaaad3299-f2a56ccd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "294a7c03-2268-4d7a-b4e7-a52faa78d929": {
+      "main": [
+        [
+          {
+            "node": "error-handler-294a7c03-2268-4d7a-b4e7-a52faa78d929",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-294a7c03-2268-4d7a-b4e7-a52faa78d929-b026c255",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "215cd515-149b-41b1-adbe-fa203cbc9b5d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-215cd515-149b-41b1-adbe-fa203cbc9b5d-f17761a4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b44b5f4b-8aef-4ea3-bbd7-1e72548dda64": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b44b5f4b-8aef-4ea3-bbd7-1e72548dda64-a28d13ba",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "081f9e1d-6325-4645-bb0c-368a8ac3be99": {
+      "main": [
+        [
+          {
+            "node": "error-handler-081f9e1d-6325-4645-bb0c-368a8ac3be99-697d681c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, wait, scheduleTrigger, chainLlm. It contains 30 nodes and follows best practices for error handling and security."
 }

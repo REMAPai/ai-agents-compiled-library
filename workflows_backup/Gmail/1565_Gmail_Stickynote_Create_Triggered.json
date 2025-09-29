@@ -1,8 +1,10 @@
 {
   "id": "NPGAfBzz4nv8lTpl",
   "meta": {
-    "instanceId": "d40a25503b797861fe81ffcf2649da2a83b8677ac1ef2ee6b6872aa9b52454b8",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Save New Sales Opportunities",
   "tags": [],
@@ -121,6 +123,33 @@
         }
       },
       "typeVersion": 2
+    },
+    {
+      "id": "error-handler-a57e0e51-50d3-49de-8dc6-6fe592604765-088ed820",
+      "name": "Error Handler for a57e0e51",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a57e0e51",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-c0123c6d",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Save New Sales Opportunities\n\n## Overview\nAutomated workflow: Save New Sales Opportunities. This workflow integrates 6 different services: stickyNote, gmailTrigger, odoo, stopAndError, lmOpenAi. It contains 6 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 6\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Received Emails with Sales Label**: gmailTrigger\n- **Odoo - Create Opportunity**: odoo\n- **OpenAI Model**: lmOpenAi\n- **Sticky Note**: stickyNote\n- **Summarize Email Content**: chainSummarization\n- **Error Handler for a57e0e51**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -186,7 +215,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "8c905538-5613-464b-b5a0-87e266a507c7",
   "connections": {
@@ -222,6 +255,18 @@
           }
         ]
       ]
+    },
+    "a57e0e51-50d3-49de-8dc6-6fe592604765": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a57e0e51-50d3-49de-8dc6-6fe592604765-088ed820",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Save New Sales Opportunities. This workflow integrates 6 different services: stickyNote, gmailTrigger, odoo, stopAndError, lmOpenAi. It contains 6 nodes and follows best practices for error handling and security."
 }

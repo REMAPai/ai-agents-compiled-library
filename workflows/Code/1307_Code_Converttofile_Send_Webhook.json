@@ -83,7 +83,7 @@
         "options": {},
         "sendBody": true,
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -116,9 +116,9 @@
         420
       ],
       "parameters": {
-        "url": "={{ $json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -232,10 +232,10 @@
         680
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.id }}?$select=internetMessageHeaders,body",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -248,7 +248,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "microsoftOutlookOAuth2Api": {
@@ -302,7 +302,7 @@
       },
       "credentials": {
         "openAiApi": {
-          "id": "76",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi account"
         }
       },
@@ -413,7 +413,7 @@
         480
       ],
       "parameters": {
-        "issueKey": "YOUR_API_KEY",
+        "issueKey": "YOUR_CREDENTIAL_HERE",
         "resource": "issueAttachment"
       },
       "credentials": {
@@ -433,7 +433,7 @@
         480
       ],
       "parameters": {
-        "issueKey": "YOUR_API_KEY",
+        "issueKey": "YOUR_CREDENTIAL_HERE",
         "resource": "issueAttachment"
       },
       "credentials": {
@@ -1037,5 +1037,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Gmailtrigger Workflow. This workflow integrates 11 different services: convertToFile, stickyNote, httpRequest, code, gmailTrigger. It contains 33 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Gmailtrigger Workflow. This workflow integrates 11 different services: convertToFile, stickyNote, httpRequest, code, gmailTrigger. It contains 33 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

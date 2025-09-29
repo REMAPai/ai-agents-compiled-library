@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Get all scaleway server info copy",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "9da28130-ed83-4129-b65c-82969fe3126d",
@@ -274,7 +277,7 @@
         "options": {},
         "httpMethod": "POST",
         "responseMode": "responseNode",
-        "authentication": "basicAuth"
+        "authentication": "{{ $credentials.basicAuth }}"
       },
       "credentials": {
         "httpBasicAuth": {
@@ -399,7 +402,7 @@
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -458,7 +461,7 @@
         80
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Split Out ZONE_INSTANCE').item.json.ZONE_INSTANCE }}/servers",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -498,7 +501,7 @@
         80
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Split Out ZONE_INSTANCE').item.json.ZONE_INSTANCE }}/servers",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {

@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "spy tool",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "5690844d-5322-4c62-8c83-eb4d4dc9c481",
@@ -145,8 +148,8 @@
         "jsonBody": "={\n  \"model\": \"gpt-4o-2024-08-06\",\n  \"messages\": [\n              {\n        \"role\": \"user\",\n        \"content\": \"convert the following message to a website url (just the plain text url, NOT formatted or in markdown) and prompt to AI. Make the prompt as verbose as possible. Message: {{ $('New espionage assignment').first().json.assignment_instructions }}\"\n    }\n  ],\n  \"response_format\": {\n    \"type\": \"json_schema\",\n    \"json_schema\": {\n      \"name\": \"variable_extraction\",\n      \"schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"website_url\": { \"type\": \"string\" },\n          \"prompt\": { \"type\": \"string\" }\n        },\n        \"required\": [\"website_url\", \"prompt\"],\n        \"additionalProperties\": false\n      },\n      \"strict\": true\n    }\n  }\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -209,7 +212,7 @@
         "jsonBody": "={\n  \"url\": \"{{ $('parse results').item.json.website_url }}\",\n  \"formats\": [\n    \"markdown\"\n  ],\n  \"onlyMainContent\": true,\n  \"waitFor\": 5000\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -240,7 +243,7 @@
         "jsonBody": "={\n  \"url\": \"{{ $('parse results').item.json.website_url }}\",\n  \"formats\": [\n    \"markdown\"\n  ],\n  \"onlyMainContent\": true,\n  \"waitFor\": 5000\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {

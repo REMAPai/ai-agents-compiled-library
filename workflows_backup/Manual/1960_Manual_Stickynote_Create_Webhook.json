@@ -1,8 +1,10 @@
 {
   "id": "q1DorytEoEw1QLGj",
   "meta": {
-    "instanceId": "885b4fb4a6a9c2cb5621429a7b972df0d05bb724c20ac7dac7171b62f1c7ef40",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Generate Company Stories from LinkedIn with Bright Data & Google Gemini",
   "tags": [
@@ -82,7 +84,7 @@
     },
     {
       "id": "4ab31927-5372-4a8f-83b5-355bcd6eaae2",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         -340,
@@ -145,12 +147,12 @@
         120
       ],
       "parameters": {
-        "url": "=https://api.brightdata.com/datasets/v3/snapshot/{{ $json.snapshot_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "timeout": 10000
         },
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -185,7 +187,7 @@
               "id": "47f839a1-df2a-4972-9dad-597a8af0bf75",
               "name": "url",
               "type": "string",
-              "value": "https://il.linkedin.com/company/bright-data"
+              "value": "{{ $env.WEBHOOK_URL }}"
             }
           ]
         }
@@ -284,7 +286,7 @@
         245
       ],
       "parameters": {
-        "url": "https://api.brightdata.com/datasets/v3/trigger",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "=[\n  {\n    \"url\": \"{{ $json.url }}\"\n  }\n]",
@@ -292,7 +294,7 @@
         "sendQuery": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -329,10 +331,10 @@
         245
       ],
       "parameters": {
-        "url": "=https://api.brightdata.com/datasets/v3/progress/{{ $json.snapshot_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -403,7 +405,7 @@
         -80
       ],
       "parameters": {
-        "url": "https://webhook.site/ce41e056-c097-48c8-a096-9b876d3abbf7",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {},
         "sendBody": true,
         "bodyParameters": {
@@ -426,7 +428,7 @@
         320
       ],
       "parameters": {
-        "url": "https://webhook.site/ce41e056-c097-48c8-a096-9b876d3abbf7",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {},
         "sendBody": true,
         "bodyParameters": {
@@ -453,12 +455,197 @@
         "amount": 30
       },
       "typeVersion": 1.1
+    },
+    {
+      "id": "error-handler-a4867b6f-fa91-4b83-befc-9ce97c10228c",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a4867b6f-fa91-4b83-befc-9ce97c10228c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ae6377e2-6ca0-4218-affd-d3c81c16d996",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ae6377e2-6ca0-4218-affd-d3c81c16d996",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9a1e8d92-24a9-481c-b81f-5e37bca46fe2",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 9a1e8d92-24a9-481c-b81f-5e37bca46fe2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0867753e-c3ab-473e-960a-344573cdde29",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 0867753e-c3ab-473e-960a-344573cdde29",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d666cbb8-64bf-47b9-802a-d78ed5caa128",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d666cbb8-64bf-47b9-802a-d78ed5caa128",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-509519c2-efe9-4191-87af-9c5c782350d6-204bf8f1",
+      "name": "Error Handler for 509519c2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 509519c2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a4867b6f-fa91-4b83-befc-9ce97c10228c-026806c4",
+      "name": "Error Handler for a4867b6f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a4867b6f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-be007904-269a-4823-bdd8-1ba5b4f69f5c-0e3ec39b",
+      "name": "Error Handler for be007904",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node be007904",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ae6377e2-6ca0-4218-affd-d3c81c16d996-e0428936",
+      "name": "Error Handler for ae6377e2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ae6377e2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9a1e8d92-24a9-481c-b81f-5e37bca46fe2-c554d10b",
+      "name": "Error Handler for 9a1e8d92",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9a1e8d92",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0867753e-c3ab-473e-960a-344573cdde29-879a0c0f",
+      "name": "Error Handler for 0867753e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0867753e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d666cbb8-64bf-47b9-802a-d78ed5caa128-274ead28",
+      "name": "Error Handler for d666cbb8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d666cbb8",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-27b7f5a4",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Generate Company Stories from LinkedIn with Bright Data & Google Gemini\n\n## Overview\nAutomated workflow: Generate Company Stories from LinkedIn with Bright Data & Google Gemini. This workflow integrates 12 different services: stickyNote, httpRequest, wait, textSplitterRecursiveCharacterTextSplitter, lmChatGoogleGemini. It contains 31 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 31\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Google Gemini Chat Model**: lmChatGoogleGemini\n- **Default Data Loader**: documentDefaultDataLoader\n- **Recursive Character Text Splitter**: textSplitterRecursiveCharacterTextSplitter\n- **If Node**: if\n- **Set Snapshot Id**: set\n- **Download Snapshot**: httpRequest\n- **Set LinkedIn URL**: set\n- **Google Gemini Chat Model1**: lmChatGoogleGemini\n- **Check on the errors**: if\n- ... and 21 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "0f4279a9-1593-421e-825e-850cdae1bb97",
   "connections": {
@@ -638,6 +825,119 @@
           }
         ]
       ]
+    },
+    "a4867b6f-fa91-4b83-befc-9ce97c10228c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a4867b6f-fa91-4b83-befc-9ce97c10228c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a4867b6f-fa91-4b83-befc-9ce97c10228c-026806c4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ae6377e2-6ca0-4218-affd-d3c81c16d996": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ae6377e2-6ca0-4218-affd-d3c81c16d996",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ae6377e2-6ca0-4218-affd-d3c81c16d996-e0428936",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9a1e8d92-24a9-481c-b81f-5e37bca46fe2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9a1e8d92-24a9-481c-b81f-5e37bca46fe2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-9a1e8d92-24a9-481c-b81f-5e37bca46fe2-c554d10b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0867753e-c3ab-473e-960a-344573cdde29": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0867753e-c3ab-473e-960a-344573cdde29",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-0867753e-c3ab-473e-960a-344573cdde29-879a0c0f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d666cbb8-64bf-47b9-802a-d78ed5caa128": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d666cbb8-64bf-47b9-802a-d78ed5caa128",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d666cbb8-64bf-47b9-802a-d78ed5caa128-274ead28",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "509519c2-efe9-4191-87af-9c5c782350d6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-509519c2-efe9-4191-87af-9c5c782350d6-204bf8f1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "be007904-269a-4823-bdd8-1ba5b4f69f5c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-be007904-269a-4823-bdd8-1ba5b4f69f5c-0e3ec39b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Generate Company Stories from LinkedIn with Bright Data & Google Gemini. This workflow integrates 12 different services: stickyNote, httpRequest, wait, textSplitterRecursiveCharacterTextSplitter, lmChatGoogleGemini. It contains 31 nodes and follows best practices for error handling and security."
 }

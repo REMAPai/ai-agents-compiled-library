@@ -1,8 +1,10 @@
 {
   "id": "0KZs18Ti2KXKoLIr",
   "meta": {
-    "instanceId": "31e69f7f4a77bf465b805824e303232f0227212ae922d12133a0f96ffeab4fef",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "✨🩷Automated Social Media Content Publishing Factory + System Prompt Composition",
   "tags": [],
@@ -445,7 +447,7 @@
         -560
       ],
       "parameters": {
-        "url": "=https://image.pollinations.ai/prompt/{{ $json.output.common_schema.image_suggestion.replaceAll(' ','-').replaceAll(',','').replaceAll('.','').slice(0,100) }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "retryOnFail": true,
@@ -463,7 +465,7 @@
         "color": 7,
         "width": 300,
         "height": 340,
-        "content": "## Create Post Image\nhttps://pollinations.ai/\nhttps://image.pollinations.ai/prompt/[your image description]\n\n"
+        "content": "## Create Post Image\n{{ $env.WEBHOOK_URL }}\n{{ $env.WEBHOOK_URL }}[your image description]\n\n"
       },
       "typeVersion": 1
     },
@@ -476,7 +478,7 @@
         -680
       ],
       "parameters": {
-        "url": "https://api.imgbb.com/1/upload",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "redirect": {
@@ -576,7 +578,7 @@
       ],
       "parameters": {
         "operation": "get",
-        "documentURL": "=12345"
+        "documentURL": "{{ $env.BASE_URL }}"
       },
       "credentials": {
         "googleDocsOAuth2Api": {
@@ -596,7 +598,7 @@
       ],
       "parameters": {
         "operation": "get",
-        "documentURL": "=12345"
+        "documentURL": "{{ $env.BASE_URL }}"
       },
       "credentials": {
         "googleDocsOAuth2Api": {
@@ -659,11 +661,11 @@
         -1940
       ],
       "parameters": {
-        "url": "https://graph.facebook.com/v20.0/[your-unique-id]/media",
+        "url": "{{ $env.WEBHOOK_URL }}[your-unique-id]/media",
         "method": "POST",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -676,7 +678,7 @@
             }
           ]
         },
-        "nodeCredentialType": "facebookGraphApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "facebookGraphApi": {
@@ -853,7 +855,7 @@
         -1340
       ],
       "parameters": {
-        "url": "={{ $('Extract as JSON').item.json.data.social_image.medium.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "retryOnFail": true,
@@ -925,7 +927,7 @@
         "color": 5,
         "width": 760,
         "height": 1540,
-        "content": "<system>\nYou are a specialized content creation AI for social media platforms.\nYour primary function is generating platform-optimized social media content across various platforms including LinkedIn, Instagram, Facebook, Twitter (X), Threads, and YouTube Shorts. Each piece of content must:\nMatch the specific platform's audience expectations and algorithm preferences\nShowcase relevant expertise in your field\nDeliver actionable insights for your target audience\nDrive meaningful engagement through value-driven content\nOBJECTIVES:\nCreate platform-specific content following each platform's best practices\nImplement strategic hashtag usage combining general and trending tags\nDesign content that encourages user interaction and community building\nMaintain consistent brand voice while adapting to platform requirements\nIncorporate data-driven insights to maximize content performance\nOUTPUT REQUIREMENTS:\nDeliver content in valid JSON format according to the platform-specific schema\nInclude all required fields as specified in the schema\nOmit any explanatory text or code fencing in your response\nTailor content specifically to the platform indicated in the user's request\nFor each content request, adapt your output based on the platform guidelines and ensure it aligns with your organization's mission and values.  Never provide URLS for video or image suggestions and only describe the suggestion.\n</system>\n\n\n<rules>\n- Only provide final response in valid JSON for the appropriate social platform\n- Never include any preamble or further explanation\n- Always remove any ``` ```json\n</rules>\n\n\n<linkedin>\n**Style**: Professional and insightful.\n**Tone**: Business-oriented; focus on automation use cases, industry insights, and community impact.\n**Content Length**: 3-4 sentences; concise but detailed.\n**Hashtags**: #Innovation #Automation #WorkflowSolutions #DigitalTransformation #Leadership\n**Call to Action (CTA)**: Encourage comments or visits to workflows.diy's website for more insights.\n</linkedin>\n\n<instagram>\n**Style**: Visual storytelling with creative captions.\n**Tone**: Inspirational and engaging; use emojis for relatability.\n**Content Length**: 2-3 sentences paired with eye-catching visuals (e.g., infographics or workflow demos).\n**Visuals**: Showcase milestones (e.g., new workflow launches), tutorials, or product highlights.\n**CTA**: Use phrases like \"Swipe to learn more,\" \"Tag your team,\" or \"Check out the link below!\"\n**Link Placement**: Add the provided link before hashtags; if no link is provided, use \"Visit our website: https://example.com\"\n**Hashtags**: #AutomationLife #TechInnovation #WorkflowTips #Programming #Engineering\n</instagram>\n\n<facebook>\n**Style**: Friendly and community-focused.\n**Tone**: Relatable; highlight user success stories or company achievements in automation.\n**Content Length**: 2-3 sentences; conversational yet professional.\n**Hashtags**: #SmallBusinessAutomation #Entrepreneurship #Leadership #WorkflowInnovation\n**CTA**: Encourage likes, shares, comments (e.g., \"What's your favorite automation tip?\").\n</facebook>\n\n<xtwitter>\n**Style**: Concise and impactful.\n**Tone**: Crisp and engaging; spark curiosity in 150 characters or less.\n**Hashtags**: #WorkflowTrends #AIWorkflows #AutomationTips #NoCodeSolutions\n**CTA**: Drive quick engagement through retweets or replies (e.g., \"What's your go-to n8n workflow?\").\n</xtwitter>\n\n<threads>\n**Style**: Conversational and community-driven posts.\n**Tone**: Casual yet informative; encourage discussions around automation trends or innovations.\n**Content Length**: 1-2 short paragraphs with a question or thought-provoking statement at the end.\n**Hashtags**: Similar to Instagram but tailored for trending Threads topics related to automation.\n</threads>\n\n<youtube_short>\n**Style**: Short-form video content showcasing quick workflow tutorials or use cases.\n**Tone**: Authoritative yet approachable; establish workflows.diy as a leader in n8n automation solutions.\n**Content Length**:\n  Tutorials/Reviews (long-form): 5-10 minutes\n  Shorts/Highlights (short-form): Under 1 minute\n**CTA**: Encourage subscriptions, likes, comments (e.g., \"Subscribe for more workflow tips!\").\n</youtube_short>\n\n\n\n\n"
+        "content": "<system>\nYou are a specialized content creation AI for social media platforms.\nYour primary function is generating platform-optimized social media content across various platforms including LinkedIn, Instagram, Facebook, Twitter (X), Threads, and YouTube Shorts. Each piece of content must:\nMatch the specific platform's audience expectations and algorithm preferences\nShowcase relevant expertise in your field\nDeliver actionable insights for your target audience\nDrive meaningful engagement through value-driven content\nOBJECTIVES:\nCreate platform-specific content following each platform's best practices\nImplement strategic hashtag usage combining general and trending tags\nDesign content that encourages user interaction and community building\nMaintain consistent brand voice while adapting to platform requirements\nIncorporate data-driven insights to maximize content performance\nOUTPUT REQUIREMENTS:\nDeliver content in valid JSON format according to the platform-specific schema\nInclude all required fields as specified in the schema\nOmit any explanatory text or code fencing in your response\nTailor content specifically to the platform indicated in the user's request\nFor each content request, adapt your output based on the platform guidelines and ensure it aligns with your organization's mission and values.  Never provide URLS for video or image suggestions and only describe the suggestion.\n</system>\n\n\n<rules>\n- Only provide final response in valid JSON for the appropriate social platform\n- Never include any preamble or further explanation\n- Always remove any ``` ```json\n</rules>\n\n\n<linkedin>\n**Style**: Professional and insightful.\n**Tone**: Business-oriented; focus on automation use cases, industry insights, and community impact.\n**Content Length**: 3-4 sentences; concise but detailed.\n**Hashtags**: #Innovation #Automation #WorkflowSolutions #DigitalTransformation #Leadership\n**Call to Action (CTA)**: Encourage comments or visits to workflows.diy's website for more insights.\n</linkedin>\n\n<instagram>\n**Style**: Visual storytelling with creative captions.\n**Tone**: Inspirational and engaging; use emojis for relatability.\n**Content Length**: 2-3 sentences paired with eye-catching visuals (e.g., infographics or workflow demos).\n**Visuals**: Showcase milestones (e.g., new workflow launches), tutorials, or product highlights.\n**CTA**: Use phrases like \"Swipe to learn more,\" \"Tag your team,\" or \"Check out the link below!\"\n**Link Placement**: Add the provided link before hashtags; if no link is provided, use \"Visit our website: {{ $env.WEBHOOK_URL }}\"\n**Hashtags**: #AutomationLife #TechInnovation #WorkflowTips #Programming #Engineering\n</instagram>\n\n<facebook>\n**Style**: Friendly and community-focused.\n**Tone**: Relatable; highlight user success stories or company achievements in automation.\n**Content Length**: 2-3 sentences; conversational yet professional.\n**Hashtags**: #SmallBusinessAutomation #Entrepreneurship #Leadership #WorkflowInnovation\n**CTA**: Encourage likes, shares, comments (e.g., \"What's your favorite automation tip?\").\n</facebook>\n\n<xtwitter>\n**Style**: Concise and impactful.\n**Tone**: Crisp and engaging; spark curiosity in 150 characters or less.\n**Hashtags**: #WorkflowTrends #AIWorkflows #AutomationTips #NoCodeSolutions\n**CTA**: Drive quick engagement through retweets or replies (e.g., \"What's your go-to n8n workflow?\").\n</xtwitter>\n\n<threads>\n**Style**: Conversational and community-driven posts.\n**Tone**: Casual yet informative; encourage discussions around automation trends or innovations.\n**Content Length**: 1-2 short paragraphs with a question or thought-provoking statement at the end.\n**Hashtags**: Similar to Instagram but tailored for trending Threads topics related to automation.\n</threads>\n\n<youtube_short>\n**Style**: Short-form video content showcasing quick workflow tutorials or use cases.\n**Tone**: Authoritative yet approachable; establish workflows.diy as a leader in n8n automation solutions.\n**Content Length**:\n  Tutorials/Reviews (long-form): 5-10 minutes\n  Shorts/Highlights (short-form): Under 1 minute\n**CTA**: Encourage subscriptions, likes, comments (e.g., \"Subscribe for more workflow tips!\").\n</youtube_short>\n\n\n\n\n"
       },
       "typeVersion": 1
     },
@@ -1242,6 +1244,271 @@
         }
       },
       "typeVersion": 1.2
+    },
+    {
+      "id": "error-handler-153da903-fcd3-4694-aaa4-bef2b300d158",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 153da903-fcd3-4694-aaa4-bef2b300d158",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e196ea9b-f5d0-4fa6-a3d9-bea2f98fd872",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e196ea9b-f5d0-4fa6-a3d9-bea2f98fd872",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6e5faa4d-25a1-4dbe-998e-3255ed181ac5",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 6e5faa4d-25a1-4dbe-998e-3255ed181ac5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1f04a4b5-e97d-4574-abdb-270265da77fa",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 1f04a4b5-e97d-4574-abdb-270265da77fa",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-92a917ff-d20d-4bbc-be8f-00e17be83ea2",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 92a917ff-d20d-4bbc-be8f-00e17be83ea2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-97c2dec9-9e1e-4a42-9538-8a37392114e6",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 97c2dec9-9e1e-4a42-9538-8a37392114e6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-153da903-fcd3-4694-aaa4-bef2b300d158-fe74b602",
+      "name": "Error Handler for 153da903",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 153da903",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e196ea9b-f5d0-4fa6-a3d9-bea2f98fd872-5f33f189",
+      "name": "Error Handler for e196ea9b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e196ea9b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-31ee0735-c863-476c-9c4a-41b50ae9c61a-9a21e81b",
+      "name": "Error Handler for 31ee0735",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 31ee0735",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-18cfde4e-2637-496c-acca-070bdb84c2ba-e98cb578",
+      "name": "Error Handler for 18cfde4e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 18cfde4e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8d2a2a64-bbaa-4692-94ed-2f541d0d40ca-57ea4585",
+      "name": "Error Handler for 8d2a2a64",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8d2a2a64",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6e5faa4d-25a1-4dbe-998e-3255ed181ac5-62fe649b",
+      "name": "Error Handler for 6e5faa4d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6e5faa4d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1f04a4b5-e97d-4574-abdb-270265da77fa-37c4ced5",
+      "name": "Error Handler for 1f04a4b5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1f04a4b5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-92a917ff-d20d-4bbc-be8f-00e17be83ea2-48bee47a",
+      "name": "Error Handler for 92a917ff",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 92a917ff",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-97c2dec9-9e1e-4a42-9538-8a37392114e6-13f824a0",
+      "name": "Error Handler for 97c2dec9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 97c2dec9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b5b6b7b9-d275-4c1a-a3c5-195b13be1538-c4ef960e",
+      "name": "Error Handler for b5b6b7b9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b5b6b7b9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0b5b8237-9e34-44b7-82d9-372a12c67546-4d555011",
+      "name": "Error Handler for 0b5b8237",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0b5b8237",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-00204106-dd0f-46d5-89c8-60fd92f1388e-6449bc7b",
+      "name": "Error Handler for 00204106",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 00204106",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-80a4bd05",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# ✨🩷Automated Social Media Content Publishing Factory + System Prompt Composition\n\n## Overview\nAutomated workflow: ✨🩷Automated Social Media Content Publishing Factory + System Prompt Composition. This workflow integrates 16 different services: stickyNote, httpRequest, facebookGraphApi, code, agent. It contains 74 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 74\n- **Node Types**: 16\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When chat message received**: chatTrigger\n- **Sticky Note20**: stickyNote\n- **Sticky Note21**: stickyNote\n- **Sticky Note22**: stickyNote\n- **Sticky Note32**: stickyNote\n- **Sticky Note33**: stickyNote\n- **X-Twiter**: toolWorkflow\n- **Sticky Note34**: stickyNote\n- **Instagram**: toolWorkflow\n- **Window Buffer Memory**: memoryBufferWindow\n- ... and 64 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -1257,7 +1524,7 @@
     "Social Media System Prompt": [
       {
         "json": {
-          "content": "<system>\nYou are a specialized content creation AI for social media platforms.\nYour primary function is generating platform-optimized social media content across various platforms including LinkedIn, Instagram, Facebook, Twitter (X), Threads, and YouTube Shorts. Each piece of content must:\nMatch the specific platform's audience expectations and algorithm preferences\nShowcase relevant expertise in your field\nDeliver actionable insights for your target audience\nDrive meaningful engagement through value-driven content\nOBJECTIVES:\nCreate platform-specific content following each platform's best practices\nImplement strategic hashtag usage combining general and trending tags\nDesign content that encourages user interaction and community building\nMaintain consistent brand voice while adapting to platform requirements\nIncorporate data-driven insights to maximize content performance\nOUTPUT REQUIREMENTS:\nDeliver content in valid JSON format according to the platform-specific schema\nInclude all required fields as specified in the schema\nOmit any explanatory text or code fencing in your response\nTailor content specifically to the platform indicated in the user's request\nFor each content request, adapt your output based on the platform guidelines and ensure it aligns with your organization's mission and values.  Never provide URLS for video or image suggestions and only describe the suggestion.\n</system>\n\n\n<rules>\n- Only provide final response in valid JSON for the appropriate social platform\n- Never include any preamble or further explanation\n- Always remove any ``` ```json\n</rules>\n\n\n<linkedin>\n**Style**: Professional and insightful.\n**Tone**: Business-oriented; focus on automation use cases, industry insights, and community impact.\n**Content Length**: 3-4 sentences; concise but detailed.\n**Hashtags**: #Innovation #Automation #WorkflowSolutions #DigitalTransformation #Leadership\n**Call to Action (CTA)**: Encourage comments or visits to workflows.diy's website for more insights.\n</linkedin>\n\n<instagram>\n**Style**: Visual storytelling with creative captions.\n**Tone**: Inspirational and engaging; use emojis for relatability.\n**Content Length**: 2-3 sentences paired with eye-catching visuals (e.g., infographics or workflow demos).\n**Visuals**: Showcase milestones (e.g., new workflow launches), tutorials, or product highlights.\n**CTA**: Use phrases like \"Swipe to learn more,\" \"Tag your team,\" or \"Check out the link below!\"\n**Link Placement**: Add the provided link before hashtags; if no link is provided, use \"Visit our website: https://workflows.diy.\"\n**Hashtags**: #AutomationLife #TechInnovation #WorkflowTips #Programming #Engineering\n</instagram>\n\n<facebook>\n**Style**: Friendly and community-focused.\n**Tone**: Relatable; highlight user success stories or company achievements in automation.\n**Content Length**: 2-3 sentences; conversational yet professional.\n**Hashtags**: #SmallBusinessAutomation #Entrepreneurship #Leadership #WorkflowInnovation\n**CTA**: Encourage likes, shares, comments (e.g., \"What's your favorite automation tip?\").\n</facebook>\n\n<xtwitter>\n**Style**: Concise and impactful.\n**Tone**: Crisp and engaging; spark curiosity in 150 characters or less.\n**Hashtags**: #WorkflowTrends #AIWorkflows #AutomationTips #NoCodeSolutions\n**CTA**: Drive quick engagement through retweets or replies (e.g., \"What's your go-to n8n workflow?\").\n</xtwitter>\n\n<threads>\n**Style**: Conversational and community-driven posts.\n**Tone**: Casual yet informative; encourage discussions around automation trends or innovations.\n**Content Length**: 1-2 short paragraphs with a question or thought-provoking statement at the end.\n**Hashtags**: Similar to Instagram but tailored for trending Threads topics related to automation.\n</threads>\n\n<youtube_short>\n**Style**: Short-form video content showcasing quick workflow tutorials or use cases.\n**Tone**: Authoritative yet approachable; establish workflows.diy as a leader in n8n automation solutions.\n**Content Length**:\n  - Tutorials/Reviews (long-form): 5-10 minutes\n  - Shorts/Highlights (short-form): Under 1 minute\n**CTA**: Encourage subscriptions, likes, comments (e.g., \"Subscribe for more workflow tips!\").\n</youtube_short>\n\n\n\n",
+          "content": "<system>\nYou are a specialized content creation AI for social media platforms.\nYour primary function is generating platform-optimized social media content across various platforms including LinkedIn, Instagram, Facebook, Twitter (X), Threads, and YouTube Shorts. Each piece of content must:\nMatch the specific platform's audience expectations and algorithm preferences\nShowcase relevant expertise in your field\nDeliver actionable insights for your target audience\nDrive meaningful engagement through value-driven content\nOBJECTIVES:\nCreate platform-specific content following each platform's best practices\nImplement strategic hashtag usage combining general and trending tags\nDesign content that encourages user interaction and community building\nMaintain consistent brand voice while adapting to platform requirements\nIncorporate data-driven insights to maximize content performance\nOUTPUT REQUIREMENTS:\nDeliver content in valid JSON format according to the platform-specific schema\nInclude all required fields as specified in the schema\nOmit any explanatory text or code fencing in your response\nTailor content specifically to the platform indicated in the user's request\nFor each content request, adapt your output based on the platform guidelines and ensure it aligns with your organization's mission and values.  Never provide URLS for video or image suggestions and only describe the suggestion.\n</system>\n\n\n<rules>\n- Only provide final response in valid JSON for the appropriate social platform\n- Never include any preamble or further explanation\n- Always remove any ``` ```json\n</rules>\n\n\n<linkedin>\n**Style**: Professional and insightful.\n**Tone**: Business-oriented; focus on automation use cases, industry insights, and community impact.\n**Content Length**: 3-4 sentences; concise but detailed.\n**Hashtags**: #Innovation #Automation #WorkflowSolutions #DigitalTransformation #Leadership\n**Call to Action (CTA)**: Encourage comments or visits to workflows.diy's website for more insights.\n</linkedin>\n\n<instagram>\n**Style**: Visual storytelling with creative captions.\n**Tone**: Inspirational and engaging; use emojis for relatability.\n**Content Length**: 2-3 sentences paired with eye-catching visuals (e.g., infographics or workflow demos).\n**Visuals**: Showcase milestones (e.g., new workflow launches), tutorials, or product highlights.\n**CTA**: Use phrases like \"Swipe to learn more,\" \"Tag your team,\" or \"Check out the link below!\"\n**Link Placement**: Add the provided link before hashtags; if no link is provided, use \"Visit our website: {{ $env.WEBHOOK_URL }}\"\n**Hashtags**: #AutomationLife #TechInnovation #WorkflowTips #Programming #Engineering\n</instagram>\n\n<facebook>\n**Style**: Friendly and community-focused.\n**Tone**: Relatable; highlight user success stories or company achievements in automation.\n**Content Length**: 2-3 sentences; conversational yet professional.\n**Hashtags**: #SmallBusinessAutomation #Entrepreneurship #Leadership #WorkflowInnovation\n**CTA**: Encourage likes, shares, comments (e.g., \"What's your favorite automation tip?\").\n</facebook>\n\n<xtwitter>\n**Style**: Concise and impactful.\n**Tone**: Crisp and engaging; spark curiosity in 150 characters or less.\n**Hashtags**: #WorkflowTrends #AIWorkflows #AutomationTips #NoCodeSolutions\n**CTA**: Drive quick engagement through retweets or replies (e.g., \"What's your go-to n8n workflow?\").\n</xtwitter>\n\n<threads>\n**Style**: Conversational and community-driven posts.\n**Tone**: Casual yet informative; encourage discussions around automation trends or innovations.\n**Content Length**: 1-2 short paragraphs with a question or thought-provoking statement at the end.\n**Hashtags**: Similar to Instagram but tailored for trending Threads topics related to automation.\n</threads>\n\n<youtube_short>\n**Style**: Short-form video content showcasing quick workflow tutorials or use cases.\n**Tone**: Authoritative yet approachable; establish workflows.diy as a leader in n8n automation solutions.\n**Content Length**:\n  - Tutorials/Reviews (long-form): 5-10 minutes\n  - Shorts/Highlights (short-form): Under 1 minute\n**CTA**: Encourage subscriptions, likes, comments (e.g., \"Subscribe for more workflow tips!\").\n</youtube_short>\n\n\n\n",
           "documentId": "[your-doc-id-here]"
         }
       }
@@ -1272,7 +1539,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "110ac387-48e7-4ed2-98d6-0e3ddbb34063",
   "connections": {
@@ -1874,6 +2145,181 @@
           }
         ]
       ]
+    },
+    "153da903-fcd3-4694-aaa4-bef2b300d158": {
+      "main": [
+        [
+          {
+            "node": "error-handler-153da903-fcd3-4694-aaa4-bef2b300d158",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-153da903-fcd3-4694-aaa4-bef2b300d158-fe74b602",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e196ea9b-f5d0-4fa6-a3d9-bea2f98fd872": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e196ea9b-f5d0-4fa6-a3d9-bea2f98fd872",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e196ea9b-f5d0-4fa6-a3d9-bea2f98fd872-5f33f189",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6e5faa4d-25a1-4dbe-998e-3255ed181ac5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6e5faa4d-25a1-4dbe-998e-3255ed181ac5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-6e5faa4d-25a1-4dbe-998e-3255ed181ac5-62fe649b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1f04a4b5-e97d-4574-abdb-270265da77fa": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1f04a4b5-e97d-4574-abdb-270265da77fa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-1f04a4b5-e97d-4574-abdb-270265da77fa-37c4ced5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "92a917ff-d20d-4bbc-be8f-00e17be83ea2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-92a917ff-d20d-4bbc-be8f-00e17be83ea2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-92a917ff-d20d-4bbc-be8f-00e17be83ea2-48bee47a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "97c2dec9-9e1e-4a42-9538-8a37392114e6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-97c2dec9-9e1e-4a42-9538-8a37392114e6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-97c2dec9-9e1e-4a42-9538-8a37392114e6-13f824a0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "31ee0735-c863-476c-9c4a-41b50ae9c61a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-31ee0735-c863-476c-9c4a-41b50ae9c61a-9a21e81b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "18cfde4e-2637-496c-acca-070bdb84c2ba": {
+      "main": [
+        [
+          {
+            "node": "error-handler-18cfde4e-2637-496c-acca-070bdb84c2ba-e98cb578",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8d2a2a64-bbaa-4692-94ed-2f541d0d40ca": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8d2a2a64-bbaa-4692-94ed-2f541d0d40ca-57ea4585",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b5b6b7b9-d275-4c1a-a3c5-195b13be1538": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b5b6b7b9-d275-4c1a-a3c5-195b13be1538-c4ef960e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0b5b8237-9e34-44b7-82d9-372a12c67546": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0b5b8237-9e34-44b7-82d9-372a12c67546-4d555011",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "00204106-dd0f-46d5-89c8-60fd92f1388e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-00204106-dd0f-46d5-89c8-60fd92f1388e-6449bc7b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: ✨🩷Automated Social Media Content Publishing Factory + System Prompt Composition. This workflow integrates 16 different services: stickyNote, httpRequest, facebookGraphApi, code, agent. It contains 74 nodes and follows best practices for error handling and security."
 }

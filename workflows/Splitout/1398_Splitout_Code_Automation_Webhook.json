@@ -56,51 +56,51 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "[data-service-review-card-paper] [data-consumer-name-typography]",
               "returnArray": true
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "attribute": "data-service-review-rating",
               "cssSelector": "[data-service-review-rating]",
               "returnArray": true,
               "returnValue": "attribute"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "[data-service-review-title-typography]",
               "returnArray": true
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "[data-service-review-text-typography]",
               "returnArray": true
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "[data-service-review-date-of-experience-typography]",
               "returnArray": true
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "attribute": "datetime",
               "cssSelector": "[data-service-review-date-time-ago]",
               "returnArray": true,
               "returnValue": "attribute"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "[data-consumer-country-typography]",
               "returnArray": true
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "[data-consumer-reviews-count-typography]",
               "returnArray": true
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "attribute": "href",
               "cssSelector": "a[data-review-title-typography]",
               "returnArray": true,
@@ -259,14 +259,14 @@
         1120
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{\n {\n \"ids\": $json.points,\n \"with_payload\": true\n }\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -387,14 +387,14 @@
         1160
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"limit\": 500,\n \"filter\":{\n \"must\": [\n {\n \"key\": \"metadata.company_id\",\n \"match\": { \"value\": \"{{ $('Set Variables1').item.json.companyId }}\" }\n },\n {\n \"key\": \"metadata.review_date\",\n \"range\": {\n \"gte\": \"{{ $('Set Variables1').item.json.review_date_from }}\",\n \"gt\": null,\n \"lt\": null,\n \"lte\": \"{{ $('Set Variables1').item.json.review_date_to }}\"\n }\n }\n ]\n },\n \"with_vector\":true\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -551,8 +551,8 @@
         "jsonBody": "={\n \"filter\": {\n \"must\": [\n {\n \"key\": \"metadata.company_id\",\n \"match\": {\n \"value\": \"{{ $('Set Variables').item.json.companyId }}\"\n }\n }\n ]\n }\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -652,7 +652,7 @@
         360
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Set Variables').item.json.companyId }}?sort=recency",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "pagination": {
             "pagination": {
@@ -1430,5 +1430,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 18 different services: filter, httpRequest, stickyNote, textSplitterRecursiveCharacterTextSplitter, vectorStoreQdrant. It contains 48 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 18 different services: filter, httpRequest, stickyNote, textSplitterRecursiveCharacterTextSplitter, vectorStoreQdrant. It contains 48 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

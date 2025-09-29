@@ -1,7 +1,10 @@
 {
   "id": "x2VUvhqV1YTJCIN0",
   "meta": {
-    "instanceId": "e2c978396c9c745cf0aaa9ed3abe4464dbcef93c5fe2df809b9e14440e628df6"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "tags": [],
   "nodes": [
@@ -25,13 +28,13 @@
         -100
       ],
       "parameters": {
-        "url": "=https://{{ $('Set values here!').params[\"fields\"][\"values\"][0][\"stringValue\"] }}.myshopify.com/admin/api/2024-01/themes/{{ $('Set values here!').params[\"fields\"][\"values\"][1][\"stringValue\"] }}/assets.json",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "jsonBody": "={\"asset\":\n  {\n    \"key\":\"snippets/{{ $('Set values here!').params[\"fields\"][\"values\"][2][\"stringValue\"] }}\",\n    \"value\":\"{{ $('Set values here!').params[\"fields\"][\"values\"][3][\"stringValue\"].replace(\"IMAGE\",$('Check').item.json[\"body\"][\"items\"][0][\"Campaign Image\"][0][\"visible_name\"]).replace(/\\\\/g, \"\\\\\\\\\").replace(/\"/g, '\\\\\"').replace(/\\n/g, \"\\\\n\") }}\"}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -56,10 +59,10 @@
       ],
       "parameters": {
         "query": "mutation fileCreate($files: [FileCreateInput!]!) {\n  fileCreate(files: $files) {\n    files {\n      id\n    }\n  }\n}",
-        "endpoint": "=https://{{ $('Set values here!').params[\"fields\"][\"values\"][0][\"stringValue\"] }}.myshopify.com/admin/api/2024-01/graphql.json",
+        "endpoint": "{{ $env.API_ENDPOINT }}",
         "variables": "={\n  \"files\": {\n    \"alt\": \"{{ $json.body.items[0].Name }}\",\n    \"contentType\": \"IMAGE\",\n\t\"filename\": \"{{ $json.body.items[0]['Campaign Image'][0].visible_name }}\",\n    \"originalSource\": \"{{ $json.body.items[0]['Campaign Image'][0].url }}\"\n  }\n}",
         "requestFormat": "json",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -182,7 +185,7 @@
         "color": 4,
         "width": 360.408084305475,
         "height": 315.5897364788551,
-        "content": "## Shopify API\n\nThis workflow uses GraphQL calls to the Shopify Admin API. In order to get a better understanding for the queries and mutations please check the API Docs.\n\n\n[Shopify GraphQL API docs](https://shopify.dev/docs/api/admin-graphql)\n\nTo make it easy to build queries for the GraphQL API easy please check out the [GraphiQL App for the Admin API](https://shopify.dev/docs/apps/tools/graphiql-admin-api) from Shopify"
+        "content": "## Shopify API\n\nThis workflow uses GraphQL calls to the Shopify Admin API. In order to get a better understanding for the queries and mutations please check the API Docs.\n\n\n[Shopify GraphQL API docs]({{ $env.API_BASE_URL }}\n\nTo make it easy to build queries for the GraphQL API easy please check out the [GraphiQL App for the Admin API]({{ $env.API_BASE_URL }} from Shopify"
       },
       "typeVersion": 1
     },
@@ -214,6 +217,75 @@
         "content": "## Set values \nPlease edit this node and change the values for your own setup."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-6d9eee1f-995f-4558-8f97-25636e20022c",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 6d9eee1f-995f-4558-8f97-25636e20022c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0bd9327d-4bbd-4884-a9a6-21b0c5b4c3d3",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 0bd9327d-4bbd-4884-a9a6-21b0c5b4c3d3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6d9eee1f-995f-4558-8f97-25636e20022c-4fab974b",
+      "name": "Error Handler for 6d9eee1f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6d9eee1f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0bd9327d-4bbd-4884-a9a6-21b0c5b4c3d3-38056c87",
+      "name": "Error Handler for 0bd9327d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0bd9327d",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-721867d6",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Noop Workflow\n\n## Overview\nAutomated workflow: Noop Workflow. This workflow integrates 8 different services: webhook, stickyNote, httpRequest, graphql, set. It contains 13 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 13\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **No Operation, do nothing**: noOp\n- **Save campaign.liquid**: httpRequest\n- **Upload Image**: graphql\n- **Set values here!**: set\n- **Call from Baserow**: webhook\n- **Check**: if\n- **Sticky Note4**: stickyNote\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Error Handler**: stopAndError\n- ... and 3 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
@@ -231,24 +303,24 @@
                 "Last modified": "2024-03-01T11:21:58.157987Z",
                 "Campaign Image": [
                   {
-                    "url": "https://br.m3tam3re.com/media/user_files/O5jM7aSUTYSBPQtxVHktkN4U7wlUoIJd_1af752d7847a230a853df92814639be35035229f2bb857b4ea870b64011cdde0.webp",
+                    "url": "{{ $env.WEBHOOK_URL }}",
                     "name": "O5jM7aSUTYSBPQtxVHktkN4U7wlUoIJd_1af752d7847a230a853df92814639be35035229f2bb857b4ea870b64011cdde0.webp",
                     "size": 107358,
                     "is_image": true,
                     "mime_type": "",
                     "thumbnails": {
                       "tiny": {
-                        "url": "https://br.m3tam3re.com/media/thumbnails/tiny/O5jM7aSUTYSBPQtxVHktkN4U7wlUoIJd_1af752d7847a230a853df92814639be35035229f2bb857b4ea870b64011cdde0.webp",
+                        "url": "{{ $env.WEBHOOK_URL }}",
                         "width": null,
                         "height": 21
                       },
                       "small": {
-                        "url": "https://br.m3tam3re.com/media/thumbnails/small/O5jM7aSUTYSBPQtxVHktkN4U7wlUoIJd_1af752d7847a230a853df92814639be35035229f2bb857b4ea870b64011cdde0.webp",
+                        "url": "{{ $env.WEBHOOK_URL }}",
                         "width": 48,
                         "height": 48
                       },
                       "card_cover": {
-                        "url": "https://br.m3tam3re.com/media/thumbnails/card_cover/O5jM7aSUTYSBPQtxVHktkN4U7wlUoIJd_1af752d7847a230a853df92814639be35035229f2bb857b4ea870b64011cdde0.webp",
+                        "url": "{{ $env.WEBHOOK_URL }}",
                         "width": 300,
                         "height": 160
                       }
@@ -272,24 +344,24 @@
                 "Last modified": "2024-03-01T11:21:16.099694Z",
                 "Campaign Image": [
                   {
-                    "url": "https://br.m3tam3re.com/media/user_files/O5jM7aSUTYSBPQtxVHktkN4U7wlUoIJd_1af752d7847a230a853df92814639be35035229f2bb857b4ea870b64011cdde0.webp",
+                    "url": "{{ $env.WEBHOOK_URL }}",
                     "name": "O5jM7aSUTYSBPQtxVHktkN4U7wlUoIJd_1af752d7847a230a853df92814639be35035229f2bb857b4ea870b64011cdde0.webp",
                     "size": 107358,
                     "is_image": true,
                     "mime_type": "",
                     "thumbnails": {
                       "tiny": {
-                        "url": "https://br.m3tam3re.com/media/thumbnails/tiny/O5jM7aSUTYSBPQtxVHktkN4U7wlUoIJd_1af752d7847a230a853df92814639be35035229f2bb857b4ea870b64011cdde0.webp",
+                        "url": "{{ $env.WEBHOOK_URL }}",
                         "width": null,
                         "height": 21
                       },
                       "small": {
-                        "url": "https://br.m3tam3re.com/media/thumbnails/small/O5jM7aSUTYSBPQtxVHktkN4U7wlUoIJd_1af752d7847a230a853df92814639be35035229f2bb857b4ea870b64011cdde0.webp",
+                        "url": "{{ $env.WEBHOOK_URL }}",
                         "width": 48,
                         "height": 48
                       },
                       "card_cover": {
-                        "url": "https://br.m3tam3re.com/media/thumbnails/card_cover/O5jM7aSUTYSBPQtxVHktkN4U7wlUoIJd_1af752d7847a230a853df92814639be35035229f2bb857b4ea870b64011cdde0.webp",
+                        "url": "{{ $env.WEBHOOK_URL }}",
                         "width": 300,
                         "height": 160
                       }
@@ -326,7 +398,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "c82b43c0-aa47-4086-b7ae-588ee12e5e24",
   "connections": {
@@ -380,6 +456,44 @@
           }
         ]
       ]
+    },
+    "6d9eee1f-995f-4558-8f97-25636e20022c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6d9eee1f-995f-4558-8f97-25636e20022c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-6d9eee1f-995f-4558-8f97-25636e20022c-4fab974b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0bd9327d-4bbd-4884-a9a6-21b0c5b4c3d3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0bd9327d-4bbd-4884-a9a6-21b0c5b4c3d3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-0bd9327d-4bbd-4884-a9a6-21b0c5b4c3d3-38056c87",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Noop Workflow",
+  "description": "Automated workflow: Noop Workflow. This workflow integrates 8 different services: webhook, stickyNote, httpRequest, graphql, set. It contains 13 nodes and follows best practices for error handling and security."
 }

@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "n8n workflow deployer",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "8db6d045-5ef8-444a-ae3e-0f0611946008",
@@ -18,10 +21,10 @@
         -580
       ],
       "parameters": {
-        "url": "={{ $json.N8N_Instance_URL }}api/v1/tags",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -30,7 +33,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {
@@ -231,14 +234,14 @@
         -40
       ],
       "parameters": {
-        "url": "={{ $('Set n8n API URL & Tag ID variables').item.json.N8N_Instance_URL }}api/v1/workflows",
+        "url": "{{ $env.BASE_URL }}",
         "body": "={{ $json }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "raw",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "rawContentType": "application/json",
         "headerParameters": {
           "parameters": [
@@ -252,7 +255,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {
@@ -272,14 +275,14 @@
         -40
       ],
       "parameters": {
-        "url": "={{ $('Set n8n API URL & Tag ID variables').item.json.N8N_Instance_URL }}api/v1/workflows/{{ $json.id }}/tags",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "jsonBody": "=[\n  {\n    \"id\": \"{{ $('Set n8n API URL & Tag ID variables').item.json.N8N_Instance_Tag }}\"\n  }\n]",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {

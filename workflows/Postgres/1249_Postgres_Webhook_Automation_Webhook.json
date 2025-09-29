@@ -93,7 +93,7 @@
         "jsonBody": "={\n \"meeting_url\":\"{{ $json.meeting_url }}\",\n \"transcription_options\": {\n \"provider\": \"assembly_ai\"\n }\n,\n\"real_time_transcription\": {\n \"destination_url\": \"{{ $env.WEBHOOK_URL }}\"\n },\n\"automatic_leave\": {\n \"silence_detection\": {\n \"timeout\": 300, \n \"activate_after\": 600\n },\n \"bot_detection\": {\n \"using_participant_events\": {\n \"timeout\": 600, \n \"activate_after\": 1200\n }\n },\n \"waiting_room_timeout\": 600,\n \"noone_joined_timeout\": 600,\n \"everyone_left_timeout\": 2,\n \"in_call_not_recording_timeout\": 600,\n \"recording_permission_denied_timeout\": 600\n}\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -117,7 +117,7 @@
         "method": "POST",
         "options": {},
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -126,7 +126,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -767,5 +767,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

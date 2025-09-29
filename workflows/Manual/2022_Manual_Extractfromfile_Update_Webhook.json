@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Update Roles by Excel",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "580d8a47-32cc-4976-a464-793523ae3d1e",
@@ -113,7 +116,7 @@
         140
       ],
       "parameters": {
-        "url": "={{ $json.excel_source_url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -133,9 +136,9 @@
         -60
       ],
       "parameters": {
-        "url": "={{ $('Basic Variables').item.json.zammad_base_url }}api/v1/users/search?query=email:{{ $json.email }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -158,13 +161,13 @@
         120
       ],
       "parameters": {
-        "url": "={{ $('Basic Variables').item.json.zammad_base_url }}/api/v1/users/{{ $json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "jsonBody": "={\n  \"role_ids\": [\n  {{ $json.role_ids }}\n  ]\n} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {

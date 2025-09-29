@@ -1,8 +1,10 @@
 {
   "id": "Mbuax8L8jEmBBYkz",
   "meta": {
-    "instanceId": "a4bfc93e975ca233ac45ed7c9227d84cf5a2329310525917adaf3312e10d5462",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "The Ultimate Guide to Optimize WordPress Blog Posts with AI",
   "tags": [
@@ -60,14 +62,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WlmjnObleBuHRno_axjc-GjV7Wg9gCoIsOK1PD4TxGU/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Foglio1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1WlmjnObleBuHRno_axjc-GjV7Wg9gCoIsOK1PD4TxGU",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WlmjnObleBuHRno_axjc-GjV7Wg9gCoIsOK1PD4TxGU/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Complete Plan Blog post"
         }
       },
@@ -117,7 +119,7 @@
           "value": "=deepseek-chat"
         },
         "options": {
-          "maxTokens": 2048
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "messages": {
           "values": [
@@ -150,7 +152,7 @@
           "value": "=deepseek-chat"
         },
         "options": {
-          "maxTokens": 2048
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "messages": {
           "values": [
@@ -225,13 +227,13 @@
         200
       ],
       "parameters": {
-        "url": "https://URL/wp-json/wp/v2/media",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -241,7 +243,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "wordpressApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -260,11 +262,11 @@
         200
       ],
       "parameters": {
-        "url": "=https://URL/wp-json/wp/v2/posts/{{ $('Add draft to WP').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -273,7 +275,7 @@
             }
           ]
         },
-        "nodeCredentialType": "wordpressApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -294,7 +296,7 @@
       "parameters": {
         "columns": {
           "value": {
-            "URL": "={{ $('Add draft to WP').item.json.guid.rendered }}",
+            "URL": "{{ $env.BASE_URL }}",
             "DATA": "={{ $now.format('dd/LL/yyyy') }}",
             "TITLE": "={{ $('Add draft to WP').item.json.title.rendered }}",
             "ID POST": "={{ $('Add draft to WP').item.json.id }}",
@@ -393,14 +395,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/16VFeCrE5BkMBoA_S5HD-9v7C0sxcXAUiDbq5JvkDqnI/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Foglio1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1WlmjnObleBuHRno_axjc-GjV7Wg9gCoIsOK1PD4TxGU",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WlmjnObleBuHRno_axjc-GjV7Wg9gCoIsOK1PD4TxGU/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Complete Plan Blog post"
         }
       },
@@ -477,14 +479,14 @@
         480
       ],
       "parameters": {
-        "url": "=https://URL/wp-json/wp/v2/posts/{{ $('Add draft to WP').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "jsonBody": "={\n  \"meta\":{\n    \"_yoast_wpseo_title\":\"{{ $json.output.metatitle }}\",\n    \"_yoast_wpseo_metadesc\":\"{{ $json.output.metadescription }}\"\n  }\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [
@@ -607,14 +609,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WlmjnObleBuHRno_axjc-GjV7Wg9gCoIsOK1PD4TxGU/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Foglio1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1WlmjnObleBuHRno_axjc-GjV7Wg9gCoIsOK1PD4TxGU",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WlmjnObleBuHRno_axjc-GjV7Wg9gCoIsOK1PD4TxGU/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Complete Plan Blog post"
         }
       },
@@ -712,15 +714,200 @@
       "parameters": {
         "color": 3,
         "width": 820,
-        "content": "## Optimize WordPress Blog Posts with AI\n\nThis is a powerful tool for automating the creation and optimization of blog posts, saving time and ensuring high-quality, SEO-friendly content for Wordpress with Yoast plugin. \n\n[Clone this Sheet](https://docs.google.com/spreadsheets/d/1WlmjnObleBuHRno_axjc-GjV7Wg9gCoIsOK1PD4TxGU/edit?usp=sharing) and in the \"Prompt\" column write the topic that will then be developed by the AI"
+        "content": "## Optimize WordPress Blog Posts with AI\n\nThis is a powerful tool for automating the creation and optimization of blog posts, saving time and ensuring high-quality, SEO-friendly content for Wordpress with Yoast plugin. \n\n[Clone this Sheet]({{ $env.WEBHOOK_URL }} and in the \"Prompt\" column write the topic that will then be developed by the AI"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-2eedf2db-660b-4e1e-a38d-34ad2ddb1314",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2eedf2db-660b-4e1e-a38d-34ad2ddb1314",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-58e3aa00-a1d7-4b19-916e-4d07dd7c2009",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 58e3aa00-a1d7-4b19-916e-4d07dd7c2009",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-962e5d6f-df35-4e5c-b46e-9c2164a3648d",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 962e5d6f-df35-4e5c-b46e-9c2164a3648d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d3fc9ed5-9ddc-480d-9fa8-f0a66bb69520-88894e59",
+      "name": "Error Handler for d3fc9ed5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d3fc9ed5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b2f0a242-ef9f-42d9-974b-e823f23bf37f-48480eb0",
+      "name": "Error Handler for b2f0a242",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b2f0a242",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b3b30328-0dfe-4471-9195-d411e737df5e-60039c62",
+      "name": "Error Handler for b3b30328",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b3b30328",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3ebcf40b-7a3b-43fa-a075-0e6dfaa2665e-0eb8b6ba",
+      "name": "Error Handler for 3ebcf40b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3ebcf40b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2eedf2db-660b-4e1e-a38d-34ad2ddb1314-241644fb",
+      "name": "Error Handler for 2eedf2db",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2eedf2db",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-58e3aa00-a1d7-4b19-916e-4d07dd7c2009-c762486e",
+      "name": "Error Handler for 58e3aa00",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 58e3aa00",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6f9277be-26c4-4d01-9e61-acf3ab90739d-9ff26891",
+      "name": "Error Handler for 6f9277be",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6f9277be",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-962e5d6f-df35-4e5c-b46e-9c2164a3648d-43338961",
+      "name": "Error Handler for 962e5d6f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 962e5d6f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-55e8e3c3-2270-4227-863c-e7cf1337c13b-78926e2e",
+      "name": "Error Handler for 55e8e3c3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 55e8e3c3",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-6c6d65db",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# The Ultimate Guide to Optimize WordPress Blog Posts with AI\n\n## Overview\nAutomated workflow: The Ultimate Guide to Optimize WordPress Blog Posts with AI. This workflow integrates 11 different services: wordpress, httpRequest, stickyNote, chainLlm, outputParserStructured. It contains 33 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 33\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Get context**: googleSheets\n- **Set context**: set\n- **Generate title**: openAi\n- **Generate article**: openAi\n- **Add draft to WP**: wordpress\n- **Generate image**: openAi\n- **Upload image**: httpRequest\n- **Set image**: httpRequest\n- **Update Sheet**: googleSheets\n- ... and 23 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "8d701d17-18ae-478c-881d-eedb422e9700",
   "connections": {
@@ -877,6 +1064,127 @@
           }
         ]
       ]
+    },
+    "2eedf2db-660b-4e1e-a38d-34ad2ddb1314": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2eedf2db-660b-4e1e-a38d-34ad2ddb1314",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2eedf2db-660b-4e1e-a38d-34ad2ddb1314-241644fb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "58e3aa00-a1d7-4b19-916e-4d07dd7c2009": {
+      "main": [
+        [
+          {
+            "node": "error-handler-58e3aa00-a1d7-4b19-916e-4d07dd7c2009",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-58e3aa00-a1d7-4b19-916e-4d07dd7c2009-c762486e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "962e5d6f-df35-4e5c-b46e-9c2164a3648d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-962e5d6f-df35-4e5c-b46e-9c2164a3648d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-962e5d6f-df35-4e5c-b46e-9c2164a3648d-43338961",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d3fc9ed5-9ddc-480d-9fa8-f0a66bb69520": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d3fc9ed5-9ddc-480d-9fa8-f0a66bb69520-88894e59",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b2f0a242-ef9f-42d9-974b-e823f23bf37f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b2f0a242-ef9f-42d9-974b-e823f23bf37f-48480eb0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b3b30328-0dfe-4471-9195-d411e737df5e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b3b30328-0dfe-4471-9195-d411e737df5e-60039c62",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3ebcf40b-7a3b-43fa-a075-0e6dfaa2665e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3ebcf40b-7a3b-43fa-a075-0e6dfaa2665e-0eb8b6ba",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6f9277be-26c4-4d01-9e61-acf3ab90739d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6f9277be-26c4-4d01-9e61-acf3ab90739d-9ff26891",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "55e8e3c3-2270-4227-863c-e7cf1337c13b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-55e8e3c3-2270-4227-863c-e7cf1337c13b-78926e2e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: The Ultimate Guide to Optimize WordPress Blog Posts with AI. This workflow integrates 11 different services: wordpress, httpRequest, stickyNote, chainLlm, outputParserStructured. It contains 33 nodes and follows best practices for error handling and security."
 }

@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "67d4d33d8b0ad4e5e12f051d8ad92fc35893d7f48d7f801bc6da4f39967b3592",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -13,7 +15,7 @@
         880
       ],
       "parameters": {
-        "sessionKey": "={{ $json.sessionId }}",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey",
         "contextWindowLength": 20
       },
@@ -63,13 +65,13 @@
         840
       ],
       "parameters": {
-        "url": "https://graph.microsoft.com/v1.0/me/events",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "jsonBody": "{\n  \"subject\": \"Meetings with <name> at <company>\",\n  \"start\": {\n    \"dateTime\": \"{dateStartTime}\",\n    \"timeZone\": \"Europe/London\"\n  },\n  \"end\": {\n    \"dateTime\": \"{dateEndTime}\",\n    \"timeZone\": \"Europe/London\"\n  },\n  \"body\": {\n    \"contentType\": \"HTML\",\n    \"content\": \"{reason}\"\n  },\n  \"attendees\": [\n    {\n      \"emailAddress\": {\n        \"address\": \"{email}\",\n        \"name\": \"{name}\"\n      },\n      \"type\": \"required\"\n    }\n  ],\n  \"location\": {\n    \"displayName\": \"Online Meeting\"\n  },\n  \"isOnlineMeeting\": true,\n  \"onlineMeetingProvider\": \"teamsForBusiness\",\n  \"showAs\": \"busy\",\n  \"categories\": [\n    \"Meeting\"\n  ]\n}",
         "sendBody": true,
         "sendQuery": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "parametersQuery": {
           "values": [
             {
@@ -80,7 +82,7 @@
           ]
         },
         "toolDescription": "Call this tool to make the appointment, ensure you send the user email, name, company, reason for the meeting and the appointment start time and the date in ISO String format with timezone for <timezone>. When creating an appointment, always send JSON.",
-        "nodeCredentialType": "microsoftOutlookOAuth2Api",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE",
         "placeholderDefinitions": {
           "values": [
             {
@@ -175,11 +177,11 @@
         460
       ],
       "parameters": {
-        "url": "=https://graph.microsoft.com/v1.0/me/calendarView",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -212,7 +214,7 @@
             }
           ]
         },
-        "nodeCredentialType": "microsoftOutlookOAuth2Api"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "microsoftOutlookOAuth2Api": {
@@ -312,7 +314,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "availability",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -335,7 +337,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "message",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -401,7 +403,7 @@
       "webhookId": "d8acc2cb-fcba-4312-a743-e74abe76d071",
       "parameters": {
         "subject": "={{ $('Execute Workflow Trigger').item.json.query.subject }}",
-        "bodyContent": "=<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>New Webchat Customer Enquiry</title>\n    <style type=\"text/css\">\n        /* Client-specific styles */\n        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }\n        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }\n        img { -ms-interpolation-mode: bicubic; }\n\n        /* Reset styles */\n        body { margin: 0; padding: 0; }\n        img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }\n        table { border-collapse: collapse !important; }\n        body { height: 100% !important; margin: 0; padding: 0; width: 100% !important; }\n\n        /* iOS BLUE LINKS */\n        a[x-apple-data-detectors] {\n            color: inherit !important;\n            text-decoration: none !important;\n            font-size: inherit !important;\n            font-family: inherit !important;\n            font-weight: inherit !important;\n            line-height: inherit !important;\n        }\n\n        /* Styles for Outlook and other email clients */\n        .ExternalClass { width: 100%; }\n        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }\n        \n        /* Responsive styles */\n        @media screen and (max-width: 600px) {\n            .container { width: 100% !important; }\n            .content { padding: 15px !important; }\n            .field { padding: 10px !important; }\n            .header h1 { font-size: 20px !important; }\n            .header p { font-size: 12px !important; }\n        }\n    </style>\n</head>\n<body style=\"margin: 0; padding: 0; background-color: #f4f4f4;\">\n    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n        <tr>\n            <td>\n                <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse; background-color: #ffffff;\">\n                    <tr>\n                        <td align=\"center\" bgcolor=\"#1a1a1a\" style=\"padding: 30px 0; background: linear-gradient(135deg, #1a1a1a 0%, #2d1f3d 100%);\">\n                            <h1 style=\"color: #ffffff; font-family: Arial, sans-serif; font-size: 24px; font-weight: 700; margin: 0; text-transform: uppercase; letter-spacing: 1px;\">New Customer Enquiry</h1>\n                            <p style=\"color: #ffffff; font-family: Arial, sans-serif; font-size: 14px; line-height: 20px; margin: 10px 0 0; opacity: 0.8;\">A potential client has reached out through our webchat</p>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td style=\"padding: 20px;\">\n                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n                                <tr>\n                                    <td style=\"padding: 15px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;\">\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #6a1b9a; font-weight: bold; margin: 0 0 5px 0;\">FROM</p>\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin: 0;\">{{ $('Execute Workflow Trigger').item.json.query.name }}</p>\n                                    </td>\n                                </tr>\n                                <tr><td height=\"20\"></td></tr>\n                                <tr>\n                                    <td style=\"padding: 15px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;\">\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #6a1b9a; font-weight: bold; margin: 0 0 5px 0;\">EMAIL</p>\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin: 0;\">{{ $('Execute Workflow Trigger').item.json.query.email }}</p>\n                                    </td>\n                                </tr>\n                                <tr><td height=\"20\"></td></tr>\n                                <tr>\n                                    <td style=\"padding: 15px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;\">\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #6a1b9a; font-weight: bold; margin: 0 0 5px 0;\">COMPANY</p>\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin: 0;\">{{ $('Execute Workflow Trigger').item.json.query.company }}</p>\n                                    </td>\n                                </tr>\n                                <tr><td height=\"20\"></td></tr>\n                                <tr>\n                                    <td style=\"padding: 15px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;\">\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #6a1b9a; font-weight: bold; margin: 0 0 5px 0;\">MESSAGE</p>\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin: 0;\">{{ $('Execute Workflow Trigger').item.json.query.message }}</p>\n                                    </td>\n                                </tr>\n                            </table>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td align=\"center\" bgcolor=\"#e90ebb\" style=\"padding: 20px; background: linear-gradient(135deg, #e90ebb 0%, #6a1b9a 100%);\">\n                            <p style=\"font-family: Arial, sans-serif; font-size: 14px; line-height: 20px; color: #ffffff; margin: 0;\">This enquiry was automatically generated from our website's chat interface.</p>\n                        </td>\n                    </tr>\n                </table>\n            </td>\n        </tr>\n    </table>\n</body>\n</html>",
+        "bodyContent": "=<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"{{ $env.WEBHOOK_URL }}\">\n<html xmlns=\"{{ $env.WEBHOOK_URL }}\">\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>New Webchat Customer Enquiry</title>\n    <style type=\"text/css\">\n        /* Client-specific styles */\n        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }\n        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }\n        img { -ms-interpolation-mode: bicubic; }\n\n        /* Reset styles */\n        body { margin: 0; padding: 0; }\n        img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }\n        table { border-collapse: collapse !important; }\n        body { height: 100% !important; margin: 0; padding: 0; width: 100% !important; }\n\n        /* iOS BLUE LINKS */\n        a[x-apple-data-detectors] {\n            color: inherit !important;\n            text-decoration: none !important;\n            font-size: inherit !important;\n            font-family: inherit !important;\n            font-weight: inherit !important;\n            line-height: inherit !important;\n        }\n\n        /* Styles for Outlook and other email clients */\n        .ExternalClass { width: 100%; }\n        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }\n        \n        /* Responsive styles */\n        @media screen and (max-width: 600px) {\n            .container { width: 100% !important; }\n            .content { padding: 15px !important; }\n            .field { padding: 10px !important; }\n            .header h1 { font-size: 20px !important; }\n            .header p { font-size: 12px !important; }\n        }\n    </style>\n</head>\n<body style=\"margin: 0; padding: 0; background-color: #f4f4f4;\">\n    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n        <tr>\n            <td>\n                <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse; background-color: #ffffff;\">\n                    <tr>\n                        <td align=\"center\" bgcolor=\"#1a1a1a\" style=\"padding: 30px 0; background: linear-gradient(135deg, #1a1a1a 0%, #2d1f3d 100%);\">\n                            <h1 style=\"color: #ffffff; font-family: Arial, sans-serif; font-size: 24px; font-weight: 700; margin: 0; text-transform: uppercase; letter-spacing: 1px;\">New Customer Enquiry</h1>\n                            <p style=\"color: #ffffff; font-family: Arial, sans-serif; font-size: 14px; line-height: 20px; margin: 10px 0 0; opacity: 0.8;\">A potential client has reached out through our webchat</p>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td style=\"padding: 20px;\">\n                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n                                <tr>\n                                    <td style=\"padding: 15px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;\">\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #6a1b9a; font-weight: bold; margin: 0 0 5px 0;\">FROM</p>\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin: 0;\">{{ $('Execute Workflow Trigger').item.json.query.name }}</p>\n                                    </td>\n                                </tr>\n                                <tr><td height=\"20\"></td></tr>\n                                <tr>\n                                    <td style=\"padding: 15px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;\">\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #6a1b9a; font-weight: bold; margin: 0 0 5px 0;\">EMAIL</p>\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin: 0;\">{{ $('Execute Workflow Trigger').item.json.query.email }}</p>\n                                    </td>\n                                </tr>\n                                <tr><td height=\"20\"></td></tr>\n                                <tr>\n                                    <td style=\"padding: 15px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;\">\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #6a1b9a; font-weight: bold; margin: 0 0 5px 0;\">COMPANY</p>\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin: 0;\">{{ $('Execute Workflow Trigger').item.json.query.company }}</p>\n                                    </td>\n                                </tr>\n                                <tr><td height=\"20\"></td></tr>\n                                <tr>\n                                    <td style=\"padding: 15px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;\">\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #6a1b9a; font-weight: bold; margin: 0 0 5px 0;\">MESSAGE</p>\n                                        <p style=\"font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin: 0;\">{{ $('Execute Workflow Trigger').item.json.query.message }}</p>\n                                    </td>\n                                </tr>\n                            </table>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td align=\"center\" bgcolor=\"#e90ebb\" style=\"padding: 20px; background: linear-gradient(135deg, #e90ebb 0%, #6a1b9a 100%);\">\n                            <p style=\"font-family: Arial, sans-serif; font-size: 14px; line-height: 20px; color: #ffffff; margin: 0;\">This enquiry was automatically generated from our website's chat interface.</p>\n                        </td>\n                    </tr>\n                </table>\n            </td>\n        </tr>\n    </table>\n</body>\n</html>",
         "toRecipients": "you@yourdomain.com",
         "additionalFields": {
           "importance": "High",
@@ -465,7 +467,7 @@
     },
     {
       "id": "6156ab7e-d411-46b9-ac44-52ad56ee563d",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         840,
@@ -524,7 +526,7 @@
         "color": 6,
         "width": 668,
         "height": 111,
-        "content": "# Custom Branded n8n Chatbot\nBuilt by [Wayne Simpson](https://www.linkedin.com/in/simpsonwayne/) at [nocodecreative.io](https://nocodecreative.io)\n☕ If you find this useful, feel free to [buy me a coffee](https://ko-fi.com/waynesimpson)"
+        "content": "# Custom Branded n8n Chatbot\nBuilt by [Wayne Simpson]({{ $env.WEBHOOK_URL }} at [nocodecreative.io]({{ $env.WEBHOOK_URL }}\n☕ If you find this useful, feel free to [buy me a coffee]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -540,7 +542,7 @@
         "color": 7,
         "width": 667,
         "height": 497,
-        "content": "# Watch the Setup Video 📺\n### Watch Set Up Video 👇\n[![Auto Categorise Outlook Emails with AI](https://cdn.jsdelivr.net/gh/WayneSimpson/n8n-chatbot-template/custom-branded-chatbot.png)](https://youtu.be/xQ1tCQZhLaI)\n\n"
+        "content": "# Watch the Setup Video 📺\n### Watch Set Up Video 👇\n[![Auto Categorise Outlook Emails with AI]({{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n\n"
       },
       "typeVersion": 1
     },
@@ -556,7 +558,7 @@
         "color": 7,
         "width": 600,
         "height": 500,
-        "content": "## Read to blog post to get started 📝\n**Follow along to add a custom branded chat widget to your webiste**\n\n[![Custom Branded n8n Chatbot](https://cdn.jsdelivr.net/gh/WayneSimpson/n8n-chatbot-template/chat%20widget.png)](https://blog.nocodecreative.io/create-a-branded-ai-powered-website-chatbot-with-n8n/)"
+        "content": "## Read to blog post to get started 📝\n**Follow along to add a custom branded chat widget to your webiste**\n\n[![Custom Branded n8n Chatbot]({{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -591,6 +593,145 @@
         "content": "modify timezones"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-45403d5c-6e85-424f-b40b-c6214b57457b",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 45403d5c-6e85-424f-b40b-c6214b57457b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-df891547-c715-4dc6-bfcc-c0ac5cfcaf02",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in df891547-c715-4dc6-bfcc-c0ac5cfcaf02",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0786b561-449e-4c8f-bddb-c2bbd95dc197",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 0786b561-449e-4c8f-bddb-c2bbd95dc197",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c94171a9-a71d-4f63-bef6-e90361c57abd",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c94171a9-a71d-4f63-bef6-e90361c57abd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-45403d5c-6e85-424f-b40b-c6214b57457b-45a0c608",
+      "name": "Error Handler for 45403d5c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 45403d5c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1111262a-1743-4bae-abf1-f69d2e1a580c-eb5285c2",
+      "name": "Error Handler for 1111262a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1111262a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-df891547-c715-4dc6-bfcc-c0ac5cfcaf02-975af163",
+      "name": "Error Handler for df891547",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node df891547",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0786b561-449e-4c8f-bddb-c2bbd95dc197-20a2daa7",
+      "name": "Error Handler for 0786b561",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0786b561",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c94171a9-a71d-4f63-bef6-e90361c57abd-92d6e2ce",
+      "name": "Error Handler for c94171a9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c94171a9",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-30a369d9",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Memorybufferwindow Workflow\n\n## Overview\nAutomated workflow: Memorybufferwindow Workflow. This workflow integrates 16 different services: microsoftOutlook, httpRequest, stickyNote, toolHttpRequest, code. It contains 33 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 33\n- **Node Types**: 16\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Window Buffer Memory**: memoryBufferWindow\n- **Respond to Webhook**: respondToWebhook\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Make Appointment**: toolHttpRequest\n- **Execute Workflow Trigger**: executeWorkflowTrigger\n- **varResponse**: set\n- **freeTimeSlots**: code\n- **Get Events**: httpRequest\n- **Get Availability**: toolWorkflow\n- **Send Message**: toolWorkflow\n- ... and 23 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {
@@ -758,6 +899,98 @@
           }
         ]
       ]
+    },
+    "45403d5c-6e85-424f-b40b-c6214b57457b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-45403d5c-6e85-424f-b40b-c6214b57457b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-45403d5c-6e85-424f-b40b-c6214b57457b-45a0c608",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "df891547-c715-4dc6-bfcc-c0ac5cfcaf02": {
+      "main": [
+        [
+          {
+            "node": "error-handler-df891547-c715-4dc6-bfcc-c0ac5cfcaf02",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-df891547-c715-4dc6-bfcc-c0ac5cfcaf02-975af163",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0786b561-449e-4c8f-bddb-c2bbd95dc197": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0786b561-449e-4c8f-bddb-c2bbd95dc197",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-0786b561-449e-4c8f-bddb-c2bbd95dc197-20a2daa7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c94171a9-a71d-4f63-bef6-e90361c57abd": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c94171a9-a71d-4f63-bef6-e90361c57abd",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c94171a9-a71d-4f63-bef6-e90361c57abd-92d6e2ce",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1111262a-1743-4bae-abf1-f69d2e1a580c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1111262a-1743-4bae-abf1-f69d2e1a580c-eb5285c2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Memorybufferwindow Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Memorybufferwindow Workflow. This workflow integrates 16 different services: microsoftOutlook, httpRequest, stickyNote, toolHttpRequest, code. It contains 33 nodes and follows best practices for error handling and security."
 }

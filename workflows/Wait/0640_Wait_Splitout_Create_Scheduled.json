@@ -270,7 +270,7 @@
         260
       ],
       "parameters": {
-        "url": "={{ $item(\"0\").$node[\"Create Session\"].json.didDoc.service[0].serviceEndpoint }}/xrpc/chat.bsky.convo.sendMessage",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"convoId\" : \"{{ $json.convo.id }}\",\n  \"message\" : {\n    \"text\" : \"{{ $('Define welcome message').item.json.text }}\\n\\n{{ $('Define welcome message').item.json.link }}\",\n    \"facets\" : [\n     {\n      \"index\" : {\n        \"byteStart\": {{ $('Define welcome message').item.json.text.length }},\n        \"byteEnd\": {{ $('Define welcome message').item.json.text.length + 3 + $('Define welcome message').item.json.link.length}}\n      },\n      \"features\": [\n          {\n            \"$type\": \"app.bsky.richtext.facet#link\",\n            \"uri\": \"{{ $('Define welcome message').item.json.link }}\"\n          }\n        ]\n      }\n    ]\n  }\n}",
@@ -301,7 +301,7 @@
         260
       ],
       "parameters": {
-        "url": "={{ $item(\"0\").$node[\"Create Session\"].json.didDoc.service[0].serviceEndpoint }}/xrpc/chat.bsky.convo.getConvoForMembers",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
@@ -865,5 +865,10 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n",
+    "api"
+  ]
 }

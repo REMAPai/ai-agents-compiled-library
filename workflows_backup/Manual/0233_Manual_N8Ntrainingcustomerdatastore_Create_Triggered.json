@@ -8,7 +8,8 @@
         480
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "8ad37748-4466-404a-bc5d-eeba8ab0228d"
     },
     {
       "name": "Note",
@@ -22,7 +23,8 @@
         "height": 200,
         "content": "### Very often your data is not in the right format to insert in a node. you can use the set node to fix it.\n\n### Click the `Execute Workflow` button and double click on the nodes to see the input and output items."
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "1466358c-aa92-452a-ae06-59a574d5f111"
     },
     {
       "name": "Create or Update record in Google Sheet",
@@ -36,15 +38,16 @@
         "options": {},
         "sheetId": "13_bAEYNTzVXVY6SfAkBa9ijtJGSxPd8D-hcXXwXtdDo",
         "operation": "upsert",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "8",
+          "id": "{{ $credentials.googleSheetsOAuth2Api.id }}",
           "name": "Sheets"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "bfe3d629-7f0a-482d-bb04-65002a73abbc"
     },
     {
       "name": "Note1",
@@ -58,7 +61,8 @@
         "height": 280,
         "content": "\nThis is where we put the data in the format that Google Sheets expect. \nThis means changing the field name from `name` to `Full name`, dropping all fields except `ID`, `Email` and adding a `Created time` field"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "1f6a1d71-7486-4102-9189-fc9c239178b3"
     },
     {
       "name": "Set - Prepare fields",
@@ -95,7 +99,8 @@
         "keepOnlySet": true
       },
       "notesInFlow": false,
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "727f904f-c743-40d9-8b12-4c6332e83b35"
     },
     {
       "name": "Customer Datastore - Generate some data",
@@ -107,7 +112,21 @@
       "parameters": {
         "operation": "getAllPeople"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "5923c33a-6b40-4b51-b1eb-0aa43d5fcc9c"
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\nAutomated workflow: Manualtrigger Workflow. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 6 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "connections": {
@@ -144,5 +163,13 @@
         ]
       ]
     }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   }
 }

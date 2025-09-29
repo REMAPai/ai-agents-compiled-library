@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "comentarios automaticos",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "5c5322a4-10cf-43a1-8286-101c96d8c356",
@@ -163,9 +166,9 @@
         880
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.usuario.media.id }}?fields=id,caption",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -297,11 +300,11 @@
         1660
       ],
       "parameters": {
-        "url": "={{ $('data').item.json.endpoint }}/{{ $('data').item.json.usuario.message.id }}/replies",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -539,7 +542,7 @@
           "query": {
             "hub.mode": "subscribe",
             "hub.challenge": "219585499",
-            "hub.verify_token": "YOUR_VALUE_HERE"
+            "hub.verify_token": "YOUR_TOKEN_HERE"
           },
           "params": {},
           "headers": {

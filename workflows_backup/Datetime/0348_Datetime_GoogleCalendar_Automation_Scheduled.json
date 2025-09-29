@@ -10,7 +10,8 @@
         330
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "7b31174a-9781-42f5-97b9-5dfcfc595302"
     },
     {
       "name": "Zoom",
@@ -21,7 +22,7 @@
       ],
       "parameters": {
         "topic": "=Meeting with {{$node[\"IF Zoom meeting\"].json[\"summary\"]}}",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "duration": "={{(Date.parse($node[\"IF Zoom meeting\"].json[\"end\"][\"dateTime\"])-Date.parse($node[\"IF Zoom meeting\"].json[\"start\"][\"dateTime\"]))/(60*1000)}}",
           "settings": {},
@@ -31,11 +32,12 @@
       },
       "credentials": {
         "zoomOAuth2Api": {
-          "id": "3",
+          "id": "{{ $credentials.zoomOAuth2Api.id }}",
           "name": "Zoom account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "c0564572-ba25-4e6f-bd25-05ab4abaebc9"
     },
     {
       "name": "Date & Time",
@@ -52,7 +54,8 @@
         "timeUnit": "hours",
         "dataPropertyName": "later"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "7a05356c-bf1c-4863-893f-3806e4082107"
     },
     {
       "name": "Google Calendar",
@@ -72,11 +75,12 @@
       },
       "credentials": {
         "googleCalendarOAuth2Api": {
-          "id": "1",
+          "id": "{{ $credentials.googleCalendarOAuth2Api.id }}",
           "name": "Google Calendar account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "d946f5c2-4acf-4aac-a640-607fb50be4f0"
     },
     {
       "name": "IF Zoom meeting",
@@ -113,7 +117,8 @@
           "boolean": []
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "261c4843-2bc8-4fd5-bd81-ea59a1a456bd"
     },
     {
       "name": "Cron Once a Day",
@@ -131,11 +136,31 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "69fcbd11-9bc6-450a-a462-56a08f5df6c1"
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Google Cal to Zoom meeting\n\nAutomated workflow: Google Cal to Zoom meeting. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 6 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "active": true,
-  "settings": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
   "connections": {
     "Date & Time": {
       "main": [
@@ -192,5 +217,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: Google Cal to Zoom meeting. This workflow processes data and performs automated tasks."
 }

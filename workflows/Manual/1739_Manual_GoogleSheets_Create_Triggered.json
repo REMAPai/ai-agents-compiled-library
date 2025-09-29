@@ -49,7 +49,7 @@
         0
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ encodeURI($json.who+' on ' + $json.where) }}",
+        "url": "{{ $env.BASE_URL }}",
         "prompt": "=Those are search results, return up to 10 non-sponsored results that lead to a web page with a list of {{$json.who}} on {{$json.where}}. For each return the title and URL.",
         "resource": "extraction",
         "operation": "query",
@@ -75,7 +75,7 @@
         0
       ],
       "parameters": {
-        "url": "={{ $json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "prompt": "=This is a list of {{ $('Parameters').item.json.who }} on {{ $('Parameters').item.json.where }}.\nExtract up to 20 items. For each person extract: \n- name \n- handle or ID \n- URL",
         "resource": "extraction",
         "operation": "query",
@@ -116,7 +116,7 @@
       "parameters": {
         "columns": {
           "value": {
-            "URL": "={{ $json.url }}",
+            "URL": "{{ $env.BASE_URL }}",
             "Name": "={{ $json.name }}",
             "Who?": "={{ $('Parameters').first().json.who }}",
             "Where?": "={{ $('Parameters').first().json.where }}",
@@ -240,7 +240,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -267,7 +267,7 @@
     },
     {
       "id": "documentation-f44fd892",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [

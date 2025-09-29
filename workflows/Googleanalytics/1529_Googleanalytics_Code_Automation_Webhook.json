@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Google analytics template",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ],
   "nodes": [
     {
       "id": "6a9fc442-d0a3-48be-8dff-94f8d9cd5cf1",
@@ -537,7 +541,7 @@
         "jsonBody": "={\n  \"model\": \"meta-llama/llama-3.1-70b-instruct:free\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are an SEO expert. Compare the data from past 2 weeks, give me a table in markdown. Then give me 5 suggestions to improve my SEO. Output the data so that it works with markdown editors. Data from 2 weeks ago:{{ $json.urlString }} Data from last week: {{ $('Parse data from Google Analytics').item.json.urlString }}\"\n    }\n  ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "typeVersion": 4.2,
@@ -558,7 +562,7 @@
         "jsonBody": "={\n  \"model\": \"meta-llama/llama-3.1-70b-instruct:free\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are an SEO expert. Compare the data from past 2 weeks, give me a table in markdown. Then give me 5 suggestions to improve my SEO. Output the data so that it works with markdown editors. Data from 2 weeks ago:{{ $('Parse Google Analytics Data1').item.json.urlString }} Data from last week:{{ $('Parse Google Analytics Data').item.json.urlString }}\"\n    }\n  ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "typeVersion": 4.2,
@@ -579,7 +583,7 @@
         "jsonBody": "={\n  \"model\": \"meta-llama/llama-3.1-70b-instruct:free\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are an SEO expert. Compare the data from past 2 weeks, give me a table in markdown. Then give me 5 suggestions to improve my SEO. Output the data so that it works with markdown editors. Data from 2 weeks ago:{{ $('Parse Google analytics data1').item.json.urlString }} Data from last week:{{ $('Parse Google analytics data').item.json.urlString }}\"\n    }\n  ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "typeVersion": 4.2,

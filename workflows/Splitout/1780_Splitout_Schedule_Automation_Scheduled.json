@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Shopify order UTM to Baserow",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "2ba892fc-59c9-442b-aa21-a5c23b6076e5",
@@ -100,8 +103,8 @@
       ],
       "parameters": {
         "query": "=query yersterdaysOrders {\n  orders(query: \"created_at:{{$today.minus({days: 1})}}\", first: 100) {\n    edges {\n      node {\n        id\n        name\n        totalReceived\n        customerJourneySummary {\n          firstVisit {\n            id\n            source\n            referrerUrl\n            landingPage\n            utmParameters {\n              campaign\n              content\n              medium\n              source\n              term\n            }\n          }\n        }\n      }\n    }\n  }\n}",
-        "endpoint": "=https://{{ $('Set Shopify Subdomain').params[\"fields\"][\"values\"][0][\"stringValue\"] }}.myshopify.com/admin/api/2024-01/graphql.json",
-        "authentication": "headerAuth"
+        "endpoint": "{{ $env.API_ENDPOINT }}",
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -293,6 +296,20 @@
       "parameters": {
         "content": "# Shopify order UTM to Baserow\n\n## Overview\nAutomated workflow: Shopify order UTM to Baserow. This workflow integrates 8 different services: stickyNote, scheduleTrigger, graphql, splitOut, set. It contains 12 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 12\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Baserow**: baserow\n- **No Operation, do nothing**: noOp\n- **Set Shopify Subdomain**: set\n- **Get orders from Shopify**: graphql\n- **Every day at 00:00**: scheduleTrigger\n- **Split Shopify data into n8n items**: splitOut\n- **Transform incoming data structure**: set\n- **Check if \"Campaign\" is present**: if\n- **Sticky Note4**: stickyNote\n- **Sticky Note3**: stickyNote\n- ... and 2 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
       }
+    },
+    {
+      "id": "error-handler-85c0f561-a75d-44a4-a8a5-3791c10a2891",
+      "name": "Error Handler for Get orders from Shopify",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        660
+      ],
+      "parameters": {
+        "message": "Error occurred in Get orders from Shopify",
+        "options": {}
+      }
     }
   ],
   "active": false,
@@ -367,6 +384,18 @@
         [
           {
             "node": "Check if \"Campaign\" is present",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "85c0f561-a75d-44a4-a8a5-3791c10a2891": {
+      "main": [
+        [],
+        [
+          {
+            "node": "error-handler-85c0f561-a75d-44a4-a8a5-3791c10a2891",
             "type": "main",
             "index": 0
           }

@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Auth0 User Login",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "25022573-c99e-40d2-88e2-a0e7a9780181",
@@ -18,7 +21,7 @@
         320
       ],
       "parameters": {
-        "url": "={{ $json.domain }}/oauth/token",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"grant_type\": \"authorization_code\",\n  \"code\": \"{{ $json.query.code }}\",\n  \"client_id\": \"{{ $json.client_id }}\",\n  \"client_secret\": \"{{ $json.client_secret }}\",\n  \"redirect_uri\": \"{{ $json.my_server }}\",\n  \"audience\": \"{{ $json.domain }}/api/v2/\"\n}",
@@ -45,7 +48,7 @@
         320
       ],
       "parameters": {
-        "url": "={{ $('Set Application Details1').item.json.domain }}/userinfo",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -115,7 +118,7 @@
       ],
       "parameters": {
         "options": {},
-        "redirectURL": "={{ $json.domain }}/authorize?response_type=code&scope=openid+email+profile+image+name&client_id={{ $json.client_id }}&redirect_uri={{ $json.my_server }}/webhook/receive-token",
+        "redirectURL": "{{ $env.BASE_URL }}",
         "respondWith": "redirect"
       },
       "typeVersion": 1.1

@@ -30,7 +30,7 @@
         "path": "",
         "options": {},
         "httpMethod": "POST",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": "Strapi Webhook Credentials"
@@ -45,10 +45,10 @@
         200
       ],
       "parameters": {
-        "url": "https://dev.to/api/articles",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "requestMethod": "POST",
-        "authentication": "headerAuth",
+        "authentication": "{{ $credentials.headerAuth }}",
         "jsonParameters": true,
         "bodyParametersJson": "={\n\t\"article\": {\n\t\t\"title\": \"{{$json[\"body\"][\"entry\"][\"Title\"]}}\",\n\t\t\"published\": true,\n\t\t\"body_markdown\": \"{{$json[\"body\"][\"entry\"][\"PostContent\"]}}\",\n\t\t\"tags\":[\"{{$json[\"body\"][\"entry\"][\"Tag\"]}}\"]\n\t}\n}",
         "headerParametersJson": "{\"Content-Type\": \"application/json\"}"

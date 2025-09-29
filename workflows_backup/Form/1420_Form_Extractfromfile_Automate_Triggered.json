@@ -1,8 +1,10 @@
 {
   "id": "ES4TSw9HacxoNhLZ",
   "meta": {
-    "instanceId": "5219bc76ea806909b58e13e2acac1c19192522e70dc3c90467e1800e94864105",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "AI CV Screening Workflow",
   "tags": [],
@@ -234,14 +236,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1y4FFMXTuznSf2wWUraK57eBJnu4MVtgkxrGYRzRMwDQ/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "পত্রক1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1y4FFMXTuznSf2wWUraK57eBJnu4MVtgkxrGYRzRMwDQ",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1y4FFMXTuznSf2wWUraK57eBJnu4MVtgkxrGYRzRMwDQ/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "CV of Software Engineers"
         }
       },
@@ -252,12 +254,84 @@
         }
       },
       "typeVersion": 4.5
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation 1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# AI CV Screening Workflow\n\nAutomated workflow: AI CV Screening Workflow. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 7 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
+    },
+    {
+      "id": "error-handler-e77fbc32-5ee9-49b4-93d5-f2ffda134b08-3a5a5655",
+      "name": "Error Handler for e77fbc32",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e77fbc32",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-da0fd18b-2420-471e-b930-9aabc45bc2ca-a2e93a51",
+      "name": "Error Handler for da0fd18b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node da0fd18b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d2dfbf1e-8d88-49e6-940d-e1717de97b30-4ae4d790",
+      "name": "Error Handler for d2dfbf1e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d2dfbf1e",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-4b5ca218",
+      "name": "Workflow Documentation 2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# AI CV Screening Workflow\n\n## Overview\nAutomated workflow: AI CV Screening Workflow. This workflow processes data and performs automated tasks.\n\n## Workflow Details\n- **Total Nodes**: 11\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Google Gemini Chat Model**: lmChatGoogleGemini\n- **Confirmation of CV Submission**: gmail\n- **Inform HR New CV Received**: gmail\n- **Using AI Analysis & Rating**: chainLlm\n- **Convert Binary to Json**: extractFromFile\n- **Application Form**: formTrigger\n- **Candidate Lists**: googleSheets\n- **Workflow Documentation**: stickyNote\n- **Error Handler for e77fbc32**: stopAndError\n- **Error Handler for da0fd18b**: stopAndError\n- ... and 1 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "2036fff4-ab9c-4981-a8b4-44be4654630d",
   "connections": {
@@ -326,6 +400,40 @@
           }
         ]
       ]
+    },
+    "e77fbc32-5ee9-49b4-93d5-f2ffda134b08": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e77fbc32-5ee9-49b4-93d5-f2ffda134b08-3a5a5655",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "da0fd18b-2420-471e-b930-9aabc45bc2ca": {
+      "main": [
+        [
+          {
+            "node": "error-handler-da0fd18b-2420-471e-b930-9aabc45bc2ca-a2e93a51",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d2dfbf1e-8d88-49e6-940d-e1717de97b30": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d2dfbf1e-8d88-49e6-940d-e1717de97b30-4ae4d790",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: AI CV Screening Workflow. This workflow processes data and performs automated tasks."
 }

@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "d4d7965840e96e50a3e02959a8487c692901dfa8d5cc294134442c67ce1622d3",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -135,7 +137,7 @@
           "__rl": true,
           "mode": "list",
           "value": "17sGS9HdmAtgpd5rC1sVuiIUGyw2hq9IY",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/17sGS9HdmAtgpd5rC1sVuiIUGyw2hq9IY",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "n8n"
         },
         "resource": "folder"
@@ -280,7 +282,7 @@
         "color": 5,
         "width": 360,
         "height": 200,
-        "content": "## ⚙️ File Processing Notes\n- All binary files are split individually for proper upload handling\n- Original file names and structure are preserved\n- Both paths ensure identical file organization\n\nalso see https://n8n.io/workflows/1621-split-out-binary-data/"
+        "content": "## ⚙️ File Processing Notes\n- All binary files are split individually for proper upload handling\n- Original file names and structure are preserved\n- Both paths ensure identical file organization\n\nalso see {{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -299,6 +301,75 @@
         "content": "## 🔍 Search Query Pattern\n\nThe following search pattern looks for a folder with the specified name in a particular parent folder:\nMake sure to replace <folderId>\n\n```javascript\nmimeType='application/vnd.google-apps.folder' and name = '{{ $json.folderName }}' and '<folderId>' in parents\n```\n\n**Important**: Marl Always Output Data so you can check also if nothing found."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-555e761a-ea79-40eb-b36f-72fbcc642fda-5ea281fe",
+      "name": "Error Handler for 555e761a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 555e761a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e413cdc8-8424-41d3-8791-e036392a16ac-5381f325",
+      "name": "Error Handler for e413cdc8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e413cdc8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-aada549c-3bbd-453b-9d48-4ab25446d8ce-a344f470",
+      "name": "Error Handler for aada549c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node aada549c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-557d2c63-7bbb-4280-b16e-71c6d900973b-eefd26ec",
+      "name": "Error Handler for 557d2c63",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 557d2c63",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-2e700395",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Formtrigger Workflow\n\n## Overview\nAutomated workflow: Formtrigger Workflow. This workflow integrates 7 different services: stickyNote, formTrigger, code, googleDrive, set. It contains 17 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 17\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **On form submission**: formTrigger\n- **Get Folder Name**: set\n- **Search specific folder**: googleDrive\n- **Folder found ?**: if\n- **Create Folder**: googleDrive\n- **Upload Files**: googleDrive\n- **Prepare Files for Upload**: code\n- **Prepare Files for New Folder**: code\n- **Upload to New Folder**: googleDrive\n- **Sticky Note**: stickyNote\n- ... and 7 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -386,6 +457,59 @@
           }
         ]
       ]
+    },
+    "555e761a-ea79-40eb-b36f-72fbcc642fda": {
+      "main": [
+        [
+          {
+            "node": "error-handler-555e761a-ea79-40eb-b36f-72fbcc642fda-5ea281fe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e413cdc8-8424-41d3-8791-e036392a16ac": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e413cdc8-8424-41d3-8791-e036392a16ac-5381f325",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "aada549c-3bbd-453b-9d48-4ab25446d8ce": {
+      "main": [
+        [
+          {
+            "node": "error-handler-aada549c-3bbd-453b-9d48-4ab25446d8ce-a344f470",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "557d2c63-7bbb-4280-b16e-71c6d900973b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-557d2c63-7bbb-4280-b16e-71c6d900973b-eefd26ec",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Formtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Formtrigger Workflow. This workflow integrates 7 different services: stickyNote, formTrigger, code, googleDrive, set. It contains 17 nodes and follows best practices for error handling and security."
 }

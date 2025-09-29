@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "News Extraction",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "97711d12-20de-40aa-b994-d2b10f20a5e5",
@@ -25,7 +28,7 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "attribute": "href",
               "cssSelector": "=div:nth-child(9) > div:nth-child(3) > a:nth-child(2)",
               "returnArray": true,
@@ -165,7 +168,7 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "div:nth-child(9) > div:nth-child(2) > span:nth-child(1)",
               "returnArray": true
             }
@@ -211,7 +214,7 @@
         0
       ],
       "parameters": {
-        "url": "={{ $json[\"Link\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.1
@@ -245,11 +248,11 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "h1.fl-heading > span:nth-child(1)"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": ".fl-node-5c7574ae7d5c6 > div:nth-child(1)"
             }
           ]
@@ -597,7 +600,7 @@
         },
         "operation": "create",
         "projectId": "prqu4e8bjj4bv1j",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {

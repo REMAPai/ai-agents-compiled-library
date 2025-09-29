@@ -73,7 +73,7 @@
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -109,13 +109,13 @@
         0
       ],
       "parameters": {
-        "url": "={{ $('settings').item.json['site_url'] }}wp-json/wp/v2/media",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -125,7 +125,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -456,5 +456,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 8 different services: wordpress, httpRequest, stickyNote, chainLlm, set. It contains 15 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 8 different services: wordpress, httpRequest, stickyNote, chainLlm, set. It contains 15 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -42,10 +42,10 @@
         5220
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{$json.documentId}}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "notesInFlow": true,
       "typeVersion": 4.2
@@ -208,14 +208,14 @@
         5220
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{$json.documentId}}:batchUpdate",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"requests\": [\n    {\n      \"replaceImage\": {\n        \"imageObjectId\": {{ $json.body.content[1].paragraph.elements[0].inlineObjectElement.inlineObjectId }},\n        \"uri\": \"{{ $('Image URL').item.json.url }}\",\n        \"imageReplaceMethod\": \"CENTER_CROP\"\n      }\n    }\n  ]\n} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "notesInFlow": true,
       "typeVersion": 4.2
@@ -636,5 +636,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 7 different services: stickyNote, httpRequest, googleDrive, set, stopAndError. It contains 26 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 7 different services: stickyNote, httpRequest, googleDrive, set, stopAndError. It contains 26 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

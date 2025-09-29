@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Backup n8n Workflows to Bitbucket",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "b3363b9d-ea6e-47b7-99f9-f48a21805886",
@@ -84,7 +87,7 @@
         -20
       ],
       "parameters": {
-        "url": "=https://api.bitbucket.org/2.0/repositories/{{ $('Set Bitbucket Workspace & Repository').item.json.WorkspaceSlug }}/{{ $('Set Bitbucket Workspace & Repository').item.json.RepositorySlug }}/src/main/{{ $json.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase() }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -93,7 +96,7 @@
           },
           "allowUnauthorizedCerts": true
         },
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -159,7 +162,7 @@
         -260
       ],
       "parameters": {
-        "url": "=https://api.bitbucket.org/2.0/repositories/{{ $('Set Bitbucket Workspace & Repository').item.json.WorkspaceSlug }}/{{ $('Set Bitbucket Workspace & Repository').item.json.RepositorySlug }}/src",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "redirect": {
@@ -175,7 +178,7 @@
         },
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -279,7 +282,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -320,7 +323,7 @@
     },
     {
       "id": "documentation-91371212",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [

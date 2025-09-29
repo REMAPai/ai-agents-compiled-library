@@ -15,10 +15,10 @@
         1648
       ],
       "parameters": {
-        "url": "={{ $json.data.links.self }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 4.1
     },
@@ -31,7 +31,7 @@
         1028
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "queryParameters": {
@@ -137,7 +137,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -146,7 +146,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 4.1
     },
@@ -519,9 +519,9 @@
         708
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.ip }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "typeVersion": 4.1
@@ -535,9 +535,9 @@
         888
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.ip }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "typeVersion": 4.1
@@ -1157,5 +1157,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 14 different services: webhook, itemLists, httpRequest, filter, wait. It contains 42 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 14 different services: webhook, itemLists, httpRequest, filter, wait. It contains 42 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "api"
+  ]
 }

@@ -31,7 +31,7 @@
         360
       ],
       "parameters": {
-        "url": "={{ $('Bug Webhook').item.json.body.response_url }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -61,8 +61,8 @@
         "jsonBody": "={\n    \"query\":\"mutation IssueCreate($input: IssueCreateInput!) {issueCreate(input: $input) {issue {id title url}}}\",\n    \"variables\":{\"input\":{\"title\":\"{{ $json[\"body\"][\"text\"].replaceAll('\"',\"'\") }}\",\"teamId\":\"7a330c36-4b39-4bf1-922e-b4ceeb91850a\", \"description\":\"## Description  \\n [Add a description here]  \\n## Expected  \\n [What behavior did you expect?]  \\n## Actual  \\n [What was the actual behavior? Use screenshots or videos to show the behavior]  \\n## Steps or workflow to reproduce (with screenshots/recordings)  \\n **n8n version:** [Deployment type] [version]  \\n 1. [Replace me]   \\n  \\n Created by: {{ $json[\"body\"][\"user_name\"].toSentenceCase() }}\", \"labelIds\": [\"f2b6e3e9-b42d-4106-821c-6a08dcb489a9\"]}} \n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "linearOAuth2Api": {
@@ -146,7 +146,7 @@
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -155,7 +155,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "linearOAuth2Api": {
@@ -178,7 +178,7 @@
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -187,7 +187,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "linearOAuth2Api": {
@@ -395,7 +395,7 @@
       {
         "body": {
           "text": "My bug",
-          "token": "YOUR_VALUE_HERE",
+          "token": "YOUR_TOKEN_HERE",
           "command": "/bug",
           "team_id": "TG9695PUK",
           "user_id": "U047V1J0E7J",
@@ -573,5 +573,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Webhook Workflow. This workflow integrates 5 different services: webhook, stickyNote, httpRequest, set, stopAndError. It contains 20 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Webhook Workflow. This workflow integrates 5 different services: webhook, stickyNote, httpRequest, set, stopAndError. It contains 20 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "webhook"
+  ]
 }

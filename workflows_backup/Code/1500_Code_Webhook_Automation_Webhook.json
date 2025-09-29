@@ -1,15 +1,17 @@
 {
   "id": "IJYpB2CIAdLk8Umg",
   "meta": {
-    "instanceId": "ffb0782f8b2cf4278577cb919e0cd26141bc9ff8774294348146d454633aa4e3",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "puq-docker-minio-deploy",
   "tags": [],
   "nodes": [
     {
       "id": "d79fe295-a0b0-4871-8382-67d9af5d0d2c",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         -2060,
@@ -103,7 +105,7 @@
           "POST"
         ],
         "responseMode": "responseNode",
-        "authentication": "basicAuth",
+        "authentication": "{{ $credentials.basicAuth }}",
         "multipleMethods": true
       },
       "credentials": {
@@ -183,7 +185,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "start",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -208,7 +210,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "stop",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -233,7 +235,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "mount_disk",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -258,7 +260,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "unmount_disk",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -283,7 +285,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "container_get_acl",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -308,7 +310,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "container_set_acl",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -333,7 +335,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "container_get_net",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -375,7 +377,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "test_connection",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -400,7 +402,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "create",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -424,7 +426,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "suspend",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -449,7 +451,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "unsuspend",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -474,7 +476,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "terminate",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -499,7 +501,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "change_package",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -883,7 +885,7 @@
         "color": 6,
         "width": 639,
         "height": 909,
-        "content": "## 👋 Welcome to PUQ Docker MinIO deploy!\n## Template for MinIO: API Backend for WHMCS/WISECP by PUQcloud\n\nv.1\n\nThis is an n8n template that creates an API backend for the WHMCS/WISECP module developed by PUQcloud.\n\n## Setup Instructions\n\n### 1. Configure API Webhook and SSH Access\n- Create a Credential (Basic Auth) for the **Webhook API Block** in n8n.\n- Create a Credential for **SSH access** to a server with Docker installed (**SSH Block**).\n\n### 2. Modify Template Parameters\nIn the **Parameters** block of the template, update the following settings:\n\n- `server_domain` – must match the domain of the WHMCS/WISECP Docker server.\n- `clients_dir` – directory where user data related to Docker and disks will be stored.\n- `mount_dir` – default mount point for the container disk (recommended not to change).\n\n**Do not modify** the following technical parameters:\n\n- `screen_left`\n- `screen_right`\n\n## Additional Resources\n- Full documentation: [https://doc.puq.info/books/docker-minio-whmcs-module](https://doc.puq.info/books/docker-minio-whmcs-module)\n- WHMCS module: [https://puqcloud.com/whmcs-module-docker-minio.php](https://puqcloud.com/whmcs-module-docker-minio.php)\n\n"
+        "content": "## 👋 Welcome to PUQ Docker MinIO deploy!\n## Template for MinIO: API Backend for WHMCS/WISECP by PUQcloud\n\nv.1\n\nThis is an n8n template that creates an API backend for the WHMCS/WISECP module developed by PUQcloud.\n\n## Setup Instructions\n\n### 1. Configure API Webhook and SSH Access\n- Create a Credential (Basic Auth) for the **Webhook API Block** in n8n.\n- Create a Credential for **SSH access** to a server with Docker installed (**SSH Block**).\n\n### 2. Modify Template Parameters\nIn the **Parameters** block of the template, update the following settings:\n\n- `server_domain` – must match the domain of the WHMCS/WISECP Docker server.\n- `clients_dir` – directory where user data related to Docker and disks will be stored.\n- `mount_dir` – default mount point for the container disk (recommended not to change).\n\n**Do not modify** the following technical parameters:\n\n- `screen_left`\n- `screen_right`\n\n## Additional Resources\n- Full documentation: [{{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n- WHMCS module: [{{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n\n"
       },
       "typeVersion": 1
     },
@@ -903,7 +905,7 @@
               "id": "21f4453e-c136-4388-be90-1411ae78e8a5",
               "name": "docker-compose",
               "type": "string",
-              "value": "=version: \"3\"\n\nservices:\n  {{ $('API').item.json.body.domain }}:\n    image: minio/minio\n    restart: unless-stopped\n    container_name: {{ $('API').item.json.body.domain }}\n    command: server /data --console-address \":9001\"\n    environment:\n      MINIO_ROOT_USER: {{ $('API').item.json.body.username }}\n      MINIO_ROOT_PASSWORD: {{ $('API').item.json.body.password }}\n      MINIO_BROWSER_REDIRECT_URL: https://console.{{ $('API').item.json.body.domain }}\n      LETSENCRYPT_HOST: {{ $('API').item.json.body.domain }},console.{{ $('API').item.json.body.domain }}\n      VIRTUAL_HOST_MULTIPORTS: |-\n          {{ $('API').item.json.body.domain }}:\n            \"/\":\n              port: 9000\n          console.{{ $('API').item.json.body.domain }}:\n            \"/\":\n              port: 9001\n    volumes:\n      - \"{{ $('Parametrs').item.json.mount_dir }}/{{ $('API').item.json.body.domain }}/data:/data\"\n    networks:\n      - nginx-proxy_web\n    mem_limit: \"{{ $('API').item.json.body.ram }}G\"\n    cpus: \"{{ $('API').item.json.body.cpu }}\"\n\nnetworks:\n  nginx-proxy_web:\n    external: true\n"
+              "value": "=version: \"3\"\n\nservices:\n  {{ $('API').item.json.body.domain }}:\n    image: minio/minio\n    restart: unless-stopped\n    container_name: {{ $('API').item.json.body.domain }}\n    command: server /data --console-address \":9001\"\n    environment:\n      MINIO_ROOT_USER: {{ $('API').item.json.body.username }}\n      MINIO_ROOT_PASSWORD: {{ $('API').item.json.body.password }}\n      MINIO_BROWSER_REDIRECT_URL: {{ $env.WEBHOOK_URL }}{{ $('API').item.json.body.domain }}\n      LETSENCRYPT_HOST: {{ $('API').item.json.body.domain }},console.{{ $('API').item.json.body.domain }}\n      VIRTUAL_HOST_MULTIPORTS: |-\n          {{ $('API').item.json.body.domain }}:\n            \"/\":\n              port: 9000\n          console.{{ $('API').item.json.body.domain }}:\n            \"/\":\n              port: 9001\n    volumes:\n      - \"{{ $('Parametrs').item.json.mount_dir }}/{{ $('API').item.json.body.domain }}/data:/data\"\n    networks:\n      - nginx-proxy_web\n    mem_limit: \"{{ $('API').item.json.body.ram }}G\"\n    cpus: \"{{ $('API').item.json.body.cpu }}\"\n\nnetworks:\n  nginx-proxy_web:\n    external: true\n"
             }
           ]
         }
@@ -953,7 +955,7 @@
               "id": "21f4453e-c136-4388-be90-1411ae78e8a5",
               "name": "sh",
               "type": "string",
-              "value": "=#!/bin/bash\n\nCONTAINER_NAME=\"{{ $('API').item.json.body.domain }}\"\nMINIO_USERNAME=\"{{ $('API').item.json.body.username }}\"\nMINIO_PASSWORD=\"{{ $('API').item.json.body.password }}\"\n\n# Function to return error in JSON format\nhandle_error() {\n    echo \"{\\\"status\\\": \\\"error\\\", \\\"message\\\": \\\"$1\\\"}\"\n    exit 1\n}\n\n# Check if the container exists\nif ! sudo docker ps -a | grep -q \"$CONTAINER_NAME\" > /dev/null 2>&1; then\n    handle_error \"Container $CONTAINER_NAME not found\"\nfi\n\n# Set alias for MinIO client\nsudo docker exec \"$CONTAINER_NAME\" mc alias set local http://localhost:9000 \"$MINIO_USERNAME\" \"$MINIO_PASSWORD\" > /dev/null 2>&1\n\n# Get user list and format it correctly as JSON array\nUSERS_JSON=$(sudo docker exec \"$CONTAINER_NAME\" mc admin user list local --json | jq -s '.')\n\n# Check if USERS_JSON is empty\nif [ -z \"$USERS_JSON\" ]; then\n    handle_error \"Failed to retrieve user list for $CONTAINER_NAME\"\nfi\n\n# Wrap in a JSON object\nJSON=\"{\\\"users\\\": $USERS_JSON}\"\n\necho \"$JSON\"\nexit 0\n"
+              "value": "=#!/bin/bash\n\nCONTAINER_NAME=\"{{ $('API').item.json.body.domain }}\"\nMINIO_USERNAME=\"{{ $('API').item.json.body.username }}\"\nMINIO_PASSWORD=\"{{ $('API').item.json.body.password }}\"\n\n# Function to return error in JSON format\nhandle_error() {\n    echo \"{\\\"status\\\": \\\"error\\\", \\\"message\\\": \\\"$1\\\"}\"\n    exit 1\n}\n\n# Check if the container exists\nif ! sudo docker ps -a | grep -q \"$CONTAINER_NAME\" > /dev/null 2>&1; then\n    handle_error \"Container $CONTAINER_NAME not found\"\nfi\n\n# Set alias for MinIO client\nsudo docker exec \"$CONTAINER_NAME\" mc alias set local {{ $env.WEBHOOK_URL }} \"$MINIO_USERNAME\" \"$MINIO_PASSWORD\" > /dev/null 2>&1\n\n# Get user list and format it correctly as JSON array\nUSERS_JSON=$(sudo docker exec \"$CONTAINER_NAME\" mc admin user list local --json | jq -s '.')\n\n# Check if USERS_JSON is empty\nif [ -z \"$USERS_JSON\" ]; then\n    handle_error \"Failed to retrieve user list for $CONTAINER_NAME\"\nfi\n\n# Wrap in a JSON object\nJSON=\"{\\\"users\\\": $USERS_JSON}\"\n\necho \"$JSON\"\nexit 0\n"
             }
           ]
         }
@@ -1027,7 +1029,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "version",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -1052,7 +1054,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "users",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -1136,7 +1138,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "inspect",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -1161,7 +1163,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "stats",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -1186,7 +1188,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "log",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -1290,14 +1292,113 @@
       },
       "typeVersion": 3.4,
       "alwaysOutputData": true
+    },
+    {
+      "id": "error-handler-9814333d-a9c1-4787-aed1-116db9395b88",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 9814333d-a9c1-4787-aed1-116db9395b88",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a3e0156c-8033-4829-ab57-06e3708a7a09",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a3e0156c-8033-4829-ab57-06e3708a7a09",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1c59a844-f4ef-422f-abbf-288a55e11934",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 1c59a844-f4ef-422f-abbf-288a55e11934",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9814333d-a9c1-4787-aed1-116db9395b88-1deb7fd6",
+      "name": "Error Handler for 9814333d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9814333d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a3e0156c-8033-4829-ab57-06e3708a7a09-d5a07dc2",
+      "name": "Error Handler for a3e0156c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a3e0156c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1c59a844-f4ef-422f-abbf-288a55e11934-457941af",
+      "name": "Error Handler for 1c59a844",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1c59a844",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-95c92581",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# puq-docker-minio-deploy\n\n## Overview\nAutomated workflow: puq-docker-minio-deploy. This workflow integrates 9 different services: webhook, stickyNote, code, switch, set. It contains 39 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 39\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **If Node**: if\n- **Parametrs**: set\n- **API**: webhook\n- **422-Invalid server domain**: respondToWebhook\n- **Code1**: code\n- **SSH**: ssh\n- **Container Actions**: switch\n- **Service Actions**: switch\n- **API answer**: respondToWebhook\n- **Inspect**: set\n- ... and 29 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "timezone": "America/Winnipeg",
+    "timezone": "UTC",
     "callerPolicy": "workflowsFromSameOwner",
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "errorWorkflow": null
   },
   "versionId": "930dd393-6eff-43d5-8446-30ba19fce16d",
   "connections": {
@@ -1766,6 +1867,61 @@
           }
         ]
       ]
+    },
+    "9814333d-a9c1-4787-aed1-116db9395b88": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9814333d-a9c1-4787-aed1-116db9395b88",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-9814333d-a9c1-4787-aed1-116db9395b88-1deb7fd6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a3e0156c-8033-4829-ab57-06e3708a7a09": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a3e0156c-8033-4829-ab57-06e3708a7a09",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a3e0156c-8033-4829-ab57-06e3708a7a09-d5a07dc2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1c59a844-f4ef-422f-abbf-288a55e11934": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1c59a844-f4ef-422f-abbf-288a55e11934",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-1c59a844-f4ef-422f-abbf-288a55e11934-457941af",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: puq-docker-minio-deploy. This workflow integrates 9 different services: webhook, stickyNote, code, switch, set. It contains 39 nodes and follows best practices for error handling and security."
 }

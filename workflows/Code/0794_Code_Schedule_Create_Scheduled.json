@@ -26,7 +26,7 @@
         100
       ],
       "parameters": {
-        "url": "={{ $json.n8n_url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "pagination": {
             "pagination": {
@@ -44,7 +44,7 @@
           }
         },
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -53,7 +53,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {
@@ -134,14 +134,14 @@
         -100
       ],
       "parameters": {
-        "url": "={{ $('Edit Fields').item.json.n8n_url }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{ [$json] }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {
@@ -188,7 +188,7 @@
               "id": "c3a7a1ee-d1a2-4a29-b4b3-dcadf0fc16e2",
               "name": "n8n_url",
               "type": "string",
-              "value": "https://{n8n-url}/api/v1/users"
+              "value": "{{ $env.API_BASE_URL }}"
             }
           ]
         }
@@ -504,5 +504,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: stickyNote, httpRequest, code, scheduleTrigger, merge. It contains 16 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: stickyNote, httpRequest, code, scheduleTrigger, merge. It contains 16 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

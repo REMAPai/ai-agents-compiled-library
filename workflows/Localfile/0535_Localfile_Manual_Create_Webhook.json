@@ -329,14 +329,14 @@
         280
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Set Variables').item.json.qdrant_collection }}/points/scroll",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n    \"filter\": {\n        \"must\": [\n            {\n                \"key\": \"metadata.filter_by_filename\",\n                \"match\": {\n                    \"value\": \"{{ $json.file_changed }}\"\n                }\n            }\n        ]\n    },\n    \"limit\": 1,\n    \"with_payload\": false,\n    \"with_vector\": false\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -388,11 +388,11 @@
         700
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Set Variables').item.json.qdrant_collection }}/points/delete",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -401,7 +401,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -420,14 +420,14 @@
         700
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Set Variables').item.json.qdrant_collection }}/points/scroll",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n    \"filter\": {\n        \"must\": [\n            {\n                \"key\": \"metadata.filter_by_filename\",\n                \"match\": {\n                    \"value\": \"{{ $json.file_changed }}\"\n                }\n            }\n        ]\n    },\n    \"limit\": 1,\n    \"with_payload\": false,\n    \"with_vector\": false\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -479,11 +479,11 @@
         280
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Set Variables').item.json.qdrant_collection }}/points/delete",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -492,7 +492,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -514,7 +514,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -538,7 +538,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -562,7 +562,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_3",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -1195,5 +1195,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Localfiletrigger Workflow. This workflow integrates 17 different services: stickyNote, httpRequest, embeddingsMistralCloud, textSplitterRecursiveCharacterTextSplitter, chainRetrievalQa. It contains 39 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Localfiletrigger Workflow. This workflow integrates 17 different services: stickyNote, httpRequest, embeddingsMistralCloud, textSplitterRecursiveCharacterTextSplitter, chainRetrievalQa. It contains 39 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

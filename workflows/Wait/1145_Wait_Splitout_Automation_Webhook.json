@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Google Site Index - sitemap.xml example",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ],
   "nodes": [
     {
       "id": "4da50fbf-7707-42ea-badc-6748c4ee30db",
@@ -44,7 +48,7 @@
         400
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ encodeURIComponent($json.loc) }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -52,8 +56,8 @@
             }
           }
         },
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "googleOAuth2Api": {
@@ -101,11 +105,11 @@
         400
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -118,7 +122,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "googleOAuth2Api": {
@@ -376,7 +380,7 @@
         360
       ],
       "parameters": {
-        "url": "={{ $json.loc }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "batching": {
             "batch": {

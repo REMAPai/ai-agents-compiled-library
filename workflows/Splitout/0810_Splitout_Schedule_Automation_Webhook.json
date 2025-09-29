@@ -142,7 +142,7 @@
         200
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json[\"api-version\"] }}/commerce/orders",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "pagination": {
             "pagination": {
@@ -162,7 +162,7 @@
           }
         },
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -219,13 +219,13 @@
         200
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Globals').item.json[\"api-version\"] }}/commerce/orders/{{ $('Filter Orders').item.json.id }}/fulfillments",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n  \"shouldSendNotification\": true\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "oAuth2Api"
       },
       "credentials": {
@@ -508,5 +508,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: stickyNote, httpRequest, filter, scheduleTrigger, splitOut. It contains 16 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: stickyNote, httpRequest, filter, scheduleTrigger, splitOut. It contains 16 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

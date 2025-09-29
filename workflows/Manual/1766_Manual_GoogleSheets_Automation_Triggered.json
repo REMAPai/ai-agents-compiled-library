@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Analyze Reddit Posts with AI to Identify Business Opportunities",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "52bdf7eb-ee1a-43c5-a0ad-199283003892",
@@ -248,7 +251,7 @@
         "columns": {
           "value": {
             "Upvotes": "={{ $json.upvotes }}",
-            "Post_url": "={{ $json.url }}",
+            "Post_url": "{{ $env.BASE_URL }}",
             "Post_date": "={{ $json.date }}",
             "Post_summary": "={{ $json.response.text }}",
             "Post_solution": "={{ $json.message.content }}",
@@ -531,7 +534,7 @@
       ],
       "parameters": {
         "limit": 20,
-        "keyword": "YOUR_API_KEY",
+        "keyword": "YOUR_CREDENTIAL_HERE",
         "operation": "search",
         "subreddit": "=smallbusiness",
         "additionalFields": {

@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Google Doc Summarizer to Google Sheets",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ],
   "nodes": [
     {
       "id": "9098b59a-68b1-48bd-9b52-41a971e689b3",
@@ -19,8 +23,8 @@
       ],
       "parameters": {
         "operation": "get",
-        "documentURL": "={{ $json.id }}",
-        "authentication": "serviceAccount"
+        "documentURL": "{{ $env.BASE_URL }}",
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -167,7 +171,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "yashdata"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {

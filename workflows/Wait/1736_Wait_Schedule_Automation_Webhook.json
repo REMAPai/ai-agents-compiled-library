@@ -167,7 +167,7 @@
         360
       ],
       "parameters": {
-        "url": "={{ $json.screenshotUrl }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -217,7 +217,7 @@
       "parameters": {
         "columns": {
           "value": {
-            "url": "={{ $('Merge').item.json.url }}",
+            "url": "{{ $env.BASE_URL }}",
             "base": "={{ $json.id }}"
           },
           "schema": [
@@ -366,7 +366,7 @@
         "jsonBody": "={{\n{\n \"delay\": 0,\n \"format\": \"png\",\n \"proxy\": {\n \"useApifyProxy\": true\n },\n \"scrollToBottom\": false,\n \"urls\": [\n {\n \"url\": $json.url\n }\n ],\n \"viewportWidth\": 1280,\n \"waitUntil\": \"domcontentloaded\",\n \"waitUntilNetworkIdleAfterScroll\": false\n}\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth"
       },
       "credentials": {
@@ -392,7 +392,7 @@
         "jsonBody": "={{\n{\n \"delay\": 0,\n \"format\": \"png\",\n \"proxy\": {\n \"useApifyProxy\": true\n },\n \"scrollToBottom\": false,\n \"urls\": [\n {\n \"url\": $json.url\n }\n ],\n \"viewportWidth\": 1280,\n \"waitUntil\": \"domcontentloaded\",\n \"waitUntilNetworkIdleAfterScroll\": false\n}\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth"
       },
       "credentials": {
@@ -641,7 +641,7 @@
         833
       ],
       "parameters": {
-        "url": "={{ $json.screenshotUrl }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -717,12 +717,12 @@
             {
               "type": "HumanMessagePromptTemplate",
               "messageType": "imageBinary",
-              "binaryImageDataKey": "YOUR_API_KEY"
+              "binaryImageDataKey": "YOUR_CREDENTIAL_HERE"
             },
             {
               "type": "HumanMessagePromptTemplate",
               "messageType": "imageBinary",
-              "binaryImageDataKey": "YOUR_API_KEY"
+              "binaryImageDataKey": "YOUR_CREDENTIAL_HERE"
             }
           ]
         },
@@ -1356,5 +1356,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Googledrive Workflow. This workflow integrates 17 different services: stickyNote, httpRequest, filter, wait, lmChatGoogleGemini. It contains 48 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Googledrive Workflow. This workflow integrates 17 different services: stickyNote, httpRequest, filter, wait, lmChatGoogleGemini. It contains 48 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ]
 }

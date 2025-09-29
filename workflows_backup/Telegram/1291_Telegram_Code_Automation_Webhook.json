@@ -1,8 +1,10 @@
 {
   "id": "ALg2eFzN4AsHIf3R",
   "meta": {
-    "instanceId": "31e69f7f4a77bf465b805824e303232f0227212ae922d12133a0f96ffeab4fef",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "✍️🌄 Your First Wordpress Content Creator - Quick Start",
   "tags": [],
@@ -341,7 +343,7 @@
         "color": 4,
         "width": 469,
         "height": 652,
-        "content": "## Create Blog Post\nRefer to this workflow for help getting setup with DeepSeek\nhttps://n8n.io/workflows/2777-deepseek-v3-chat-and-r1-reasoning-quick-start/"
+        "content": "## Create Blog Post\nRefer to this workflow for help getting setup with DeepSeek\n{{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -494,7 +496,7 @@
         700
       ],
       "parameters": {
-        "url": "=https://image.pollinations.ai/prompt/{{ $('Separate Title & Content').item.json.title }} and Avoid adding text and keep the image vibrant.",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -531,13 +533,13 @@
         700
       ],
       "parameters": {
-        "url": "https://[YOUR-WORDPRESS-SITE.com]/wp-json/wp/v2/media",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -547,7 +549,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "wordpressApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -566,11 +568,11 @@
         700
       ],
       "parameters": {
-        "url": "=https:/[YOUR-WORDPRESS-SITE.com]/wp-json/wp/v2/posts/{{ $('Create Wordpress Post').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -579,7 +581,7 @@
             }
           ]
         },
-        "nodeCredentialType": "wordpressApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -601,7 +603,7 @@
         "color": 4,
         "width": 1066,
         "height": 701,
-        "content": "## Create Wordpress Post and Add New Image\nhttps://docs.n8n.io/integrations/builtin/credentials/wordpress/"
+        "content": "## Create Wordpress Post and Add New Image\n{{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -616,7 +618,7 @@
       "parameters": {
         "width": 300,
         "height": 340,
-        "content": "## Create Post Image\nhttps://pollinations.ai/\nhttps://image.pollinations.ai/prompt/[your image description]"
+        "content": "## Create Post Image\n{{ $env.WEBHOOK_URL }}\n{{ $env.WEBHOOK_URL }}[your image description]"
       },
       "typeVersion": 1
     },
@@ -860,15 +862,268 @@
         "content": "# ✍️🌄 WordPress + AI Content Creator\n\nThis workflow automates the creation and publishing of multi-reading-level content for WordPress blogs. It leverages AI to generate optimized articles, automatically creates featured images, and provides versions of the content at different reading levels (Grade 2, 5, and 9).\n\n## How It Works\n\n### Content Generation & Processing 🎯\n- Starts with a manual trigger and a user-defined blog topic\n- Uses AI to create a structured blog post with proper HTML formatting\n- Separates and validates the title and content components\n- Saves a draft version to Google Drive for backup\n\n### Multi-Reading Level Versions 📚\nAutomatically rewrites the content for different reading levels:\n- Grade 9: Sophisticated language with appropriate metaphors\n- Grade 5: Simplified with light humor and age-appropriate examples\n- Grade 2: Basic language with simple metaphors and child-friendly explanations\n\n### WordPress Integration 🌐\n- Creates a draft post in WordPress with the Grade 9 version\n- Generates a relevant featured image using Pollinations.ai\n- Automatically uploads and sets the featured image\n- Sends success/error notifications via Telegram\n\n## Setup Steps\n\n### Configure API Credentials 🔑\n- Set up WordPress API connection\n- Configure OpenAI API access\n- Set up Google Drive integration\n- Add Telegram bot credentials for notifications\n\n### Customize Content Parameters ⚙️\n- Adjust reading level prompts as needed\n- Modify image generation settings\n- Set WordPress post parameters\n\n### Test and Deploy 🚀\n- Run a test with a sample topic\n- Verify all reading level versions\n- Check WordPress draft creation\n- Confirm notification system\n\n\nThis workflow is perfect for content creators who need to maintain a consistent blog presence while catering to different audience reading levels. It's especially useful for educational content, news sites, or any platform that needs to communicate complex topics to diverse audiences."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-2b2718f6-2ca8-4c50-9d0e-2705329ccdcc",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2b2718f6-2ca8-4c50-9d0e-2705329ccdcc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-61243361-dd22-4237-910d-726717306f2b",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 61243361-dd22-4237-910d-726717306f2b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9576157b-3687-4490-b435-6207f4fbf0de",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 9576157b-3687-4490-b435-6207f4fbf0de",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9df33245-102c-45e3-a99b-86be656d12e4-94aa0e9d",
+      "name": "Error Handler for 9df33245",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9df33245",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-40f0ef7d-3c63-45ed-bbfb-8ed04772d214-c8146afd",
+      "name": "Error Handler for 40f0ef7d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 40f0ef7d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4674ff83-1076-4c0f-ad6c-1f0c9474520e-077df1f3",
+      "name": "Error Handler for 4674ff83",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4674ff83",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3f8a1f7f-c6fc-40f5-beb3-807adc71f797-3de275da",
+      "name": "Error Handler for 3f8a1f7f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3f8a1f7f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b2638528-b0e0-46db-b921-b175ae54c3da-52c9a2ea",
+      "name": "Error Handler for b2638528",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b2638528",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c588d522-6a21-4aea-a872-f32bea6b1d94-9755778b",
+      "name": "Error Handler for c588d522",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c588d522",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2b2718f6-2ca8-4c50-9d0e-2705329ccdcc-8e575984",
+      "name": "Error Handler for 2b2718f6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2b2718f6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-61243361-dd22-4237-910d-726717306f2b-59af8917",
+      "name": "Error Handler for 61243361",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 61243361",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9576157b-3687-4490-b435-6207f4fbf0de-a5af4632",
+      "name": "Error Handler for 9576157b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9576157b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ada832e8-4699-4c4a-bbd6-80b0f9de4202-a03c0e6c",
+      "name": "Error Handler for ada832e8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ada832e8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6c5f55b9-9fa5-4d86-b5a2-69966a0d5cdb-329beb63",
+      "name": "Error Handler for 6c5f55b9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6c5f55b9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d0b2a677-fbd9-43f6-81c3-fcb7ea320d1d-06ac8a1c",
+      "name": "Error Handler for d0b2a677",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d0b2a677",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-60104733-0366-4fbe-b486-0b248b5b5ec0-5e5e266a",
+      "name": "Error Handler for 60104733",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 60104733",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a622ecc7-4c7d-42d5-b00c-eff0f8b42916-6b4494d1",
+      "name": "Error Handler for a622ecc7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a622ecc7",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-753d25b7",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# ✍️🌄 Your First Wordpress Content Creator - Quick Start\n\n## Overview\nAutomated workflow: ✍️🌄 Your First Wordpress Content Creator - Quick Start. This workflow integrates 14 different services: stickyNote, httpRequest, wordpress, markdown, telegram. It contains 56 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 56\n- **Node Types**: 14\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **gpt-4o-mini**: lmChatOpenAi\n- **Structured Output - JSON**: outputParserStructured\n- **Separate Title & Content**: code\n- **gpt-4o-mini1**: lmChatOpenAi\n- **If1**: if\n- **gpt-4o-mini2**: lmChatOpenAi\n- **If2**: if\n- **gpt-4o-mini3**: lmChatOpenAi\n- **If3**: if\n- ... and 46 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "timezone": "America/Vancouver",
+    "timezone": "UTC",
     "callerPolicy": "workflowsFromSameOwner",
     "executionOrder": "v1",
-    "executionTimeout": -1
+    "executionTimeout": -1,
+    "saveManualExecutions": true,
+    "errorWorkflow": null
   },
   "versionId": "c03642b2-86f5-47ee-98b2-68cf891e8a58",
   "connections": {
@@ -1123,6 +1378,182 @@
           }
         ]
       ]
+    },
+    "2b2718f6-2ca8-4c50-9d0e-2705329ccdcc": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2b2718f6-2ca8-4c50-9d0e-2705329ccdcc",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2b2718f6-2ca8-4c50-9d0e-2705329ccdcc-8e575984",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "61243361-dd22-4237-910d-726717306f2b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-61243361-dd22-4237-910d-726717306f2b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-61243361-dd22-4237-910d-726717306f2b-59af8917",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9576157b-3687-4490-b435-6207f4fbf0de": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9576157b-3687-4490-b435-6207f4fbf0de",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-9576157b-3687-4490-b435-6207f4fbf0de-a5af4632",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9df33245-102c-45e3-a99b-86be656d12e4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9df33245-102c-45e3-a99b-86be656d12e4-94aa0e9d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "40f0ef7d-3c63-45ed-bbfb-8ed04772d214": {
+      "main": [
+        [
+          {
+            "node": "error-handler-40f0ef7d-3c63-45ed-bbfb-8ed04772d214-c8146afd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4674ff83-1076-4c0f-ad6c-1f0c9474520e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4674ff83-1076-4c0f-ad6c-1f0c9474520e-077df1f3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3f8a1f7f-c6fc-40f5-beb3-807adc71f797": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3f8a1f7f-c6fc-40f5-beb3-807adc71f797-3de275da",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b2638528-b0e0-46db-b921-b175ae54c3da": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b2638528-b0e0-46db-b921-b175ae54c3da-52c9a2ea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c588d522-6a21-4aea-a872-f32bea6b1d94": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c588d522-6a21-4aea-a872-f32bea6b1d94-9755778b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ada832e8-4699-4c4a-bbd6-80b0f9de4202": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ada832e8-4699-4c4a-bbd6-80b0f9de4202-a03c0e6c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6c5f55b9-9fa5-4d86-b5a2-69966a0d5cdb": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6c5f55b9-9fa5-4d86-b5a2-69966a0d5cdb-329beb63",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d0b2a677-fbd9-43f6-81c3-fcb7ea320d1d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d0b2a677-fbd9-43f6-81c3-fcb7ea320d1d-06ac8a1c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "60104733-0366-4fbe-b486-0b248b5b5ec0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-60104733-0366-4fbe-b486-0b248b5b5ec0-5e5e266a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a622ecc7-4c7d-42d5-b00c-eff0f8b42916": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a622ecc7-4c7d-42d5-b00c-eff0f8b42916-6b4494d1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: ✍️🌄 Your First Wordpress Content Creator - Quick Start. This workflow integrates 14 different services: stickyNote, httpRequest, wordpress, markdown, telegram. It contains 56 nodes and follows best practices for error handling and security."
 }

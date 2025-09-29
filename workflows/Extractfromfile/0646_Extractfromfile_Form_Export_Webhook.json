@@ -340,11 +340,11 @@
         320
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Save to Airtable').params.base.value }}/{{ $json.id }}/File/uploadAttachment",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -361,7 +361,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "airtableTokenApi": {
@@ -806,7 +806,7 @@
       "webhookId": "1b6e2375-e21d-4e4f-a44e-3ef0de95320e",
       "parameters": {
         "operation": "completion",
-        "redirectUrl": "=https://<HOST>/form/job-application-step2of2?{{ $('Application Suitability Agent').first().json.output.urlEncode() }}",
+        "redirectUrl": "{{ $env.BASE_URL }}",
         "respondWith": "redirect"
       },
       "typeVersion": 1
@@ -1178,5 +1178,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Extractfromfile Workflow. This workflow integrates 11 different services: textClassifier, stickyNote, formTrigger, httpRequest, airtable. It contains 28 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Extractfromfile Workflow. This workflow integrates 11 different services: textClassifier, stickyNote, formTrigger, httpRequest, airtable. It contains 28 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

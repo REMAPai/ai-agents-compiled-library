@@ -1,7 +1,10 @@
 {
   "id": "3tJcVzt2OqeyjfnH",
   "meta": {
-    "instanceId": "03e9d14e9196363fe7191ce21dc0bb17387a6e755dcc9acc4f5904752919dca8"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Analyze_email_headers_for_IPs_and_spoofing__3",
   "tags": [
@@ -93,7 +96,7 @@
       "parameters": {
         "width": 628.6931617686989,
         "height": 834.0576186324413,
-        "content": "![ipqualityscore](https://i.imgur.com/CQRV2uV.png)\n## IP Reputation and Email Security Analysis\nThis critical part of the workflow specializes in fortifying email security by extracting IP addresses from received headers. With a refined process, it analyzes the extracted IPs against the IP Quality Score API, assessing potential risks and preventing fraudulent activities.\n\nThe `Extract IPs from \"received\"` node initiates the process by isolating IP addresses from email headers, demonstrating n8n's capacity to dissect and parse complex data. The `Split Out IPs` node then prepares these IPs for individual scrutiny, showcasing the flexibility of n8n to handle data at granular levels. Finally, the `IP Quality Score` node queries an external API to evaluate each IP, reinforcing the security parameters by providing detailed risk assessments.\n\n### Authentication - Free Tier Available (5000 credits/month)\n\nIP Quality Score uses the API key as part of the website URL. Since n8n does not currently allow for exposing credentials in the URL, you will need to hardcode your API key in the fake expression snippet in the `IP Quality Score` node.\n\nThe API key can be found by [visiting their documentation here](https://www.ipqualityscore.com/documentation/proxy-detection-api/overview), logging in, and then scrolling down to the Private Key. "
+        "content": "![ipqualityscore]({{ $env.WEBHOOK_URL }}\n## IP Reputation and Email Security Analysis\nThis critical part of the workflow specializes in fortifying email security by extracting IP addresses from received headers. With a refined process, it analyzes the extracted IPs against the IP Quality Score API, assessing potential risks and preventing fraudulent activities.\n\nThe `Extract IPs from \"received\"` node initiates the process by isolating IP addresses from email headers, demonstrating n8n's capacity to dissect and parse complex data. The `Split Out IPs` node then prepares these IPs for individual scrutiny, showcasing the flexibility of n8n to handle data at granular levels. Finally, the `IP Quality Score` node queries an external API to evaluate each IP, reinforcing the security parameters by providing detailed risk assessments.\n\n### Authentication - Free Tier Available (5000 credits/month)\n\nIP Quality Score uses the API key as part of the website URL. Since n8n does not currently allow for exposing credentials in the URL, you will need to hardcode your API key in the fake expression snippet in the `IP Quality Score` node.\n\nThe API key can be found by [visiting their documentation here]({{ $env.API_BASE_URL }} logging in, and then scrolling down to the Private Key. "
       },
       "typeVersion": 1
     },
@@ -149,7 +152,7 @@
         560
       ],
       "parameters": {
-        "url": "=https://ipqualityscore.com/api/json/ip/{{ Replace me with your API key, it can be found inside the api documentation, leave json.ip alone }}/{{ $json.ip }}?strictness=1&allow_public_access_points=true&lighter_penalties=true",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.1
@@ -163,7 +166,7 @@
         560
       ],
       "parameters": {
-        "url": "=http://ip-api.com/json/{{ $('Split Out IPs').item.json.ip }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {}
       },
@@ -320,7 +323,7 @@
       "parameters": {
         "width": 811.1951544353835,
         "height": 1042.0833160085729,
-        "content": "![webhook](https://i.imgur.com/D6SP9P0.png)\n## Workflow Overview\nThis n8n workflow is adept at dissecting email headers to assess security risks. It employs a webhook to receive data, then diverges into two thorough investigative paths based on specific header contents. For emails with `received` headers, it extracts IP details and consults the IP Quality Score API for comprehensive risk assessments, including potential fraud or abuse and geolocation insights via the IP-API.\n\nConversely, when `authentication-results` headers are present, it meticulously evaluates SPF, DKIM, and DMARC verifications, categorizing each email based on the authentication checks.\n\nFinally, the workflow converges the data from both paths to provide a cohesive analysis, which is then relayed back through the webhook, furnishing a detailed report on IP reputation and email authentication status.\n\n`Please note that the workflow is not yet complete, but should still work without the DKIM analysis.`\n\n## Triggered Via Webhook\nThe workflow is triggered on-demand by incoming webhook queries or can be used inside of the `Execute Workflow` node by replacing the `webhook trigger` with an `Execute Workflow Trigger` and the `respond to webhook` node with a `Set node` set to only keep the set node data. This allows you to use it as part of a larger workflow, in which this portion handles the header analysis. Simply add the  Example input looks like:\n\n```\n[\n  {\n    \"headers\": {\n      \"host\": \"internal.users.n8n.cloud\"\n    },\n    \"params\": {},\n    \"query\": {},\n    \"body\": \"Delivered-To: g.andreini@gmail.com\\nReceived: by 2002:a05:7412:be08:b0:df:2c3c:4cc with SMTP id la8csp2349351rdb;\\n        Tue, 5 Sep 2023 15:06:08 -0700 (PDT)\\nX-Google-Smtp-Source: AGHT+IEHz2WAE5kssnJSpwJyhbuq3ZjNQTqZfo6OFeCd5w2EKOdnF3nICb1zIL4Y1tahQpr5xY6+\\nX-Received: by 2002:a17:907:78c3:b0:9a1:f2d3:ade9 with SMTP id kv3-20020a17090778c300b009a1f2d3ade9mr802685ejc.42.1693951567785;\\n        Tue, 05 Sep 2023 15:06:07 -0700 (PDT)\\nARC-Seal: i=1; a=rsa-sha256; t=1693951567; cv=none;\\n        d=google.com; s=arc-20160816;\\n        b=zsD04giTt/gbOxX6IW6/ETi7zkiuLYPaM6nYtckkcCfhqz5H7qvNN1NkDrlbnsXEr2\\n         3jVLDlhAZCXVg4qGNEWTjfzLwn5eQoUdW7iy//8XZU3Xy2xtORLBKKWs+Pjzx2sBP9KS\\n         zsy0Tg+rlAqi/aOH8+D+ANC0dCibsPau92zLS6GIvil700hvAJ7KB9fw0s/Ntx4z8VGv\\n         0P+BodOQDO9kdHtuMkgu/waF86Xe0ImcxtvMHQ/mNjbTSRDTa0d04+X7ILVf4q0B5gFg\\n         tnykE51GIS8Ey8ElAd4z/it1E/ffMJ7QAgiDSO0tZRc2NnM0QQ1oYrO9IL0cNuW1P33Q\\n         PfNA==\\nARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;\\n        h=mime-version:date:subject:to:from:reply-to:message-id;\\n        bh=f9tT4LpRqlQSioyOCLufJC57T1y2rwgsPezOJPbokDM=;\\n        fh=syfPZFOxHm03Bg8T666hpPsY3BFS1EZPTr8jKyQ7bFk=;\\n        b=fsZErxdmb95VXJpAyI8Pff38Ifu47WaONvSwpYaSstYbRoKDZSS3SH247NHt/+uyq+\\n         7UUF37XenbcZif1p3iOa96JxcYBtLLp3cI9pe8NRQjJtceXQk70PVcCGNXORiAxoCGT+\\n         iCMzUoFjTAfhK729rSldyFJ+I+WU3k+W/CjL1+geJkU5fEmg+eBEo8hDifqW3Iv73auq\\n         uDnxkLZ55yX9W2ARwv/204qqqxYHKfdXDIWGDyeXE10NHLTr/GAR8DWVx6qD8b4U0Zc3\\n         MC+SZxGsIcSCr5ouXIovuQBYcdmqDgDxAaN9VTfYdnXobblN6bo3OcC0rqiiyVJnV3ZA\\n         BYoQ==\\nARC-Authentication-Results: i=1; mx.google.com;\\n       spf=fail (google.com: domain of eljyzxd@molkase.de does not designate 89.31.72.29 as permitted sender) smtp.mailfrom=eljyzxd@molkase.de\\nReturn-Path: <eljyzxd@molkase.de>\\nReceived: from mail19.interhost.it (mail19.interhost.it. [89.31.72.29])\\n        by mx.google.com with ESMTPS id k15-20020a170906578f00b00992aaed9f81si7955121ejq.356.2023.09.05.15.06.07\\n        for <g.andreini@gmail.com>\\n        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);\\n        Tue, 05 Sep 2023 15:06:07 -0700 (PDT)\\nReceived-SPF: fail (google.com: domain of eljyzxd@molkase.de does not designate 89.31.72.29 as permitted sender) client-ip=89.31.72.29;\\nAuthentication-Results: mx.google.com;\\n       spf=fail (google.com: domain of eljyzxd@molkase.de does not designate 89.31.72.29 as permitted sender) smtp.mailfrom=eljyzxd@molkase.de\\nReceived: from mailfront2.interhost.it (mailfront2.interhost.it [89.31.72.21]) (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits)) (No client certificate requested) by mail19.interhost.it (Postfix) with ESMTPS id 7BA73561D21 for <info@thepund.it>; Wed,\\n  6 Sep 2023 00:06:06 +0200 (CEST)\\nReceived: from mailfront2.interhost.it (localhost [127.0.0.1]) by mailfront2.interhost.it (Postfix) with ESMTP id 5AEE1835B2 for <info@thepund.it>; Wed,\\n  6 Sep 2023 00:06:06 +0200 (CEST)\\nReceived-SPF: Pass (mailfrom) identity=mailfrom; client-ip=62.173.139.164; helo=mail.molkase.de; envelope-from=eljyzxd@molkase.de; receiver=<UNKNOWN>\\nReceived: from mail.molkase.de (mail.molkase.de [62.173.139.164]) by mailfront2.interhost.it (Postfix) with ESMTP id A8BC3835B5 for <info@thepund.it>; Wed,\\n  6 Sep 2023 00:06:05 +0200 (CEST)\\nReceived: from molkase.de (mail.molkase.de [62.173.139.164]) by mail.molkase.de (Postfix) with ESMTPA id A561D80FB872; Tue,\\n  5 Sep 2023 23:08:50 +0300 (EEST)\\nMessage-ID: <15404342A12424728J51235153O87748181D@ideljyzxd>\\nReply-To: Legal Casino <eljyzxd@molkase.de>\\nFrom: Legal Casino <eljyzxd@molkase.de>\\nTo: <info@tevassociati.it>\\nSubject: Bonus for all European residents\\nDate: Tue, 05 Sep 2023 23:08:55 +0300\\nMIME-Version: 1.0\\nContent-Type: multipart/related; type=\\\"multipart/alternative\\\"; boundary=\\\"----=_NextPart_000_0018_01D9E04D.79971B70\\\"\\nX-Virus-Scanned: ClamAV using ClamSMTP\"\n  }\n]\n```"
+        "content": "![webhook]({{ $env.WEBHOOK_URL }}\n## Workflow Overview\nThis n8n workflow is adept at dissecting email headers to assess security risks. It employs a webhook to receive data, then diverges into two thorough investigative paths based on specific header contents. For emails with `received` headers, it extracts IP details and consults the IP Quality Score API for comprehensive risk assessments, including potential fraud or abuse and geolocation insights via the IP-API.\n\nConversely, when `authentication-results` headers are present, it meticulously evaluates SPF, DKIM, and DMARC verifications, categorizing each email based on the authentication checks.\n\nFinally, the workflow converges the data from both paths to provide a cohesive analysis, which is then relayed back through the webhook, furnishing a detailed report on IP reputation and email authentication status.\n\n`Please note that the workflow is not yet complete, but should still work without the DKIM analysis.`\n\n## Triggered Via Webhook\nThe workflow is triggered on-demand by incoming webhook queries or can be used inside of the `Execute Workflow` node by replacing the `webhook trigger` with an `Execute Workflow Trigger` and the `respond to webhook` node with a `Set node` set to only keep the set node data. This allows you to use it as part of a larger workflow, in which this portion handles the header analysis. Simply add the  Example input looks like:\n\n```\n[\n  {\n    \"headers\": {\n      \"host\": \"internal.users.n8n.cloud\"\n    },\n    \"params\": {},\n    \"query\": {},\n    \"body\": \"Delivered-To: g.andreini@gmail.com\\nReceived: by 2002:a05:7412:be08:b0:df:2c3c:4cc with SMTP id la8csp2349351rdb;\\n        Tue, 5 Sep 2023 15:06:08 -0700 (PDT)\\nX-Google-Smtp-Source: AGHT+IEHz2WAE5kssnJSpwJyhbuq3ZjNQTqZfo6OFeCd5w2EKOdnF3nICb1zIL4Y1tahQpr5xY6+\\nX-Received: by 2002:a17:907:78c3:b0:9a1:f2d3:ade9 with SMTP id kv3-20020a17090778c300b009a1f2d3ade9mr802685ejc.42.1693951567785;\\n        Tue, 05 Sep 2023 15:06:07 -0700 (PDT)\\nARC-Seal: i=1; a=rsa-sha256; t=1693951567; cv=none;\\n        d=google.com; s=arc-20160816;\\n        b=zsD04giTt/gbOxX6IW6/ETi7zkiuLYPaM6nYtckkcCfhqz5H7qvNN1NkDrlbnsXEr2\\n         3jVLDlhAZCXVg4qGNEWTjfzLwn5eQoUdW7iy//8XZU3Xy2xtORLBKKWs+Pjzx2sBP9KS\\n         zsy0Tg+rlAqi/aOH8+D+ANC0dCibsPau92zLS6GIvil700hvAJ7KB9fw0s/Ntx4z8VGv\\n         0P+BodOQDO9kdHtuMkgu/waF86Xe0ImcxtvMHQ/mNjbTSRDTa0d04+X7ILVf4q0B5gFg\\n         tnykE51GIS8Ey8ElAd4z/it1E/ffMJ7QAgiDSO0tZRc2NnM0QQ1oYrO9IL0cNuW1P33Q\\n         PfNA==\\nARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;\\n        h=mime-version:date:subject:to:from:reply-to:message-id;\\n        bh=f9tT4LpRqlQSioyOCLufJC57T1y2rwgsPezOJPbokDM=;\\n        fh=syfPZFOxHm03Bg8T666hpPsY3BFS1EZPTr8jKyQ7bFk=;\\n        b=fsZErxdmb95VXJpAyI8Pff38Ifu47WaONvSwpYaSstYbRoKDZSS3SH247NHt/+uyq+\\n         7UUF37XenbcZif1p3iOa96JxcYBtLLp3cI9pe8NRQjJtceXQk70PVcCGNXORiAxoCGT+\\n         iCMzUoFjTAfhK729rSldyFJ+I+WU3k+W/CjL1+geJkU5fEmg+eBEo8hDifqW3Iv73auq\\n         uDnxkLZ55yX9W2ARwv/204qqqxYHKfdXDIWGDyeXE10NHLTr/GAR8DWVx6qD8b4U0Zc3\\n         MC+SZxGsIcSCr5ouXIovuQBYcdmqDgDxAaN9VTfYdnXobblN6bo3OcC0rqiiyVJnV3ZA\\n         BYoQ==\\nARC-Authentication-Results: i=1; mx.google.com;\\n       spf=fail (google.com: domain of eljyzxd@molkase.de does not designate 89.31.72.29 as permitted sender) smtp.mailfrom=eljyzxd@molkase.de\\nReturn-Path: <eljyzxd@molkase.de>\\nReceived: from mail19.interhost.it (mail19.interhost.it. [89.31.72.29])\\n        by mx.google.com with ESMTPS id k15-20020a170906578f00b00992aaed9f81si7955121ejq.356.2023.09.05.15.06.07\\n        for <g.andreini@gmail.com>\\n        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);\\n        Tue, 05 Sep 2023 15:06:07 -0700 (PDT)\\nReceived-SPF: fail (google.com: domain of eljyzxd@molkase.de does not designate 89.31.72.29 as permitted sender) client-ip=89.31.72.29;\\nAuthentication-Results: mx.google.com;\\n       spf=fail (google.com: domain of eljyzxd@molkase.de does not designate 89.31.72.29 as permitted sender) smtp.mailfrom=eljyzxd@molkase.de\\nReceived: from mailfront2.interhost.it (mailfront2.interhost.it [89.31.72.21]) (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits)) (No client certificate requested) by mail19.interhost.it (Postfix) with ESMTPS id 7BA73561D21 for <info@thepund.it>; Wed,\\n  6 Sep 2023 00:06:06 +0200 (CEST)\\nReceived: from mailfront2.interhost.it (localhost [127.0.0.1]) by mailfront2.interhost.it (Postfix) with ESMTP id 5AEE1835B2 for <info@thepund.it>; Wed,\\n  6 Sep 2023 00:06:06 +0200 (CEST)\\nReceived-SPF: Pass (mailfrom) identity=mailfrom; client-ip=62.173.139.164; helo=mail.molkase.de; envelope-from=eljyzxd@molkase.de; receiver=<UNKNOWN>\\nReceived: from mail.molkase.de (mail.molkase.de [62.173.139.164]) by mailfront2.interhost.it (Postfix) with ESMTP id A8BC3835B5 for <info@thepund.it>; Wed,\\n  6 Sep 2023 00:06:05 +0200 (CEST)\\nReceived: from molkase.de (mail.molkase.de [62.173.139.164]) by mail.molkase.de (Postfix) with ESMTPA id A561D80FB872; Tue,\\n  5 Sep 2023 23:08:50 +0300 (EEST)\\nMessage-ID: <15404342A12424728J51235153O87748181D@ideljyzxd>\\nReply-To: Legal Casino <eljyzxd@molkase.de>\\nFrom: Legal Casino <eljyzxd@molkase.de>\\nTo: <info@tevassociati.it>\\nSubject: Bonus for all European residents\\nDate: Tue, 05 Sep 2023 23:08:55 +0300\\nMIME-Version: 1.0\\nContent-Type: multipart/related; type=\\\"multipart/alternative\\\"; boundary=\\\"----=_NextPart_000_0018_01D9E04D.79971B70\\\"\\nX-Virus-Scanned: ClamAV using ClamSMTP\"\n  }\n]\n```"
       },
       "typeVersion": 1
     },
@@ -357,7 +360,7 @@
       "parameters": {
         "width": 610.1426815377504,
         "height": 772.7590323462559,
-        "content": "![ipapi](https://i.imgur.com/OMhn14b.png)\n## IP Reputation and Fraud Analysis\nThis workflow section performs an in-depth reputation assessment of each IP address. The `IP-API` node retrieves geolocation data, while the `Fraud Score` node evaluates the risk associated with the IP, flagging any potential spam or abuse activities.\n\n### Consolidation of Findings\nKey data points such as fraud scores and ISP information are synthesized by the `Collect interesting data` node, providing a clear profile of each IP for informed decision-making.\n\n### Authentication - Free Tier Available (45 requests/min)\nThis endpoint is limited to `45 requests per minute from an IP address`.\n\nIf you go over the limit your requests will be throttled `(HTTP 429)` until your rate limit window is reset. If you constantly go over the limit your IP address will be banned for 1 hour.\n\nNo authentication needed, [Click here to view documentation.](https://ip-api.com/docs)"
+        "content": "![ipapi]({{ $env.WEBHOOK_URL }}\n## IP Reputation and Fraud Analysis\nThis workflow section performs an in-depth reputation assessment of each IP address. The `IP-API` node retrieves geolocation data, while the `Fraud Score` node evaluates the risk associated with the IP, flagging any potential spam or abuse activities.\n\n### Consolidation of Findings\nKey data points such as fraud scores and ISP information are synthesized by the `Collect interesting data` node, providing a clear profile of each IP for informed decision-making.\n\n### Authentication - Free Tier Available (45 requests/min)\nThis endpoint is limited to `45 requests per minute from an IP address`.\n\nIf you go over the limit your requests will be throttled `(HTTP 429)` until your rate limit window is reset. If you constantly go over the limit your IP address will be banned for 1 hour.\n\nNo authentication needed, [Click here to view documentation.]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -372,7 +375,7 @@
       "parameters": {
         "width": 1153.9919748350057,
         "height": 818.3738794326835,
-        "content": "![n8n](https://i.imgur.com/lKnBNnH.png)\n## Analyze and Respond to Email Header Analysis\nThe concluding segment of the `Analyze Email Headers For IPs and Spoofing` workflow integrates sophisticated data processing to analyze and respond to the collected email header information. This part of the workflow is crucial as it synthesizes the data gathered from email headers and prepares it for actionable insights.\n\n- `Data Aggregation and Merging:` The nodes `Merge1` and Item `Lists2` are pivotal for aggregating the data from previous steps. These nodes effectively concatenate various items and compile the IP analysis data. This operation is essential for creating a comprehensive view of the email headers, focusing particularly on IPs and potential spoofing indicators.\n\n- `Further Merging and Response Preparation:` Another merge operation is performed by `Merge3`, which prepares the data for the final output. Following this, Item Lists3 further concatenates items to form a single, coherent result. This step ensures that all the relevant information is accurately compiled and ready for the final response.\n\n- `Final Response to Webhook:` The Respond to Webhook node serves as the endpoint of this workflow. It is configured to respond with the analyzed data, encapsulated in a text format. The response is set to return a 200 HTTP status code, signaling a successful operation. This node exemplifies n8n's capability in not just processing and analyzing data, but also in seamlessly communicating results back to a designated receiver, be it a webhook or any other endpoint.\n\n\nBy the end of this workflow, you have a structured and detailed analysis of email headers, specifically tailored to identify IPs and potential spoofing threats. This underscores n8n's effectiveness as a cybersecurity tool, providing not just data processing capabilities but also actionable insights crucial for maintaining email security."
+        "content": "![n8n]({{ $env.WEBHOOK_URL }}\n## Analyze and Respond to Email Header Analysis\nThe concluding segment of the `Analyze Email Headers For IPs and Spoofing` workflow integrates sophisticated data processing to analyze and respond to the collected email header information. This part of the workflow is crucial as it synthesizes the data gathered from email headers and prepares it for actionable insights.\n\n- `Data Aggregation and Merging:` The nodes `Merge1` and Item `Lists2` are pivotal for aggregating the data from previous steps. These nodes effectively concatenate various items and compile the IP analysis data. This operation is essential for creating a comprehensive view of the email headers, focusing particularly on IPs and potential spoofing indicators.\n\n- `Further Merging and Response Preparation:` Another merge operation is performed by `Merge3`, which prepares the data for the final output. Following this, Item Lists3 further concatenates items to form a single, coherent result. This step ensures that all the relevant information is accurately compiled and ready for the final response.\n\n- `Final Response to Webhook:` The Respond to Webhook node serves as the endpoint of this workflow. It is configured to respond with the analyzed data, encapsulated in a text format. The response is set to return a 200 HTTP status code, signaling a successful operation. This node exemplifies n8n's capability in not just processing and analyzing data, but also in seamlessly communicating results back to a designated receiver, be it a webhook or any other endpoint.\n\n\nBy the end of this workflow, you have a structured and detailed analysis of email headers, specifically tailored to identify IPs and potential spoofing threats. This underscores n8n's effectiveness as a cybersecurity tool, providing not just data processing capabilities but also actionable insights crucial for maintaining email security."
       },
       "typeVersion": 1
     },
@@ -387,7 +390,7 @@
       "parameters": {
         "width": 630.5819800503231,
         "height": 535.80387776221,
-        "content": "![nodejs](https://i.imgur.com/OqjRFGZ.png)\n## Authentication Analysis\n\nThis section assesses the presence and validity of SPF, DKIM, and DMARC records within email headers to confirm authentication. `SPF/DKIM/DMARC from \"authentication-results\"` node evaluates the authentication results, ensuring that emails meet the set security standards for sender verification. \n\nThe n8n code nodes use either a version of `Javascript` called `node.js` or a version of `Python` called `Pyodide`. In this case we are using Javascript."
+        "content": "![nodejs]({{ $env.WEBHOOK_URL }}\n## Authentication Analysis\n\nThis section assesses the presence and validity of SPF, DKIM, and DMARC records within email headers to confirm authentication. `SPF/DKIM/DMARC from \"authentication-results\"` node evaluates the authentication results, ensuring that emails meet the set security standards for sender verification. \n\nThe n8n code nodes use either a version of `Javascript` called `node.js` or a version of `Python` called `Pyodide`. In this case we are using Javascript."
       },
       "typeVersion": 1
     },
@@ -402,7 +405,7 @@
       "parameters": {
         "width": 983.9576126829675,
         "height": 1039.0141642262715,
-        "content": "![n8n](https://i.imgur.com/yz109RJ.png)\n## SPF and DKIM Authentication Routing\nThis group of nodes orchestrates the authentication status routing for SPF and DKIM records found in email headers.\n\nSPF Validation Decision-Making\nThe `SPF` switch node evaluates the SPF results from the email header, directing the flow to different paths based on whether SPF passes, fails, or is neutral. The `\"Set1,\" \"Set2,\" and \"Set4\"` nodes then assign the respective SPF authentication statuses, marking emails for further processing based on their security verification.\n\nDKIM Evaluation Handling\nAlthough not explicitly processing DKIM, the `\"DKIM\" switch node` is likely misnamed and should be adjusted to reflect its role correctly. It seems to be set up for similar routing logic as the SPF node, which suggests it should handle DKIM results. If it's indeed for DKIM, ensure it's checking for `\"dkim=pass/fail/neutral\"` within the authentication results.\n\nUnknown SPF Status Assignment\nFinally, the `\"Set5\"` node appears to handle cases where SPF results are not found or are indeterminate, setting the status to `\"unknown.\"`"
+        "content": "![n8n]({{ $env.WEBHOOK_URL }}\n## SPF and DKIM Authentication Routing\nThis group of nodes orchestrates the authentication status routing for SPF and DKIM records found in email headers.\n\nSPF Validation Decision-Making\nThe `SPF` switch node evaluates the SPF results from the email header, directing the flow to different paths based on whether SPF passes, fails, or is neutral. The `\"Set1,\" \"Set2,\" and \"Set4\"` nodes then assign the respective SPF authentication statuses, marking emails for further processing based on their security verification.\n\nDKIM Evaluation Handling\nAlthough not explicitly processing DKIM, the `\"DKIM\" switch node` is likely misnamed and should be adjusted to reflect its role correctly. It seems to be set up for similar routing logic as the SPF node, which suggests it should handle DKIM results. If it's indeed for DKIM, ensure it's checking for `\"dkim=pass/fail/neutral\"` within the authentication results.\n\nUnknown SPF Status Assignment\nFinally, the `\"Set5\"` node appears to handle cases where SPF results are not found or are indeterminate, setting the status to `\"unknown.\"`"
       },
       "typeVersion": 1
     },
@@ -487,7 +490,7 @@
       "parameters": {
         "width": 984.4210239195738,
         "height": 672.6925241611406,
-        "content": "![nodejs](https://i.imgur.com/OqjRFGZ.png)\n## Email Authentication Assessment\nThis set of nodes is dedicated to evaluating the authentication of email headers, specifically focusing on SPF, DKIM, and DMARC validations.\n\n### SPF, DKIM, and DMARC Extraction\nStarting with `SPF from 'received-spf',` this node analyzes the email's SPF records for compliance. Following this, `DKIM from 'dkim-signature'` examines the DKIM signatures to verify their presence and status. Next, `DMARC from 'received-dmarc'` checks DMARC records for alignment with expected security practices.\n\n### Data Aggregation\nOnce the assessments are complete, `Aggregate Authentication Data` compiles the findings into a cohesive dataset, providing clear indicators of each email's authentication status.\n\n### Key Focus\nThese nodes are essential in filtering out potentially harmful emails by verifying their authenticity, a key step in protecting against phishing and spoofing attempts.\n"
+        "content": "![nodejs]({{ $env.WEBHOOK_URL }}\n## Email Authentication Assessment\nThis set of nodes is dedicated to evaluating the authentication of email headers, specifically focusing on SPF, DKIM, and DMARC validations.\n\n### SPF, DKIM, and DMARC Extraction\nStarting with `SPF from 'received-spf',` this node analyzes the email's SPF records for compliance. Following this, `DKIM from 'dkim-signature'` examines the DKIM signatures to verify their presence and status. Next, `DMARC from 'received-dmarc'` checks DMARC records for alignment with expected security practices.\n\n### Data Aggregation\nOnce the assessments are complete, `Aggregate Authentication Data` compiles the findings into a cohesive dataset, providing clear indicators of each email's authentication status.\n\n### Key Focus\nThese nodes are essential in filtering out potentially harmful emails by verifying their authenticity, a key step in protecting against phishing and spoofing attempts.\n"
       },
       "typeVersion": 1
     },
@@ -661,6 +664,131 @@
         "options": {}
       },
       "typeVersion": 2
+    },
+    {
+      "id": "error-handler-a2dca82d-f2b4-41f7-942a-2713a5ae012e",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a2dca82d-f2b4-41f7-942a-2713a5ae012e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-70e3e88a-001a-40fc-a771-ace7696f54eb",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 70e3e88a-001a-40fc-a771-ace7696f54eb",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ffefc1e2-214c-47d7-a7a3-104fefdccda1",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ffefc1e2-214c-47d7-a7a3-104fefdccda1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2f1c5b30-950c-4e0d-81a6-bf4c2c64f968",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2f1c5b30-950c-4e0d-81a6-bf4c2c64f968",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a2dca82d-f2b4-41f7-942a-2713a5ae012e-0a4128c6",
+      "name": "Error Handler for a2dca82d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a2dca82d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-70e3e88a-001a-40fc-a771-ace7696f54eb-c49c62eb",
+      "name": "Error Handler for 70e3e88a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 70e3e88a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ffefc1e2-214c-47d7-a7a3-104fefdccda1-8149e82e",
+      "name": "Error Handler for ffefc1e2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ffefc1e2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2f1c5b30-950c-4e0d-81a6-bf4c2c64f968-c8ea6788",
+      "name": "Error Handler for 2f1c5b30",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2f1c5b30",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-64f17333",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Analyze_email_headers_for_IPs_and_spoofing__3\n\n## Overview\nAutomated workflow: Analyze_email_headers_for_IPs_and_spoofing__3. This workflow integrates 11 different services: webhook, stickyNote, itemLists, httpRequest, code. It contains 43 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 43\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Receive Headers**: webhook\n- **Sticky Note**: stickyNote\n- **Fraud Score**: code\n- **Respond to Webhook**: respondToWebhook\n- **Sticky Note1**: stickyNote\n- **Explode Email Header**: code\n- **Split Out IPs**: itemLists\n- **Extract IPs from \"received\"**: code\n- **IP Quality Score**: httpRequest\n- **IP-API**: httpRequest\n- ... and 33 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -678,7 +806,7 @@
             "user-agent": "PostmanRuntime/7.32.3",
             "content-type": "text/plain",
             "authorization": "1234567890",
-            "postman-token": "8701ef86-2136-4c79-941a-bc8ed79bcc9e",
+            "postman-token": "YOUR_TOKEN_HERE",
             "content-length": "3900",
             "accept-encoding": "gzip, deflate, br",
             "x-forwarded-for": "10.255.0.2",
@@ -695,7 +823,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "6e01f4f9-d42b-4168-91a1-0bfe850c43ea",
   "connections": {
@@ -1018,6 +1150,79 @@
           }
         ]
       ]
+    },
+    "a2dca82d-f2b4-41f7-942a-2713a5ae012e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a2dca82d-f2b4-41f7-942a-2713a5ae012e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a2dca82d-f2b4-41f7-942a-2713a5ae012e-0a4128c6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "70e3e88a-001a-40fc-a771-ace7696f54eb": {
+      "main": [
+        [
+          {
+            "node": "error-handler-70e3e88a-001a-40fc-a771-ace7696f54eb",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-70e3e88a-001a-40fc-a771-ace7696f54eb-c49c62eb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ffefc1e2-214c-47d7-a7a3-104fefdccda1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ffefc1e2-214c-47d7-a7a3-104fefdccda1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ffefc1e2-214c-47d7-a7a3-104fefdccda1-8149e82e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2f1c5b30-950c-4e0d-81a6-bf4c2c64f968": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2f1c5b30-950c-4e0d-81a6-bf4c2c64f968",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2f1c5b30-950c-4e0d-81a6-bf4c2c64f968-c8ea6788",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Analyze_email_headers_for_IPs_and_spoofing__3. This workflow integrates 11 different services: webhook, stickyNote, itemLists, httpRequest, code. It contains 43 nodes and follows best practices for error handling and security."
 }

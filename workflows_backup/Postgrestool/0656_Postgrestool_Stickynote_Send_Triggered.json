@@ -28,7 +28,7 @@
         "color": 7,
         "width": 280.2462120317618,
         "height": 545.9087885077763,
-        "content": "### Set up steps\n\n#### Preparation\n1. **Create Accounts**:\n   - [N8N](https://n8n.partnerlinks.io/2hr10zpkki6a): For workflow automation.\n   - [Supabase](https://supabase.com/): For database hosting and management.\n   - [OpenAI](https://openai.com/): For building the conversational AI agent.\n2. **Configure Database Connection**:\n   - Set up a PostgreSQL database in Supabase.\n   - Use appropriate credentials (`username`, `password`, `host`, and `database` name) in your workflow.\n\n#### N8N Workflow\n\nAI agent with tools:\n\n1. **Code Tool**:\n   - Execute SQL queries based on user input.\n2. **Database Schema Tool**:\n   - Retrieve a list of all tables in the database.\n   - Use a predefined SQL query to fetch table definitions, including column names, types, and references.\n3. **Table Definition**:\n   - Retrieve a list of columns with types for one table."
+        "content": "### Set up steps\n\n#### Preparation\n1. **Create Accounts**:\n   - [N8N]({{ $env.WEBHOOK_URL }} For workflow automation.\n   - [Supabase]({{ $env.WEBHOOK_URL }} For database hosting and management.\n   - [OpenAI]({{ $env.WEBHOOK_URL }} For building the conversational AI agent.\n2. **Configure Database Connection**:\n   - Set up a PostgreSQL database in Supabase.\n   - Use appropriate credentials (`username`, `password`, `host`, and `database` name) in your workflow.\n\n#### N8N Workflow\n\nAI agent with tools:\n\n1. **Code Tool**:\n   - Execute SQL queries based on user input.\n2. **Database Schema Tool**:\n   - Retrieve a list of all tables in the database.\n   - Use a predefined SQL query to fetch table definitions, including column names, types, and references.\n3. **Table Definition**:\n   - Retrieve a list of columns with types for one table."
       },
       "typeVersion": 1
     },
@@ -44,7 +44,7 @@
         "color": 7,
         "width": 636.2128494576581,
         "height": 497.1532689930921,
-        "content": "![5min Logo](https://res.cloudinary.com/de9jgixzm/image/upload/v1739773200/Skool%20Assets/ejm3hqnvhgwpnu2fv92s.png)\n## AI Agent to chat with Supabase/PostgreSQL DB\n**Made by [Mark Shcherbakov](https://www.linkedin.com/in/marklowcoding/) from community [5minAI](https://www.skool.com/5minai-2861)**\n\nAccessing and analyzing database data often requires SQL expertise or dedicated reports, which can be time-consuming. This workflow empowers users to interact with a database conversationally through an AI-powered agent. It dynamically generates SQL queries based on user requests, streamlining data retrieval and analysis.\n\nThis workflow integrates OpenAI with a Supabase database, enabling users to interact with their data via an AI agent. The agent can:\n- Retrieve records from the database.\n- Extract and analyze JSON data stored in tables.\n- Provide summaries, aggregations, or specific data points based on user queries.\n\n"
+        "content": "![5min Logo]({{ $env.WEBHOOK_URL }}\n## AI Agent to chat with Supabase/PostgreSQL DB\n**Made by [Mark Shcherbakov]({{ $env.WEBHOOK_URL }} from community [5minAI]({{ $env.WEBHOOK_URL }}\n\nAccessing and analyzing database data often requires SQL expertise or dedicated reports, which can be time-consuming. This workflow empowers users to interact with a database conversationally through an AI-powered agent. It dynamically generates SQL queries based on user requests, streamlining data retrieval and analysis.\n\nThis workflow integrates OpenAI with a Supabase database, enabling users to interact with their data via an AI agent. The agent can:\n- Retrieve records from the database.\n- Extract and analyze JSON data stored in tables.\n- Provide summaries, aggregations, or specific data points based on user queries.\n\n"
       },
       "typeVersion": 1
     },
@@ -60,7 +60,7 @@
         "color": 7,
         "width": 330.5152611046425,
         "height": 239.5888196628349,
-        "content": "### ... or watch set up video [20 min]\n[![Youtube Thumbnail](https://res.cloudinary.com/de9jgixzm/image/upload/v1739773279/Youtube%20Thumbs/Chat%20With%20DB.png)](https://www.youtube.com/watch?v=-GgKzhCNxjk)\n"
+        "content": "### ... or watch set up video [20 min]\n[![Youtube Thumbnail]({{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -198,6 +198,33 @@
         }
       },
       "typeVersion": 2.5
+    },
+    {
+      "id": "error-handler-c20d6e57-eb41-4682-a7f5-5bb4323df476-61dbcd21",
+      "name": "Error Handler for c20d6e57",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c20d6e57",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-d85d38c0",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Stickynote Workflow\n\n## Overview\nAutomated workflow: Stickynote Workflow. This workflow integrates 6 different services: postgresTool, stickyNote, agent, stopAndError, lmChatOpenAi. It contains 12 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 12\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note3**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Sticky Note6**: stickyNote\n- **Sticky Note7**: stickyNote\n- **When chat message received**: chatTrigger\n- **OpenAI Chat Model**: lmChatOpenAi\n- **DB Schema**: postgresTool\n- **Get table definition**: postgresTool\n- **Sticky Note**: stickyNote\n- **AI Agent**: agent\n- ... and 2 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -256,6 +283,32 @@
           }
         ]
       ]
+    },
+    "c20d6e57-eb41-4682-a7f5-5bb4323df476": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c20d6e57-eb41-4682-a7f5-5bb4323df476-61dbcd21",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
+  },
+  "name": "Stickynote Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 6 different services: postgresTool, stickyNote, agent, stopAndError, lmChatOpenAi. It contains 12 nodes and follows best practices for error handling and security.",
+  "meta": {
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   }
 }

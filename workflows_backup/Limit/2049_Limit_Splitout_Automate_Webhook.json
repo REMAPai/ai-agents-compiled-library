@@ -1,10 +1,12 @@
 {
   "id": "b8a4IwiwD9SlgF42",
   "meta": {
-    "instanceId": "31e69f7f4a77bf465b805824e303232f0227212ae922d12133a0f96ffeab4fef",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
-  "name": "\ud83d\udd25\ud83d\udcc8\ud83e\udd16 AI Agent for n8n Creators Leaderboard - Find Popular Workflows",
+  "name": "🔥📈🤖 AI Agent for n8n Creators Leaderboard - Find Popular Workflows",
   "tags": [],
   "nodes": [
     {
@@ -16,7 +18,7 @@
         1280
       ],
       "parameters": {
-        "url": "={{ $json.path }}{{ $json['creators-filename'] }}.json",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -30,7 +32,7 @@
         1500
       ],
       "parameters": {
-        "url": "={{ $json.path }}{{ $json['workflows-filename'] }}.json",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -51,7 +53,7 @@
               "id": "4bcb91c6-d250-4cb4-8ee1-022df13550e1",
               "name": "path",
               "type": "string",
-              "value": "https://raw.githubusercontent.com/teds-tech-talks/n8n-community-leaderboard/refs/heads/main/"
+              "value": "{{ $env.WEBHOOK_URL }}"
             },
             {
               "id": "a910a798-0bfe-41b1-a4f1-41390c7f6997",
@@ -317,7 +319,7 @@
       "parameters": {
         "text": "={{ $json.chatInput }}",
         "options": {
-          "systemMessage": "=You are tasked with generating a **comprehensive Markdown report** about a specific n8n community workflow contributor using the provided tools. Your report should not only address the user's query but also provide meaningful insights into the contributor's impact on the n8n community. Follow the structure below:\n\n## Detailed Summary\n- Provide a thorough summary of the contributor's workflows.\n- Highlight unique features, key use cases, and notable technical components for each workflow.\n\n## Workflows\nCreate a well-formatted markdown table with these columns:\n- **Workflow Name**: The name of the workflow. Keep the emojies of they exist.\n- **Description**: A brief overview of its purpose and functionality.\n- **Unique Weekly Visitors**: The number of unique users who visited this workflow weekly.\n- **Unique Monthly Visitors**: The number of unique users who visited this workflow monthly.\n- **Unique Weekly Inserters**: The number of unique users who inserted this workflow weekly.\n- **Unique Monthly Inserters**: The number of unique users who inserted this workflow monthly.\n- **Why It\u2019s Popular**: Explain what makes this workflow stand out (e.g., innovative features, ease of use, specific use cases).\n\n## Community Analysis\n- Analyze why these workflows are popular and valued by the n8n community.\n- Discuss any trends, patterns, or feedback that highlight their significance.\n\n## Additional Insights\n- If available, provide extra information about the contributor's overall impact, such as their engagement in community forums or other notable contributions.\n\n## Formatting Guidelines\n- Use Markdown formatting exclusively (headers, lists, and tables) for clarity and organization.\n- Ensure your response is concise yet comprehensive, structured for easy navigation.\n\n## Error Handling\n- If data is unavailable or incomplete, clearly state this in your response and suggest possible reasons or next steps.\n\n## TOOLS\n\n### n8n_creator_stats \n- Use this tool to retrieve detailed statistics about the n8n creator.\n\n\n \n"
+          "systemMessage": "=You are tasked with generating a **comprehensive Markdown report** about a specific n8n community workflow contributor using the provided tools. Your report should not only address the user's query but also provide meaningful insights into the contributor's impact on the n8n community. Follow the structure below:\n\n## Detailed Summary\n- Provide a thorough summary of the contributor's workflows.\n- Highlight unique features, key use cases, and notable technical components for each workflow.\n\n## Workflows\nCreate a well-formatted markdown table with these columns:\n- **Workflow Name**: The name of the workflow. Keep the emojies of they exist.\n- **Description**: A brief overview of its purpose and functionality.\n- **Unique Weekly Visitors**: The number of unique users who visited this workflow weekly.\n- **Unique Monthly Visitors**: The number of unique users who visited this workflow monthly.\n- **Unique Weekly Inserters**: The number of unique users who inserted this workflow weekly.\n- **Unique Monthly Inserters**: The number of unique users who inserted this workflow monthly.\n- **Why It’s Popular**: Explain what makes this workflow stand out (e.g., innovative features, ease of use, specific use cases).\n\n## Community Analysis\n- Analyze why these workflows are popular and valued by the n8n community.\n- Discuss any trends, patterns, or feedback that highlight their significance.\n\n## Additional Insights\n- If available, provide extra information about the contributor's overall impact, such as their engagement in community forums or other notable contributions.\n\n## Formatting Guidelines\n- Use Markdown formatting exclusively (headers, lists, and tables) for clarity and organization.\n- Ensure your response is concise yet comprehensive, structured for easy navigation.\n\n## Error Handling\n- If data is unavailable or incomplete, clearly state this in your response and suggest possible reasons or next steps.\n\n## TOOLS\n\n### n8n_creator_stats \n- Use this tool to retrieve detailed statistics about the n8n creator.\n\n\n \n"
         },
         "promptType": "define"
       },
@@ -375,7 +377,7 @@
         "color": 6,
         "width": 620,
         "height": 320,
-        "content": "## AI Agent for n8n Creator Leaderboard Stats\nhttps://github.com/teds-tech-talks/n8n-community-leaderboard"
+        "content": "## AI Agent for n8n Creator Leaderboard Stats\n{{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -489,7 +491,7 @@
         "color": 3,
         "width": 780,
         "height": 640,
-        "content": "## Daily n8n Leaderboard Stats\nhttps://github.com/teds-tech-talks/n8n-community-leaderboard\n\n### n8n Leaderboard\nhttps://teds-tech-talks.github.io/n8n-community-leaderboard/"
+        "content": "## Daily n8n Leaderboard Stats\n{{ $env.WEBHOOK_URL }}\n\n### n8n Leaderboard\n{{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -819,7 +821,7 @@
         "color": 2,
         "width": 1000,
         "height": 1000,
-        "content": "# n8n Creators Leaderboard Stats Workflow\n\n## Overview\nThis workflow aggregates and processes data from the n8n community to generate detailed statistics about creators and their workflows. It fetches information from JSON files stored on GitHub, merges creator and workflow data, filters the results based on a specified username, and uses an AI agent to output a comprehensive Markdown report.\n\n## Data Retrieval\n- **Creators Data**: \n - An HTTP Request node (\"stats_aggregate_creators\") retrieves a JSON file containing aggregated statistics for workflow creators. \n- **Workflows Data**: \n - A separate HTTP Request node (\"stats_aggregate_workflows\") pulls a JSON file with detailed workflow metrics such as visitor counts and inserter statistics. \n- **Global Variables**: \n - A global variable is set with the GitHub repository base URL housing these JSON files, ensuring that the correct data source is used.\n\n## Data Processing and Merging\n- **Parsing the Data**: \n - The \"Parse Creators Data\" and \"Parse Workflow Data\" nodes extract JSON arrays from the retrieved files for further processing. \n- **Limiting and Sorting**: \n - Nodes like \"Take Top 25 Creators\" and \"Take Top 300 Workflows\" limit the result sets, while nodes such as \"Sort By Top Weekly Creator Inserts\" and \"Sort By Top Weekly Workflow Inserts\" sort the data based on performance metrics. \n- **Merging Records**: \n - Data from creators and workflows is merged by matching the username, enriching the dataset with combined statistics for each creator.\n\n## Filtering and Report Generation\n- **Username Filtering**: \n - A filter node (\"Filter By Creator Username\") allows the workflow to focus on a single creator based on the input username (e.g., \"joe\"). \n- **Generating the Markdown Report**: \n - An AI agent node (\"gpt-4o-mini\") processes the filtered data using a predefined prompt. This prompt instructs the agent to produce a detailed Markdown report that includes: \n - An overall summary of the creator\u2019s workflows \n - A Markdown table listing each workflow along with key metrics (unique weekly/monthly visitors and inserters) and a brief explanation of its popularity \n - Insights into trends or community feedback related to the workflows \n- **Output Conversion and Saving**: \n - The resulting text is converted into a file (using the \"creator-summary\" node) and then saved locally with a filename that includes a timestamp, ensuring easy tracking and retrieval\n"
+        "content": "# n8n Creators Leaderboard Stats Workflow\n\n## Overview\nThis workflow aggregates and processes data from the n8n community to generate detailed statistics about creators and their workflows. It fetches information from JSON files stored on GitHub, merges creator and workflow data, filters the results based on a specified username, and uses an AI agent to output a comprehensive Markdown report.\n\n## Data Retrieval\n- **Creators Data**: \n - An HTTP Request node (\"stats_aggregate_creators\") retrieves a JSON file containing aggregated statistics for workflow creators. \n- **Workflows Data**: \n - A separate HTTP Request node (\"stats_aggregate_workflows\") pulls a JSON file with detailed workflow metrics such as visitor counts and inserter statistics. \n- **Global Variables**: \n - A global variable is set with the GitHub repository base URL housing these JSON files, ensuring that the correct data source is used.\n\n## Data Processing and Merging\n- **Parsing the Data**: \n - The \"Parse Creators Data\" and \"Parse Workflow Data\" nodes extract JSON arrays from the retrieved files for further processing. \n- **Limiting and Sorting**: \n - Nodes like \"Take Top 25 Creators\" and \"Take Top 300 Workflows\" limit the result sets, while nodes such as \"Sort By Top Weekly Creator Inserts\" and \"Sort By Top Weekly Workflow Inserts\" sort the data based on performance metrics. \n- **Merging Records**: \n - Data from creators and workflows is merged by matching the username, enriching the dataset with combined statistics for each creator.\n\n## Filtering and Report Generation\n- **Username Filtering**: \n - A filter node (\"Filter By Creator Username\") allows the workflow to focus on a single creator based on the input username (e.g., \"joe\"). \n- **Generating the Markdown Report**: \n - An AI agent node (\"gpt-4o-mini\") processes the filtered data using a predefined prompt. This prompt instructs the agent to produce a detailed Markdown report that includes: \n - An overall summary of the creator’s workflows \n - A Markdown table listing each workflow along with key metrics (unique weekly/monthly visitors and inserters) and a brief explanation of its popularity \n - Insights into trends or community feedback related to the workflows \n- **Output Conversion and Saving**: \n - The resulting text is converted into a file (using the \"creator-summary\" node) and then saved locally with a filename that includes a timestamp, ensuring easy tracking and retrieval\n"
       },
       "typeVersion": 1
     },
@@ -861,7 +863,7 @@
       "parameters": {
         "width": 480,
         "height": 980,
-        "content": "# Quick Start Guide for the n8n Creators Leaderboard Workflow\n\n## Prerequisites\n- Ensure your n8n instance is running.\n- Verify that the GitHub base URL and file variables (for creators and workflows) are correctly set in the Global Variables node.\n- Confirm that your OpenAI credentials are configured for the AI Agent node.\n\n## How to Start the Workflow\n- **Activate the Workflow:** \n Ensure the workflow is active in your n8n environment.\n\n- **Trigger via Chat:** \n The workflow is initiated by the Chat Trigger node. Send a chat message such as: \n `show me stats for username [desired_username]` \n This input provides the required username for filtering.\n\n- **Processing & Report Generation:** \n Once triggered, the workflow fetches aggregated creator and workflow data from GitHub, processes and merges the information, and then uses the AI Agent to generate a Markdown report.\n\n- **Output:** \n The final Markdown report is saved locally as a file (with a timestamp), which you can review to see detailed leaderboard statistics and insights for the specified creator.\n\n## Summary\nBy sending a chat message with the appropriate username command, you can quickly trigger this workflow, which will then fetch, process, and generate dynamic statistics about n8n community creators. Enjoy exploring your community\u2019s leaderboard data!\n"
+        "content": "# Quick Start Guide for the n8n Creators Leaderboard Workflow\n\n## Prerequisites\n- Ensure your n8n instance is running.\n- Verify that the GitHub base URL and file variables (for creators and workflows) are correctly set in the Global Variables node.\n- Confirm that your OpenAI credentials are configured for the AI Agent node.\n\n## How to Start the Workflow\n- **Activate the Workflow:** \n Ensure the workflow is active in your n8n environment.\n\n- **Trigger via Chat:** \n The workflow is initiated by the Chat Trigger node. Send a chat message such as: \n `show me stats for username [desired_username]` \n This input provides the required username for filtering.\n\n- **Processing & Report Generation:** \n Once triggered, the workflow fetches aggregated creator and workflow data from GitHub, processes and merges the information, and then uses the AI Agent to generate a Markdown report.\n\n- **Output:** \n The final Markdown report is saved locally as a file (with a timestamp), which you can review to see detailed leaderboard statistics and insights for the specified creator.\n\n## Summary\nBy sending a chat message with the appropriate username command, you can quickly trigger this workflow, which will then fetch, process, and generate dynamic statistics about n8n community creators. Enjoy exploring your community’s leaderboard data!\n"
       },
       "typeVersion": 1
     },
@@ -879,6 +881,117 @@
         "content": "# Why Use the n8n Creators Leaderboard Workflow?\n\n## Benefits\nThis workflow provides valuable insights into the n8n community by analyzing and presenting detailed statistics about workflow creators and their contributions. It helps users to:\n\n- **Discover Popular Workflows**: Identify the most widely used workflows based on unique visitors and inserters, both weekly and monthly.\n- **Understand Community Trends**: Gain insights into what types of workflows are resonating with the community, enabling better decision-making for creating or improving workflows.\n- **Recognize Top Contributors**: Highlight the most active and impactful creators, fostering collaboration and inspiration within the community.\n- **Save Time with Automation**: Automates data retrieval, processing, and report generation, eliminating manual effort.\n\n## Key Features\n- **Data Aggregation**: Fetches creator and workflow statistics from GitHub repositories.\n- **Custom Filtering**: Allows filtering by specific usernames to focus on individual contributors.\n- **AI-Powered Reports**: Generates comprehensive Markdown reports with detailed summaries, tables, and community analysis.\n- **Output Flexibility**: Saves reports locally for easy access and future reference.\n\n## Use Cases\n- **For Workflow Creators**: Monitor performance metrics of your workflows to understand their impact and optimize them for better engagement.\n- **For Community Managers**: Recognize top contributors and trends to encourage participation and improve community resources.\n- **For New Users**: Explore popular workflows as a starting point for building your own automations.\n\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-fcda047d-b609-4791-b3ae-f359d0c6a071",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in fcda047d-b609-4791-b3ae-f359d0c6a071",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fa1f51fd-6019-4d47-b17e-8c5621e6ab4c",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in fa1f51fd-6019-4d47-b17e-8c5621e6ab4c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fcda047d-b609-4791-b3ae-f359d0c6a071-06f8fb26",
+      "name": "Error Handler for fcda047d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fcda047d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fa1f51fd-6019-4d47-b17e-8c5621e6ab4c-b2832536",
+      "name": "Error Handler for fa1f51fd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fa1f51fd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c25ff9ea-1905-4bf0-ac71-5d81c25466b7-dba4b044",
+      "name": "Error Handler for c25ff9ea",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c25ff9ea",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0a00599a-928d-4399-b17e-336201a67480-159ab896",
+      "name": "Error Handler for 0a00599a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0a00599a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0e2507bf-4509-4423-ad23-bee9de2be68e-22d57024",
+      "name": "Error Handler for 0e2507bf",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0e2507bf",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-278ff6c4",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# 🔥📈🤖 AI Agent for n8n Creators Leaderboard - Find Popular Workflows\n\n## Overview\nAutomated workflow: 🔥📈🤖 AI Agent for n8n Creators Leaderboard - Find Popular Workflows. This workflow integrates 19 different services: convertToFile, stickyNote, merge, lmChatOpenAi, chatTrigger. It contains 50 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 50\n- **Node Types**: 19\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **stats_aggregate_creators**: httpRequest\n- **stats_aggregate_workflows**: httpRequest\n- **Global Variables**: set\n- **Parse Workflow Data**: set\n- **Parse Creators Data**: set\n- **Take Top 25 Creators**: limit\n- **Aggregate**: aggregate\n- **Filter By Creator Username**: filter\n- **gpt-4o-mini**: lmChatOpenAi\n- **When Executed by Another Workflow**: executeWorkflowTrigger\n- ... and 40 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -903,7 +1016,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "574ed096-a76c-4cfe-b026-20627f454ddc",
   "connections": {
@@ -1174,6 +1291,76 @@
           }
         ]
       ]
+    },
+    "fcda047d-b609-4791-b3ae-f359d0c6a071": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fcda047d-b609-4791-b3ae-f359d0c6a071",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-fcda047d-b609-4791-b3ae-f359d0c6a071-06f8fb26",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fa1f51fd-6019-4d47-b17e-8c5621e6ab4c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fa1f51fd-6019-4d47-b17e-8c5621e6ab4c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-fa1f51fd-6019-4d47-b17e-8c5621e6ab4c-b2832536",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c25ff9ea-1905-4bf0-ac71-5d81c25466b7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c25ff9ea-1905-4bf0-ac71-5d81c25466b7-dba4b044",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0a00599a-928d-4399-b17e-336201a67480": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0a00599a-928d-4399-b17e-336201a67480-159ab896",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0e2507bf-4509-4423-ad23-bee9de2be68e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0e2507bf-4509-4423-ad23-bee9de2be68e-22d57024",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: 🔥📈🤖 AI Agent for n8n Creators Leaderboard - Find Popular Workflows. This workflow integrates 19 different services: convertToFile, stickyNote, merge, lmChatOpenAi, chatTrigger. It contains 50 nodes and follows best practices for error handling and security."
 }

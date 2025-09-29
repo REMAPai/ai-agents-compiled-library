@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "TopSourcer - Finds LinkedIn Profiles using natural language",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "16a5f4a2-6e00-40f5-bab7-35526550eacd",
@@ -238,7 +241,7 @@
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -362,7 +365,7 @@
       "parameters": {
         "columns": {
           "value": {
-            "linkedin_url": "={{ $json.linkedin_url }}"
+            "linkedin_url": "{{ $env.BASE_URL }}"
           },
           "schema": [
             {

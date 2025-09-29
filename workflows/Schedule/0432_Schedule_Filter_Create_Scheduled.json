@@ -18,7 +18,7 @@
         "resource": "company",
         "operation": "getRecentlyCreatedUpdated",
         "returnAll": true,
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "since": "={{ $now.minus({ \"minutes\": 5 }) }}"
         }
@@ -49,7 +49,7 @@
         },
         "select": "user",
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
@@ -256,5 +256,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Hubspot Workflow. This workflow integrates 6 different services: stickyNote, filter, hubspot, scheduleTrigger, stopAndError. It contains 9 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Hubspot Workflow. This workflow integrates 6 different services: stickyNote, filter, hubspot, scheduleTrigger, stopAndError. It contains 9 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

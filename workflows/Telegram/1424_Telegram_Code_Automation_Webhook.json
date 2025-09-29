@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "📄✨ Easy Wordpress Content Creation from PDF Document + Human In The Loop with Gmail Approval",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "77d8c73c-1cdd-4795-841c-29c3b85040e0",
@@ -114,7 +117,7 @@
         300
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Get Blog Post').item.json.title }} and avoid adding text and keep the image vibrant.",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -154,13 +157,13 @@
         120
       ],
       "parameters": {
-        "url": "https://[YOUR-WORDPRESS-SITE.com]/wp-json/wp/v2/media",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -170,7 +173,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -191,11 +194,11 @@
         120
       ],
       "parameters": {
-        "url": "=https:/[YOUR-WORDPRESS-SITE.com]/wp-json/wp/v2/posts/{{ $('Create Wordpress Post').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -204,7 +207,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -341,7 +344,7 @@
       "parameters": {
         "html": "={{ $('Get Blog Post').item.json.content }}",
         "options": {},
-        "destinationKey": "YOUR_API_KEY"
+        "destinationKey": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 1
     },

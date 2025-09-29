@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Extract text from PDF and image using Vertex AI (Gemini) into CSV",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "f60ef5f9-bc08-4cc9-804e-697ae6f88b9b",
@@ -55,7 +58,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Actual Budget"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -78,12 +81,12 @@
           "rules": [
             {
               "value2": "application/pdf",
-              "outputKey": "YOUR_API_KEY"
+              "outputKey": "YOUR_CREDENTIAL_HERE"
             },
             {
               "value2": "image/",
               "operation": "contains",
-              "outputKey": "YOUR_API_KEY"
+              "outputKey": "YOUR_CREDENTIAL_HERE"
             }
           ]
         },
@@ -108,7 +111,7 @@
         },
         "options": {},
         "operation": "download",
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -135,7 +138,7 @@
         },
         "options": {},
         "operation": "download",
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -177,7 +180,7 @@
         "jsonBody": "={\n \"model\": \"meta-llama/llama-3.1-70b-instruct:free\",\n \"messages\": [\n {\n \"role\": \"user\",\n \"content\": \"You are given a bank statement.{{encodeURIComponent($json.text)}}. Read the PDF and export all the transactions as CSV. Add a column called category and based on the information assign a category name. Return only the CSV data starting with the header row.\"\n }\n ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -227,7 +230,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "CSV Exports"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -275,7 +278,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "CSV Exports"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {

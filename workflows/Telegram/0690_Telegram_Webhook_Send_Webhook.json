@@ -15,7 +15,7 @@
         -180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.output.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "=POST",
         "options": {
           "allowUnauthorizedCerts": true
@@ -23,7 +23,7 @@
         "jsonBody": "={{ $json.output.details }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -106,7 +106,7 @@
       ],
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "toolDescription": "=This is Proxmox which will help you to get the details of existing Proxmox installations, ensure to append to existing url : {{ $env.API_BASE_URL }} to get response from existing proxmox \n\nMy prommox nodes are named as psb1, psb2 and psb3\npsb1 : {{ $env.API_BASE_URL }}\npsb2 : {{ $env.API_BASE_URL }}\npsb3 : {{ $env.API_BASE_URL }}"
       },
@@ -127,12 +127,12 @@
         -320
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.output.properties.url.pattern }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "=GET",
         "options": {
           "allowUnauthorizedCerts": true
         },
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -285,7 +285,7 @@
       "parameters": {
         "path": "459d848d-72ed-490f-bc48-e5dc60242896",
         "options": {},
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -450,12 +450,12 @@
         20
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.output.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "=POST",
         "options": {
           "allowUnauthorizedCerts": true
         },
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -486,12 +486,12 @@
         200
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.output.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {
           "allowUnauthorizedCerts": true
         },
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -592,12 +592,12 @@
         380
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.output.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {
           "allowUnauthorizedCerts": true
         },
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -648,7 +648,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -671,7 +671,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -696,7 +696,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_3",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -721,7 +721,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_4",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -746,7 +746,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_5",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -771,7 +771,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_6",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -1644,5 +1644,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 16 different services: webhook, stickyNote, httpRequest, telegramTrigger, toolHttpRequest. It contains 57 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 16 different services: webhook, stickyNote, httpRequest, telegramTrigger, toolHttpRequest. It contains 57 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "api"
+  ]
 }

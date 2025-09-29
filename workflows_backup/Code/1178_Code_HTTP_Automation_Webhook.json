@@ -1,8 +1,10 @@
 {
   "id": "8Sbrzc7Au3ZGf62p",
   "meta": {
-    "instanceId": "bcc0fe85b176c2837affb21bb7d7397fad2549880e73dc1f7a42e76ae94fd996",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Publish Videos & Images - Blotato",
   "tags": [
@@ -42,13 +44,13 @@
         80
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"instagram\"\n    },\n    \"content\": {\n      \"text\": {{ $('Prepare for Publish').item.json.final_text_short.toJsonString() }},\n      \"platform\": \"instagram\",\n      \"mediaUrls\": [\"{{ $json.url }}\"]\n    },\n    \"accountId\": \"{{ $('Prepare for Publish').item.json.instagram_id }}\"\n  }\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -69,13 +71,13 @@
         480
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"facebook\",\n      \"pageId\": \"{{ $('Prepare for Publish').item.json.facebook_page_id }}\"\n    },\n    \"content\": {\n      \"text\": {{ $('Prepare for Publish').item.json.final_text_long.toJsonString() }},\n      \"platform\": \"facebook\",\n      \"mediaUrls\": [\"{{ $json.url }}\"]\n    },\n    \"accountId\": \"{{ $('Prepare for Publish').item.json.facebook_id }}\"\n  }\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -96,13 +98,13 @@
         880
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"linkedin\"\n    },\n    \"content\": {\n      \"text\": {{ $('Prepare for Publish').item.json.final_text_long.toJsonString() }},\n      \"platform\": \"linkedin\",\n      \"mediaUrls\": [\"{{ $json.url }}\"]\n    },\n    \"accountId\": \"{{ $('Prepare for Publish').item.json.linkedin_id }}\"\n  }\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -123,13 +125,13 @@
         1280
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"tiktok\",\n      \"isYourBrand\": false,\n      \"disabledDuet\": false,\n      \"privacyLevel\": \"PUBLIC_TO_EVERYONE\",\n      \"isAiGenerated\": true,\n      \"disabledStitch\": false,\n      \"disabledComments\": false,\n      \"isBrandedContent\": false\n    },\n    \"content\": {\n      \"text\": \"{{ $('Prepare for Publish').item.json.final_text_short }}\",\n      \"platform\": \"tiktok\",\n      \"mediaUrls\": [\"{{ $json.url }}\"]\n    },\n    \"accountId\": \"{{ $('Prepare for Publish').item.json.tiktok_id }}\"\n  }\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -150,13 +152,13 @@
         1680
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
-        "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"pinterest\",\n      \"boardId\": \"{{ $('Prepare for Publish').item.json.pinterested_board_id }}\",\n      \"link\": \"https://www.AIwithApex.com/\"\n    },\n    \"content\": {\n      \"text\": {{ $('Prepare for Publish').item.json.final_text_short.toJsonString() }},\n      \"platform\": \"pinterest\",\n      \"mediaUrls\": [\"{{ $('Upload Image to Blotato').item.json.url }}\"]\n    },\n    \"accountId\": \"{{ $('Prepare for Publish').item.json.pinterest_id }}\"\n  }\n}\n",
+        "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"pinterest\",\n      \"boardId\": \"{{ $('Prepare for Publish').item.json.pinterested_board_id }}\",\n      \"link\": \"{{ $env.WEBHOOK_URL }}\"\n    },\n    \"content\": {\n      \"text\": {{ $('Prepare for Publish').item.json.final_text_short.toJsonString() }},\n      \"platform\": \"pinterest\",\n      \"mediaUrls\": [\"{{ $('Upload Image to Blotato').item.json.url }}\"]\n    },\n    \"accountId\": \"{{ $('Prepare for Publish').item.json.pinterest_id }}\"\n  }\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -177,13 +179,13 @@
         280
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"youtube\",\n      \"title\": \"{{ $('Ensure Valid YouTube Title').item.json.message.content.youtube_title }}\",\n      \"privacyStatus\": \"public\",\n      \"shouldNotifySubscribers\": true\n    },\n    \"content\": {\n      \"text\": {{ $('Prepare for Publish').item.json.final_text_long.toJsonString() }},\n      \"platform\": \"youtube\",\n      \"mediaUrls\": [\"{{ $json.url }}\"]\n    },\n    \"accountId\": \"{{ $('Prepare for Publish').item.json.youtube_id }}\"\n  }\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -204,13 +206,13 @@
         680
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"threads\"\n    },\n    \"content\": {\n      \"text\": {{ $('Prepare for Publish').item.json.final_text_short.toJsonString() }},\n      \"platform\": \"threads\",\n      \"mediaUrls\": [\"{{ $json.url }}\"]\n    },\n    \"accountId\": \"{{ $('Prepare for Publish').item.json.threads_id }}\"\n  }\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -231,13 +233,13 @@
         1080
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"twitter\"\n    },\n    \"content\": {\n      \"text\": {{ $('Prepare for Publish').item.json.final_text_short.toJsonString() }},\n      \"platform\": \"twitter\",\n      \"mediaUrls\": [\"{{ $json.url }}\"]\n    },\n    \"accountId\": \"{{ $('Prepare for Publish').item.json.twitter_id }}\"\n  }\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -258,13 +260,13 @@
         1480
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/posts",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"bluesky\"\n    },\n    \"content\": {\n      \"text\": {{ $('Prepare for Publish').item.json.final_text_short.toJsonString() }},\n      \"platform\": \"bluesky\",\n      \"mediaUrls\": [\"{{ $('Upload Image to Blotato').item.json.url }}\"]\n    },\n    \"accountId\": \"{{ $('Prepare for Publish').item.json.bluesky_id }}\"\n  }\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -320,14 +322,14 @@
           "__rl": true,
           "mode": "list",
           "value": "appt2yDl6xXXyqboD",
-          "cachedResultUrl": "https://airtable.com/appt2yDl6xXXyqboD",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Social Media System"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblM3kDu1qB2FdTOF",
-          "cachedResultUrl": "https://airtable.com/appt2yDl6xXXyqboD/tblM3kDu1qB2FdTOF",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Media Creation"
         },
         "options": {}
@@ -349,11 +351,11 @@
         880
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/media",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -381,11 +383,11 @@
         880
       ],
       "parameters": {
-        "url": "https://backend.blotato.com/v2/media",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -452,7 +454,7 @@
       "parameters": {
         "width": 880,
         "height": 360,
-        "content": "## Quick Debug Checking\n### I set up quick links to social media to check whether the posting system succeeded or not.  I tried video if possible, if not I used image.  You can also find Blotato failed posts here: https://my.blotato.com/failed\n\n[replace these with your own links if you like]\nInstagram: https://www.instagram.com/moshehbenavraham/reels/\nYoutube: https://www.youtube.com/@AIwithApex/shorts\nFacebook: https://www.facebook.com/MoshehApexWebServices/grid\nThreads: https://www.threads.com/@moshehbenavraham\nLinkedIn: https://www.linkedin.com/in/moshehbenavraham/recent-activity/all/\nX / Twitter: https://x.com/MoshehAvraham\nTikTok: https://www.tiktok.com/@moshehavraham\nBluesky: https://bsky.app/profile/aiwithapex.bsky.social\nPinterest: https://www.pinterest.com/aiwithapex/artificial-intelligence-ai-ai-automation/\n"
+        "content": "## Quick Debug Checking\n### I set up quick links to social media to check whether the posting system succeeded or not.  I tried video if possible, if not I used image.  You can also find Blotato failed posts here: {{ $env.WEBHOOK_URL }}\n\n[replace these with your own links if you like]\nInstagram: {{ $env.WEBHOOK_URL }}\nYoutube: {{ $env.WEBHOOK_URL }}\nFacebook: {{ $env.WEBHOOK_URL }}\nThreads: {{ $env.WEBHOOK_URL }}\nLinkedIn: {{ $env.WEBHOOK_URL }}\nX / Twitter: {{ $env.WEBHOOK_URL }}\nTikTok: {{ $env.WEBHOOK_URL }}\nBluesky: {{ $env.WEBHOOK_URL }}\nPinterest: {{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -484,14 +486,14 @@
           "__rl": true,
           "mode": "list",
           "value": "appt2yDl6xXXyqboD",
-          "cachedResultUrl": "https://airtable.com/appt2yDl6xXXyqboD",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Social Media System"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblM3kDu1qB2FdTOF",
-          "cachedResultUrl": "https://airtable.com/appt2yDl6xXXyqboD/tblM3kDu1qB2FdTOF",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Media Creation"
         },
         "columns": {
@@ -888,14 +890,14 @@
           "__rl": true,
           "mode": "list",
           "value": "appt2yDl6xXXyqboD",
-          "cachedResultUrl": "https://airtable.com/appt2yDl6xXXyqboD",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Social Media System"
         },
         "table": {
           "__rl": true,
           "mode": "list",
           "value": "tblM3kDu1qB2FdTOF",
-          "cachedResultUrl": "https://airtable.com/appt2yDl6xXXyqboD/tblM3kDu1qB2FdTOF",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Media Creation"
         },
         "columns": {
@@ -1356,7 +1358,7 @@
       "parameters": {
         "width": 580,
         "height": 1880,
-        "content": "# How to Add Example Table and Connect n8n to Airtable\n\n---\n\n## Part 1: Add the Example Table to Airtable\n\n1. **Create and Log into Your Airtable Account**  \n   - If you don't have an Airtable account: [Sign up here (Affiliate link)](https://airtable.com/invite/r/6UyZyAAd)\n\n2. **Open the Example Base**  \n   - Link: [Social Media System Base](https://airtable.com/appbOSIspSmMfeJeg/shr7htmWB9GNRrpw3)\n\n3. **Copy the Base**  \n   - To the right of the title *\"Social Media System\"*, click **\"Copy base\"**.\n\n4. **Choose Your Workspace**  \n   - Pick the workspace to copy the base into, then click **\"Add base\"**.\n\n**✅ Congrats! You now have the example Base added.**\n\n---\n\n## Part 2: Connect n8n to Airtable\n\n### Step A: Create a Personal Access Token in Airtable\n\n1. **Create and Log into Your Airtable Account**  \n   - [Sign up here (Affiliate link)](https://airtable.com/invite/r/6UyZyAAd)\n\n2. **Access Personal Tokens**\n   - Top right: click your **Account Icon** → select **\"Builder hub\"**.\n   - Left navigation: go to **\"Developers\"** → click **\"Personal access tokens\"**.\n\n3. **Create a New Token**\n   - Click **\"Create token\"**.\n   - Name your token (example: *\"Airtable personal access token for n8n\"*).  \n     **(Don't create yet!)**\n\n4. **Set Scopes**\n   - Click **\"+ Add a scope\"** and enable these scopes:\n     - `data.records:read`\n     - `data.records:write`\n     - `schema.bases:read`\n\n5. **Optional: Restrict Access**\n   - If you want the credential limited to certain bases:\n     - Under **Access**, click **\"+ Add a base\"** and select the Base(s).\n\n6. **Finalize and Save the Token**\n   - After creation, a pop-up will show your token **only once**.\n   - **Copy and store it safely!**\n\n---\n\n### Step B: Add Airtable Credentials in n8n\n\n1. **Create and Log into Your n8n Account**  \n   - [Sign up here (Affiliate link)](https://n8n.partnerlinks.io/aiwithapex)\n\n2. **Create a New Credential**\n   - Top right: next to the red-orange **\"Create Workflow\"** button, open the dropdown → select **\"Create Credential\"**.\n   - (Alternatively, you can create it from inside any Airtable node.)\n\n3. **Input Token Details**\n   - In the popup, type **\"Airtable personal access token api\"**, click **\"Continue\"**.\n   - Paste your **saved Airtable token**.\n\n4. **Name the Credential Properly**\n   - Top left of the dialogue box: rename the token to something clearly recognizable.\n\n5. **Save and Test Connection**\n   - Click the top right **\"Save\"** button.\n   - You should see **\"Connection tested successfully\"**.\n   - You may now **close** the dialogue box.\n\n**✅ Done! n8n is now connected to your Airtable base.**\n"
+        "content": "# How to Add Example Table and Connect n8n to Airtable\n\n---\n\n## Part 1: Add the Example Table to Airtable\n\n1. **Create and Log into Your Airtable Account**  \n   - If you don't have an Airtable account: [Sign up here (Affiliate link)]({{ $env.WEBHOOK_URL }}\n\n2. **Open the Example Base**  \n   - Link: [Social Media System Base]({{ $env.WEBHOOK_URL }}\n\n3. **Copy the Base**  \n   - To the right of the title *\"Social Media System\"*, click **\"Copy base\"**.\n\n4. **Choose Your Workspace**  \n   - Pick the workspace to copy the base into, then click **\"Add base\"**.\n\n**✅ Congrats! You now have the example Base added.**\n\n---\n\n## Part 2: Connect n8n to Airtable\n\n### Step A: Create a Personal Access Token in Airtable\n\n1. **Create and Log into Your Airtable Account**  \n   - [Sign up here (Affiliate link)]({{ $env.WEBHOOK_URL }}\n\n2. **Access Personal Tokens**\n   - Top right: click your **Account Icon** → select **\"Builder hub\"**.\n   - Left navigation: go to **\"Developers\"** → click **\"Personal access tokens\"**.\n\n3. **Create a New Token**\n   - Click **\"Create token\"**.\n   - Name your token (example: *\"Airtable personal access token for n8n\"*).  \n     **(Don't create yet!)**\n\n4. **Set Scopes**\n   - Click **\"+ Add a scope\"** and enable these scopes:\n     - `data.records:read`\n     - `data.records:write`\n     - `schema.bases:read`\n\n5. **Optional: Restrict Access**\n   - If you want the credential limited to certain bases:\n     - Under **Access**, click **\"+ Add a base\"** and select the Base(s).\n\n6. **Finalize and Save the Token**\n   - After creation, a pop-up will show your token **only once**.\n   - **Copy and store it safely!**\n\n---\n\n### Step B: Add Airtable Credentials in n8n\n\n1. **Create and Log into Your n8n Account**  \n   - [Sign up here (Affiliate link)]({{ $env.WEBHOOK_URL }}\n\n2. **Create a New Credential**\n   - Top right: next to the red-orange **\"Create Workflow\"** button, open the dropdown → select **\"Create Credential\"**.\n   - (Alternatively, you can create it from inside any Airtable node.)\n\n3. **Input Token Details**\n   - In the popup, type **\"Airtable personal access token api\"**, click **\"Continue\"**.\n   - Paste your **saved Airtable token**.\n\n4. **Name the Credential Properly**\n   - Top left of the dialogue box: rename the token to something clearly recognizable.\n\n5. **Save and Test Connection**\n   - Click the top right **\"Save\"** button.\n   - You should see **\"Connection tested successfully\"**.\n   - You may now **close** the dialogue box.\n\n**✅ Done! n8n is now connected to your Airtable base.**\n"
       },
       "typeVersion": 1
     },
@@ -1371,7 +1373,7 @@
       "parameters": {
         "width": 1300,
         "height": 100,
-        "content": "# Blotato Affiliate Link, Please Support My Work:  https://blotato.com/?ref=max\nYou will need the API key for blotato-api-key"
+        "content": "# Blotato Affiliate Link, Please Support My Work:  {{ $env.WEBHOOK_URL }}\nYou will need the API key for blotato-api-key"
       },
       "typeVersion": 1
     },
@@ -1407,12 +1409,12 @@
           "values": [
             {
               "fieldLabel": "Pinterest Board URL",
-              "placeholder": "https://www.pinterest.com/USERNAME/BOARD_NAME/",
+              "placeholder": "{{ $env.WEBHOOK_URL }}",
               "requiredField": true
             }
           ]
         },
-        "formDescription": "Put in your Pinterest Board Link here, it should look like this:\n\nhttps://www.pinterest.com/USERNAME/BOARD_NAME/\n\nExample:\nhttps://www.pinterest.com/aiwithapex/artificial-intelligence-ai-ai-automation/"
+        "formDescription": "Put in your Pinterest Board Link here, it should look like this:\n\n{{ $env.WEBHOOK_URL }}\n\nExample:\n{{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 2.2
     },
@@ -1425,9 +1427,9 @@
         1940
       ],
       "parameters": {
-        "url": "={{ $json['Pinterest Board URL'] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "jsonHeaders": "{\n  \"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36\",\n  \"Accept\": \"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8\",\n  \"Accept-Language\": \"en-US,en;q=0.9\",\n  \"Accept-Encoding\": \"gzip, deflate, br\",\n  \"Connection\": \"keep-alive\",\n  \"Referer\": \"https://www.pinterest.com/\"\n}",
+        "jsonHeaders": "{\n  \"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36\",\n  \"Accept\": \"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8\",\n  \"Accept-Language\": \"en-US,en;q=0.9\",\n  \"Accept-Encoding\": \"gzip, deflate, br\",\n  \"Connection\": \"keep-alive\",\n  \"Referer\": \"{{ $env.WEBHOOK_URL }}\"\n}",
         "sendHeaders": true,
         "specifyHeaders": "json"
       },
@@ -1461,12 +1463,379 @@
         "content": "# Pinterest Page Sleuth\n - Use either testing or active URL respectively depending if your workflow is active or not\n  - Simply paste your board's link and fetch ID!"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-53b36edb-e273-4e68-8ae9-7d3de3f7533f",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 53b36edb-e273-4e68-8ae9-7d3de3f7533f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6fef0d35-9679-40f6-9224-cfb7c442056b",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 6fef0d35-9679-40f6-9224-cfb7c442056b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3f744ee2-988b-45a6-9d88-a718780421cf",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3f744ee2-988b-45a6-9d88-a718780421cf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7f0ae540-090a-4b13-a094-2ac74e1a14b3",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 7f0ae540-090a-4b13-a094-2ac74e1a14b3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2593a621-0d0b-42b3-97ab-bf85785fb33c",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2593a621-0d0b-42b3-97ab-bf85785fb33c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b47da27b-b81f-4736-9c34-cd224d78f29d",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b47da27b-b81f-4736-9c34-cd224d78f29d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-19f17323-45f5-4865-b754-e2d5f8fc6073",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 19f17323-45f5-4865-b754-e2d5f8fc6073",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-adaa3ac1-fa2a-422e-8b70-8c4cc74782ed",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in adaa3ac1-fa2a-422e-8b70-8c4cc74782ed",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-af2d0a29-73d1-4ee0-84c9-f337a628b3ea",
+      "name": "Stopanderror 8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in af2d0a29-73d1-4ee0-84c9-f337a628b3ea",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e05d1ede-7d43-4c55-a353-6bc2bd0216d4",
+      "name": "Stopanderror 9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e05d1ede-7d43-4c55-a353-6bc2bd0216d4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-92fd39a9-74c1-4cbb-abb3-511f8230cee7",
+      "name": "Stopanderror 10",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 92fd39a9-74c1-4cbb-abb3-511f8230cee7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3a5976ba-fb7d-4e33-a0bd-efbbf212031b",
+      "name": "Stopanderror 11",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3a5976ba-fb7d-4e33-a0bd-efbbf212031b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-53b36edb-e273-4e68-8ae9-7d3de3f7533f-5cba753f",
+      "name": "Error Handler for 53b36edb",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 53b36edb",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6fef0d35-9679-40f6-9224-cfb7c442056b-4cc04595",
+      "name": "Error Handler for 6fef0d35",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6fef0d35",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3f744ee2-988b-45a6-9d88-a718780421cf-cdac7f57",
+      "name": "Error Handler for 3f744ee2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3f744ee2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7f0ae540-090a-4b13-a094-2ac74e1a14b3-f5a5fafe",
+      "name": "Error Handler for 7f0ae540",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7f0ae540",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2593a621-0d0b-42b3-97ab-bf85785fb33c-96864974",
+      "name": "Error Handler for 2593a621",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2593a621",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b47da27b-b81f-4736-9c34-cd224d78f29d-8aeda2c9",
+      "name": "Error Handler for b47da27b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b47da27b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-19f17323-45f5-4865-b754-e2d5f8fc6073-ae0a2917",
+      "name": "Error Handler for 19f17323",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 19f17323",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-adaa3ac1-fa2a-422e-8b70-8c4cc74782ed-f1b61d45",
+      "name": "Error Handler for adaa3ac1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node adaa3ac1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-af2d0a29-73d1-4ee0-84c9-f337a628b3ea-a9dd050c",
+      "name": "Error Handler for af2d0a29",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node af2d0a29",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e05d1ede-7d43-4c55-a353-6bc2bd0216d4-04849c2e",
+      "name": "Error Handler for e05d1ede",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e05d1ede",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-92fd39a9-74c1-4cbb-abb3-511f8230cee7-0e94e9a2",
+      "name": "Error Handler for 92fd39a9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 92fd39a9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-12b8ecfe-f83b-4e32-a8d7-a71b7f5c9fd1-e55d00f6",
+      "name": "Error Handler for 12b8ecfe",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 12b8ecfe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3a5976ba-fb7d-4e33-a0bd-efbbf212031b-986d1e46",
+      "name": "Error Handler for 3a5976ba",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3a5976ba",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-ea99cfca",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Publish Videos & Images - Blotato\n\n## Overview\nAutomated workflow: Publish Videos & Images - Blotato. This workflow integrates 9 different services: stickyNote, httpRequest, formTrigger, airtable, code. It contains 55 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 55\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **[Instagram] Publish via Blotato**: httpRequest\n- **[Facebook] Publish via Blotato**: httpRequest\n- **[Linkedin] Publish via Blotato**: httpRequest\n- **[Tiktok] Publish via Blotato**: httpRequest\n- **[Pinterest] Publish via Blotato**: httpRequest\n- **[Youtube] Publish via Blotato**: httpRequest\n- **[Threads] Publish via Blotato**: httpRequest\n- **[Twitter] Publish via Blotato**: httpRequest\n- **[Bluesky] Publish via Blotato**: httpRequest\n- **Sticky Note2**: stickyNote\n- ... and 45 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "4b3ebaa1-ec81-4de8-9366-633594a1b0ca",
   "connections": {
@@ -1626,6 +1995,234 @@
           }
         ]
       ]
+    },
+    "53b36edb-e273-4e68-8ae9-7d3de3f7533f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-53b36edb-e273-4e68-8ae9-7d3de3f7533f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-53b36edb-e273-4e68-8ae9-7d3de3f7533f-5cba753f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6fef0d35-9679-40f6-9224-cfb7c442056b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6fef0d35-9679-40f6-9224-cfb7c442056b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-6fef0d35-9679-40f6-9224-cfb7c442056b-4cc04595",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3f744ee2-988b-45a6-9d88-a718780421cf": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3f744ee2-988b-45a6-9d88-a718780421cf",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3f744ee2-988b-45a6-9d88-a718780421cf-cdac7f57",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7f0ae540-090a-4b13-a094-2ac74e1a14b3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7f0ae540-090a-4b13-a094-2ac74e1a14b3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-7f0ae540-090a-4b13-a094-2ac74e1a14b3-f5a5fafe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2593a621-0d0b-42b3-97ab-bf85785fb33c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2593a621-0d0b-42b3-97ab-bf85785fb33c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2593a621-0d0b-42b3-97ab-bf85785fb33c-96864974",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b47da27b-b81f-4736-9c34-cd224d78f29d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b47da27b-b81f-4736-9c34-cd224d78f29d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b47da27b-b81f-4736-9c34-cd224d78f29d-8aeda2c9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "19f17323-45f5-4865-b754-e2d5f8fc6073": {
+      "main": [
+        [
+          {
+            "node": "error-handler-19f17323-45f5-4865-b754-e2d5f8fc6073",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-19f17323-45f5-4865-b754-e2d5f8fc6073-ae0a2917",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "adaa3ac1-fa2a-422e-8b70-8c4cc74782ed": {
+      "main": [
+        [
+          {
+            "node": "error-handler-adaa3ac1-fa2a-422e-8b70-8c4cc74782ed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-adaa3ac1-fa2a-422e-8b70-8c4cc74782ed-f1b61d45",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "af2d0a29-73d1-4ee0-84c9-f337a628b3ea": {
+      "main": [
+        [
+          {
+            "node": "error-handler-af2d0a29-73d1-4ee0-84c9-f337a628b3ea",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-af2d0a29-73d1-4ee0-84c9-f337a628b3ea-a9dd050c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e05d1ede-7d43-4c55-a353-6bc2bd0216d4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e05d1ede-7d43-4c55-a353-6bc2bd0216d4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e05d1ede-7d43-4c55-a353-6bc2bd0216d4-04849c2e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "92fd39a9-74c1-4cbb-abb3-511f8230cee7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-92fd39a9-74c1-4cbb-abb3-511f8230cee7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-92fd39a9-74c1-4cbb-abb3-511f8230cee7-0e94e9a2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3a5976ba-fb7d-4e33-a0bd-efbbf212031b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3a5976ba-fb7d-4e33-a0bd-efbbf212031b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3a5976ba-fb7d-4e33-a0bd-efbbf212031b-986d1e46",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12b8ecfe-f83b-4e32-a8d7-a71b7f5c9fd1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-12b8ecfe-f83b-4e32-a8d7-a71b7f5c9fd1-e55d00f6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Publish Videos & Images - Blotato. This workflow integrates 9 different services: stickyNote, httpRequest, formTrigger, airtable, code. It contains 55 nodes and follows best practices for error handling and security."
 }

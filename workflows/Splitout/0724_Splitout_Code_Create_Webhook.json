@@ -128,14 +128,14 @@
         340
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Notion Trigger').first().json.id }}/children",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "jsonBody": "={\n  \"children\": {{ $json.blocks.toJsonString() }}\n} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "notionApi": {
@@ -213,10 +213,10 @@
         540
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}/children",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "notionApi": {
@@ -425,5 +425,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Notiontrigger Workflow. This workflow integrates 7 different services: notionTrigger, stickyNote, httpRequest, code, splitOut. It contains 16 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Notiontrigger Workflow. This workflow integrates 7 different services: notionTrigger, stickyNote, httpRequest, code, splitOut. It contains 16 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

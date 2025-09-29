@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "line message api demo",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "2bc1cc31-136c-46a4-a789-476e33c76f3d",
@@ -24,7 +27,7 @@
         "jsonBody": "={\n  \"replyToken\": \"{{ $('Webhook from Line Message').item.json.body.events[0].replyToken }}\",\n  \"messages\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"收到您的訊息 : {{ $('Webhook from Line Message').item.json.body.events[0].message.text }}\"\n    }\n  ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -164,7 +167,7 @@
         "jsonBody": "={\n  \"to\": \"{{ $json.line_uid }}\",\n  \"messages\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"推播測試\"\n    }\n  ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {

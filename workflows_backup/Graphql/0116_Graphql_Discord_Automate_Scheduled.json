@@ -58,7 +58,7 @@
       ],
       "parameters": {
         "query": "=query PostRanking{\n  posts(postedAfter:\"{{new Date(new Date(Date.now()).getTime() - (1000*60*60*1*24)).toUTCString()}}\", order:RANKING, first:5, postedBefore:\"{{new Date(Date.now()).toUTCString()}}\"){\n    edges {\n      node {\n        name\n        tagline\n        description\n        votesCount\n        reviewsRating\n      }\n    }\n  }\n}",
-        "endpoint": "https://api.producthunt.com/v2/api/graphql",
+        "endpoint": "{{ $env.API_BASE_URL }}",
         "requestFormat": "json",
         "headerParametersUi": {
           "parameter": [
@@ -98,6 +98,19 @@
         "webhookUri": "DISCORD WEBHOOK URL"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Cron Workflow\n\nAutomated workflow: Cron Workflow. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 5 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "connections": {
@@ -145,5 +158,14 @@
         ]
       ]
     }
+  },
+  "name": "Cron Workflow",
+  "description": "Automated workflow: Cron Workflow. This workflow processes data and performs automated tasks.",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   }
 }

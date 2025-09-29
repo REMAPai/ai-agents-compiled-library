@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "AI Agent to chat with you Search Console Data, using OpenAI and Postgres",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "9ee6710b-19b7-4bfd-ac2d-0fe1e2561f1d",
@@ -39,7 +42,7 @@
       "parameters": {
         "model": "gpt-4o",
         "options": {
-          "maxTokens": 16000
+          "maxTokens": "YOUR_TOKEN_HERE"
         }
       },
       "credentials": {
@@ -115,7 +118,7 @@
         "options": {},
         "httpMethod": "POST",
         "responseMode": "responseNode",
-        "authentication": "basicAuth"
+        "authentication": "{{ $credentials.basicAuth }}"
       },
       "credentials": {
         "httpBasicAuth": {
@@ -294,7 +297,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -318,7 +321,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -477,7 +480,7 @@
         980
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.property }}/searchAnalytics/query",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"startDate\": \"{{ $json.start_date }}\",\n \"endDate\": \"{{ $json.end_date }}\",\n \"dimensions\": {{ $json.dimensions }},\n \"rowLimit\": {{ $json.rowLimit }},\n \"startRow\": 0,\n \"dataState\":\"all\"\n}",
@@ -485,7 +488,7 @@
         "sendQuery": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "oAuth2Api",
         "queryParameters": {
           "parameters": [
@@ -550,10 +553,10 @@
         1340
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "oAuth2Api",
         "headerParameters": {
           "parameters": [

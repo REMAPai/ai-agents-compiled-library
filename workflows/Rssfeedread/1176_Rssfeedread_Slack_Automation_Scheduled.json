@@ -12,7 +12,8 @@
       "parameters": {
         "functionCode": "// Create our Slack message\n// This will output a list of RSS items in the following format\n// Title - Description\nlet message = \"*:new: Posts from yesterday :new:*\\n\\n\";\n\n// Loop the input items\nfor (item of items) {\n  message += \"*<\" + item.json.link + \"|\" + item.json.title + \">*\\n\" + item.json.contentSnippet + \"\\n\\n\"; \n}\n\n// Return our message\nreturn [{json: {message}}];"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "02d94495-39a8-4e5b-b062-8fa23314984f"
     },
     {
       "name": "Every Morning",
@@ -30,7 +31,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "04f11124-a075-4b47-a7da-3436aa6b2f44"
     },
     {
       "name": "Get Yesterdays Date",
@@ -46,7 +48,8 @@
         "duration": 1,
         "operation": "subtract"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "e1e7f17b-4078-438a-b5c0-e131459c0e24"
     },
     {
       "name": "Get the RSS Feed",
@@ -58,7 +61,8 @@
       "parameters": {
         "url": "{{ $env.WEBHOOK_URL }}"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "d5deffba-9276-42b5-b511-aeae5fb832d9"
     },
     {
       "name": "If it was published after yesterday",
@@ -79,7 +83,8 @@
         }
       },
       "typeVersion": 1,
-      "continueOnFail": true
+      "continueOnFail": true,
+      "id": "f34862d9-a439-4e92-a070-de8f8491e3d5"
     },
     {
       "name": "Post to Slack",
@@ -99,11 +104,12 @@
       },
       "credentials": {
         "slackApi": {
-          "id": "53",
+          "id": "{{ $credentials.slackApi.id }}",
           "name": "Slack Access Token"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "1cc94ad9-db4f-49bc-923d-eb41ffcfecde"
     },
     {
       "id": "documentation-node",
@@ -124,7 +130,8 @@
     "executionOrder": "v1",
     "saveManualExecutions": true,
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": null
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "connections": {
     "Every Morning": {
@@ -183,5 +190,18 @@
       ]
     }
   },
-  "description": "Automated workflow: Post RSS feed items from yesterday to Slack. This workflow processes data and performs automated tasks."
+  "description": "Automated workflow: Post RSS feed items from yesterday to Slack. This workflow processes data and performs automated tasks.",
+  "meta": {
+    "instanceId": "workflow-e9990bc6",
+    "versionId": "1.0.0",
+    "createdAt": "2025-09-29T06:39:59.514302",
+    "updatedAt": "2025-09-29T06:39:59.514319",
+    "owner": "n8n-user",
+    "license": "MIT"
+  },
+  "tags": [
+    "automation",
+    "n8n",
+    "slack"
+  ]
 }

@@ -8,7 +8,8 @@
         330
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "4069e053-2ee7-4b73-9029-37d133bc4746"
     },
     {
       "name": "Merge Data",
@@ -20,7 +21,8 @@
       "parameters": {
         "functionCode": "const allData = []\n\nlet counter = 0;\ndo {\n  try {\n    const items = $items(\"RSS Feed Read\", 0, counter).map(item => item.json);\n    allData.push.apply(allData, items);\n  } catch (error) {\n    return [{json: {allData}}];  \n  }\n\n  counter++;\n} while(true);\n\n\n"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "ba8b18fe-8e39-47bb-8145-a6c9ad5e1373"
     },
     {
       "name": "Function",
@@ -32,7 +34,8 @@
       "parameters": {
         "functionCode": "return [\n  {\n    json: {\n      url: '{{ $env.WEBHOOK_URL }}',\n    }\n  },\n  {\n    json: {\n      url: '{{ $env.WEBHOOK_URL }}',\n    }\n  }\n];"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "3308c187-3180-44bc-b46f-2a13df89dd2e"
     },
     {
       "name": "RSS Feed Read",
@@ -42,9 +45,10 @@
         330
       ],
       "parameters": {
-        "url": "={{$json[\"url\"]}}"
+        "url": "{{ $env.BASE_URL }}"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "ca86bb93-a739-407c-999c-5d1e15d32133"
     },
     {
       "name": "SplitInBatches",
@@ -57,7 +61,8 @@
         "options": {},
         "batchSize": 1
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "124293fd-75c0-4b08-8194-27aa18bb9dd9"
     },
     {
       "name": "If Node",
@@ -76,11 +81,12 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "5f8fc724-93c9-47d2-9eb6-5034397c3fb0"
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -93,7 +99,7 @@
     },
     {
       "id": "documentation-059560a3",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -183,5 +189,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

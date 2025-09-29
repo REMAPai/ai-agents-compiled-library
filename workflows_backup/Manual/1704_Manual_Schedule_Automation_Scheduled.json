@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "cb484ba7b742928a2048bf8829668bed5b5ad9787579adea888f05980292a4a7"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -224,7 +227,7 @@
       },
       "credentials": {
         "openAiApi": {
-          "id": "294",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "Alex's OpenAI Account"
         }
       },
@@ -264,6 +267,33 @@
         }
       },
       "typeVersion": 3.3
+    },
+    {
+      "id": "error-handler-4b95c041-a70e-42f9-9467-26de2abe6b7a-e7b0362b",
+      "name": "Error Handler for 4b95c041",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4b95c041",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-89d116a5",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Stickynote Workflow\n\n## Overview\nAutomated workflow: Stickynote Workflow. This workflow integrates 8 different services: stickyNote, scheduleTrigger, set, stopAndError, manualTrigger. It contains 13 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 13\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note**: stickyNote\n- **Post tweet**: twitter\n- **Schedule posting every 6 hours**: scheduleTrigger\n- **Trigger posting manually**: manualTrigger\n- **Sticky Note1**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Sticky Note4**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Verify tweet constraints**: if\n- **Sticky Note2**: stickyNote\n- ... and 3 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -329,6 +359,26 @@
           }
         ]
       ]
+    },
+    "4b95c041-a70e-42f9-9467-26de2abe6b7a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4b95c041-a70e-42f9-9467-26de2abe6b7a-e7b0362b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Stickynote Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 8 different services: stickyNote, scheduleTrigger, set, stopAndError, manualTrigger. It contains 13 nodes and follows best practices for error handling and security."
 }

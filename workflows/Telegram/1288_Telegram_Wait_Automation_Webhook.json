@@ -6,8 +6,11 @@
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
-  "name": "💥AI Social Video Generator with GPT-4, Kling & Blotato —Auto-Post to Instagram, Facebook,, TikTok, Twitter & Pinterest - vide",
-  "tags": [],
+  "name": "💥AI Social Video Generator with GPT-4, Kling & Blotato —Auto-Post to Instagram, Facebook,, TikTok...",
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "c8cbe0d7-50d5-44a8-9552-ef2531f324d2",
@@ -177,7 +180,7 @@
         "jsonBody": "={\n\"model\": \"kling\",\n\"task_type\": \"video_generation\",\n\"input\": {\n\"prompt\": \"{{ $('Transform Prompt for Kling (GPT-4)').item.json.output }}\",\n\"negative_prompt\": \"\",\n\"cfg_scale\": 0.5,\n\"duration\": 10,\n\"aspect_ratio\": \"9:16\",\n\"version\": \"1.6\",\n\"camera_control\": {\n\"type\": \"simple\",\n\"config\": {\n\"horizontal\": 0,\n\"vertical\": 0,\n\"pan\": -10,\n\"tilt\": 0,\n\"roll\": 0,\n\"zoom\": 0\n}\n},\n\"mode\": \"std\"\n},\n\"config\": {\n\"service_mode\": \"\",\n\"webhook_config\": {\n\"endpoint\": \"\",\n\"secret\": \"\"\n}\n}\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -212,7 +215,7 @@
         -160
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.data.task_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -220,7 +223,7 @@
             }
           }
         },
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -297,7 +300,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -336,7 +339,7 @@
         "jsonBody": "={\n\"resolution\": \"custom\",\n\"width\": 720,\n\"height\": 1280,\n\"scenes\": [\n{\n\"elements\": [\n{\n\"type\": \"video\",\n\"src\": \"{{ $('Get Generated Video URL').item.json.data.output.video_url }}\",\n\"resize\": \"cover\"\n},\n{\n\"type\": \"audio\",\n\"src\": \"{{ $json.url }}\"\n}\n]\n}\n]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -375,9 +378,9 @@
         200
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.project }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -417,7 +420,7 @@
         "jsonBody": "={\n\"id\": \"qbaasr7s\",\n\"resolution\": \"custom\",\n\"quality\": \"high\",\n\"scenes\": [\n{\n\"id\": \"qyjh9lwj\",\n\"comment\": \"Scene 1\",\n\"elements\": []\n}\n],\n\"elements\": [\n{\n\"id\": \"q6dznzcv\",\n\"type\": \"video\",\n\"src\": \"{{ $json.movie.url }}\"\n},\n{\n\"id\": \"q41n9kxp\",\n\"type\": \"subtitles\",\n\"settings\": {\n\"style\": \"classic-progressive\",\n\"position\": \"center-center\",\n\"font-family\": \"Oswald\",\n\"font-size\": 140,\n\"word-color\": \"#ffd700\",\n\"shadow-color\": \"#260B1B\",\n\"line-color\": \"#F1E7F4\",\n\"shadow-offset\": 0,\n\"box-color\": \"#260B1B\",\n\"outline-color\": \"#000000\",\n\"outline-width\": 8\n},\n\"language\": \"en\"\n}\n],\n\"width\": 720,\n\"height\": 1280\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -452,9 +455,9 @@
         500
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.project }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -542,7 +545,7 @@
           "value": {
             "Titre": "={{ $json.message.content }}",
             "PROMPT": "={{ $('Trigger: Telegram Prompt').item.json.message.text }}",
-            "URL VIDEO": "={{ $('Get Final Video URL (Audio + Captions)').item.json.movie.url }}",
+            "URL VIDEO": "{{ $env.BASE_URL }}",
             "DESCRIPTION": "={{ $('Generate Social Caption from Voiceover').item.json.message.content }}"
           },
           "schema": [

@@ -164,13 +164,13 @@
       "parameters": {
         "prompt": "=Does this PDF file look like a {{ $(\"Configure\").first().json[\"Match on\"] }}? Return \"true\" if it is a {{ $(\"Configure\").first().json[\"Match on\"] }} and \"false\" if not. Only reply with lowercase letters \"true\" or \"false\".\n\nThis is the PDF filename:\n```\n{{ $binary.data.fileName }}\n```\n\nThis is the PDF text content:\n```\n{{ $json.text }}\n```",
         "options": {
-          "maxTokens": "YOUR_VALUE_HERE",
+          "maxTokens": "YOUR_TOKEN_HERE",
           "temperature": 0.1
         }
       },
       "credentials": {
         "openAiApi": {
-          "id": "30",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "REPLACE ME"
         }
       },
@@ -216,7 +216,7 @@
       },
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "32",
+          "id": "{{ $credentials.googleDriveOAuth2Api.id }}",
           "name": "REPLACE ME"
         }
       },
@@ -247,7 +247,7 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "31",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "REPLACE ME"
         }
       },
@@ -558,5 +558,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Readpdf Workflow. This workflow integrates 11 different services: stickyNote, code, gmailTrigger, readPDF, merge. It contains 20 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Readpdf Workflow. This workflow integrates 11 different services: stickyNote, code, gmailTrigger, readPDF, merge. It contains 20 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -6,7 +6,7 @@
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
-  "name": "Analyze_Crowdstrike_Detections__search_for_IOCs_in_VirusTotal__create_a_ticket_in_Jira_and_post_a_message_in_Slack",
+  "name": "Analyze_Crowdstrike_Detections__search_for_IOCs_in_VirusTotal__create_a_ticket_in_Jira_and_post_a...",
   "tags": [
     {
       "id": "GCHVocImoXoEVnzP",
@@ -68,7 +68,7 @@
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -77,7 +77,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "crowdStrikeOAuth2Api": {
@@ -104,7 +104,7 @@
         "sendBody": true,
         "sendQuery": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -113,7 +113,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "crowdStrikeOAuth2Api": {
@@ -146,10 +146,10 @@
         362
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.dsha256 }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "virusTotalApi": {
@@ -169,10 +169,10 @@
         362
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Split out behaviours').item.json.ioc_value }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "virusTotalApi": {
@@ -296,11 +296,11 @@
         },
         "select": "user",
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
-          "id": "262",
+          "id": "{{ $credentials.slackOAuth2Api.id }}",
           "name": "Slack David (User)"
         }
       },

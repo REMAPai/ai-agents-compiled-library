@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Shopify + Mautic",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "592b2608-e77e-4988-8f77-8820645b56ee",
@@ -20,7 +23,7 @@
       "webhookId": "252052f3-e844-4500-8c34-c57f583d4432",
       "parameters": {
         "topic": "customers/update",
-        "authentication": "accessToken"
+        "authentication": "{{ $credentials.accessToken }}"
       },
       "credentials": {
         "shopifyAccessTokenApi": {
@@ -119,7 +122,7 @@
         "resource": "contactSegment",
         "contactId": "={{ $json.id }}",
         "segmentId": 1,
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "mauticOAuth2Api": {
@@ -142,7 +145,7 @@
         "contactId": "={{ $json.id }}",
         "operation": "remove",
         "segmentId": 1,
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "mauticOAuth2Api": {
@@ -181,7 +184,7 @@
       "parameters": {
         "type": "SHA256",
         "action": "hmac",
-        "secret": "YOUR_VALUE_HERE",
+        "secret": "YOUR_CREDENTIAL_HERE",
         "encoding": "base64",
         "binaryData": true
       },
@@ -241,8 +244,8 @@
       ],
       "parameters": {
         "query": "=query {\n  customers(first: 1, query: \"email:'{{ $json[\"body\"][\"mautic.lead_channel_subscription_changed\"][0][\"contact\"][\"fields\"][\"core\"][\"email\"][\"value\"] }}'\") {\n    edges {\n      node {\n        id\n        state\n      }\n    }\n  }\n}\n",
-        "endpoint": "=https://{{ $('Set Shopify Subdomain').params[\"fields\"][\"values\"][0][\"stringValue\"] }}.myshopify.com/admin/api/2024-01/graphql.json",
-        "authentication": "headerAuth"
+        "endpoint": "{{ $env.API_ENDPOINT }}",
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -262,10 +265,10 @@
       ],
       "parameters": {
         "query": "mutation customerEmailMarketingConsentUpdate($input: CustomerEmailMarketingConsentUpdateInput!) {\n  customerEmailMarketingConsentUpdate(input: $input) {\n    customer {\n      id\n    }\n    userErrors {\n      field\n      message\n    }\n  }\n}\n",
-        "endpoint": "=https://{{ $('Set Shopify Subdomain').params[\"fields\"][\"values\"][0][\"stringValue\"] }}.myshopify.com/admin/api/2024-01/graphql.json",
+        "endpoint": "{{ $env.API_ENDPOINT }}",
         "variables": "={\n  \"input\": {\n    \"customerId\": \"{{ $json[\"data\"][\"customers\"][\"edges\"][0][\"node\"][\"id\"] }}\",\n    \"emailMarketingConsent\": {\n      \"consentUpdatedAt\": \"{{ $now }}\",\n      \"marketingOptInLevel\": \"CONFIRMED_OPT_IN\",\n      \"marketingState\": \"SUBSCRIBED\"\n    }\n  }\n}\n",
         "requestFormat": "json",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -285,10 +288,10 @@
       ],
       "parameters": {
         "query": "mutation customerEmailMarketingConsentUpdate($input: CustomerEmailMarketingConsentUpdateInput!) {\n  customerEmailMarketingConsentUpdate(input: $input) {\n    customer {\n      id\n    }\n    userErrors {\n      field\n      message\n    }\n  }\n}\n",
-        "endpoint": "=https://{{ $('Set Shopify Subdomain').params[\"fields\"][\"values\"][0][\"stringValue\"] }}.myshopify.com/admin/api/2024-01/graphql.json",
+        "endpoint": "{{ $env.API_ENDPOINT }}",
         "variables": "={\n  \"input\": {\n    \"customerId\": \"{{ $json[\"data\"][\"customers\"][\"edges\"][0][\"node\"][\"id\"] }}\",\n    \"emailMarketingConsent\": {\n      \"consentUpdatedAt\": \"{{ $now }}\",\n      \"marketingOptInLevel\": \"CONFIRMED_OPT_IN\",\n      \"marketingState\": \"UNSUBSCRIBED\"\n    }\n  }\n}\n",
         "requestFormat": "json",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -469,7 +472,7 @@
           "search": "={{ $json.email }}"
         },
         "operation": "getAll",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "mauticOAuth2Api": {
@@ -527,7 +530,7 @@
         "options": {},
         "lastName": "={{ $('Shopify Trigger').item.json.last_name }}",
         "firstName": "={{ $('Shopify Trigger').item.json.first_name }}",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {}
       },
       "credentials": {

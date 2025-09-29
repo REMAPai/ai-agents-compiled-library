@@ -35,8 +35,8 @@
         "jsonBody": "={{\n{\n  \"instances\": [\n    {\n      \"prompt\": [\n        $json.candidates[0].content.parts[0].text,\n       `Generate the following image: ${$('Variables').first().json.targetPrompt}`\n      ].join(' ')\n    }\n  ],\n  \"parameters\": {\n    \"sampleCount\": $('Variables').first().json.numberSamples.toNumber()\n  }\n}\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "googlePalmApi": {
@@ -96,7 +96,7 @@
         -120
       ],
       "parameters": {
-        "url": "={{ $json.sourceStyleUrl }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -238,7 +238,7 @@
         "sendBody": true,
         "sendQuery": true,
         "contentType": "multipart-form-data",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -487,8 +487,8 @@
         "jsonBody": "={\n    \"contents\": [{\n      \"parts\": [\n        {\n          \"inline_data\": {\n            \"mime_type\":\"{{ $('Download Image').item.binary.data.mimeType }}\",\n            \"data\": \"{{ $json.data }}\"\n          }\n        },\n        {\"text\": \"Describe the visual style of this image. Do not include any character names or IP in the description. Include names of any famous artists associated with this style if known.\"}\n      ]\n    }]\n  }",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "googlePalmApi": {
@@ -968,5 +968,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Splitout Workflow. This workflow integrates 12 different services: convertToFile, stickyNote, httpRequest, formTrigger, splitOut. It contains 32 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Splitout Workflow. This workflow integrates 12 different services: convertToFile, stickyNote, httpRequest, formTrigger, splitOut. It contains 32 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

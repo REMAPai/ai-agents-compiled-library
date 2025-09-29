@@ -30,7 +30,7 @@
         400
       ],
       "parameters": {
-        "url": "={{ $json.file_url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -133,14 +133,14 @@
         400
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"model\": \"gpt-4o-mini\",\n \"messages\": [\n {\n \"role\": \"system\",\n \"content\": \"{{ $('Set Variables').item.json.prompt }}\"\n },\n {\n \"role\": \"user\",\n \"content\": {{ JSON.stringify(encodeURIComponent($json.text))}}\n }\n ],\n \"response_format\":{ \"type\": \"json_schema\", \"json_schema\": {{ $('Set Variables').item.json.json_schema }}\n\n }\n }",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -411,5 +411,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Extractfromfile Workflow. This workflow integrates 6 different services: stickyNote, httpRequest, set, stopAndError, manualTrigger. It contains 16 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Extractfromfile Workflow. This workflow integrates 6 different services: stickyNote, httpRequest, set, stopAndError, manualTrigger. It contains 16 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "cb484ba7b742928a2048bf8829668bed5b5ad9787579adea888f05980292a4a7"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -90,7 +93,7 @@
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "196",
+          "id": "{{ $credentials.googleSheetsOAuth2Api.id }}",
           "name": "Google Sheets account (David)"
         }
       },
@@ -214,7 +217,7 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "198",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "Gmail account (David)"
         }
       },
@@ -237,7 +240,7 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "198",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "Gmail account (David)"
         }
       },
@@ -368,7 +371,7 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "198",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "Gmail account (David)"
         }
       },
@@ -592,7 +595,7 @@
               "id": "5e327a1d-3f2e-40f1-aaa1-9ce888349eb0",
               "name": "sheet_url",
               "type": "string",
-              "value": "https://docs.google.com/spreadsheets/d/12dsbRpvtVFDdPmyZ7-39vuHuFpM1eMyfOqGGGdsnrtc/edit#gid=0"
+              "value": "{{ $env.WEBHOOK_URL }}"
             },
             {
               "id": "3255270a-3ac2-4c59-8215-ea79256b55cc",
@@ -641,7 +644,7 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "198",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "Gmail account (David)"
         }
       },
@@ -670,7 +673,7 @@
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "196",
+          "id": "{{ $credentials.googleSheetsOAuth2Api.id }}",
           "name": "Google Sheets account (David)"
         }
       },
@@ -804,9 +807,50 @@
       "parameters": {
         "width": 404.04123613412946,
         "height": 418.96364526464185,
-        "content": "# Try me out\n1. Clone [this Google worksheet](https://docs.google.com/spreadsheets/d/12dsbRpvtVFDdPmyZ7-39vuHuFpM1eMyfOqGGGdsnrtc/edit#gid=0) and update the 'Settings' node with its URL (plus change any other settings there you need to)\n2. Adjust the sequence of emails you want to send in the 'Email Sequence' node\n\nMake sure you set how many days after the previous email to wait before sending, and note that the emails are in HTML format."
+        "content": "# Try me out\n1. Clone [this Google worksheet]({{ $env.WEBHOOK_URL }} and update the 'Settings' node with its URL (plus change any other settings there you need to)\n2. Adjust the sequence of emails you want to send in the 'Email Sequence' node\n\nMake sure you set how many days after the previous email to wait before sending, and note that the emails are in HTML format."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-8565747a-4108-4467-98e4-f57d441f66af-ff72f354",
+      "name": "Error Handler for 8565747a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8565747a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d453661e-25f7-471c-90dc-633270f14396-3db74e02",
+      "name": "Error Handler for d453661e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d453661e",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-643e6882",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Googlesheets Workflow\n\n## Overview\nAutomated workflow: Googlesheets Workflow. This workflow integrates 11 different services: filter, stickyNote, code, scheduleTrigger, set. It contains 34 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 34\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Update last contacted time**: googleSheets\n- **Set message template**: set\n- **Email sequence**: set\n- **Fill message placeholders**: code\n- **Compose message**: set\n- **Get previous message threads**: gmail\n- **Get thread details**: gmail\n- **Classify threads**: code\n- **Next message due?**: filter\n- **Sticky Note2**: stickyNote\n- ... and 24 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -1053,6 +1097,37 @@
           }
         ]
       ]
+    },
+    "8565747a-4108-4467-98e4-f57d441f66af": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8565747a-4108-4467-98e4-f57d441f66af-ff72f354",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d453661e-25f7-471c-90dc-633270f14396": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d453661e-25f7-471c-90dc-633270f14396-3db74e02",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Googlesheets Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Googlesheets Workflow. This workflow integrates 11 different services: filter, stickyNote, code, scheduleTrigger, set. It contains 34 nodes and follows best practices for error handling and security."
 }

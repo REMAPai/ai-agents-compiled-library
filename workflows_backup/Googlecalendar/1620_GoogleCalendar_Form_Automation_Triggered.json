@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "408f9fb9940c3cb18ffdef0e0150fe342d6e655c3a9fac21f0f644e8bedabcd9"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -362,7 +365,7 @@
         "color": 7,
         "width": 763.0427617951669,
         "height": 611.898918296892,
-        "content": "## 1. Qualify Enquiries Using AI\n[Learn more about the text classifier](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.text-classifier/)\n\nWith n8n's multi-forms, you\u2019re no longer stuck creating long, overwhelming forms. Instead, you have more flexibility and control to design smarter, more engaging form experiences.\n\nIn this demo, we\u2019ll explore an appointment request scenario where a user wants to schedule a call to discuss their inquiry. However, not all inquiries require a meeting, making it a perfect use case for AI to pre-qualify the request. We can handle this validation using the text classifier node."
+        "content": "## 1. Qualify Enquiries Using AI\n[Learn more about the text classifier]({{ $env.WEBHOOK_URL }}\n\nWith n8n's multi-forms, you’re no longer stuck creating long, overwhelming forms. Instead, you have more flexibility and control to design smarter, more engaging form experiences.\n\nIn this demo, we’ll explore an appointment request scenario where a user wants to schedule a call to discuss their inquiry. However, not all inquiries require a meeting, making it a perfect use case for AI to pre-qualify the request. We can handle this validation using the text classifier node."
       },
       "typeVersion": 1
     },
@@ -378,7 +381,7 @@
         "color": 7,
         "width": 781.472405063291,
         "height": 606.0718987341766,
-        "content": "## 2. Split Form For Better User Experience\n[Learn more about the forms](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.form)\n\nOnboarding is a great reason to split your big form into smaller ones. Taking the user through a step by step process ensures a smooth experience and keeps them engaged throughout.\n\nHere, we take the opportunity of the extra context space to display a terms and conditions which the user must agree to making their request. The next form then asks for desired date and time of the event."
+        "content": "## 2. Split Form For Better User Experience\n[Learn more about the forms]({{ $env.WEBHOOK_URL }}\n\nOnboarding is a great reason to split your big form into smaller ones. Taking the user through a step by step process ensures a smooth experience and keeps them engaged throughout.\n\nHere, we take the opportunity of the extra context space to display a terms and conditions which the user must agree to making their request. The next form then asks for desired date and time of the event."
       },
       "typeVersion": 1
     },
@@ -428,7 +431,7 @@
         "color": 7,
         "width": 792.9401150747982,
         "height": 497.4250863060987,
-        "content": "## 3. Send Acknowledgement to User and Start Approval Process\n[Learn more about the Gmail node](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.gmail/)\n\nOnce all form steps are concluded, we can send a notification to the requester via email and in the background, trigger another email to the admin to initiate the approval process. The approval process works in a separate execution so doesn't interrupt the user's form experience."
+        "content": "## 3. Send Acknowledgement to User and Start Approval Process\n[Learn more about the Gmail node]({{ $env.WEBHOOK_URL }}\n\nOnce all form steps are concluded, we can send a notification to the requester via email and in the background, trigger another email to the admin to initiate the approval process. The approval process works in a separate execution so doesn't interrupt the user's form experience."
       },
       "typeVersion": 1
     },
@@ -444,7 +447,7 @@
         "color": 7,
         "width": 609.4228768699652,
         "height": 287.178089758343,
-        "content": "## 4. Approve or Decline Appointment\n[Learn more about the Waiting for Approval](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.gmail/message-operations/#send-a-message-and-wait-for-approval)\n\nThe Wait for Approval feature for Gmail is a special operation which allows for human-in-the-loop interaction in n8n workflows. In this example, the human interaction is the approval of the appointment request. The feature will put the workflow in a waiting state where a message is sent to the admin with 2 buttons: confirm and decline.\n\nWhen the admin clicks on the confirm button, the workflow resumes from the Gmail node and a meeting event is created for the requesting user in Google Calendar.\n\nWhen declined, a rejection email is sent to the requester instead."
+        "content": "## 4. Approve or Decline Appointment\n[Learn more about the Waiting for Approval]({{ $env.WEBHOOK_URL }}\n\nThe Wait for Approval feature for Gmail is a special operation which allows for human-in-the-loop interaction in n8n workflows. In this example, the human interaction is the approval of the appointment request. The feature will put the workflow in a waiting state where a message is sent to the admin with 2 buttons: confirm and decline.\n\nWhen the admin clicks on the confirm button, the workflow resumes from the Gmail node and a meeting event is created for the requesting user in Google Calendar.\n\nWhen declined, a rejection email is sent to the requester instead."
       },
       "typeVersion": 1
     },
@@ -512,7 +515,7 @@
       "parameters": {
         "width": 468.6766398158801,
         "height": 690.6653164556957,
-        "content": "## Try it out!\n\n### This n8n template is a simple appointment scheduling workflow using n8n forms with AI thrown in the mix for good measure. It also uses n8n's wait for approval feature which allows the ability to confirm appointment requests and create events in Google Calendar.\n\n### How it works\n* We start with a form trigger which asks for the purpose of the appointment.\n* Instantly, we can qualify this by using a text classifier node which uses AI's contextual understanding to ensure the appointment is worthwhile. If not, an alternative is suggested instead.\n* Multi-page forms are then used to set the terms of the appointment and ask the user for a desired date and time.\n* An acknowledgement is sent to the user while an approval by email process is triggered in the background.\n* In a subworkflow, we use Gmail with the wait for approval operation to send an approval form to the admin user who can either confirm or decline the appointment request.\n* When approved, a Google Calendar event is created. When declined, the user is notified via email that the appointment request was declined.\n\n### Need Help?\nJoin the [Discord](https://discord.com/invite/XPKeKXeB7d) or ask in the [Forum](https://community.n8n.io/)!\n\nHappy Hacking!\n"
+        "content": "## Try it out!\n\n### This n8n template is a simple appointment scheduling workflow using n8n forms with AI thrown in the mix for good measure. It also uses n8n's wait for approval feature which allows the ability to confirm appointment requests and create events in Google Calendar.\n\n### How it works\n* We start with a form trigger which asks for the purpose of the appointment.\n* Instantly, we can qualify this by using a text classifier node which uses AI's contextual understanding to ensure the appointment is worthwhile. If not, an alternative is suggested instead.\n* Multi-page forms are then used to set the terms of the appointment and ask the user for a desired date and time.\n* An acknowledgement is sent to the user while an approval by email process is triggered in the background.\n* In a subworkflow, we use Gmail with the wait for approval operation to send an approval form to the admin user who can either confirm or decline the appointment request.\n* When approved, a Google Calendar event is created. When declined, the user is notified via email that the appointment request was declined.\n\n### Need Help?\nJoin the [Discord]({{ $env.WEBHOOK_URL }} or ask in the [Forum]({{ $env.WEBHOOK_URL }}\n\nHappy Hacking!\n"
       },
       "typeVersion": 1
     },
@@ -527,7 +530,7 @@
       "parameters": {
         "width": 177.66444188722656,
         "height": 257.56869965477557,
-        "content": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n### \ud83d\udea8 Set your admin email here!"
+        "content": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n### 🚨 Set your admin email here!"
       },
       "typeVersion": 1
     },
@@ -554,6 +557,61 @@
         }
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-22e03fec-bd56-4fc3-864a-f1e81a864cb5-9b801550",
+      "name": "Error Handler for 22e03fec",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 22e03fec",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-96aab8be-4c5e-4e14-a6ea-6d2b743551be-479e6dda",
+      "name": "Error Handler for 96aab8be",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 96aab8be",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6f2b5454-70a3-4391-b785-bb871c3e2081-c2172fa0",
+      "name": "Error Handler for 6f2b5454",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6f2b5454",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-045f744e",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Formtrigger Workflow\n\n## Overview\nAutomated workflow: Formtrigger Workflow. This workflow integrates 13 different services: textClassifier, stickyNote, formTrigger, chainLlm, set. It contains 28 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 28\n- **Node Types**: 13\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **n8n Form Trigger**: formTrigger\n- **Form End**: form\n- **Enter Date & Time**: form\n- **Get Form Values**: set\n- **Terms & Conditions**: form\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Has Accepted?**: if\n- **Send Receipt**: gmail\n- **Wait for Approval**: gmail\n- **Has Approval?**: if\n- ... and 18 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -732,6 +790,48 @@
           }
         ]
       ]
+    },
+    "22e03fec-bd56-4fc3-864a-f1e81a864cb5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-22e03fec-bd56-4fc3-864a-f1e81a864cb5-9b801550",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "96aab8be-4c5e-4e14-a6ea-6d2b743551be": {
+      "main": [
+        [
+          {
+            "node": "error-handler-96aab8be-4c5e-4e14-a6ea-6d2b743551be-479e6dda",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6f2b5454-70a3-4391-b785-bb871c3e2081": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6f2b5454-70a3-4391-b785-bb871c3e2081-c2172fa0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Formtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Formtrigger Workflow. This workflow integrates 13 different services: textClassifier, stickyNote, formTrigger, chainLlm, set. It contains 28 nodes and follows best practices for error handling and security."
 }

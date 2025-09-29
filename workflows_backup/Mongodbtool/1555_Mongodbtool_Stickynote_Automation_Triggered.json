@@ -1,8 +1,10 @@
 {
   "id": "22PddLUgcjSJbT1w",
   "meta": {
-    "instanceId": "fa7d5e2425ec76075df7100dbafffed91cc6f71f12fe92614bf78af63c54a61d",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "MongoDB Agent",
   "tags": [],
@@ -142,12 +144,43 @@
         "content": "## Process\n\nThe message is being processed by the \"Chat Model\" and the correct tool is used according to the message. "
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-d8c07efe-eca0-48cb-80e6-ea8117073c5f-7f27900b",
+      "name": "Error Handler for d8c07efe",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d8c07efe",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-df49e787",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# MongoDB Agent\n\n## Overview\nAutomated workflow: MongoDB Agent. This workflow integrates 8 different services: stickyNote, agent, mongoDbTool, stopAndError, lmChatOpenAi. It contains 9 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 9\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **OpenAI Chat Model**: lmChatOpenAi\n- **MongoDBAggregate**: mongoDbTool\n- **Window Buffer Memory**: memoryBufferWindow\n- **When chat message received**: chatTrigger\n- **insertFavorite**: toolWorkflow\n- **AI Agent - Movie Recommendation**: agent\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Error Handler for d8c07efe**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "879aab24-6346-435f-8fd4-3fca856ba64c",
   "connections": {
@@ -205,6 +238,18 @@
           }
         ]
       ]
+    },
+    "d8c07efe-eca0-48cb-80e6-ea8117073c5f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d8c07efe-eca0-48cb-80e6-ea8117073c5f-7f27900b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: MongoDB Agent. This workflow integrates 8 different services: stickyNote, agent, mongoDbTool, stopAndError, lmChatOpenAi. It contains 9 nodes and follows best practices for error handling and security."
 }

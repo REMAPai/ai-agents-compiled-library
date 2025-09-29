@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Selenium Ultimate Scraper Workflow",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "20d35d68-db49-4183-a913-85ad06c13912",
@@ -23,7 +26,7 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "attribute": "href",
               "cssSelector": "=a[href*=\"https://\"][href*=\"{{ $('Edit Fields (For testing prupose )').item.json['Website Domaine'] }}\"]\n",
               "returnArray": true,
@@ -64,7 +67,7 @@
         560
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}/execute/sync",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n \"script\": \"Object.defineProperty(navigator, 'webdriver', { get: () => undefined }); window.navigator.chrome = { runtime: {} }; Object.defineProperty(navigator, 'languages', { get: () => ['en-US', 'en'] }); Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5] });\",\n \"args\": []\n}\n",
@@ -83,7 +86,7 @@
         920
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {}
       },
@@ -98,7 +101,7 @@
         -160
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {}
       },
@@ -147,7 +150,7 @@
         60
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {}
       },
@@ -173,7 +176,7 @@
         720
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {}
       },
@@ -189,7 +192,7 @@
         260
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {}
       },
@@ -251,7 +254,7 @@
         360
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {}
       },
@@ -348,7 +351,7 @@
         -100
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}/cookie",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"cookie\": {\n \"name\": \"{{ $json.name }}\",\n \"value\": \"{{ $json.value }}\",\n \"domain\": \"{{ $json.domain }}\",\n \"path\": \"{{ $json.path }}\",\n \"secure\": {{ $json.secure }},\n \"httpOnly\": {{ $json.httpOnly }},\n \"sameSite\": \"{{ $json.sameSite }}\",\n \"expirationDate\": {{ $json.expirationDate }}\n }\n}",
@@ -384,7 +387,7 @@
       ],
       "parameters": {
         "options": {
-          "responseKey": "YOUR_API_KEY",
+          "responseKey": "YOUR_CREDENTIAL_HERE",
           "responseCode": 200
         }
       },
@@ -400,7 +403,7 @@
         780
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}/url",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"url\": \"{{ $('Webhook').item.json.body['Target Url'] }}\"\n}\n",
@@ -420,7 +423,7 @@
         1200
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {}
       },
@@ -555,7 +558,7 @@
         540
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json['Website Domaine'] }}+{{$json.Subject}}&oq=site&gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzIICAEQRRgnGDsyBggCEEUYOzIRCAMQRRg5GEMYyQMYgAQYigUyBggEEEUYQDIGCAUQRRg9MgYIBhBFGD0yBggHEEUYPdIBCDEwNTRqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -592,7 +595,7 @@
         840
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}/screenshot",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -607,7 +610,7 @@
         -100
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}/refresh",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{}",
@@ -626,7 +629,7 @@
         -20
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}/screenshot",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -673,7 +676,7 @@
         780
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {}
       },
@@ -735,7 +738,7 @@
         851
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}/screenshot",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -766,7 +769,7 @@
         851
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}/url",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"url\": \"{{ $env.API_BASE_URL }}\"\n}\n",
@@ -786,7 +789,7 @@
         1071
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {}
       },
@@ -865,7 +868,7 @@
         560
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.value.sessionId }}/window/rect",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n \"width\": 1920,\n \"height\": 1080,\n \"x\": 0,\n \"y\": 0\n}\n",
@@ -922,7 +925,7 @@
         },
         "options": {
           "detail": "auto",
-          "maxTokens": 300
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "resource": "image",
         "inputType": "base64",
@@ -955,7 +958,7 @@
         },
         "options": {
           "detail": "auto",
-          "maxTokens": 300
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "resource": "image",
         "inputType": "base64",
@@ -1200,7 +1203,7 @@
         960
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}/url",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"url\": \"{{ $('Information Extractor').item.json.output.Good_url_for_etract_information }}\"\n}\n",
@@ -1255,7 +1258,7 @@
         -20
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}/url",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"url\": \"{{ $('Webhook').item.json.body['Target Url'] }}\"\n}\n",
@@ -1309,7 +1312,7 @@
         160
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create Selenium Session').item.json.value.sessionId }}/url",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"url\": \"{{ $('Information Extractor').item.json.output.Good_url_for_etract_information }}\"\n}\n",

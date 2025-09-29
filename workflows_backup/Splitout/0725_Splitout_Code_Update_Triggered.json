@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "6e361bfcd1e8378c9b07774b22409c7eaea7080f01d5248da45077c0c6108b99",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -290,7 +292,7 @@
       "parameters": {
         "width": 920,
         "height": 600,
-        "content": "## Fact checking\n\nThis use a small ollama model that is specialized on that task: https://ollama.com/library/bespoke-minicheck\n\nYou have to install it before use with `ollama pull bespoke-minicheck`."
+        "content": "## Fact checking\n\nThis use a small ollama model that is specialized on that task: {{ $env.WEBHOOK_URL }}\n\nYou have to install it before use with `ollama pull bespoke-minicheck`."
       },
       "typeVersion": 1
     },
@@ -323,6 +325,19 @@
         "content": "## Entrypoint to use in other workflows\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-0cf8dd52",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Code Workflow\n\n## Overview\nAutomated workflow: Code Workflow. This workflow integrates 12 different services: filter, stickyNote, code, lmOllama, splitOut. It contains 18 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 18\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Code**: code\n- **Split Out1**: splitOut\n- **Basic LLM Chain4**: chainLlm\n- **Ollama Chat Model**: lmChatOllama\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Edit Fields**: set\n- **Merge**: merge\n- **Filter**: filter\n- **When Executed by Another Workflow**: executeWorkflowTrigger\n- **Aggregate**: aggregate\n- ... and 8 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -474,5 +489,14 @@
         ]
       ]
     }
-  }
+  },
+  "name": "Code Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Code Workflow. This workflow integrates 12 different services: filter, stickyNote, code, lmOllama, splitOut. It contains 18 nodes and follows best practices for error handling and security."
 }

@@ -46,14 +46,14 @@
         1180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $item(\"0\").$node[\"Airtable Base IDs\"].json[\"Base ID\"] }}/{{ $item(\"0\").$node[\"Airtable Base IDs\"].json[\"Upload Table ID\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "jsonBody": "={\n\"records\":[{\n\"id\":\"{{ $item(\"0\").$node[\"Get File ID\"].json[\"record_id\"] }}\",\n\"fields\":{\n\"Status\":\"Failed\"\n}\n}\n]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "airtableTokenApi": {
@@ -73,14 +73,14 @@
         1020
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $item(\"0\").$node[\"Airtable Base IDs\"].json[\"Base ID\"] }}/{{ $item(\"0\").$node[\"Airtable Base IDs\"].json[\"Upload Table ID\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "jsonBody": "={\n\"records\":[{\n\"id\":\"{{ $item(\"0\").$node[\"Get File ID\"].json[\"record_id\"] }}\",\n\"fields\":{\n\"Status\":\"Uploaded\"\n}\n}\n]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "airtableTokenApi": {
@@ -236,14 +236,14 @@
         1120
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $item(\"0\").$node[\"Airtable Base IDs\"].json[\"Base ID\"] }}/{{ $item(\"0\").$node[\"Airtable Base IDs\"].json[\"Upload Table ID\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "jsonBody": "={\n\"records\":[{\n\"id\":\"{{ $node[\"Get File ID\"].json[\"record_id\"] }}\",\n\"fields\":{\n\"Status\":\"Processing\"\n}\n}\n]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "airtableTokenApi": {
@@ -262,7 +262,7 @@
         1120
       ],
       "parameters": {
-        "url": "={{ $node[\"Get File ID\"].json[\"File\"][\"0\"][\"url\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -283,7 +283,7 @@
         1120
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $item(\"0\").$node[\"Airtable Base IDs\"].json[\"Base ID\"] }}/{{ $item(\"0\").$node[\"Airtable Base IDs\"].json[\"Lead Table ID\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "batching": {
@@ -296,7 +296,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -305,7 +305,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "airtableTokenApi": {
@@ -357,7 +357,7 @@
           ]
         },
         "triggerField": "Created At",
-        "authentication": "airtableTokenApi",
+        "authentication": "{{ $credentials.airtableTokenApi }}",
         "additionalFields": {
           "viewId": ""
         }
@@ -804,5 +804,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Airtable Workflow. This workflow integrates 8 different services: airtableTrigger, stickyNote, httpRequest, airtable, spreadsheetFile. It contains 28 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Airtable Workflow. This workflow integrates 8 different services: airtableTrigger, stickyNote, httpRequest, airtable, spreadsheetFile. It contains 28 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "✍️🌄 Your First Wordpress Content Creator - Quick Start",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "19673371-10cb-419f-b86b-63155aeb4a55",
@@ -496,7 +499,7 @@
         700
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Separate Title & Content').item.json.title }} and Avoid adding text and keep the image vibrant.",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -533,13 +536,13 @@
         700
       ],
       "parameters": {
-        "url": "https://[YOUR-WORDPRESS-SITE.com]/wp-json/wp/v2/media",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -549,7 +552,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -568,11 +571,11 @@
         700
       ],
       "parameters": {
-        "url": "=https:/[YOUR-WORDPRESS-SITE.com]/wp-json/wp/v2/posts/{{ $('Create Wordpress Post').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -581,7 +584,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {

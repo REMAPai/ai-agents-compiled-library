@@ -9,11 +9,11 @@
         -300
       ],
       "parameters": {
-        "url": "={{\"https://<<your-registry-url>>/v2/\" + $json.name + \"/manifests/\" + $json.tag}}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "fullResponse": true
         },
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParametersUi": {
           "parameter": [
@@ -36,10 +36,10 @@
         -40
       ],
       "parameters": {
-        "url": "={{\"https://<<your-registry-url>>/v2/\" + $json.image + \"/manifests/\" + $json.tag.digest}}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "requestMethod": "DELETE",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParametersUi": {
           "parameter": [
@@ -61,9 +61,9 @@
         -300
       ],
       "parameters": {
-        "url": "={{\"https://<<your-registry-url>>/v2/\" + $json[\"image\"] + \"/tags/list\"}}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParametersUi": {
           "parameter": [
@@ -85,9 +85,9 @@
         -300
       ],
       "parameters": {
-        "url": "https://<<your-registry-url>>/v2/_catalog",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "typeVersion": 2
@@ -227,11 +227,11 @@
         -40
       ],
       "parameters": {
-        "url": "={{\"https://<<your-registry-url>>/v2/\" + $('Filter Valid Tags').item.json.name + \"/blobs/\" + $json.body.config.digest}}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "fullResponse": false
         },
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParametersUi": {
           "parameter": [
@@ -349,7 +349,7 @@
       "parameters": {
         "cwd": "/opt/services/",
         "command": "docker compose exec -it -u root registry bin/registry garbage-collect --delete-untagged /etc/docker/registry/config.yml",
-        "authentication": "privateKey"
+        "authentication": "{{ $credentials.privateKey }}"
       },
       "typeVersion": 1
     },
@@ -425,7 +425,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -536,7 +536,7 @@
     },
     {
       "id": "documentation-c981c77b",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -832,5 +832,10 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n",
+    "api"
+  ]
 }

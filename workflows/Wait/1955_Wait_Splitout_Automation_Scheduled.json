@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "HDW Lead Geländewagen",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "8fab1dcf-f454-4155-be32-a4e007a79ab0",
@@ -85,7 +88,7 @@
       "parameters": {
         "columns": {
           "value": {
-            "URL": "={{ $json.url }}",
+            "URL": "{{ $env.BASE_URL }}",
             "URN": "={{ $json.urn.type }}:{{ $json.urn.value }}",
             "img": "={{ $json.image }}",
             "Date": "={{ $json.current_companies[0].joined }}",
@@ -758,7 +761,7 @@
       ],
       "parameters": {
         "count": "={{ $json.output.count }}",
-        "keywords": "YOUR_API_KEY",
+        "keywords": "YOUR_CREDENTIAL_HERE",
         "resource": "search",
         "additionalFilters": {
           "industry": "={{ $json.output.salesNavigatorParams.industry }}",
@@ -2171,7 +2174,7 @@
         340
       ],
       "parameters": {
-        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', `use company url to get a site-map`, 'string') }}",
+        "url": "{{ $env.BASE_URL }}",
         "operation": "map",
         "descriptionType": "manual",
         "toolDescription": "Get sitemap by url"
@@ -2193,7 +2196,7 @@
         340
       ],
       "parameters": {
-        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', ``, 'string') }}",
+        "url": "{{ $env.BASE_URL }}",
         "descriptionType": "manual",
         "toolDescription": "Parse info from website by url"
       },

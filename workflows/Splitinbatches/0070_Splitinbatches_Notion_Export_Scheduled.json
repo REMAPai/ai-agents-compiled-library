@@ -16,11 +16,12 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "36",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion account"
         }
       },
-      "typeVersion": 2
+      "typeVersion": 2,
+      "id": "966882fd-9b43-4e6a-a5b1-f4901ff09dc2"
     },
     {
       "name": "Get All Database Pages",
@@ -39,11 +40,12 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "36",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion account"
         }
       },
-      "typeVersion": 2
+      "typeVersion": 2,
+      "id": "e0f10344-b5c2-46af-a415-4fc3644bf0e5"
     },
     {
       "name": "Get Page Blocks",
@@ -60,12 +62,13 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "36",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion account"
         }
       },
       "typeVersion": 2,
-      "alwaysOutputData": true
+      "alwaysOutputData": true,
+      "id": "1ba47d6f-a07f-4410-ba61-6563b8642d9c"
     },
     {
       "name": "Process Blocks",
@@ -77,7 +80,8 @@
       "parameters": {
         "functionCode": "let returnData = {\n  json: {\n    toDelete: false,\n    pageID: $node[\"SplitInBatches\"].json[\"id\"],\n  }\n};\n\nif (!items[0].json.id) {\n  returnData.json.toDelete = true;\n  return [returnData];\n}\n\nfor (item of items) {\n  \n  let toDelete = false;\n\n  let type = item.json.type;\n  let data = item.json[type];\n\n  if (!toDelete) {\n    if (data.text.length == 0) {\n      toDelete = true;\n    } else {\n      returnData.json.toDelete = false;\n      break;\n    }\n  }\n\n  returnData.json.toDelete = toDelete;\n}\n\nreturn [returnData];"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "188eeed5-353f-43d2-b39b-682f77012652"
     },
     {
       "name": "SplitInBatches",
@@ -90,7 +94,8 @@
         "options": {},
         "batchSize": 1
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "f084e13b-2719-42fe-b49e-cbdc8f051ca4"
     },
     {
       "name": "Check for empty properties",
@@ -102,7 +107,8 @@
       "parameters": {
         "functionCode": "for (item of items) {\n\n  let toDelete = false;\n  for (const key in item.json.properties) {\n    let type = item.json.properties[key].type;\n    let data = item.json.properties[key][type];\n    \n    if (!data || data.length == 0) {\n      toDelete = true;\n    } else {\n      toDelete = false;\n      break;\n    }\n  }\n\n  item.json.toDelete = toDelete;\n}\n\nreturn items;"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "955a39c7-38b0-4720-8423-fc246af7ba3c"
     },
     {
       "name": "Archive Page",
@@ -117,11 +123,12 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "36",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion account"
         }
       },
-      "typeVersion": 2
+      "typeVersion": 2,
+      "id": "82e0fe4d-0929-4488-9b41-a24aa64b8879"
     },
     {
       "name": "If toDelete",
@@ -140,7 +147,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "cacd1371-d642-42ea-ae85-58911b142b2f"
     },
     {
       "name": "If Empty Properties",
@@ -159,7 +167,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "fa45450d-32c4-4127-a3b6-5d9687ceff65"
     },
     {
       "name": "Every day @ 2am",
@@ -177,11 +186,12 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "a83a20c4-0386-495f-8845-9845bb5158c2"
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -194,7 +204,7 @@
     },
     {
       "id": "documentation-672095a2",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -326,5 +336,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

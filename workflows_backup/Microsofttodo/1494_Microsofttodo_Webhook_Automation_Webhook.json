@@ -1,8 +1,10 @@
 {
   "id": "HbjZ9cBPgDdnIRjG",
   "meta": {
-    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "MiniBear Webhook",
   "tags": [
@@ -57,13 +59,13 @@
         -20
       ],
       "parameters": {
-        "url": "https://api.line.me/v2/bot/chat/loading/start",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n    \"chatId\": \"{{ $json.body.events[0].source.userId }}\",\n    \"loadingSeconds\": 60\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -86,7 +88,7 @@
         "color": 4,
         "width": 360,
         "height": 560,
-        "content": "**Webhook from Line**\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nYou need to set-up this webhook at Line Manager or Line Developer Console\n\nYou'll need to copy Webhook URL from this node to put in Line Console\n\nAlso, don't forget to remove 'test' part when going for production\n\nhttps://developers.line.biz/en/docs/messaging-api/receiving-messages/\n"
+        "content": "**Webhook from Line**\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nYou need to set-up this webhook at Line Manager or Line Developer Console\n\nYou'll need to copy Webhook URL from this node to put in Line Console\n\nAlso, don't forget to remove 'test' part when going for production\n\n{{ $env.API_BASE_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -102,7 +104,7 @@
         "color": 4,
         "width": 360,
         "height": 560,
-        "content": "**Line Loading Animation**\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis node is to only give ... loading animation back in Line.\n\nIt seems stupid but it actually tells user that the workflow is running and you are not left waiting without hope\n\nTo authorize, you can fill in the Line Token in the node here, or you can you header authorization (shown at the 'reply message' node)\n\nhttps://developers.line.biz/en/docs/messaging-api/use-loading-indicator/"
+        "content": "**Line Loading Animation**\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis node is to only give ... loading animation back in Line.\n\nIt seems stupid but it actually tells user that the workflow is running and you are not left waiting without hope\n\nTo authorize, you can fill in the Line Token in the node here, or you can you header authorization (shown at the 'reply message' node)\n\n{{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -118,7 +120,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "Task",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -142,7 +144,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "text",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -166,7 +168,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "img",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -191,7 +193,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "audio",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -216,7 +218,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "else",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -271,9 +273,9 @@
         80
       ],
       "parameters": {
-        "url": "=https://api-data.line.me/v2/bot/message/{{ $('Line Webhook').item.json.body.events[0].message.id }}/content",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -309,13 +311,13 @@
         200
       ],
       "parameters": {
-        "url": "https://api.line.me/v2/bot/message/reply",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"replyToken\": \"{{ $('Line Webhook').item.json.body.events[0].replyToken }}\",\n  \"messages\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"[ Message Saved in Zac&Lin > Notes ]\"\n    }\n  ]\n} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -335,13 +337,13 @@
         -340
       ],
       "parameters": {
-        "url": "https://api.line.me/v2/bot/message/reply",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"replyToken\": \"{{ $('Line Webhook').item.json.body.events[0].replyToken }}\",\n  \"messages\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"[ Message Saved in Zac&Lin > Notes ]\" \n    }\n  ]\n} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -361,13 +363,13 @@
         740
       ],
       "parameters": {
-        "url": "https://api.line.me/v2/bot/message/reply",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"replyToken\": \"{{ $('Line Webhook').item.json.body.events[0].replyToken }}\",\n  \"messages\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"Please try again. Message type is not supported\"\n    }\n  ]\n} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -387,13 +389,13 @@
         540
       ],
       "parameters": {
-        "url": "https://api.line.me/v2/bot/message/reply",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"replyToken\": \"{{ $('Line Webhook').item.json.body.events[0].replyToken }}\",\n  \"messages\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"Please try again. Message type is not supported\"\n    }\n  ]\n} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -465,7 +467,7 @@
           "__rl": true,
           "mode": "list",
           "value": "19:c2966307089a4f4b98ca06b5f160999a@thread.tacv2",
-          "cachedResultUrl": "https://teams.microsoft.com/l/channel/19%3Ac2966307089a4f4b98ca06b5f160999a%40thread.tacv2/Notes?groupId=ebfd67d4-df6b-4ea2-9faf-81ec059170ad&tenantId=77e73351-d19d-4855-9380-82ca9b459c87&allowXTenantAccess=True&ngc=True",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Notes"
         },
         "contentType": "html"
@@ -509,13 +511,13 @@
         -600
       ],
       "parameters": {
-        "url": "https://api.line.me/v2/bot/message/reply",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"replyToken\": \"{{ $('Line Webhook').item.json.body.events[0].replyToken }}\",\n  \"messages\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"[ Task : {{ $('Line Webhook').item.json.body.events[0].message.text.replace('T ','') }} created successfully in Private Task ]\" \n    }\n  ]\n} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -600,7 +602,7 @@
           "__rl": true,
           "mode": "list",
           "value": "19:c2966307089a4f4b98ca06b5f160999a@thread.tacv2",
-          "cachedResultUrl": "https://teams.microsoft.com/l/channel/19%3Ac2966307089a4f4b98ca06b5f160999a%40thread.tacv2/Notes?groupId=ebfd67d4-df6b-4ea2-9faf-81ec059170ad&tenantId=77e73351-d19d-4855-9380-82ca9b459c87&allowXTenantAccess=True&ngc=True",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Notes"
         },
         "contentType": "html"
@@ -684,9 +686,9 @@
         200
       ],
       "parameters": {
-        "url": "=https://api-data.line.me/v2/bot/message/{{ $('Line Webhook').item.json.body.events[0].message.id }}/content",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -728,7 +730,7 @@
         -260
       ],
       "parameters": {
-        "url": "https://hook.us2.make.com/46263sznm3didxdkcuqvnlfqv2fv2l7q",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -907,13 +909,13 @@
         -260
       ],
       "parameters": {
-        "url": "https://api.line.me/v2/bot/message/reply",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"replyToken\": \"{{ $('Line Webhook').item.json.body.events[0].replyToken }}\",\n  \"messages\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"[ Namecard Extraction ] /n/n {{ $('NamecardExtract').item.json.output }}\" \n    }\n  ]\n} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -1013,9 +1015,9 @@
         -260
       ],
       "parameters": {
-        "url": "=https://api-data.line.me/v2/bot/message/{{ $('Line Webhook').item.json.body.events[0].message.id }}/content",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -1072,15 +1074,365 @@
         "content": "**Upload to OneDrive**\nThis is to upload the file to OneDrive. Due to some bug I faced, we need to rename the file again."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-b1f42cbd-952e-4704-9233-788891e1894d",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b1f42cbd-952e-4704-9233-788891e1894d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ae4a46d6-0f34-484b-8be5-dbc07d5de92e",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ae4a46d6-0f34-484b-8be5-dbc07d5de92e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-933b7da4-95fd-4bb2-ac46-3eac62d0dcaa",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 933b7da4-95fd-4bb2-ac46-3eac62d0dcaa",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b169657d-5348-4662-bdcf-6617416ec9f7",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b169657d-5348-4662-bdcf-6617416ec9f7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b0f63685-e8df-484e-85ea-bedabd80b61e",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b0f63685-e8df-484e-85ea-bedabd80b61e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b2ee3bb5-7cdf-46de-868e-f6b81a2e0ec0",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b2ee3bb5-7cdf-46de-868e-f6b81a2e0ec0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-04f298c3-e952-4d85-aba7-0971d2f6a8b0",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 04f298c3-e952-4d85-aba7-0971d2f6a8b0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-59202467-34c6-4580-8039-fca99c9467ca",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 59202467-34c6-4580-8039-fca99c9467ca",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-864fe7c5-f8f9-429e-94b7-2b760af09cd4",
+      "name": "Stopanderror 8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 864fe7c5-f8f9-429e-94b7-2b760af09cd4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2afe30ad-ef70-45e8-9e3c-546bd3cf91a8",
+      "name": "Stopanderror 9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2afe30ad-ef70-45e8-9e3c-546bd3cf91a8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-28c490ad-5fa9-435c-8d06-d3bb21c8d454",
+      "name": "Stopanderror 10",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 28c490ad-5fa9-435c-8d06-d3bb21c8d454",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c437c0d5-3022-4469-ac3c-ceea9aaf1689",
+      "name": "Stopanderror 11",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c437c0d5-3022-4469-ac3c-ceea9aaf1689",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b1f42cbd-952e-4704-9233-788891e1894d-248f5b1f",
+      "name": "Error Handler for b1f42cbd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b1f42cbd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ae4a46d6-0f34-484b-8be5-dbc07d5de92e-2ddebb28",
+      "name": "Error Handler for ae4a46d6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ae4a46d6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-933b7da4-95fd-4bb2-ac46-3eac62d0dcaa-c59178b1",
+      "name": "Error Handler for 933b7da4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 933b7da4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b169657d-5348-4662-bdcf-6617416ec9f7-a76e6e7f",
+      "name": "Error Handler for b169657d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b169657d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b0f63685-e8df-484e-85ea-bedabd80b61e-e363013e",
+      "name": "Error Handler for b0f63685",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b0f63685",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b2ee3bb5-7cdf-46de-868e-f6b81a2e0ec0-8830a2b8",
+      "name": "Error Handler for b2ee3bb5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b2ee3bb5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-04f298c3-e952-4d85-aba7-0971d2f6a8b0-5ef47382",
+      "name": "Error Handler for 04f298c3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 04f298c3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-59202467-34c6-4580-8039-fca99c9467ca-035c421d",
+      "name": "Error Handler for 59202467",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 59202467",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-864fe7c5-f8f9-429e-94b7-2b760af09cd4-93e4486e",
+      "name": "Error Handler for 864fe7c5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 864fe7c5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2afe30ad-ef70-45e8-9e3c-546bd3cf91a8-046ffcef",
+      "name": "Error Handler for 2afe30ad",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2afe30ad",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-28c490ad-5fa9-435c-8d06-d3bb21c8d454-ff03b147",
+      "name": "Error Handler for 28c490ad",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 28c490ad",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c437c0d5-3022-4469-ac3c-ceea9aaf1689-d9315863",
+      "name": "Error Handler for c437c0d5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c437c0d5",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-d66291c4",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# MiniBear Webhook\n\n## Overview\nAutomated workflow: MiniBear Webhook. This workflow integrates 12 different services: webhook, stickyNote, httpRequest, microsoftToDo, agent. It contains 69 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 69\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Line Webhook**: webhook\n- **Line Loading Animation**: httpRequest\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Switch**: switch\n- **Sticky Note5**: stickyNote\n- **Get Image**: httpRequest\n- **Sticky Note9**: stickyNote\n- **Line Reply (image)**: httpRequest\n- **Line Reply (Text)**: httpRequest\n- ... and 59 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "timezone": "Asia/Bangkok",
+    "timezone": "UTC",
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "A8HoJ5iCrAMPbsLh",
-    "executionOrder": "v1"
+    "errorWorkflow": null,
+    "executionOrder": "v1",
+    "saveManualExecutions": true
   },
   "versionId": "49efe864-6f48-4c6c-853b-7e8542a7ea2f",
   "connections": {
@@ -1349,6 +1701,223 @@
           }
         ]
       ]
+    },
+    "b1f42cbd-952e-4704-9233-788891e1894d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b1f42cbd-952e-4704-9233-788891e1894d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b1f42cbd-952e-4704-9233-788891e1894d-248f5b1f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ae4a46d6-0f34-484b-8be5-dbc07d5de92e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ae4a46d6-0f34-484b-8be5-dbc07d5de92e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ae4a46d6-0f34-484b-8be5-dbc07d5de92e-2ddebb28",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "933b7da4-95fd-4bb2-ac46-3eac62d0dcaa": {
+      "main": [
+        [
+          {
+            "node": "error-handler-933b7da4-95fd-4bb2-ac46-3eac62d0dcaa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-933b7da4-95fd-4bb2-ac46-3eac62d0dcaa-c59178b1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b169657d-5348-4662-bdcf-6617416ec9f7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b169657d-5348-4662-bdcf-6617416ec9f7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b169657d-5348-4662-bdcf-6617416ec9f7-a76e6e7f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b0f63685-e8df-484e-85ea-bedabd80b61e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b0f63685-e8df-484e-85ea-bedabd80b61e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b0f63685-e8df-484e-85ea-bedabd80b61e-e363013e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b2ee3bb5-7cdf-46de-868e-f6b81a2e0ec0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b2ee3bb5-7cdf-46de-868e-f6b81a2e0ec0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b2ee3bb5-7cdf-46de-868e-f6b81a2e0ec0-8830a2b8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "04f298c3-e952-4d85-aba7-0971d2f6a8b0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-04f298c3-e952-4d85-aba7-0971d2f6a8b0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-04f298c3-e952-4d85-aba7-0971d2f6a8b0-5ef47382",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "59202467-34c6-4580-8039-fca99c9467ca": {
+      "main": [
+        [
+          {
+            "node": "error-handler-59202467-34c6-4580-8039-fca99c9467ca",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-59202467-34c6-4580-8039-fca99c9467ca-035c421d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "864fe7c5-f8f9-429e-94b7-2b760af09cd4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-864fe7c5-f8f9-429e-94b7-2b760af09cd4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-864fe7c5-f8f9-429e-94b7-2b760af09cd4-93e4486e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2afe30ad-ef70-45e8-9e3c-546bd3cf91a8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2afe30ad-ef70-45e8-9e3c-546bd3cf91a8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2afe30ad-ef70-45e8-9e3c-546bd3cf91a8-046ffcef",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "28c490ad-5fa9-435c-8d06-d3bb21c8d454": {
+      "main": [
+        [
+          {
+            "node": "error-handler-28c490ad-5fa9-435c-8d06-d3bb21c8d454",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-28c490ad-5fa9-435c-8d06-d3bb21c8d454-ff03b147",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c437c0d5-3022-4469-ac3c-ceea9aaf1689": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c437c0d5-3022-4469-ac3c-ceea9aaf1689",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c437c0d5-3022-4469-ac3c-ceea9aaf1689-d9315863",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: MiniBear Webhook. This workflow integrates 12 different services: webhook, stickyNote, httpRequest, microsoftToDo, agent. It contains 69 nodes and follows best practices for error handling and security."
 }

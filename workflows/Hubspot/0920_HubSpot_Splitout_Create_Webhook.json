@@ -330,8 +330,8 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotOAuth2Api": {
@@ -536,7 +536,7 @@
           "value": "={{ $('Webhook').item.json.body[0].objectId }}"
         },
         "operation": "get",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {}
       },
       "credentials": {
@@ -601,7 +601,7 @@
       "parameters": {
         "email": "={{ $('Get all info about the contact').item.json.properties.email.value }}",
         "options": {},
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "contactOwner": "={{ $('Get current owner').item.json.id }}"
         }
@@ -1242,5 +1242,10 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n",
+    "webhook"
+  ]
 }

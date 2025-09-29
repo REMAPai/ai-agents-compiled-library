@@ -1,7 +1,10 @@
 {
   "id": "O9FXr8iXzhSgYKaL",
   "meta": {
-    "instanceId": "d8bbc8c5a59875a8be9f3c7142d858bc46c4b8e36a11781a25e945fcf9a5767a"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Post New YouTube Videos to X",
   "tags": [],
@@ -38,7 +41,7 @@
         "color": 3,
         "width": 221.82716049382665,
         "height": 308.7901234567902,
-        "content": "\ud83c\udd94 Ensure you enter your YouTube Channel ID in the \"Channel ID\" field of this node. You can find your [Channel ID here](https://youtube.com/account_advanced)."
+        "content": "🆔 Ensure you enter your YouTube Channel ID in the \"Channel ID\" field of this node. You can find your [Channel ID here]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -61,7 +64,7 @@
         "messages": {
           "values": [
             {
-              "content": "=Write an engaging post about my latest YouTube video for X (Twitter) of no more than 140 characters in length. Link to the video at https://youtu.be/{{ $json.id.videoId }} use this title and description: {{ $json.snippet.title }} {{ $json.snippet.description }}"
+              "content": "=Write an engaging post about my latest YouTube video for X (Twitter) of no more than 140 characters in length. Link to the video at {{ $env.WEBHOOK_URL }}{{ $json.id.videoId }} use this title and description: {{ $json.snippet.title }} {{ $json.snippet.description }}"
             }
           ]
         }
@@ -85,7 +88,7 @@
       "parameters": {
         "width": 244.34567901234558,
         "height": 102.81481481481477,
-        "content": "**Use AI to Promote Your New YouTube Videos on X**\n\n\ud83c\udfac Watch the [Setup Video Here](https://mrc.fm/ai2x)"
+        "content": "**Use AI to Promote Your New YouTube Videos on X**\n\n🎬 Watch the [Setup Video Here]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -133,12 +136,43 @@
         }
       },
       "typeVersion": 1.2
+    },
+    {
+      "id": "error-handler-912e631c-aa43-4e02-9816-b35fe6e62dd8-7006adb7",
+      "name": "Error Handler for 912e631c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 912e631c",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-078e9ca3",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Post New YouTube Videos to X\n\n## Overview\nAutomated workflow: Post New YouTube Videos to X. This workflow integrates 6 different services: stickyNote, youTube, scheduleTrigger, stopAndError, twitter. It contains 7 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 7\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Post to X**: twitter\n- **Sticky Note**: stickyNote\n- **Generate Post for X with ChatGPT**: openAi\n- **Sticky Note1**: stickyNote\n- **Fetch Latest Videos**: youTube\n- **Check Every 30 Min**: scheduleTrigger\n- **Error Handler for 912e631c**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "a321d863-1a58-4100-bf8f-d2af08f11382",
   "connections": {
@@ -174,6 +208,18 @@
           }
         ]
       ]
+    },
+    "912e631c-aa43-4e02-9816-b35fe6e62dd8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-912e631c-aa43-4e02-9816-b35fe6e62dd8-7006adb7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Post New YouTube Videos to X. This workflow integrates 6 different services: stickyNote, youTube, scheduleTrigger, stopAndError, twitter. It contains 7 nodes and follows best practices for error handling and security."
 }

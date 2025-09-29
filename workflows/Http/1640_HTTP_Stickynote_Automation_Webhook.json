@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Push Multiple Files to Github Repo via Github REST API",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "f9de827d-6aea-47f9-ac01-bf41e9a41642",
@@ -18,7 +21,7 @@
         180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Github Info').item.json['Github Username'] }}/{{ $('Set Github Info').item.json['Github Repo'] }}/git/refs/heads/{{ $('Set Github Info').item.json['Github Branch'] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -41,7 +44,7 @@
         180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Github Info').item.json['Github Username'] }}/{{ $('Set Github Info').item.json['Github Repo'] }}/git/commits/{{ $json.object.sha }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -64,7 +67,7 @@
         180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Github Info').item.json['Github Username'] }}/{{ $('Set Github Info').item.json['Github Repo'] }}/git/trees",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -133,7 +136,7 @@
         180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Github Info').item.json['Github Username'] }}/{{ $('Set Github Info').item.json['Github Repo'] }}/git/commits",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"message\": \"{{ $('Set Github Info').item.json['Github Commit Update Message'] }}\",\n  \"tree\": \"{{ $json.sha }}\",\n  \"parents\": [\"{{ $('Get latest commit SHA').item.json.object.sha }}\"]\n}",
@@ -164,7 +167,7 @@
         180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Github Info').item.json['Github Username'] }}/{{ $('Set Github Info').item.json['Github Repo'] }}/git/refs/heads/{{ $('Set Github Info').item.json['Github Branch'] }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "jsonBody": "={\n  \"sha\": \"{{ $json.sha }}\",\n  \"force\": false\n}",

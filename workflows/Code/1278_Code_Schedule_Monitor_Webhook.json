@@ -7,7 +7,12 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "AI-Powered Information Monitoring with OpenAI, Google Sheets, Jina AI and Slack",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "slack",
+    "google"
+  ],
   "nodes": [
     {
       "id": "704de862-43e5-4322-ae35-45b505e68bb6",
@@ -79,7 +84,7 @@
         120
       ],
       "parameters": {
-        "url": "={{ $json.rss_feed_url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "ignoreSSL": false
         }
@@ -171,7 +176,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Template - AI-Powered Information Monitoring"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -249,7 +254,7 @@
           "cachedResultName": "topic-monitoring"
         },
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
@@ -411,7 +416,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Template - AI-Powered Information Monitoring"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -489,7 +494,7 @@
         -120
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.link }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "retryOnFail": true,
@@ -675,7 +680,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Template - AI-Powered Information Monitoring"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -773,7 +778,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Template - AI-Powered Information Monitoring"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {

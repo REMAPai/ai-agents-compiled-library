@@ -26,7 +26,7 @@
       ],
       "parameters": {
         "query": "=query {\nuser(login:\"{{$node[\"Webhook\"].json[\"body\"][\"text\"]}}\"){\nname\ncompany\nlocation\navatarUrl\nemail\npullRequests(last: 25) {\nedges {\nnode {\ncommits(last:25) {\nnodes {\ncommit {\nauthor {\nemail\nname\n}\n}\n}\n}\n}\n}\n}\n}\n}",
-        "endpoint": "https://api.github.com/graphql",
+        "endpoint": "{{ $env.API_ENDPOINT }}",
         "requestFormat": "json",
         "responseFormat": "string",
         "headerParametersUi": {
@@ -73,11 +73,11 @@
             "text": "=*Name:*  {{$node[\"GraphQL\"].json[\"data\"][\"data\"][\"user\"][\"name\"]}}\n*Email:* {{$node[\"Function\"].json[\"emails\"].join(', ')}}\n*Company:* {{$node[\"GraphQL\"].json[\"data\"][\"data\"][\"user\"][\"company\"]}}\n*Location:* {{$node[\"GraphQL\"].json[\"data\"][\"data\"][\"user\"][\"location\"]}}"
           },
           {
-            "thumb_url": "={{$node[\"GraphQL\"].json[\"data\"][\"data\"][\"user\"][\"avatarUrl\"]}}"
+            "thumb_url": "{{ $env.BASE_URL }}"
           }
         ],
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": "Slack OAuth2"

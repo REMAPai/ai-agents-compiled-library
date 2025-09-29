@@ -11,13 +11,13 @@
   "\"options\"": "{},",
   "\"promptType\"": "\"define\"",
   "\"typeVersion\"": "2",
-  "\"credentials\"": "YOUR_CREDENTIAL_ID",
+  "\"credentials\"": "YOUR_CREDENTIAL_HERE",
   "\"openAiApi\"": "{",
   "\"sheetName\"": "{",
   "\"__rl\"": "true,",
   "\"mode\"": "\"id\",",
   "\"value\"": "\"=Telephone Directory\"",
-  "\"cachedResultUrl\"": "\"\",",
+  "\"cachedResultUrl\"": "{{ $env.BASE_URL }}",
   "\"cachedResultName\"": "\"\"",
   "\"documentId\"": "{",
   "\"googleSheetsOAuth2Api\"": "{",
@@ -39,15 +39,15 @@
   "\"microsoftOutlookOAuth2Api\"": "{",
   "\"jsCode\"": "\"// Input email body\\nconst emailBody = $json.email_body || '';\\n\\n// Function to convert plain text email body into HTML\\nfunction formatEmailBodyAsHtml(body) {\\n // Replace markdown-like sections with corresponding HTML\\n let htmlBody = body\\n .replace(/\\\\*\\\\*Customer Name:\\\\*\\\\* (.+)/, '<p><strong>Customer Name:</strong> $1</p>')\\n .replace(/\\\\*\\\\*Organization:\\\\*\\\\* (.+)/, '<p><strong>Organization:</strong> $1</p>')\\n .replace(/\\\\*\\\\*Contact Information:\\\\*\\\\* (.+)/, '<p><strong>Contact Information:</strong> $1</p>')\\n .replace(/\\\\*\\\\*Inquiry Summary:\\\\*\\\\*\\\\s*([\\\\s\\\\S]+?)(?=\\\\n\\\\n\\\\*\\\\*Action Required:)/, '<p><strong>Inquiry Summary:</strong> $1</p>')\\n .replace(/\\\\*\\\\*Action Required:\\\\*\\\\*\\\\s*([\\\\s\\\\S]+)/, '<p><strong>Action Required:</strong> $1</p>');\\n\\n // Wrap each paragraph in `<p>` tags for better readability\\n htmlBody = htmlBody\\n .replace(/Dear (.+?),/, '<p>Dear <strong>$1</strong>,</p>')\\n .replace(/Thank you,\\\\s+(.+)/, '<p>Thank you,<br><strong>$1</strong></p>');\\n\\n return htmlBody;\\n}\\n\\n// Convert the email body into HTML\\nconst formattedHtmlBody = formatEmailBodyAsHtml(emailBody);\\n\\n// Return the formatted HTML\\nreturn {\\n html: formattedHtmlBody\\n};\\n\"",
   "\"singleValue\"": "true",
-  "\"documentURL\"": "\"you-must-provide-the-doc-id\"",
+  "\"documentURL\"": "{{ $env.BASE_URL }}",
   "\"googleDocsOAuth2Api\"": "{",
   "\"color\"": "3,",
   "\"width\"": "302.58963031819115,",
   "\"height\"": "660,",
   "\"content\"": "\"### Prepare for Email\\nThis node will get approprate Fields for Email \\nEmail Addresses:\\nSubject : \\nEmail Body : \"",
-  "\"url\"": "\"=https://erpnext.syncbricks.com/api/resource/Lead/{{ $('Source Website and Status Open').item.json.body.name }}\",",
+  "\"url\"": "{{ $env.BASE_URL }}",
   "\"authentication\"": "\"predefinedCredentialType\",",
-  "\"nodeCredentialType\"": "YOUR_CREDENTIAL_ID",
+  "\"nodeCredentialType\"": "YOUR_CREDENTIAL_HERE",
   "\"erpNextApi\"": "{",
   "\"webhookId\"": "\"a39ea4e2-99b7-4ae1-baff-9fb370333e2a\",",
   "\"path\"": "\"new-lead-generated-in-erpnext\",",
@@ -77,7 +77,7 @@
   "nodes": [
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -90,7 +90,7 @@
     },
     {
       "id": "documentation-efe0ae33",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -116,5 +116,10 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "name": "Unnamed Workflow",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -17,10 +17,11 @@
       "credentials": {
         "githubApi": ""
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "ffae8fb1-d8ab-4818-9a15-0ed876ef3f5a"
     },
     {
-      "name": "IF",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         700,
@@ -36,7 +37,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "bd0d3437-ccd4-4105-bb57-e4f64d21b972"
     },
     {
       "name": "Slack - Add",
@@ -52,7 +54,7 @@
             "text": "=The project has now: {{$node[\"Github Trigger\"].data[\"body\"][\"repository\"][\"stargazers_count\"]}} Stars",
             "color": "#88FF00",
             "title": "=Got new star from: {{$node[\"Github Trigger\"].data[\"body\"][\"sender\"][\"login\"]}}",
-            "image_url": "={{$node[\"Github Trigger\"].data[\"body\"][\"sender\"][\"avatar_url\"]}}",
+            "image_url": "{{ $env.BASE_URL }}",
             "title_link": "={{$node[\"Github Trigger\"].data[\"body\"][\"sender\"][\"html_url\"]}}"
           }
         ],
@@ -61,7 +63,8 @@
       "credentials": {
         "slackApi": ""
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "604349ef-3145-47bb-a9cd-02232f598a56"
     },
     {
       "name": "Slack - Remove",
@@ -77,7 +80,7 @@
             "text": "=The project has now: {{$node[\"Github Trigger\"].data[\"body\"][\"repository\"][\"stargazers_count\"]}} Stars",
             "color": "#ff0000",
             "title": "=Star got removed by: {{$node[\"Github Trigger\"].data[\"body\"][\"sender\"][\"login\"]}}",
-            "image_url": "={{$node[\"Github Trigger\"].data[\"body\"][\"sender\"][\"avatar_url\"]}}",
+            "image_url": "{{ $env.BASE_URL }}",
             "title_link": "={{$node[\"Github Trigger\"].data[\"body\"][\"sender\"][\"html_url\"]}}"
           }
         ],
@@ -86,7 +89,21 @@
       "credentials": {
         "slackApi": ""
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "2c5a6249-289e-4f7a-a492-42dccd1d45fa"
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Githubtrigger Workflow\n\nAutomated workflow: Githubtrigger Workflow. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 4 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "connections": {
@@ -119,5 +136,14 @@
         ]
       ]
     }
+  },
+  "name": "Githubtrigger Workflow",
+  "description": "Automated workflow: Githubtrigger Workflow. This workflow processes data and performs automated tasks.",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   }
 }

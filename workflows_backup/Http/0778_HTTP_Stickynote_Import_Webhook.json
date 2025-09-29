@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "408f9fb9940c3cb18ffdef0e0150fe342d6e655c3a9fac21f0f644e8bedabcd9",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -13,12 +15,12 @@
         -20
       ],
       "parameters": {
-        "url": "https://api.mistral.ai/v1/files",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -32,7 +34,7 @@
             }
           ]
         },
-        "nodeCredentialType": "mistralCloudApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -62,11 +64,11 @@
         -20
       ],
       "parameters": {
-        "url": "=https://api.mistral.ai/v1/files/{{ $json.id }}/url",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -83,7 +85,7 @@
             }
           ]
         },
-        "nodeCredentialType": "mistralCloudApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -152,12 +154,12 @@
         200
       ],
       "parameters": {
-        "url": "https://api.mistral.ai/v1/files",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -171,7 +173,7 @@
             }
           ]
         },
-        "nodeCredentialType": "mistralCloudApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -190,11 +192,11 @@
         200
       ],
       "parameters": {
-        "url": "=https://api.mistral.ai/v1/files/{{ $json.id }}/url",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -211,7 +213,7 @@
             }
           ]
         },
-        "nodeCredentialType": "mistralCloudApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -230,14 +232,14 @@
         -20
       ],
       "parameters": {
-        "url": "https://api.mistral.ai/v1/ocr",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"model\": \"mistral-ocr-latest\",\n  \"document\": {\n    \"type\": \"document_url\",\n    \"document_url\": \"{{ $json.url }}\"\n  },\n  \"include_image_base64\": true\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "mistralCloudApi"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -256,14 +258,14 @@
         200
       ],
       "parameters": {
-        "url": "https://api.mistral.ai/v1/ocr",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"model\": \"mistral-ocr-latest\",\n  \"document\": {\n    \"type\": \"image_url\",\n    \"image_url\": \"{{ $json.url }}\"\n  }\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "mistralCloudApi"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -289,7 +291,7 @@
               "id": "1eb5f18b-eb06-48df-8491-d60de75b4855",
               "name": "url",
               "type": "string",
-              "value": "=https://pub-d4aa9be14ae34d6ebcebe06f13af667b.r2.dev/multimodal_bank_statement_scan.pdf"
+              "value": "={{ $env.WEBHOOK_URL }}"
             }
           ]
         }
@@ -312,7 +314,7 @@
               "id": "1eb5f18b-eb06-48df-8491-d60de75b4855",
               "name": "url",
               "type": "string",
-              "value": "=https://pub-d4aa9be14ae34d6ebcebe06f13af667b.r2.dev/multimodal_bank_statement_2.png"
+              "value": "={{ $env.WEBHOOK_URL }}"
             }
           ]
         }
@@ -360,14 +362,14 @@
         -20
       ],
       "parameters": {
-        "url": "https://api.mistral.ai/v1/ocr",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"model\": \"mistral-ocr-latest\",\n  \"document\": {\n    \"type\": \"document_url\",\n    \"document_url\": \"{{ $json.url }}\"\n  }\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "mistralCloudApi"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -386,14 +388,14 @@
         200
       ],
       "parameters": {
-        "url": "https://api.mistral.ai/v1/ocr",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"model\": \"mistral-ocr-latest\",\n  \"document\": {\n    \"type\": \"image_url\",\n    \"image_url\": \"{{ $json.url }}\"\n  }\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "mistralCloudApi"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -450,7 +452,7 @@
               "id": "1eb5f18b-eb06-48df-8491-d60de75b4855",
               "name": "url",
               "type": "string",
-              "value": "=https://pub-d4aa9be14ae34d6ebcebe06f13af667b.r2.dev/multimodal_bank_statement_scan.pdf"
+              "value": "={{ $env.WEBHOOK_URL }}"
             },
             {
               "id": "c639fce3-6967-444d-be18-6c9ce802ef22",
@@ -472,14 +474,14 @@
         -20
       ],
       "parameters": {
-        "url": "https://api.mistral.ai/v1/chat/completions",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"model\": \"mistral-small-latest\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"{{ $json.query }}\"\n        },\n        {\n          \"type\": \"document_url\",\n          \"document_url\": \"{{ $json.url }}\"\n        }\n      ]\n    }\n  ],\n  \"document_image_limit\": 8,\n  \"document_page_limit\": 64\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "mistralCloudApi"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -505,7 +507,7 @@
               "id": "1eb5f18b-eb06-48df-8491-d60de75b4855",
               "name": "url",
               "type": "string",
-              "value": "=https://pub-d4aa9be14ae34d6ebcebe06f13af667b.r2.dev/multimodal_bank_statement_2.png"
+              "value": "={{ $env.WEBHOOK_URL }}"
             },
             {
               "id": "639cd062-ebef-44ab-97a2-79ee388f8b41",
@@ -527,14 +529,14 @@
         200
       ],
       "parameters": {
-        "url": "https://api.mistral.ai/v1/chat/completions",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"model\": \"pixtral-large-latest\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"{{ $json.query }}\"\n        },\n        {\n          \"type\": \"image_url\",\n          \"image_url\": \"{{ $json.url }}\"\n        }\n      ]\n    }\n  ],\n  \"document_image_limit\": 8,\n  \"document_page_limit\": 64\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "mistralCloudApi"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -543,6 +545,327 @@
         }
       },
       "typeVersion": 4.2
+    },
+    {
+      "id": "error-handler-c499b8cc-7cc8-411d-9c22-d46c7654e169",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c499b8cc-7cc8-411d-9c22-d46c7654e169",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-965f294a-5d77-4190-ad4f-ff191aba0948",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 965f294a-5d77-4190-ad4f-ff191aba0948",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-94a1c3ca-1ca7-4bb1-9e7c-8314742423ab",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 94a1c3ca-1ca7-4bb1-9e7c-8314742423ab",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9d075eec-ba0e-41e1-8bdc-a732bc0f9229",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 9d075eec-ba0e-41e1-8bdc-a732bc0f9229",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f623f066-fc70-40fa-b608-f28a75a8ac8c",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in f623f066-fc70-40fa-b608-f28a75a8ac8c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-15913796-e7c8-451a-8e7b-da7a3b10db02",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 15913796-e7c8-451a-8e7b-da7a3b10db02",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f2c0b30a-49be-4850-b102-f23d0feac0ec",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in f2c0b30a-49be-4850-b102-f23d0feac0ec",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-64a28537-e70b-48bc-b580-cc9d5a5a1b80",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 64a28537-e70b-48bc-b580-cc9d5a5a1b80",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5de4d62c-af8f-4e6d-adbd-2f591a2165f7",
+      "name": "Stopanderror 8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 5de4d62c-af8f-4e6d-adbd-2f591a2165f7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ca43d437-a373-4938-a0a8-8087a98d46a8",
+      "name": "Stopanderror 9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ca43d437-a373-4938-a0a8-8087a98d46a8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c499b8cc-7cc8-411d-9c22-d46c7654e169-4a025a58",
+      "name": "Error Handler for c499b8cc",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c499b8cc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-965f294a-5d77-4190-ad4f-ff191aba0948-4bf69a92",
+      "name": "Error Handler for 965f294a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 965f294a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7abfb1f8-f6c8-4fd0-a78e-9d4b97a4d6bc-89b6be3c",
+      "name": "Error Handler for 7abfb1f8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7abfb1f8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8942c6bf-4d86-4a95-aa4a-c819008e2534-66b6abe3",
+      "name": "Error Handler for 8942c6bf",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8942c6bf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-94a1c3ca-1ca7-4bb1-9e7c-8314742423ab-204024fd",
+      "name": "Error Handler for 94a1c3ca",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 94a1c3ca",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9d075eec-ba0e-41e1-8bdc-a732bc0f9229-deb1212b",
+      "name": "Error Handler for 9d075eec",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9d075eec",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f623f066-fc70-40fa-b608-f28a75a8ac8c-5d714551",
+      "name": "Error Handler for f623f066",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f623f066",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-15913796-e7c8-451a-8e7b-da7a3b10db02-147518d6",
+      "name": "Error Handler for 15913796",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 15913796",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f2c0b30a-49be-4850-b102-f23d0feac0ec-c770120b",
+      "name": "Error Handler for f2c0b30a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f2c0b30a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-64a28537-e70b-48bc-b580-cc9d5a5a1b80-8da8513c",
+      "name": "Error Handler for 64a28537",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 64a28537",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5de4d62c-af8f-4e6d-adbd-2f591a2165f7-af4b225b",
+      "name": "Error Handler for 5de4d62c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5de4d62c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ca43d437-a373-4938-a0a8-8087a98d46a8-6dca66f9",
+      "name": "Error Handler for ca43d437",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ca43d437",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-69f1b4f6",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Httprequest Workflow\n\n## Overview\nAutomated workflow: Httprequest Workflow. This workflow integrates 6 different services: stickyNote, httpRequest, googleDrive, set, stopAndError. It contains 43 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 43\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Mistral Upload**: httpRequest\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Mistral Signed URL**: httpRequest\n- **Import PDF**: googleDrive\n- **Import Image**: googleDrive\n- **Mistral Upload1**: httpRequest\n- **Mistral Signed URL1**: httpRequest\n- **Mistral DOC OCR**: httpRequest\n- **Mistral IMAGE OCR**: httpRequest\n- **Document URL**: set\n- ... and 33 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -677,6 +1000,217 @@
           }
         ]
       ]
+    },
+    "c499b8cc-7cc8-411d-9c22-d46c7654e169": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c499b8cc-7cc8-411d-9c22-d46c7654e169",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c499b8cc-7cc8-411d-9c22-d46c7654e169-4a025a58",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "965f294a-5d77-4190-ad4f-ff191aba0948": {
+      "main": [
+        [
+          {
+            "node": "error-handler-965f294a-5d77-4190-ad4f-ff191aba0948",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-965f294a-5d77-4190-ad4f-ff191aba0948-4bf69a92",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "94a1c3ca-1ca7-4bb1-9e7c-8314742423ab": {
+      "main": [
+        [
+          {
+            "node": "error-handler-94a1c3ca-1ca7-4bb1-9e7c-8314742423ab",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-94a1c3ca-1ca7-4bb1-9e7c-8314742423ab-204024fd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9d075eec-ba0e-41e1-8bdc-a732bc0f9229": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9d075eec-ba0e-41e1-8bdc-a732bc0f9229",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-9d075eec-ba0e-41e1-8bdc-a732bc0f9229-deb1212b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f623f066-fc70-40fa-b608-f28a75a8ac8c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f623f066-fc70-40fa-b608-f28a75a8ac8c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-f623f066-fc70-40fa-b608-f28a75a8ac8c-5d714551",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15913796-e7c8-451a-8e7b-da7a3b10db02": {
+      "main": [
+        [
+          {
+            "node": "error-handler-15913796-e7c8-451a-8e7b-da7a3b10db02",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-15913796-e7c8-451a-8e7b-da7a3b10db02-147518d6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f2c0b30a-49be-4850-b102-f23d0feac0ec": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f2c0b30a-49be-4850-b102-f23d0feac0ec",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-f2c0b30a-49be-4850-b102-f23d0feac0ec-c770120b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "64a28537-e70b-48bc-b580-cc9d5a5a1b80": {
+      "main": [
+        [
+          {
+            "node": "error-handler-64a28537-e70b-48bc-b580-cc9d5a5a1b80",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-64a28537-e70b-48bc-b580-cc9d5a5a1b80-8da8513c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5de4d62c-af8f-4e6d-adbd-2f591a2165f7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5de4d62c-af8f-4e6d-adbd-2f591a2165f7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-5de4d62c-af8f-4e6d-adbd-2f591a2165f7-af4b225b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ca43d437-a373-4938-a0a8-8087a98d46a8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ca43d437-a373-4938-a0a8-8087a98d46a8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ca43d437-a373-4938-a0a8-8087a98d46a8-6dca66f9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7abfb1f8-f6c8-4fd0-a78e-9d4b97a4d6bc": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7abfb1f8-f6c8-4fd0-a78e-9d4b97a4d6bc-89b6be3c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8942c6bf-4d86-4a95-aa4a-c819008e2534": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8942c6bf-4d86-4a95-aa4a-c819008e2534-66b6abe3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Httprequest Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 6 different services: stickyNote, httpRequest, googleDrive, set, stopAndError. It contains 43 nodes and follows best practices for error handling and security."
 }

@@ -32,7 +32,7 @@
         120
       ],
       "parameters": {
-        "url": "={{ $('Config').first().json.mealieBaseUrl }}/api/households/mealplans",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -44,7 +44,7 @@
         "jsonBody": "={{ $json }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -75,10 +75,10 @@
         120
       ],
       "parameters": {
-        "url": "={{ $json.mealieBaseUrl }}/api/recipes",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -395,5 +395,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

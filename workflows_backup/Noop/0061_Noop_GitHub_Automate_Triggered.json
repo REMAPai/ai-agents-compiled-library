@@ -17,10 +17,11 @@
       "credentials": {
         "telegramApi": ""
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "7c2c5927-36e7-4cbc-aa7e-d4b17db9c913"
     },
     {
-      "name": "IF",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         660,
@@ -37,7 +38,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "06255bb3-8d38-49ef-845c-b698398bbbfc"
     },
     {
       "name": "GitHub",
@@ -51,13 +53,14 @@
         "resource": "release",
         "releaseTag": "={{$json[\"version\"]}}",
         "repository": "n8n",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {}
       },
       "credentials": {
         "githubOAuth2Api": ""
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "d15c735e-80b7-4b73-929d-09dd4631e7e4"
     },
     {
       "name": "Set",
@@ -78,7 +81,8 @@
         "options": {},
         "keepOnlySet": true
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "3a1e26f2-983a-460d-a9f2-f7ccf810f761"
     },
     {
       "name": "NoOp",
@@ -88,7 +92,21 @@
         420
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "646abcd7-6603-40ed-a420-caa35c13b660"
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Telegramtrigger Workflow\n\nAutomated workflow: Telegramtrigger Workflow. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 5 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "connections": {
@@ -132,5 +150,14 @@
         ]
       ]
     }
+  },
+  "name": "Telegramtrigger Workflow",
+  "description": "Automated workflow: Telegramtrigger Workflow. This workflow processes data and performs automated tasks.",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   }
 }

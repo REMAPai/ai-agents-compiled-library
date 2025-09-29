@@ -26,7 +26,7 @@
         292
       ],
       "parameters": {
-        "url": "={{ $json.source_image }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -148,14 +148,14 @@
         324
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Variables').item.json.CLOUDFLARE_ACCOUNT_ID }}/ai/run/{{ $('Set Variables').item.json.model }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "binaryData",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "inputDataFieldName": "data",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "cloudflareApi": {
@@ -180,7 +180,7 @@
         "sendBody": true,
         "sendQuery": true,
         "contentType": "multipart-form-data",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -339,7 +339,7 @@
         432
       ],
       "parameters": {
-        "url": "={{ $('Set Variables').item.json.source_image }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -682,5 +682,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: elasticsearch, filter, httpRequest, stickyNote, splitOut. It contains 25 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: elasticsearch, filter, httpRequest, stickyNote, splitOut. It contains 25 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

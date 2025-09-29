@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Automate Content Generator for WordPress with DeepSeek R1",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "c4a6995f-7769-4b77-80ca-1e6bccef77c1",
@@ -110,7 +113,7 @@
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -120,7 +123,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -143,11 +146,11 @@
         500
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Create post on Wordpress').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -156,7 +159,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -308,7 +311,7 @@
           "value": "=deepseek-reasoner"
         },
         "options": {
-          "maxTokens": 2048
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "messages": {
           "values": [
@@ -341,7 +344,7 @@
           "value": "=deepseek-reasoner"
         },
         "options": {
-          "maxTokens": 2048
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "messages": {
           "values": [

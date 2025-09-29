@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Lead Generation System (Template)",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "03eabaeb-ad13-4764-98de-183325e32cbd",
@@ -134,7 +137,7 @@
         -80
       ],
       "parameters": {
-        "url": "=",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "jsonBody": "{\n    \"getPersonalEmails\": true,\n    \"getWorkEmails\": true,\n    \"totalRecords\": 500,\n    \"url\": \"\"\n}",
         "sendBody": true,
@@ -173,12 +176,12 @@
             "last_name": "={{ $json.last_name }}",
             "first_name": "={{ $json.first_name }}",
             "email_status": "={{ $json.email_status }}",
-            "linkedin_url": "={{ $json.linkedin_url }}",
+            "linkedin_url": "{{ $env.BASE_URL }}",
             "email_address": "={{ $json.email }}",
             "current_job_title": "={{ $json.current_job_title }}",
             "organization_name": "={{ $json.organization }}",
             "organization_website": "={{ $json.organization_website }}",
-            "organization_linkedin_url": "={{ $json.organization_linkedin_url }}"
+            "organization_linkedin_url": "{{ $env.BASE_URL }}"
           },
           "schema": [
             {

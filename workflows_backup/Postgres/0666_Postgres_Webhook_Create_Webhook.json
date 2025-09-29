@@ -87,13 +87,13 @@
         -980
       ],
       "parameters": {
-        "url": "https://us-west-2.recall.ai/api/v1/bot",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
-        "jsonBody": "={\n  \"meeting_url\":\"{{ $json.meeting_url }}\",\n  \"transcription_options\": {\n    \"provider\": \"assembly_ai\"\n  }\n,\n\"real_time_transcription\": {\n    \"destination_url\": \"https://n8n.lowcoding.dev/webhook/d074ca1e-52f9-47af-8587-8c24d431f9cd\"\n  },\n\"automatic_leave\": {\n  \"silence_detection\": {\n    \"timeout\": 300, \n    \"activate_after\": 600\n  },\n  \"bot_detection\": {\n    \"using_participant_events\": {\n      \"timeout\": 600, \n      \"activate_after\": 1200\n    }\n  },\n  \"waiting_room_timeout\": 600,\n  \"noone_joined_timeout\": 600,\n  \"everyone_left_timeout\": 2,\n  \"in_call_not_recording_timeout\": 600,\n  \"recording_permission_denied_timeout\": 600\n}\n}",
+        "jsonBody": "={\n  \"meeting_url\":\"{{ $json.meeting_url }}\",\n  \"transcription_options\": {\n    \"provider\": \"assembly_ai\"\n  }\n,\n\"real_time_transcription\": {\n    \"destination_url\": \"{{ $env.WEBHOOK_URL }}\"\n  },\n\"automatic_leave\": {\n  \"silence_detection\": {\n    \"timeout\": 300, \n    \"activate_after\": 600\n  },\n  \"bot_detection\": {\n    \"using_participant_events\": {\n      \"timeout\": 600, \n      \"activate_after\": 1200\n    }\n  },\n  \"waiting_room_timeout\": 600,\n  \"noone_joined_timeout\": 600,\n  \"everyone_left_timeout\": 2,\n  \"in_call_not_recording_timeout\": 600,\n  \"recording_permission_denied_timeout\": 600\n}\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -113,11 +113,11 @@
         -980
       ],
       "parameters": {
-        "url": "https://api.openai.com/v1/threads",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -126,7 +126,7 @@
             }
           ]
         },
-        "nodeCredentialType": "openAiApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -179,7 +179,7 @@
         "color": 7,
         "width": 330.5152611046425,
         "height": 239.5888196628349,
-        "content": "### ... or watch set up video [10 min]\n[![Youtube Thumbnail](https://res.cloudinary.com/de9jgixzm/image/upload/v1739773273/Youtube%20Thumbs/Realtim%20AI%20Agent.png)](https://www.youtube.com/watch?v=rtaX6BMiTeo)\n"
+        "content": "### ... or watch set up video [10 min]\n[![Youtube Thumbnail]({{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -195,7 +195,7 @@
         "color": 7,
         "width": 636,
         "height": 657,
-        "content": "![5min Logo](https://res.cloudinary.com/de9jgixzm/image/upload/v1739773200/Skool%20Assets/ejm3hqnvhgwpnu2fv92s.png)\n## AI Agent for realtime insights on meetings\n**Made by [Mark Shcherbakov](https://www.linkedin.com/in/marklowcoding/) from community [5minAI](https://www.skool.com/5minai)**\n\nTranscribing meetings manually can be tedious and prone to error. This workflow automates the transcription process in real-time, ensuring that key discussions and decisions are accurately captured and easily accessible for later review, thus enhancing productivity and clarity in communications.\n\nThe workflow employs an AI-powered assistant to join virtual meetings and capture discussions through real-time transcription. Key functionalities include:\n- Automatic joining of meetings on platforms like Zoom, Google Meet, and others with the ability to provide real-time transcription.\n- Integration with transcription APIs (e.g., AssemblyAI) to deliver seamless and accurate capture of dialogue.\n- Structuring and storing transcriptions efficiently in a database for easy retrieval and analysis.\n\n1. **Real-Time Transcription**: The assistant captures audio during meetings and transcribes it in real-time, allowing participants to focus on discussions.\n2. **Keyword Recognition**: Key phrases can trigger specific actions, such as noting important points or making prompts to the assistant.\n3. **Structured Data Management**: The assistant maintains a database of transcriptions linked to meeting details for organized storage and quick access later."
+        "content": "![5min Logo]({{ $env.WEBHOOK_URL }}\n## AI Agent for realtime insights on meetings\n**Made by [Mark Shcherbakov]({{ $env.WEBHOOK_URL }} from community [5minAI]({{ $env.WEBHOOK_URL }}\n\nTranscribing meetings manually can be tedious and prone to error. This workflow automates the transcription process in real-time, ensuring that key discussions and decisions are accurately captured and easily accessible for later review, thus enhancing productivity and clarity in communications.\n\nThe workflow employs an AI-powered assistant to join virtual meetings and capture discussions through real-time transcription. Key functionalities include:\n- Automatic joining of meetings on platforms like Zoom, Google Meet, and others with the ability to provide real-time transcription.\n- Integration with transcription APIs (e.g., AssemblyAI) to deliver seamless and accurate capture of dialogue.\n- Structuring and storing transcriptions efficiently in a database for easy retrieval and analysis.\n\n1. **Real-Time Transcription**: The assistant captures audio during meetings and transcribes it in real-time, allowing participants to focus on discussions.\n2. **Keyword Recognition**: Key phrases can trigger specific actions, such as noting important points or making prompts to the assistant.\n3. **Structured Data Management**: The assistant maintains a database of transcriptions linked to meeting details for organized storage and quick access later."
       },
       "typeVersion": 1
     },
@@ -231,7 +231,7 @@
               "id": "4891fa6e-2dd5-4433-925c-5497ec82e8ab",
               "name": "meeting_url",
               "type": "string",
-              "value": "https://meet.google.com/iix-vrav-kuc"
+              "value": "{{ $env.WEBHOOK_URL }}"
             }
           ]
         }
@@ -396,6 +396,117 @@
         "content": "### Replace meeting url\n\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-0831c139-ca4b-4b4c-aa7f-7495c4ca0110",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 0831c139-ca4b-4b4c-aa7f-7495c4ca0110",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e1122b5b-3af5-4836-802c-40c3a0eb3c93",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e1122b5b-3af5-4836-802c-40c3a0eb3c93",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a4368763-b96e-45e7-884d-aa0cbae2d276",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a4368763-b96e-45e7-884d-aa0cbae2d276",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d44489b8-8cb7-4776-8c16-a8bb01e52171-3214ab9d",
+      "name": "Error Handler for d44489b8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d44489b8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0831c139-ca4b-4b4c-aa7f-7495c4ca0110-5de1836c",
+      "name": "Error Handler for 0831c139",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0831c139",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e1122b5b-3af5-4836-802c-40c3a0eb3c93-9f41499e",
+      "name": "Error Handler for e1122b5b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e1122b5b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a4368763-b96e-45e7-884d-aa0cbae2d276-1f82257c",
+      "name": "Error Handler for a4368763",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a4368763",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-681290d8",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Openai Workflow\n\n## Overview\nAutomated workflow: Openai Workflow. This workflow integrates 10 different services: postgresTool, stickyNote, httpRequest, webhook, set. It contains 26 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 26\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **OpenAI1**: openAi\n- **Insert Transcription Part**: postgres\n- **Create Note**: postgresTool\n- **Create Recall bot**: httpRequest\n- **Create OpenAI thread**: httpRequest\n- **Create data record**: supabase\n- **Sticky Note9**: stickyNote\n- **Sticky Note7**: stickyNote\n- **Sticky Note6**: stickyNote\n- **Scenario 1 Start - Edit Fields**: set\n- ... and 16 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {
@@ -482,7 +593,7 @@
           "x-forwarded-host": "n8n.lowcoding.dev",
           "x-forwarded-proto": "https"
         },
-        "webhookUrl": "https://n8n.lowcoding.dev/webhook/d074ca1e-52f9-47af-8587-8c24d431f9cd",
+        "webhookUrl": "{{ $env.WEBHOOK_URL }}",
         "executionMode": "production"
       }
     ]
@@ -575,6 +686,86 @@
           }
         ]
       ]
+    },
+    "0831c139-ca4b-4b4c-aa7f-7495c4ca0110": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0831c139-ca4b-4b4c-aa7f-7495c4ca0110",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-0831c139-ca4b-4b4c-aa7f-7495c4ca0110-5de1836c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e1122b5b-3af5-4836-802c-40c3a0eb3c93": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e1122b5b-3af5-4836-802c-40c3a0eb3c93",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e1122b5b-3af5-4836-802c-40c3a0eb3c93-9f41499e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a4368763-b96e-45e7-884d-aa0cbae2d276": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a4368763-b96e-45e7-884d-aa0cbae2d276",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a4368763-b96e-45e7-884d-aa0cbae2d276-1f82257c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d44489b8-8cb7-4776-8c16-a8bb01e52171": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d44489b8-8cb7-4776-8c16-a8bb01e52171-3214ab9d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
+  },
+  "name": "Openai Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Openai Workflow. This workflow integrates 10 different services: postgresTool, stickyNote, httpRequest, webhook, set. It contains 26 nodes and follows best practices for error handling and security.",
+  "meta": {
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   }
 }

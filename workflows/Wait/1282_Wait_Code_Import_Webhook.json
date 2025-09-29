@@ -6,8 +6,11 @@
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
-  "name": "AI-Powered Short-Form Video Generator with OpenAI, Flux, Kling, and ElevenLabs and upload to all social networks",
-  "tags": [],
+  "name": "AI-Powered Short-Form Video Generator with OpenAI, Flux, Kling, and ElevenLabs and upload to all ...",
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "e5095169-dc78-4d90-9662-04cfc82c38d9",
@@ -18,7 +21,7 @@
         480
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.data.task_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -98,7 +101,7 @@
         1000
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.data.task_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -576,7 +579,7 @@
       "parameters": {
         "content": "=A new Resume Studio POV video has been created: {{ $json.final_output }}",
         "options": {},
-        "authentication": "webhook"
+        "authentication": "{{ $credentials.webhook }}"
       },
       "typeVersion": 2
     },
@@ -721,7 +724,7 @@
         1140
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Render Final Video').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -781,7 +784,7 @@
         1140
       ],
       "parameters": {
-        "url": "={{ $json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -848,12 +851,12 @@
             "production": "done",
             "publishing": "for publishing",
             "final_output": "={{ $('Upload Final Video').item.json.webContentLink }}",
-            "prompt1 input tokens": "YOUR_VALUE_HERE",
-            "prompt2 input tokens": "YOUR_VALUE_HERE",
-            "prompt3 input tokens": "YOUR_VALUE_HERE",
-            "prompt1 output tokens": "YOUR_VALUE_HERE",
-            "prompt2 output tokens": "YOUR_VALUE_HERE",
-            "prompt3 output tokens": "YOUR_VALUE_HERE"
+            "prompt1 input tokens": "YOUR_TOKEN_HERE",
+            "prompt2 input tokens": "YOUR_TOKEN_HERE",
+            "prompt3 input tokens": "YOUR_TOKEN_HERE",
+            "prompt1 output tokens": "YOUR_TOKEN_HERE",
+            "prompt2 output tokens": "YOUR_TOKEN_HERE",
+            "prompt3 output tokens": "YOUR_TOKEN_HERE"
           },
           "schema": [
             {
@@ -1363,7 +1366,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -1411,7 +1414,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -1459,7 +1462,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -1507,7 +1510,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -1559,7 +1562,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {

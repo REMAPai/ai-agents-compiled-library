@@ -6,7 +6,10 @@
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "094b9011-a53d-4a50-b44d-ad229612bb06",
@@ -28,13 +31,13 @@
         -100
       ],
       "parameters": {
-        "url": "=https://{{ $('Set values here!').params[\"fields\"][\"values\"][0][\"stringValue\"] }}.myshopify.com/admin/api/2024-01/themes/{{ $('Set values here!').params[\"fields\"][\"values\"][1][\"stringValue\"] }}/assets.json",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "jsonBody": "={\"asset\":\n  {\n    \"key\":\"snippets/{{ $('Set values here!').params[\"fields\"][\"values\"][2][\"stringValue\"] }}\",\n    \"value\":\"{{ $('Set values here!').params[\"fields\"][\"values\"][3][\"stringValue\"].replace(\"IMAGE\",$('Check').item.json[\"body\"][\"items\"][0][\"Campaign Image\"][0][\"visible_name\"]).replace(/\\\\/g, \"\\\\\\\\\").replace(/\"/g, '\\\\\"').replace(/\\n/g, \"\\\\n\") }}\"}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -59,10 +62,10 @@
       ],
       "parameters": {
         "query": "mutation fileCreate($files: [FileCreateInput!]!) {\n  fileCreate(files: $files) {\n    files {\n      id\n    }\n  }\n}",
-        "endpoint": "=https://{{ $('Set values here!').params[\"fields\"][\"values\"][0][\"stringValue\"] }}.myshopify.com/admin/api/2024-01/graphql.json",
+        "endpoint": "{{ $env.API_ENDPOINT }}",
         "variables": "={\n  \"files\": {\n    \"alt\": \"{{ $json.body.items[0].Name }}\",\n    \"contentType\": \"IMAGE\",\n\t\"filename\": \"{{ $json.body.items[0]['Campaign Image'][0].visible_name }}\",\n    \"originalSource\": \"{{ $json.body.items[0]['Campaign Image'][0].url }}\"\n  }\n}",
         "requestFormat": "json",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {

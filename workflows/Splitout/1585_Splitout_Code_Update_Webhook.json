@@ -44,7 +44,7 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -64,9 +64,9 @@
         -100
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}/products.json",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -151,11 +151,11 @@
         500
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}/products/{{ $('Google Sheets Trigger').item.json.product_id }}.json",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -301,7 +301,7 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -489,7 +489,7 @@
           "value": {
             "xid": "={{ $('GS - Add Product Option').item.json.xid }}",
             "status": "Option added",
-            "keyword": "YOUR_API_KEY",
+            "keyword": "YOUR_CREDENTIAL_HERE",
             "product_id": "={{ $('Split - id, title, desc').item.json.id }}",
             "product_desc": "={{ $json.message.content.description }}",
             "original_desc": "={{ $('Split - id, title, desc').item.json.description }}",

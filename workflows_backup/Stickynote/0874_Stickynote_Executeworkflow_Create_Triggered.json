@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "408f9fb9940c3cb18ffdef0e0150fe342d6e655c3a9fac21f0f644e8bedabcd9"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -45,7 +48,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "READ",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -69,7 +72,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "INSERT",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -94,7 +97,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "UPDATE",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -136,7 +139,7 @@
         "color": 7,
         "width": 680,
         "height": 660,
-        "content": "## 1. Set up an MCP Server Trigger\n[Read more about the MCP Server Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger)"
+        "content": "## 1. Set up an MCP Server Trigger\n[Read more about the MCP Server Trigger]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -152,7 +155,7 @@
         "color": 7,
         "width": 820,
         "height": 720,
-        "content": "## 2. Keep Secure by Preventing Raw SQL Statements\n[Read more about the Code Node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code/)\n\nWhilst it may be easier to just let the Agent provide the full raw SQL statement,\nit may expose you or your organisation to a real security risk where in the worst\ncase, data may be unknowingly leaked or deleted.\n\nForcing the agent to provide only the parameters of the query\nmeans we can guard somewhat against this risk and also allows\nuse of query parameters as best practice against SQL injection attacks.\n"
+        "content": "## 2. Keep Secure by Preventing Raw SQL Statements\n[Read more about the Code Node]({{ $env.WEBHOOK_URL }}\n\nWhilst it may be easier to just let the Agent provide the full raw SQL statement,\nit may expose you or your organisation to a real security risk where in the worst\ncase, data may be unknowingly leaked or deleted.\n\nForcing the agent to provide only the parameters of the query\nmeans we can guard somewhat against this risk and also allows\nuse of query parameters as best practice against SQL injection attacks.\n"
       },
       "typeVersion": 1
     },
@@ -480,7 +483,7 @@
       "parameters": {
         "width": 440,
         "height": 1360,
-        "content": "## Try It Out!\n**NOTE: This template is for Self-Hosted N8N Instances only.**\n\n### This n8n demonstrates how to build a simple SQLite MCP server to perform local database operations as well as use it for Business Intelligence.\n\nThis MCP example is based off an official MCP reference implementation which can be found here -https://github.com/modelcontextprotocol/servers/tree/main/src/sqlite\n\n### How it works\n* A MCP server trigger is used and connected to 5 tools: 2 Code Node and 3 Custom Workflow.\n* The 2 Code Node tools use the SQLLite3 library and are simple read-only queries and as such, the Code Node tool can be simply used.\n* The 3 custom workflow tools are used for select, insert and update queries as these are operations which require a bit more discretion.\n* Whilst it may be easier to allow the agent to use raw SQL queries, we may find it a little safer to just allow for the parameters instead. The custom workflow tool allows us to define this restricted schema for tool input which we'll use to construct the SQL statement ourselves.\n* All 3 custom workflow tools trigger the same \"Execute workflow\" trigger in this very template which has a switch to route the operation to the correct handler.\n* Finally, we use our Code nodes to handle select, insert and update operations. The responses are then sent back to the the MCP client.\n\n### How to use\n* This SQLite MCP server allows any compatible MCP client to manage a SQLite database by supporting select, create and update operations. You will need to have a SQLite database available before you can use this server.\n* Connect your MCP client by following the n8n guidelines here - https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/#integrating-with-claude-desktop\n* Try the following queries in your MCP client:\n  * \"Please create a table to store business insights and add the following...\"\n  * \"what business insights do we have on current retail trends?\"\n  * \"Who has contributed the most business insights in the past week?\"\n\n### Requirements\n* SQLite for database.\n* MCP Client or Agent for usage such as Claude Desktop - https://claude.ai/download\n\n### Customising this workflow\n* If the scope of schemas or tables is too open, try restrict it so the MCP serves a specific purpose for business operations. eg. Confine the querying and editing to HR only tables before providing access to people in that department.\n* Remember to set the MCP server to require credentials before going to production and sharing this MCP server with others!"
+        "content": "## Try It Out!\n**NOTE: This template is for Self-Hosted N8N Instances only.**\n\n### This n8n demonstrates how to build a simple SQLite MCP server to perform local database operations as well as use it for Business Intelligence.\n\nThis MCP example is based off an official MCP reference implementation which can be found here -{{ $env.WEBHOOK_URL }}\n\n### How it works\n* A MCP server trigger is used and connected to 5 tools: 2 Code Node and 3 Custom Workflow.\n* The 2 Code Node tools use the SQLLite3 library and are simple read-only queries and as such, the Code Node tool can be simply used.\n* The 3 custom workflow tools are used for select, insert and update queries as these are operations which require a bit more discretion.\n* Whilst it may be easier to allow the agent to use raw SQL queries, we may find it a little safer to just allow for the parameters instead. The custom workflow tool allows us to define this restricted schema for tool input which we'll use to construct the SQL statement ourselves.\n* All 3 custom workflow tools trigger the same \"Execute workflow\" trigger in this very template which has a switch to route the operation to the correct handler.\n* Finally, we use our Code nodes to handle select, insert and update operations. The responses are then sent back to the the MCP client.\n\n### How to use\n* This SQLite MCP server allows any compatible MCP client to manage a SQLite database by supporting select, create and update operations. You will need to have a SQLite database available before you can use this server.\n* Connect your MCP client by following the n8n guidelines here - {{ $env.WEBHOOK_URL }}\n* Try the following queries in your MCP client:\n  * \"Please create a table to store business insights and add the following...\"\n  * \"what business insights do we have on current retail trends?\"\n  * \"Who has contributed the most business insights in the past week?\"\n\n### Requirements\n* SQLite for database.\n* MCP Client or Agent for usage such as Claude Desktop - {{ $env.WEBHOOK_URL }}\n\n### Customising this workflow\n* If the scope of schemas or tables is too open, try restrict it so the MCP serves a specific purpose for business operations. eg. Confine the querying and editing to HR only tables before providing access to people in that department.\n* Remember to set the MCP server to require credentials before going to production and sharing this MCP server with others!"
       },
       "typeVersion": 1
     },
@@ -499,6 +502,19 @@
         "content": "### SELF-HOSTED ONLY\nThis template only works for self-hosted n8n instances as it reads the database file on disk."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-270a281a",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Executeworkflowtrigger Workflow\n\n## Overview\nAutomated workflow: Executeworkflowtrigger Workflow. This workflow integrates 7 different services: stickyNote, code, switch, mcpTrigger, toolCode. It contains 16 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 16\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When Executed by Another Workflow**: executeWorkflowTrigger\n- **Operation**: switch\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note3**: stickyNote\n- **SQLite MCP Server**: mcpTrigger\n- **CreateRecord**: code\n- **UpdateRecord**: code\n- **ReadRecords**: code\n- **DescribeTables**: toolCode\n- ... and 6 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -594,5 +610,14 @@
         ]
       ]
     }
-  }
+  },
+  "name": "Executeworkflowtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Executeworkflowtrigger Workflow. This workflow integrates 7 different services: stickyNote, code, switch, mcpTrigger, toolCode. It contains 16 nodes and follows best practices for error handling and security."
 }

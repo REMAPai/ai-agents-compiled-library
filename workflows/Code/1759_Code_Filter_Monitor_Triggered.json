@@ -69,7 +69,7 @@
         -260
       ],
       "parameters": {
-        "url": "={{ $json[\"Pricing URL\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "prompt": "=This is a pricing page. Please summarize it concisely by including every plan. For each plan, list the price and the top 3 features it includes. Compare the current plan to the previous plan described here: \n[{{ $json.Pricing }}].\n\nRETURN ONLY 3 FIELDS:\n1. `pricing_summary` - A textual description of the pricing, including the  plan's name, price, and top 3 features.\n2. `differences_summary` - If there are significant differences in the PRICES between the previous plan and the current one, summarize the differences concisely in a textual description, focusing only on the changes in prices.\n3. `status` - In a status field, return [DIFF] if the new plan and pricing are substantially different from the previous one, [SIMILAR] if they are similar, or [NEW] if the previous pricing is empty.\n\n- important, do not guess or estimate, just report things that are clearly mentioned in pricing page\n",
         "resource": "extraction",
         "operation": "query",
@@ -129,7 +129,7 @@
             "Time": "={{ $now }}",
             "Pricing": "={{ $json.pricing_summary }}",
             "row_number": "={{ $json.row_number }}",
-            "Pricing URL": "="
+            "Pricing URL": "{{ $env.BASE_URL }}"
           },
           "schema": [
             {
@@ -266,7 +266,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -321,7 +321,7 @@
     },
     {
       "id": "documentation-51aee4c5",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [

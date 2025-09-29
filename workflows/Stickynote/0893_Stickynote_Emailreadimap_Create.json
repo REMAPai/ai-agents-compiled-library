@@ -19,7 +19,7 @@
           "fromEmail": "={{ $('When an email is received').item.json.from }}"
         },
         "resource": "engagement",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "associations": {
             "contactIds": "={{ $json.vid }}"
@@ -68,7 +68,7 @@
       ],
       "parameters": {
         "operation": "search",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "filterGroupsUi": {
           "filterGroupsValues": [
             {
@@ -266,14 +266,14 @@
       "parameters": {
         "email": "={{ $('Parse the mail with AI').item.json.output.contact_info.email }}",
         "options": {},
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "city": "={{ $('Parse the mail with AI').item.json.output.contact_info.address.city }}",
           "country": "={{ $('Parse the mail with AI').item.json.output.contact_info.address.country }}",
           "jobTitle": "={{ $('Parse the mail with AI').item.json.output.contact_info.position }}",
           "lastName": "={{ $('Parse the mail with AI').item.json.output.contact_info['last name'] }}",
           "postalCode": "={{ $('Parse the mail with AI').item.json.output.contact_info.address.postal_code }}",
-          "websiteUrl": "={{ $('Parse the mail with AI').item.json.output.contact_info.website }}",
+          "websiteUrl": "{{ $env.BASE_URL }}",
           "companyName": "={{ $('Parse the mail with AI').item.json.output.contact_info.company }}",
           "phoneNumber": "={{ $('Parse the mail with AI').item.json.output.contact_info.phone }}",
           "streetAddress": "={{ $('Parse the mail with AI').item.json.output.contact_info.address.street }}"
@@ -477,5 +477,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -323,9 +323,9 @@
         640
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('LINE Webhook Listener').item.json.body.events[0].message.id }}/content",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -352,7 +352,7 @@
             "File Name": "={{ $json.name }}",
             "File Type": "={{ $json.fileExtension }}",
             "Date Uploaded": "={{ $json.createdTime }}",
-            "Google Drive URL": "={{ $json.webContentLink }}"
+            "Google Drive URL": "{{ $env.BASE_URL }}"
           },
           "schema": [
             {
@@ -556,7 +556,7 @@
         "jsonBody": "={\n  \"replyToken\": \"{{ $('LINE Webhook Listener').first().json.body.events[0].replyToken }}\",\n  \"messages\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"{{ $('Validate File Type').item.json.error ? $('Validate File Type').item.json.error : $json['Google Drive URL'] }}\"\n    }\n  ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {

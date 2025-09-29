@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Entra User to Zammad User Sync",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "0007443e-b0d4-4f98-a613-3ec7c2842aa3",
@@ -46,8 +49,8 @@
       "parameters": {
         "url": "{{ $env.WEBHOOK_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "microsoftOAuth2Api": {
@@ -216,10 +219,10 @@
         460
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.id }}/members ",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "microsoftOAuth2Api": {

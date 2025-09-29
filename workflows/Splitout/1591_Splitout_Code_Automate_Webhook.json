@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "n8n Subworkflow Dependency Graph & Auto-Tagging",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "c3e6b9cb-4681-4778-b2f4-01c4a7d8c844",
@@ -18,14 +21,14 @@
         740
       ],
       "parameters": {
-        "url": "={{ $('SET instance_url').item.json.instance_url }}/api/v1/workflows/{{ $json.id }}/tags",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "jsonBody": "={{ $json.tags }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {
@@ -264,10 +267,10 @@
         220
       ],
       "parameters": {
-        "url": "={{ $json.instance_url }}/api/v1/tags",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {
@@ -383,11 +386,11 @@
         440
       ],
       "parameters": {
-        "url": "={{ $('SET instance_url').item.json.instance_url }}/api/v1/tags",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -396,7 +399,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {
@@ -445,10 +448,10 @@
         740
       ],
       "parameters": {
-        "url": "={{ $('SET instance_url').item.json.instance_url }}/api/v1/tags",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {

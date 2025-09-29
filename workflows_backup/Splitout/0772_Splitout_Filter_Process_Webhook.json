@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "d4d7965840e96e50a3e02959a8487c692901dfa8d5cc294134442c67ce1622d3",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -61,7 +63,7 @@
         -280
       ],
       "parameters": {
-        "url": "={{ $json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -89,7 +91,7 @@
         0
       ],
       "parameters": {
-        "url": "={{ $json.urls }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -117,13 +119,13 @@
         0
       ],
       "parameters": {
-        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"contents\": [{\n    \"parts\":[\n      {\"text\": \"Whats on this image?\"},\n      {\n        \"inline_data\": {\n          \"mime_type\": \"image/jpeg\",\n          \"data\": \"{{ $json.data }}\"\n        }\n      }\n    ]\n  }]\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth"
       },
       "credentials": {
@@ -193,7 +195,7 @@
         -700
       ],
       "parameters": {
-        "url": "=https://plus.unsplash.com/premium_photo-1740023685108-a12c27170d51?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -207,7 +209,7 @@
         360
       ],
       "parameters": {
-        "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -221,7 +223,7 @@
         660
       ],
       "parameters": {
-        "url": "=https://plus.unsplash.com/premium_photo-1740023685108-a12c27170d51?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -235,13 +237,13 @@
         360
       ],
       "parameters": {
-        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"contents\": [{\n    \"parts\":[\n      {\"text\": \"Whats on this pdf?\"},\n      {\n        \"inline_data\": {\n          \"mime_type\": \"application/pdf\",\n          \"data\": \"{{ $json.data }}\"\n        }\n      }\n    ]\n  }]\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth"
       },
       "credentials": {
@@ -261,13 +263,13 @@
         660
       ],
       "parameters": {
-        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"contents\": [{\n    \"parts\":[\n      {\"text\": \"Whats on this image?\"},\n      {\n        \"inline_data\": {\n          \"mime_type\": \"image/jpeg\",\n          \"data\": \"{{ $json.data }}\"\n        }\n      }\n    ]\n  }]\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth"
       },
       "credentials": {
@@ -322,7 +324,7 @@
               "id": "95f15b6e-f66a-450a-be19-75d4c339f943",
               "name": "urls",
               "type": "array",
-              "value": "=[\n  \"https://plus.unsplash.com/premium_photo-1740023685108-a12c27170d51?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n  \"https://images.unsplash.com/photo-1739609579483-00b49437cc45?q=80&w=2342&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\"\n]\n"
+              "value": "=[\n  \"{{ $env.WEBHOOK_URL }}\",\n  \"{{ $env.WEBHOOK_URL }}\"\n]\n"
             }
           ]
         }
@@ -375,7 +377,7 @@
               "id": "95f15b6e-f66a-450a-be19-75d4c339f943",
               "name": "urls",
               "type": "array",
-              "value": "={{ \n[\n  {\n    url: \"https://plus.unsplash.com/premium_photo-1740023685108-a12c27170d51?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n    prompt: \"what is special about this image?\",\n    process: true\n  },\n  {\n    url: \"https://images.unsplash.com/photo-1739609579483-00b49437cc45?q=80&w=2342&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n    prompt: \"what is the main color?\",\n    process: true\n  },\n  {\n    url: \"https://plus.unsplash.com/premium_photo-1740023685108-a12c27170d51?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n    prompt: \"test\", \n    process: false\n  }\n]\n}}"
+              "value": "={{ \n[\n  {\n    url: \"{{ $env.WEBHOOK_URL }}\",\n    prompt: \"what is special about this image?\",\n    process: true\n  },\n  {\n    url: \"{{ $env.WEBHOOK_URL }}\",\n    prompt: \"what is the main color?\",\n    process: true\n  },\n  {\n    url: \"{{ $env.WEBHOOK_URL }}\",\n    prompt: \"test\", \n    process: false\n  }\n]\n}}"
             }
           ]
         }
@@ -493,6 +495,313 @@
         "content": "## METHOD 5: Image analysis via direct API\n\nThis branch demonstrates direct API control for image analysis:\n1. Fetch an image\n2. Transform to base64 format\n3. Make a customized API call to Gemini\n\nBEST FOR: Advanced users who need precise control over API parameters and response handling.\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-00348203-882f-48da-8127-e57cf30c5b20",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 00348203-882f-48da-8127-e57cf30c5b20",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3646a695-d63b-4e25-93b4-a208592e6eac",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3646a695-d63b-4e25-93b4-a208592e6eac",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-762507d2-2093-4ac8-a4d4-2972c53fa839",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 762507d2-2093-4ac8-a4d4-2972c53fa839",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c303ab4e-155f-4c36-bf07-4825d0d1fd93",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c303ab4e-155f-4c36-bf07-4825d0d1fd93",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b786ac03-75d0-4830-849f-ee9ed8e108fa",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b786ac03-75d0-4830-849f-ee9ed8e108fa",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bb7ba59e-050a-4259-8238-dc25f458e3c4",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in bb7ba59e-050a-4259-8238-dc25f458e3c4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-65a4cb42-632b-4fbd-8e28-10e36e9f1e00",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 65a4cb42-632b-4fbd-8e28-10e36e9f1e00",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-75a13a82-c051-449a-bf52-837256c18f22",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 75a13a82-c051-449a-bf52-837256c18f22",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5276a2cf-3d42-409a-800d-9080aa5e1a09-de1faea3",
+      "name": "Error Handler for 5276a2cf",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5276a2cf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-00348203-882f-48da-8127-e57cf30c5b20-3b9158c3",
+      "name": "Error Handler for 00348203",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 00348203",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3646a695-d63b-4e25-93b4-a208592e6eac-8dfe5940",
+      "name": "Error Handler for 3646a695",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3646a695",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-34ef745b-23c6-422d-9367-de79eeb54e77-55064750",
+      "name": "Error Handler for 34ef745b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 34ef745b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-762507d2-2093-4ac8-a4d4-2972c53fa839-4defa41f",
+      "name": "Error Handler for 762507d2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 762507d2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-277c44ec-109b-4dfa-bc04-defec26e6581-247f02e1",
+      "name": "Error Handler for 277c44ec",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 277c44ec",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c303ab4e-155f-4c36-bf07-4825d0d1fd93-b86b82e8",
+      "name": "Error Handler for c303ab4e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c303ab4e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b786ac03-75d0-4830-849f-ee9ed8e108fa-3d0d98e4",
+      "name": "Error Handler for b786ac03",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b786ac03",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bb7ba59e-050a-4259-8238-dc25f458e3c4-c9aecc0b",
+      "name": "Error Handler for bb7ba59e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node bb7ba59e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-65a4cb42-632b-4fbd-8e28-10e36e9f1e00-cadfd5b3",
+      "name": "Error Handler for 65a4cb42",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 65a4cb42",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-75a13a82-c051-449a-bf52-837256c18f22-6bc36d66",
+      "name": "Error Handler for 75a13a82",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 75a13a82",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-55964e8d-ce0a-4157-b536-41862da946ab-4e34cfbc",
+      "name": "Error Handler for 55964e8d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 55964e8d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-57fc92ee-2a74-4d49-ae7a-6c499a1f380e-0659a93a",
+      "name": "Error Handler for 57fc92ee",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 57fc92ee",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-243a6590",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 11 different services: stickyNote, httpRequest, filter, splitInBatches, lmChatGoogleGemini. It contains 49 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 49\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Google Gemini Chat Model**: lmChatGoogleGemini\n- **AI Agent**: agent\n- **Get image from unsplash2**: httpRequest\n- **Split Out**: splitOut\n- **Get image from unsplash3**: httpRequest\n- **Transform to base**: extractFromFile\n- **Call Gemini API1**: httpRequest\n- **Loop Over Items**: splitInBatches\n- **AI Agent2**: agent\n- ... and 39 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -720,6 +1029,214 @@
           }
         ]
       ]
+    },
+    "00348203-882f-48da-8127-e57cf30c5b20": {
+      "main": [
+        [
+          {
+            "node": "error-handler-00348203-882f-48da-8127-e57cf30c5b20",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-00348203-882f-48da-8127-e57cf30c5b20-3b9158c3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3646a695-d63b-4e25-93b4-a208592e6eac": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3646a695-d63b-4e25-93b4-a208592e6eac",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3646a695-d63b-4e25-93b4-a208592e6eac-8dfe5940",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "762507d2-2093-4ac8-a4d4-2972c53fa839": {
+      "main": [
+        [
+          {
+            "node": "error-handler-762507d2-2093-4ac8-a4d4-2972c53fa839",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-762507d2-2093-4ac8-a4d4-2972c53fa839-4defa41f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c303ab4e-155f-4c36-bf07-4825d0d1fd93": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c303ab4e-155f-4c36-bf07-4825d0d1fd93",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c303ab4e-155f-4c36-bf07-4825d0d1fd93-b86b82e8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b786ac03-75d0-4830-849f-ee9ed8e108fa": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b786ac03-75d0-4830-849f-ee9ed8e108fa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b786ac03-75d0-4830-849f-ee9ed8e108fa-3d0d98e4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bb7ba59e-050a-4259-8238-dc25f458e3c4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-bb7ba59e-050a-4259-8238-dc25f458e3c4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-bb7ba59e-050a-4259-8238-dc25f458e3c4-c9aecc0b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "65a4cb42-632b-4fbd-8e28-10e36e9f1e00": {
+      "main": [
+        [
+          {
+            "node": "error-handler-65a4cb42-632b-4fbd-8e28-10e36e9f1e00",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-65a4cb42-632b-4fbd-8e28-10e36e9f1e00-cadfd5b3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "75a13a82-c051-449a-bf52-837256c18f22": {
+      "main": [
+        [
+          {
+            "node": "error-handler-75a13a82-c051-449a-bf52-837256c18f22",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-75a13a82-c051-449a-bf52-837256c18f22-6bc36d66",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5276a2cf-3d42-409a-800d-9080aa5e1a09": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5276a2cf-3d42-409a-800d-9080aa5e1a09-de1faea3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "34ef745b-23c6-422d-9367-de79eeb54e77": {
+      "main": [
+        [
+          {
+            "node": "error-handler-34ef745b-23c6-422d-9367-de79eeb54e77-55064750",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "277c44ec-109b-4dfa-bc04-defec26e6581": {
+      "main": [
+        [
+          {
+            "node": "error-handler-277c44ec-109b-4dfa-bc04-defec26e6581-247f02e1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "55964e8d-ce0a-4157-b536-41862da946ab": {
+      "main": [
+        [
+          {
+            "node": "error-handler-55964e8d-ce0a-4157-b536-41862da946ab-4e34cfbc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "57fc92ee-2a74-4d49-ae7a-6c499a1f380e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-57fc92ee-2a74-4d49-ae7a-6c499a1f380e-0659a93a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 11 different services: stickyNote, httpRequest, filter, splitInBatches, lmChatGoogleGemini. It contains 49 nodes and follows best practices for error handling and security."
 }

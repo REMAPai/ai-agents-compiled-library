@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Fully automated Video Captions generation with json2video",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "38e862a1-dc25-4a41-b0e1-5ebba1032e0a",
@@ -35,7 +38,7 @@
         "jsonBody": "={\n  \"id\": \"qbaasr7s\",\n  \"resolution\": \"custom\",\n  \"quality\": \"high\",\n\"scenes\": [\n    {\n      \"id\": \"qyjh9lwj\",\n      \"comment\": \"Scene 1\",\n      \"elements\": []\n    }\n  ],\n  \"elements\": [\n    {\n      \"id\": \"q6dznzcv\",\n      \"type\": \"video\",\n      \"src\": \"{{ $json.video_url }}\"\n    },\n    {\n      \"id\": \"q41n9kxp\",\n      \"type\": \"subtitles\",\n      \"settings\": {\n        \"style\": \"classic-progressive\",\n        \"font-family\": \"Oswald\",\n        \"font-size\": 140,\n        \"word-color\": \"#FCF5C9\",\n        \"shadow-color\": \"#260B1B\",\n        \"line-color\": \"#F1E7F4\",\n        \"shadow-offset\": 2,\n        \"box-color\": \"#260B1B\"\n      },\n      \"language\": \"en\"\n    }\n  ],\n  \"width\": {{ $json.width }},\n  \"height\": {{ $json.height }}\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth"
       },
       "credentials": {
@@ -217,9 +220,9 @@
         -180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('json2video - Add Captions').first().json.project }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth"
       },
       "credentials": {

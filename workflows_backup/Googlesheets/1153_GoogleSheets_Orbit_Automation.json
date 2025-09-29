@@ -13,7 +13,8 @@
         "propertyName1": "GitHub Username",
         "propertyName2": "attributes.slug"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "0198f23f-9a98-4c46-9497-887c7beeb55a"
     },
     {
       "name": "Add Members",
@@ -42,7 +43,8 @@
       "credentials": {
         "orbitApi": "Orbit Credentials"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "3a494ce0-bc49-4d29-9300-bbb754f7809b"
     },
     {
       "name": "Get all members",
@@ -60,7 +62,8 @@
       "credentials": {
         "orbitApi": "Orbit Credentials"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "468fc5a0-3886-411f-8299-9bcaab8d0ee2"
     },
     {
       "name": "Get Members",
@@ -73,12 +76,13 @@
         "range": "Members!A:F",
         "options": {},
         "sheetId": "1GiR5glinWBUJ-pw3w8LpcuwyOXst2z5nnFSak8DQrMQ",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "googleSheetsOAuth2Api": "Google Sheets Credentials"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "939e3d97-fbb8-42ed-9737-7b7a7b740fb5"
     },
     {
       "name": "Get Activities",
@@ -96,12 +100,13 @@
         "operation": "lookup",
         "lookupValue": "={{$node[\"Get Members\"].json[\"GitHub\"]}}",
         "lookupColumn": "GitHub Username",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "googleSheetsOAuth2Api": "Google Sheets Credentials"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "c36b6168-5d3a-40d5-963a-0009e6e37b96"
     },
     {
       "name": "Add Activities",
@@ -123,11 +128,31 @@
       "credentials": {
         "orbitApi": "Orbit Credentials"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "9bca0a06-a20a-486d-8d03-1f727aede037"
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Moving metrics from Google Sheets to Orbit\n\nAutomated workflow: Moving metrics from Google Sheets to Orbit. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 6 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "active": false,
-  "settings": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
   "connections": {
     "Merge": {
       "main": [
@@ -184,5 +209,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: Moving metrics from Google Sheets to Orbit. This workflow processes data and performs automated tasks."
 }

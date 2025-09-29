@@ -32,13 +32,13 @@
         700
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -52,7 +52,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 4.1
     },
@@ -65,11 +65,11 @@
         700
       ],
       "parameters": {
-        "url": "={{ $('Settings').item.json.wordpress_url }}wp-json/wp/v2/posts/{{ $('Post on Wordpress').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -78,7 +78,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 4.1
     },
@@ -199,7 +199,7 @@
         "mode": "markdownToHtml",
         "options": {},
         "markdown": "={{ $json['Blog Body'] }} {{ $json['Blog Body'] }} {{ $json['Blog Body'] }}",
-        "destinationKey": "YOUR_API_KEY"
+        "destinationKey": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 1
     },
@@ -212,7 +212,7 @@
         700
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }} {{ $('Edit Fields').item.json.Keyword }}&per_page=1&width=1200&height=675&format=webp",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -239,7 +239,7 @@
         700
       ],
       "parameters": {
-        "url": "={{ $json.photos[0].src.landscape }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "responseFormat": "file"
       },
@@ -845,5 +845,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Wordpress Workflow. This workflow integrates 9 different services: filter, wordpress, httpRequest, markdown, airtable. It contains 21 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Wordpress Workflow. This workflow integrates 9 different services: filter, wordpress, httpRequest, markdown, airtable. It contains 21 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

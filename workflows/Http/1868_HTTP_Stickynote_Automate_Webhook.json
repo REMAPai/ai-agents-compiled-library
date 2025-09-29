@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Chatbot AI",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "6eec6665-eea6-4aaa-8ae5-2fc7bf0c4746",
@@ -24,7 +27,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "raw",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "rawContentType": "application/json",
         "genericAuthType": "httpHeaderAuth"
       },
@@ -116,7 +119,7 @@
         "jsonBody": "={\n  \"replyToken\": \"{{ $('Line Chatbot').item.json.body.events[0].replyToken }}\",\n  \"messages\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"{{ $json.output }}\"\n    }\n  ]} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {

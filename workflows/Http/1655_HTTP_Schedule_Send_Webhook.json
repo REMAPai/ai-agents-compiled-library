@@ -52,7 +52,7 @@
         },
         "options": {},
         "resource": "image",
-        "imageUrls": "={{ $json.output.cartoon_image }}",
+        "imageUrls": "{{ $env.BASE_URL }}",
         "operation": "analyze"
       },
       "credentials": {
@@ -109,7 +109,7 @@
       "parameters": {
         "content": "=Daily Cartoon ({{ $('param').item.json.year }}/{{ $('param').item.json.month }}/{{ $('param').item.json.day }})\n{{ $('Information Extractor').item.json.output.cartoon_image }}\n\n{{ $json.content }}\n",
         "options": {},
-        "authentication": "webhook"
+        "authentication": "{{ $credentials.webhook }}"
       },
       "credentials": {
         "discordWebhookApi": {
@@ -170,7 +170,7 @@
         380
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.year }}/{{ $json.month }}/{{ $json.day }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -393,5 +393,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

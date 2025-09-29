@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Umami analytics template",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "8a54ac1c-a072-42e6-a3ba-8cde33475eb5",
@@ -51,9 +54,9 @@
         260
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ DateTime.now().minus({ days: 7 }).toMillis() }}&endAt={{ DateTime.now().toMillis() }}&unit=hour&timezone=Asia%2FHong_Kong",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -91,7 +94,7 @@
         "color": 4,
         "width": 393.16558441558414,
         "height": 504.17207792207796,
-        "content": "## Get summary stats from Umami\n\nIt will get: Pageviews, Visitors, Visits, Bounces, Total Time\n\nYou need to change the URL to your website. https://{your website}/api/websites/{website ID}/\n\nYou can find your ID by going to your Umami account -> Settings -> Edit (next to domain)"
+        "content": "## Get summary stats from Umami\n\nIt will get: Pageviews, Visitors, Visits, Bounces, Total Time\n\nYou need to change the URL to your website. {{ $env.API_BASE_URL }} website}/api/websites/{website ID}/\n\nYou can find your ID by going to your Umami account -> Settings -> Edit (next to domain)"
       },
       "typeVersion": 1
     },
@@ -187,7 +190,7 @@
         "jsonBody": "={\n  \"model\": \"meta-llama/llama-3.1-70b-instruct:free\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are an SEO expert. Here is data from Umami analytics of Pennibnotes.com. Where X is URL and Y is number of visitors. Give me a table summary of this data in markdown format:{{ $('Parse Umami data').item.json.urlString }}.\"\n    }\n  ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -207,9 +210,9 @@
         260
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{Date.now() - (7 * 24 * 60 * 60 * 1000)}}&endAt={{Date.now()}}&type=url&tz=America/Los_Angeles",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -242,9 +245,9 @@
         260
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{Date.now() - (14 * 24 * 60 * 60 * 1000)}}&endAt={{Date.now() - (7 * 24 * 60 * 60 * 1000)}}&type=url&tz=America/Los_Angeles",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -283,7 +286,7 @@
         "jsonBody": "={\n  \"model\": \"meta-llama/llama-3.1-70b-instruct:free\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are an SEO expert. Here is data from Umami analytics of Pennibnotes.com. Where X is URL and Y is number of visitors.  Compare the data from this week to last week. Present the data in a table using markdown and offer 5 improvement suggestions. This week:{{ $('Parse Umami data1').first().json.thisWeek }} Lastweek:{{ $json.lastweek }}\"\n    }\n  ]\n}\n\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {

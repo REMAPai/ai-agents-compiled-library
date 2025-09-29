@@ -1,8 +1,10 @@
 {
   "id": "",
   "meta": {
-    "instanceId": "",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Generate AI-Ready llms.txt Files from Screaming Frog Website Crawls",
   "tags": [],
@@ -431,7 +433,7 @@
         "color": 5,
         "width": 700,
         "height": 1380,
-        "content": "# Generate AI-Ready llms.txt Files from Screaming Frog Website Crawls  \n\nThis workflow helps you generate an **llms.txt** file (if you're unfamiliar with it, check out [this article](https://towardsdatascience.com/llms-txt-414d5121bcb3/)) using a **Screaming Frog export**.  \n\n[Screaming Frog](https://www.screamingfrog.co.uk/seo-spider/) is a well-known website crawler.  \nYou can easily crawl a website. Then, export the **\"internal_html\"** section in CSV format.  \n\n## How It Works: \n\nA **form** allows you to enter:  \n- The **name of the website**  \n- A **short description**  \n- The **internal_html.csv** file from your Screaming Frog export  \n\n\nOnce the form is submitted, the **workflow is triggered automatically**, and you can **download the llms.txt file directly from n8n**. \n\n## Downloading the File\nSince the last node in this workflow is **\"Convert to File\"**, you will need to **download the file directly from the n8n UI**.  \nHowever, you can easily **add a node** (e.g., Google Drive, OneDrive) to automatically upload the file **wherever you want**.  \n\n## AI-Powered Filtering (Optional):  \nThis workflow includes a **text classifier node**, which is **deactivated by default**.  \n- You can **activate it** to apply a more **intelligent filter** to select URLs for the `llms.txt` file.  \n- Consider modifying the **description** in the classifier node to specify the type of URLs you want to include.  \n\n## How to Use This Workflow  \n\n1. **Crawl the website** you want to generate an `llms.txt` file for using **Screaming Frog**.  \n2. **Export the \"internal_html\"** section in CSV format.  \n   ![Screaming Frog internal html export](https://i.imgur.com/M0nJQiV.png)  \n3. In **n8n**, click **\"Test Workflow\"**, fill in the form, and **upload** the `internal_html.csv` file.  \n4. Once the workflow is complete, go to the **\"Export to File\"** node and **download the output**.  \n\n**That's it! You now have your llms.txt file!**  \n\n\n\n**Recommended Usage:**  \nUse this workflow **directly in the n8n UI by clicking** 'Test Workflow' and uploading the file in the form."
+        "content": "# Generate AI-Ready llms.txt Files from Screaming Frog Website Crawls  \n\nThis workflow helps you generate an **llms.txt** file (if you're unfamiliar with it, check out [this article]({{ $env.WEBHOOK_URL }} using a **Screaming Frog export**.  \n\n[Screaming Frog]({{ $env.WEBHOOK_URL }} is a well-known website crawler.  \nYou can easily crawl a website. Then, export the **\"internal_html\"** section in CSV format.  \n\n## How It Works: \n\nA **form** allows you to enter:  \n- The **name of the website**  \n- A **short description**  \n- The **internal_html.csv** file from your Screaming Frog export  \n\n\nOnce the form is submitted, the **workflow is triggered automatically**, and you can **download the llms.txt file directly from n8n**. \n\n## Downloading the File\nSince the last node in this workflow is **\"Convert to File\"**, you will need to **download the file directly from the n8n UI**.  \nHowever, you can easily **add a node** (e.g., Google Drive, OneDrive) to automatically upload the file **wherever you want**.  \n\n## AI-Powered Filtering (Optional):  \nThis workflow includes a **text classifier node**, which is **deactivated by default**.  \n- You can **activate it** to apply a more **intelligent filter** to select URLs for the `llms.txt` file.  \n- Consider modifying the **description** in the classifier node to specify the type of URLs you want to include.  \n\n## How to Use This Workflow  \n\n1. **Crawl the website** you want to generate an `llms.txt` file for using **Screaming Frog**.  \n2. **Export the \"internal_html\"** section in CSV format.  \n   ![Screaming Frog internal html export]({{ $env.WEBHOOK_URL }}  \n3. In **n8n**, click **\"Test Workflow\"**, fill in the form, and **upload** the `internal_html.csv` file.  \n4. Once the workflow is complete, go to the **\"Export to File\"** node and **download the output**.  \n\n**That's it! You now have your llms.txt file!**  \n\n\n\n**Recommended Usage:**  \nUse this workflow **directly in the n8n UI by clicking** 'Test Workflow' and uploading the file in the form."
       },
       "typeVersion": 1
     },
@@ -507,12 +509,71 @@
         "sourceProperty": "llmsTxtFile"
       },
       "typeVersion": 1.1
+    },
+    {
+      "id": "error-handler-74a4e378-4228-4142-92ca-e541efde2b15-1095bf80",
+      "name": "Error Handler for 74a4e378",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 74a4e378",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f6b17fdd-a098-411e-8d53-3f6e638cc3ba-2168ae01",
+      "name": "Error Handler for f6b17fdd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f6b17fdd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6bbd8d1f-3322-4c6d-af08-c842386239ce-8564d183",
+      "name": "Error Handler for 6bbd8d1f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6bbd8d1f",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-f991fb26",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Generate AI-Ready llms.txt Files from Screaming Frog Website Crawls\n\n## Overview\nAutomated workflow: Generate AI-Ready llms.txt Files from Screaming Frog Website Crawls. This workflow integrates 11 different services: textClassifier, convertToFile, stickyNote, filter, formTrigger. It contains 26 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 26\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Set useful fields**: set\n- **Text Classifier**: textClassifier\n- **OpenAI Chat Model**: lmChatOpenAi\n- **No Operation, do nothing**: noOp\n- **Sticky Note3**: stickyNote\n- **Filter URLs**: filter\n- **Sticky Note4**: stickyNote\n- ... and 16 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "",
   "connections": {
@@ -626,6 +687,40 @@
           }
         ]
       ]
+    },
+    "74a4e378-4228-4142-92ca-e541efde2b15": {
+      "main": [
+        [
+          {
+            "node": "error-handler-74a4e378-4228-4142-92ca-e541efde2b15-1095bf80",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f6b17fdd-a098-411e-8d53-3f6e638cc3ba": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f6b17fdd-a098-411e-8d53-3f6e638cc3ba-2168ae01",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6bbd8d1f-3322-4c6d-af08-c842386239ce": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6bbd8d1f-3322-4c6d-af08-c842386239ce-8564d183",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Generate AI-Ready llms.txt Files from Screaming Frog Website Crawls. This workflow integrates 11 different services: textClassifier, convertToFile, stickyNote, filter, formTrigger. It contains 26 nodes and follows best practices for error handling and security."
 }

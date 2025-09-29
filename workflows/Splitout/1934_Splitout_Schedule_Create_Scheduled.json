@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Personalized AI Tech Newsletter Using RSS, OpenAI and Gmail",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "5cc6bfe1-dbaa-4196-ac52-27e3d5b7e91d",
@@ -346,7 +349,7 @@
       ],
       "parameters": {
         "mode": "insert",
-        "memoryKey": "YOUR_API_KEY"
+        "memoryKey": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 1.1
     },
@@ -382,7 +385,7 @@
         0
       ],
       "parameters": {
-        "url": "={{ $json.rss }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "ignoreSSL": false
         }
@@ -401,7 +404,7 @@
         "mode": "retrieve-as-tool",
         "topK": 20,
         "toolName": "get_news",
-        "memoryKey": "YOUR_API_KEY",
+        "memoryKey": "YOUR_CREDENTIAL_HERE",
         "toolDescription": "Call this tool to get the latest news articles."
       },
       "typeVersion": 1.1

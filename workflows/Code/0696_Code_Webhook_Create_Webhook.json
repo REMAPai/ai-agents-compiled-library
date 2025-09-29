@@ -12,7 +12,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -37,7 +37,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -62,7 +62,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_3",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -114,7 +114,7 @@
         320
       ],
       "parameters": {
-        "url": "={{ $json.File[0].url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -253,7 +253,7 @@
         -300
       ],
       "parameters": {
-        "url": "={{ $('Row Ref').item.json.File[0].url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -676,10 +676,10 @@
         -140
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Airtable Webhook').first().json.body.base.id }}/webhooks/{{ $('Airtable Webhook').first().json.body.webhook.id }}/payloads",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "airtableTokenApi": {
@@ -1152,14 +1152,14 @@
         -820
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Airtable Vars').first().json.appId }}/webhooks",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{\n{\n  \"notificationUrl\": $('Set Airtable Vars').first().json.notificationUrl,\n  \"specification\": {\n    \"options\": {\n      \"filters\": {\n        \"fromSources\": [ \"client\" ],\n        \"dataTypes\": [ \"tableData\" ],\n        \"changeTypes\": [ \"update\" ],\n        \"recordChangeScope\": $('Set Airtable Vars').first().json.tableId,\n        \"watchDataInFieldIds\": [$json.id]\n      }\n    }\n  }\n}\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "airtableTokenApi": {
@@ -1178,14 +1178,14 @@
         -640
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Airtable Vars').first().json.appId }}/webhooks",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{\n{\n  \"notificationUrl\": $('Set Airtable Vars').first().json.notificationUrl,\n  \"specification\": {\n    \"options\": {\n      \"filters\": {\n        \"fromSources\": [ \"client\" ],\n        \"dataTypes\": [ \"tableFields\" ],\n        \"changeTypes\": [ \"add\", \"update\" ],\n        \"recordChangeScope\": $('Set Airtable Vars').first().json.tableId\n      }\n    }\n  }\n}\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "airtableTokenApi": {
@@ -2023,5 +2023,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -21,8 +21,8 @@
         "jsonBody": "={\n  \"Line\": [\n    {\n      \"Description\": \"{{ $json.data.object.description }}\",\n      \"DetailType\": \"SalesItemLineDetail\",\n      \"SalesItemLineDetail\": {\n        \"TaxCodeRef\": {\n          \"value\": \"NON\"\n        },\n        \"Qty\": 1,\n        \"UnitPrice\": {{ $json.data.object.amount_received / 100 }},\n        \"ItemRef\": {\n          \"name\": \"Subscription\", \n          \"value\": \"10\"\n        }\n      },\n      \"Amount\": {{ $json.data.object.amount / 100 }},\n      \"LineNum\": 1\n    }\n  ],\n  \"CustomerRef\": {\n    \"value\": {{ $input.all()[2].json.QueryResponse.Customer[0].BillAddr.Id }},\n    \"name\": \"{{ $input.all()[2].json.QueryResponse.Customer[0].DisplayName }}\"\n  },\n  \"CurrencyRef\": {\n    \"value\": \"{{ $json.data.object.currency.toUpperCase() }}\"\n  },\n  \"PrivateNote\": \"Payment from Stripe Payment Intent ID: {{ $json.data.object.id }}\"\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "quickBooksOAuth2Api": {
@@ -42,10 +42,10 @@
         -20
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }} * from Customer Where PrimaryEmailAddr = '{{ $json.email }}'&minorversion=73\n\n",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "httpCustomAuth": {
@@ -212,8 +212,8 @@
         "jsonBody": "={\n  \"Line\": [\n    {\n      \"Description\": \"{{ $json.data.object.description }}\",\n      \"DetailType\": \"SalesItemLineDetail\",\n      \"SalesItemLineDetail\": {\n        \"TaxCodeRef\": {\n          \"value\": \"NON\"\n        },\n        \"Qty\": 1,\n        \"UnitPrice\": {{ $json.data.object.amount_received / 100 }},\n        \"ItemRef\": {\n          \"name\": \"Subscription\", \n          \"value\": \"10\"\n        }\n      },\n      \"Amount\": {{ $json.data.object.amount / 100 }},\n      \"LineNum\": 1\n    }\n  ],\n  \"CustomerRef\": {\n    \"value\": {{ $input.all()[1].json.Id}},\n    \"name\": \"{{ $input.all()[1].json.DisplayName }}\"\n  },\n  \"CurrencyRef\": {\n    \"value\": \"{{ $json.data.object.currency.toUpperCase() }}\"\n  },\n  \"PrivateNote\": \"Payment from Stripe Payment Intent ID: {{ $json.data.object.id }}\"\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "quickBooksOAuth2Api": {
@@ -268,7 +268,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -323,7 +323,7 @@
     },
     {
       "id": "documentation-89e232ef",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -360,7 +360,7 @@
             "description": "Subscription update",
             "next_action": null,
             "on_behalf_of": null,
-            "client_secret": "YOUR_VALUE_HERE",
+            "client_secret": "YOUR_CREDENTIAL_HERE",
             "latest_charge": "ch_3Qjf54D14htxZ8341xwQhggm",
             "receipt_email": null,
             "transfer_data": null,
@@ -409,7 +409,7 @@
         "created": 1737456956,
         "request": {
           "id": "req_vbXfG1vUORKZJ6",
-          "idempotency_key": "YOUR_API_KEY"
+          "idempotency_key": "YOUR_CREDENTIAL_HERE"
         },
         "livemode": false,
         "api_version": "2020-08-27",
@@ -641,5 +641,10 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": null,
     "timezone": "UTC"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n",
+    "api"
+  ]
 }

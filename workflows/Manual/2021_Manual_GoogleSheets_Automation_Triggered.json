@@ -69,7 +69,7 @@
         0
       ],
       "parameters": {
-        "url": "={{ $json['Linkedin_URL_Company'] }}",
+        "url": "{{ $env.BASE_URL }}",
         "prompt": "# LinkedIn Company Analysis Prompt\n\nExtract and analyze the following information from the provided LinkedIn company page. Present the results in a structured JSON format.\n\n## Required Data Points\n\n### 1. Company Identity\n- Full company name (including suffixes like Inc., LLC, etc.)\n- Brand tagline/headline (directly under company name)\n- Global headquarters location \n- Company description (full \"About\" section text)\n- Primary website URL (excluding social media links)\n\n### 2. Company Scale\n- Current employee count (from LinkedIn \"X employees\" metric)\n- Employee range bracket: [0-9], [10-150], [150+]\n\n### 3. Business Classification\nEvaluate the following characteristics based on company description, recent posts, and featured content:\n\n#### Automation Agency Status\n- Boolean (true/false) classification\n- Criteria for \"true\":\n  * Company explicitly offers automation services to clients\n  * Core business model involves developing/implementing automations\n  * Primary revenue from automation consulting/development\n\n#### AI Implementation Level\nClassify as [Low/Medium/High] based on:\n- Low: No evidence of AI/automation/scraping usage\n- Medium: Uses AI/automation tools or mentions them as supplementary capabilities\n- High: Core business involves AI development, automation creation, or data harvesting services\n\n### 4. Technical Sophistication\nEvaluate overall technical capabilities as [Basic/Intermediate/Advanced/Expert] based on:\n- Technology stack mentioned\n- Technical job postings\n- Products/services complexity\n- Engineering team size\n- Technical achievements highlighted\n\n### 5. Investment Profile\nIf available, document:\n- Most recent funding round\n- Total funding amount\n- Key investors\n- Last funding date\nMark as \"Not publicly disclosed\" if information unavailable\n\n### 6. ICP (Ideal Customer Profile) Score\nCalculate composite score using this weighted criteria:\n\n| Category | Criteria | Points |\n|----------|----------|--------|\n| AI Focus | Low | 5 |\n| | Medium | 10 |\n| | High | 25 |\n| Technical Level | Basic | 5 |\n| | Intermediate | 15 |\n| | Advanced | 25 |\n| | Expert | 35 |\n| Employee Count | 0-9 | 5 |\n| | 10-150 | 25 |\n| | 150+ | 30 |\n| Agency Status | Automation Agency | 20 |\n| Geography | US/Europe Based | 10 |\n\n## Output Format\nReturn data in the following JSON structure, with all fields required:\n\n```json\n{\n  \"company_profile\": {\n    \"name\": string,\n    \"tagline\": string,\n    \"location\": {\n      \"city\": string,\n      \"state\": string,\n      \"country\": string\n    },\n    \"overview\": string,\n    \"website\": string\n  },\n  \"scale\": {\n    \"employee_count\": number,\n    \"size_bracket\": string\n  },\n  \"classification\": {\n    \"is_automation_agency\": boolean,\n    \"ai_focus_level\": string,\n    \"technical_tier\": string\n  },\n  \"funding\": {\n    \"latest_round\": string,\n    \"total_raised\": string,\n    \"investors\": [string],\n    \"last_updated\": string\n  },\n  \"icp_scoring\": {\n    \"ai_focus_points\": number,\n    \"technical_points\": number,\n    \"size_points\": number,\n    \"agency_points\": number,\n    \"geography_points\": number,\n    \"total_score\": number\n  }\n}\n",
         "resource": "extraction",
         "operation": "query",
@@ -226,7 +226,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -267,7 +267,7 @@
     },
     {
       "id": "documentation-daeb6a5c",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [

@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Turn YouTube Videos into Summaries, Transcripts, and Visual Insights",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "61c56de7-0d8e-44fe-baf3-3e33ddd35b21",
@@ -74,7 +77,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -98,7 +101,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -123,7 +126,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_3",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -148,7 +151,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_4",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -173,7 +176,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_5",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -461,7 +464,7 @@
         120
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.model }}:generateContent?key={{ $json.apiKey }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"contents\": [{\n    \"parts\": [\n      { \"text\": {{ JSON.stringify($json.prompt) }} },\n      { \"file_data\": { \"file_uri\": \"{{ $json.youtubeURL }}\" } }\n    ]\n  }]\n}",

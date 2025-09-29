@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "🐋DeepSeek V3 Chat & R1 Reasoning Quick Start",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "54c59cae-fbd0-4f0d-b633-6304e6c66d89",
@@ -195,7 +198,7 @@
         "jsonBody": "={\n \"model\": \"deepseek-chat\",\n \"messages\": [\n {\n \"role\": \"system\",\n \"content\": \"{{ $json.chatInput }}\"\n },\n {\n \"role\": \"user\",\n \"content\": \"Hello!\"\n }\n ],\n \"stream\": false\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -221,7 +224,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "raw",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "rawContentType": "application/json",
         "genericAuthType": "httpHeaderAuth"
       },

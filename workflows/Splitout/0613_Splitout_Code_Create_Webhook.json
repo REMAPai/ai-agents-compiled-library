@@ -15,7 +15,7 @@
         360
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.Topic }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "batching": {
             "batch": {
@@ -197,7 +197,7 @@
         },
         "operation": "create",
         "projectId": "psdqqm1bzphkodc",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -229,7 +229,7 @@
           "unfurl_links": true,
           "includeLinkToWorkflow": false
         },
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
@@ -253,7 +253,7 @@
         "operation": "getAll",
         "projectId": "psdqqm1bzphkodc",
         "returnAll": true,
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -277,15 +277,15 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": ".pulse-title"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": ".article-main__content"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": ".contribution__text"
             }
           ]
@@ -302,7 +302,7 @@
         200
       ],
       "parameters": {
-        "url": "={{ $json.matches }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -524,7 +524,7 @@
       "parameters": {
         "options": {},
         "resource": "base",
-        "authentication": "airtableOAuth2Api"
+        "authentication": "{{ $credentials.airtableOAuth2Api }}"
       },
       "credentials": {
         "airtableOAuth2Api": {
@@ -597,7 +597,7 @@
         "operation": "getAll",
         "projectId": "psdqqm1bzphkodc",
         "returnAll": true,
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -996,5 +996,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 15 different services: stickyNote, httpRequest, airtable, code, scheduleTrigger. It contains 40 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 15 different services: stickyNote, httpRequest, airtable, code, scheduleTrigger. It contains 40 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "api"
+  ]
 }

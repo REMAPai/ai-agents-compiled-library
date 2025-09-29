@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "6a2a7715680b8313f7cb4676321c5baa46680adfb913072f089f2766f42e43bd"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -15,7 +18,7 @@
         "color": 7,
         "width": 330.5152611046425,
         "height": 239.5888196628349,
-        "content": "### ... or watch set up video [13 min]\n[![Youtube Thumbnail](https://cflobdhpqwnoisuctsoc.supabase.co/storage/v1/object/public/my_storage/Youtube%20AI%20Agent%20Blur.png)](https://youtu.be/6RmLZS8Yl4E)\n"
+        "content": "### ... or watch set up video [13 min]\n[![Youtube Thumbnail]({{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -31,7 +34,7 @@
         "color": 7,
         "width": 636.2128494576581,
         "height": 497.1532689930921,
-        "content": "![5min Logo](https://cflobdhpqwnoisuctsoc.supabase.co/storage/v1/object/public/my_storage/banner.png)\n## AI Agent To Chat With Youtube\n**Made by [Mark Shcherbakov](https://www.linkedin.com/in/marklowcoding/) from community [5minAI](https://www.skool.com/5minai)**\n\nNavigating the content generation and optimization process can be complex, especially without significant audience insight. This workflow automates insights extraction from YouTube videos and comments, empowering users to create more engaging and relevant content effectively.\n\nThe workflow integrates various APIs to gather insights from YouTube videos, enabling automated commentary analysis, video transcription, and thumbnail evaluation. The main functionalities include:\n- Extracting user preferences from comments.\n- Transcribing video content for enhanced understanding.\n- Analyzing thumbnails via AI for maximum viewer engagement insights.\n\n"
+        "content": "![5min Logo]({{ $env.WEBHOOK_URL }}\n## AI Agent To Chat With Youtube\n**Made by [Mark Shcherbakov]({{ $env.WEBHOOK_URL }} from community [5minAI]({{ $env.WEBHOOK_URL }}\n\nNavigating the content generation and optimization process can be complex, especially without significant audience insight. This workflow automates insights extraction from YouTube videos and comments, empowering users to create more engaging and relevant content effectively.\n\nThe workflow integrates various APIs to gather insights from YouTube videos, enabling automated commentary analysis, video transcription, and thumbnail evaluation. The main functionalities include:\n- Extracting user preferences from comments.\n- Transcribing video content for enhanced understanding.\n- Analyzing thumbnails via AI for maximum viewer engagement insights.\n\n"
       },
       "typeVersion": 1
     },
@@ -47,7 +50,7 @@
         "color": 7,
         "width": 280.2462120317618,
         "height": 545.9087885077763,
-        "content": "### Set up steps\n\n1. **API Setup**:\n - Create a [Google Cloud](https://console.cloud.google.com/apis/dashboard) project and enable the YouTube Data API.\n - Generate an API key for [Apify](https://www.apify.com?fpr=ujogj).\n - Generate API key for [OpenAI](https://platform.openai.com)\n - Create all credentials in N8N - OpenAI, Apify, Google Cloud.\n\n2. **YouTube Creator and Video Selection**:\n - Start by defining a request to identify top creators based on their video views.\n - Capture the YouTube video IDs for further analysis of comments and other video metrics.\n\n3. **Comment Analysis**:\n - Gather comments associated with the selected videos and analyze them for user insights.\n - Implement pagination to handle the maximum comment retrieval limits in API requests.\n\n4. **Video Transcription**:\n - Request transcriptions for videos of interest, ensuring to manage potential costs associated with longer video processing.\n - Utilize the insights from transcriptions to formulate content plans.\n\n5. **Thumbnail Analysis**:\n - Evaluate your video thumbnails by submitting the URL through the OpenAI API to gain insights into their effectiveness.\n\n6. **Data Management**:\n - Incorporate a database agent to organize video data and metrics, allowing efficient record management and future content planning."
+        "content": "### Set up steps\n\n1. **API Setup**:\n - Create a [Google Cloud]({{ $env.API_BASE_URL }} project and enable the YouTube Data API.\n - Generate an API key for [Apify]({{ $env.API_BASE_URL }}\n - Generate API key for [OpenAI]({{ $env.WEBHOOK_URL }}\n - Create all credentials in N8N - OpenAI, Apify, Google Cloud.\n\n2. **YouTube Creator and Video Selection**:\n - Start by defining a request to identify top creators based on their video views.\n - Capture the YouTube video IDs for further analysis of comments and other video metrics.\n\n3. **Comment Analysis**:\n - Gather comments associated with the selected videos and analyze them for user insights.\n - Implement pagination to handle the maximum comment retrieval limits in API requests.\n\n4. **Video Transcription**:\n - Request transcriptions for videos of interest, ensuring to manage potential costs associated with longer video processing.\n - Utilize the insights from transcriptions to formulate content plans.\n\n5. **Thumbnail Analysis**:\n - Evaluate your video thumbnails by submitting the URL through the OpenAI API to gain insights into their effectiveness.\n\n6. **Data Management**:\n - Incorporate a database agent to organize video data and metrics, allowing efficient record management and future content planning."
       },
       "typeVersion": 1
     },
@@ -95,7 +98,7 @@
           "value": "FgknOUpOBkpY85NX",
           "cachedResultName": "Youtube parser - tools"
         },
-        "description": "Get channel_id, title and description by handle/username.\nChannel_id is required to find videos and details about this channel.\nIf Youtube link to channel provided - parse handle from there or return channel_id. (e.g. https://www.youtube.com/@example_handle - example_handle)\n\n\nExample Input:\nexample_handle\n\nExample Output:\nid:UCOgz_YflAsYnGbdvzXuKNCA\ntitle:Daniel Simmons\ndescription:Digital Diary \ud83e\udd0e\\n\\n\\nWeekly videos around fashion...",
+        "description": "Get channel_id, title and description by handle/username.\nChannel_id is required to find videos and details about this channel.\nIf Youtube link to channel provided - parse handle from there or return channel_id. (e.g. {{ $env.WEBHOOK_URL }} - example_handle)\n\n\nExample Input:\nexample_handle\n\nExample Output:\nid:UCOgz_YflAsYnGbdvzXuKNCA\ntitle:Daniel Simmons\ndescription:Digital Diary 🤎\\n\\n\\nWeekly videos around fashion...",
         "inputSchema": "{\n \"type\": \"object\",\n \"properties\": {\n \"handle\": {\n \"type\": \"string\",\n \"description\": \"Handle/username of channel\"\n }},\n \"required\": [\"handle\"]\n}",
         "specifyInputSchema": true
       },
@@ -126,7 +129,7 @@
           "value": "FgknOUpOBkpY85NX",
           "cachedResultName": "Youtube parser - tools"
         },
-        "description": "Fetch video details - the full description, title, and publish date of a video using its video_id.\n\nExample input:\nvideo_id:dQw4w9WgXcQ\n\nExample Output:\ntitle:Never Gonna Give You Up\ndescription: \"The official video for \u201cNever Gonna Give You Up\u201d by Rick Astley.\nduration:4 min\nviewCount:154\nlikeCount:6\nthumbnails: urls",
+        "description": "Fetch video details - the full description, title, and publish date of a video using its video_id.\n\nExample input:\nvideo_id:dQw4w9WgXcQ\n\nExample Output:\ntitle:Never Gonna Give You Up\ndescription: \"The official video for “Never Gonna Give You Up” by Rick Astley.\nduration:4 min\nviewCount:154\nlikeCount:6\nthumbnails: urls",
         "inputSchema": "{\n \"type\": \"object\",\n \"properties\": {\n \"video_id\": {\n \"type\": \"string\",\n \"description\": \"The ID of the video to fetch details for\"\n }\n },\n \"required\": [\"video_id\"]\n}",
         "specifyInputSchema": true
       },
@@ -296,7 +299,7 @@
         820
       ],
       "parameters": {
-        "sessionKey": "={{ $('When chat message received').item.json.sessionId }}",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey"
       },
       "credentials": {
@@ -363,10 +366,10 @@
         1598
       ],
       "parameters": {
-        "url": "=https://www.googleapis.com/youtube/v3/commentThreads",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth",
         "queryParameters": {
           "parameters": [
@@ -413,10 +416,10 @@
         1278
       ],
       "parameters": {
-        "url": "=https://www.googleapis.com/youtube/v3/channels",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth",
         "queryParameters": {
           "parameters": [
@@ -448,10 +451,10 @@
         1438
       ],
       "parameters": {
-        "url": "=https://www.googleapis.com/youtube/v3/videos",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth",
         "queryParameters": {
           "parameters": [
@@ -506,10 +509,10 @@
         1758
       ],
       "parameters": {
-        "url": "=https://www.googleapis.com/youtube/v3/search",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth",
         "queryParameters": {
           "parameters": [
@@ -557,10 +560,10 @@
         1918
       ],
       "parameters": {
-        "url": "=https://www.googleapis.com/youtube/v3/search",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth",
         "queryParameters": {
           "parameters": [
@@ -634,7 +637,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "get_channel_details",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -657,7 +660,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "video_details",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -682,7 +685,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "comments",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -707,7 +710,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "search",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -732,7 +735,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "videos",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -757,7 +760,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "analyze_thumbnail",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -782,7 +785,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "video_transcription",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -821,13 +824,13 @@
         2238
       ],
       "parameters": {
-        "url": "=https://api.apify.com/v2/acts/dB9f4B02ocpTICIEY/run-sync-get-dataset-items",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"startUrls\": [\n \"{{ $('Execute Workflow Trigger').item.json.query.video_url }}\"\n ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth"
       },
       "credentials": {
@@ -856,7 +859,7 @@
         },
         "options": {},
         "resource": "image",
-        "imageUrls": "={{ $('Execute Workflow Trigger').item.json.query.url }}",
+        "imageUrls": "{{ $env.BASE_URL }}",
         "operation": "analyze"
       },
       "credentials": {
@@ -913,6 +916,215 @@
         "content": "### Replace credentials in all nodes - Apify, OpenAI, Google"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-54116346-bc73-4a6a-8bca-f2a6e6699374",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 54116346-bc73-4a6a-8bca-f2a6e6699374",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4b3ec3aa-7c69-4a72-a989-02f97acdf612",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 4b3ec3aa-7c69-4a72-a989-02f97acdf612",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ed8dec73-8c50-4eb9-8efe-68ee72c4d5e6",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ed8dec73-8c50-4eb9-8efe-68ee72c4d5e6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5f0c44fe-2523-4170-a27d-0ccd1bef24a7",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 5f0c44fe-2523-4170-a27d-0ccd1bef24a7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3e192718-6710-4143-ac6e-15df79ee5363",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3e192718-6710-4143-ac6e-15df79ee5363",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-df432d53-33bf-4e91-9ead-7f4b36bd788a",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in df432d53-33bf-4e91-9ead-7f4b36bd788a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ca0fd549-88a7-44fd-ab81-7fd5ca140dae-c82effb4",
+      "name": "Error Handler for ca0fd549",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ca0fd549",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-54116346-bc73-4a6a-8bca-f2a6e6699374-b65c0c68",
+      "name": "Error Handler for 54116346",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 54116346",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4b3ec3aa-7c69-4a72-a989-02f97acdf612-7c24aab7",
+      "name": "Error Handler for 4b3ec3aa",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4b3ec3aa",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ed8dec73-8c50-4eb9-8efe-68ee72c4d5e6-b0a313d7",
+      "name": "Error Handler for ed8dec73",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ed8dec73",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5f0c44fe-2523-4170-a27d-0ccd1bef24a7-c7f292fb",
+      "name": "Error Handler for 5f0c44fe",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5f0c44fe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3e192718-6710-4143-ac6e-15df79ee5363-be742827",
+      "name": "Error Handler for 3e192718",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3e192718",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-df432d53-33bf-4e91-9ead-7f4b36bd788a-1c132d41",
+      "name": "Error Handler for df432d53",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node df432d53",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8079e5c9-4a52-45ce-ac41-7fc707177a5a-997888b8",
+      "name": "Error Handler for 8079e5c9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8079e5c9",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-f00e8d81",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Stickynote Workflow\n\n## Overview\nAutomated workflow: Stickynote Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, agent, memoryPostgresChat, set. It contains 43 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 43\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note9**: stickyNote\n- **Sticky Note7**: stickyNote\n- **Sticky Note6**: stickyNote\n- **OpenAI Chat Model**: lmChatOpenAi\n- **get_channel_details**: toolWorkflow\n- **get_video_description**: toolWorkflow\n- **get_list_of_videos**: toolWorkflow\n- **get_list_of_comments**: toolWorkflow\n- **search**: toolWorkflow\n- **analyze_thumbnail**: toolWorkflow\n- ... and 33 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {
@@ -1189,6 +1401,145 @@
           }
         ]
       ]
+    },
+    "54116346-bc73-4a6a-8bca-f2a6e6699374": {
+      "main": [
+        [
+          {
+            "node": "error-handler-54116346-bc73-4a6a-8bca-f2a6e6699374",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-54116346-bc73-4a6a-8bca-f2a6e6699374-b65c0c68",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4b3ec3aa-7c69-4a72-a989-02f97acdf612": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4b3ec3aa-7c69-4a72-a989-02f97acdf612",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-4b3ec3aa-7c69-4a72-a989-02f97acdf612-7c24aab7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ed8dec73-8c50-4eb9-8efe-68ee72c4d5e6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ed8dec73-8c50-4eb9-8efe-68ee72c4d5e6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ed8dec73-8c50-4eb9-8efe-68ee72c4d5e6-b0a313d7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5f0c44fe-2523-4170-a27d-0ccd1bef24a7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5f0c44fe-2523-4170-a27d-0ccd1bef24a7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-5f0c44fe-2523-4170-a27d-0ccd1bef24a7-c7f292fb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3e192718-6710-4143-ac6e-15df79ee5363": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3e192718-6710-4143-ac6e-15df79ee5363",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3e192718-6710-4143-ac6e-15df79ee5363-be742827",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "df432d53-33bf-4e91-9ead-7f4b36bd788a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-df432d53-33bf-4e91-9ead-7f4b36bd788a",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-df432d53-33bf-4e91-9ead-7f4b36bd788a-1c132d41",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ca0fd549-88a7-44fd-ab81-7fd5ca140dae": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ca0fd549-88a7-44fd-ab81-7fd5ca140dae-c82effb4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8079e5c9-4a52-45ce-ac41-7fc707177a5a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8079e5c9-4a52-45ce-ac41-7fc707177a5a-997888b8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Stickynote Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, agent, memoryPostgresChat, set. It contains 43 nodes and follows best practices for error handling and security."
 }

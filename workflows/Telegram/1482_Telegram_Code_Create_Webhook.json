@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Generate Instagram Content from Top Trends with AI Image Generation",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "8c49be2b-6320-4eb0-8303-6448ced34636",
@@ -610,7 +613,7 @@
             "code": "={{$('Loop Over Items').item.json.content_code}}",
             "prompt": "={{$('Loop Over Items').item.json.prompt}}",
             "isposted": false,
-            "thumbnail_url": "={{$('Loop Over Items').item.json.thumbnail_url}}"
+            "thumbnail_url": "{{ $env.BASE_URL }}"
           },
           "schema": [
             {
@@ -734,7 +737,7 @@
         },
         "options": {},
         "resource": "image",
-        "imageUrls": "={{ $('Loop Over Items').item.json.thumbnail_url }}",
+        "imageUrls": "{{ $env.BASE_URL }}",
         "operation": "analyze"
       },
       "credentials": {

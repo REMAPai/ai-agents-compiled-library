@@ -37,7 +37,7 @@
         "filters": {
           "conditions": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "condition": "equals",
               "richTextValue": "={{ $json.id }}"
             }
@@ -58,7 +58,7 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "18",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -133,26 +133,26 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "range": true,
               "dateEnd": "={{ $json.end.dateTime }}",
               "timezone": "={{ $json.start.timeZone }}",
               "dateStart": "={{ $json.start.dateTime }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.id }}"
             },
             {
-              "key": "YOUR_API_KEY",
-              "urlValue": "={{ $json.webLink }}"
+              "key": "YOUR_CREDENTIAL_HERE",
+              "urlValue": "{{ $env.BASE_URL }}"
             }
           ]
         }
       },
       "credentials": {
         "notionApi": {
-          "id": "18",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -177,18 +177,18 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "range": true,
               "dateEnd": "={{ $json.end.dateTime }}",
               "timezone": "={{ $json.start.timeZone }}",
               "dateStart": "={{ $json.start.dateTime }}"
             },
             {
-              "key": "YOUR_API_KEY",
-              "urlValue": "={{ $json.webLink }}"
+              "key": "YOUR_CREDENTIAL_HERE",
+              "urlValue": "{{ $env.BASE_URL }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "title": "={{ $json.subject }}"
             }
           ]
@@ -196,7 +196,7 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "18",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -244,7 +244,7 @@
         "url": "{{ $env.WEBHOOK_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "oAuth2Api",
         "queryParameters": {
           "parameters": [
@@ -283,7 +283,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -310,7 +310,7 @@
     },
     {
       "id": "documentation-ab2bdb9e",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -439,5 +439,9 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": null,
     "timezone": "UTC"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

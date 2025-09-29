@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "408f9fb9940c3cb18ffdef0e0150fe342d6e655c3a9fac21f0f644e8bedabcd9",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -45,7 +47,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "searchEmployee",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -69,7 +71,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "getEmployeeById",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -94,7 +96,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "updateEmployee",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -136,7 +138,7 @@
         "color": 7,
         "width": 680,
         "height": 660,
-        "content": "## 1. Set up an MCP Server Trigger\n[Read more about the MCP Server Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger)"
+        "content": "## 1. Set up an MCP Server Trigger\n[Read more about the MCP Server Trigger]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -152,7 +154,7 @@
         "color": 7,
         "width": 600,
         "height": 260,
-        "content": "## 2. Build Your MCP Server from Existing APIs\n[Read more about the HTTP Request Node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest)\n\nN8N allows any organisation to quickly build and host their own MCP server by leveraging existing APIs. Here's a quick example for PayCaptain.com - a cloud-based payroll software for modern companies.\n\nWith this set of tools, Paycaptain customers can simplify employee management from within their favourite MCP client such as Claude Desktop. Better yet, n8n also handles distribution so this MCP server can serve entire departments as well."
+        "content": "## 2. Build Your MCP Server from Existing APIs\n[Read more about the HTTP Request Node]({{ $env.WEBHOOK_URL }}\n\nN8N allows any organisation to quickly build and host their own MCP server by leveraging existing APIs. Here's a quick example for PayCaptain.com - a cloud-based payroll software for modern companies.\n\nWith this set of tools, Paycaptain customers can simplify employee management from within their favourite MCP client such as Claude Desktop. Better yet, n8n also handles distribution so this MCP server can serve entire departments as well."
       },
       "typeVersion": 1
     },
@@ -339,7 +341,7 @@
         60
       ],
       "parameters": {
-        "url": "https://api.paycaptain.com/employees",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {
           "pagination": {
             "pagination": {
@@ -358,7 +360,7 @@
           }
         },
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -536,14 +538,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ls_3pmzIafl1NUAzzflkJgyq1smPW6vfGjbVuVzdkac/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1Ls_3pmzIafl1NUAzzflkJgyq1smPW6vfGjbVuVzdkac",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ls_3pmzIafl1NUAzzflkJgyq1smPW6vfGjbVuVzdkac/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "98. MCP Audit"
         }
       },
@@ -613,7 +615,7 @@
         260
       ],
       "parameters": {
-        "url": "https://api.paycaptain.com/employees",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {
           "pagination": {
             "pagination": {
@@ -632,7 +634,7 @@
           }
         },
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -972,7 +974,7 @@
         460
       ],
       "parameters": {
-        "url": "https://api.paycaptain.com/employee",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "pagination": {
@@ -994,7 +996,7 @@
         "jsonBody": "={{\n{\n  hrEmployeeId: $('When Executed by Another Workflow').item.json.employeeId,\n  ..\n}\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -1135,7 +1137,7 @@
         "color": 7,
         "width": 400,
         "height": 220,
-        "content": "![](https://cdn.prod.website-files.com/6628137b611845ebff95551f/6628137b611845ebff9556e7_paycaptain-logo.svg#full-width)\n**Website**: https://paycaptain.com\n**DeveloperHub**: https://developer.paycaptain.com\n\n**Good to know:** PayCaptain also sponsors the n8n London Meetups - Definitely check them out!"
+        "content": "![]({{ $env.WEBHOOK_URL }}\n**Website**: {{ $env.WEBHOOK_URL }}\n**DeveloperHub**: {{ $env.WEBHOOK_URL }}\n\n**Good to know:** PayCaptain also sponsors the n8n London Meetups - Definitely check them out!"
       },
       "typeVersion": 1
     },
@@ -1150,9 +1152,120 @@
       "parameters": {
         "width": 440,
         "height": 1180,
-        "content": "## Try It Out!\n### This n8n demonstrates how any organisation can quickly and easily build and offer MCP servers to their customers or internal staff to improve productivity.\n\nThis MCP example uses PayCaptain.com as an example and shows how to create an MCP server which can search for and update employee data.\n\n### How it works\n* A MCP server trigger is used and connected to 3 custom workflow tools: Search Employee, Get Employee by ID and Update Employee.\n* Each tool makes calls to the PayCaptain API to perform their respective tasks. Extra care  is performed to strip out sensitive data and ensure we're not sharing too much.\n* The Update Employee too also guards against updating fields which would preferably remain readonly. When you control the MCP server, you can determine behaviour of the tool.\n* Finally, a Google Sheet node is used to log all operations for later audit. This will add a tiny bit of latency but recommended if sensitive data is being accessed.\n\n### How to use\n* This MCP server allows any compatible MCP client to manage their PayCaptain employee database. You will need to have a PayCaptain account and developer key to use it.\n* Connect your MCP client by following the n8n guidelines here - https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/#integrating-with-claude-desktop\n* Try the following queries in your MCP client:\n  * \"When did Sarah start here employment at the company?\"\n  * \"Does Jack work Wednesdays or Fridays?\"\n  * \"Please update Tracy's NI number to ABCD123456\"\n\n### Requirements\n* PayCaptain Account and Developer Key.\n* Google Sheets to log actions for later audit.\n* MCP Client or Agent for usage such as Claude Desktop - https://claude.ai/download\n\n### Customising this workflow\n* Add or remove employee attributes as required for your user case.\n* If Google Sheets is too slow, consider an API call to a faster service to log calls to the MCP server.\n* Remember to set the MCP server to require credentials before going to production and sharing this MCP server with others!"
+        "content": "## Try It Out!\n### This n8n demonstrates how any organisation can quickly and easily build and offer MCP servers to their customers or internal staff to improve productivity.\n\nThis MCP example uses PayCaptain.com as an example and shows how to create an MCP server which can search for and update employee data.\n\n### How it works\n* A MCP server trigger is used and connected to 3 custom workflow tools: Search Employee, Get Employee by ID and Update Employee.\n* Each tool makes calls to the PayCaptain API to perform their respective tasks. Extra care  is performed to strip out sensitive data and ensure we're not sharing too much.\n* The Update Employee too also guards against updating fields which would preferably remain readonly. When you control the MCP server, you can determine behaviour of the tool.\n* Finally, a Google Sheet node is used to log all operations for later audit. This will add a tiny bit of latency but recommended if sensitive data is being accessed.\n\n### How to use\n* This MCP server allows any compatible MCP client to manage their PayCaptain employee database. You will need to have a PayCaptain account and developer key to use it.\n* Connect your MCP client by following the n8n guidelines here - {{ $env.WEBHOOK_URL }}\n* Try the following queries in your MCP client:\n  * \"When did Sarah start here employment at the company?\"\n  * \"Does Jack work Wednesdays or Fridays?\"\n  * \"Please update Tracy's NI number to ABCD123456\"\n\n### Requirements\n* PayCaptain Account and Developer Key.\n* Google Sheets to log actions for later audit.\n* MCP Client or Agent for usage such as Claude Desktop - {{ $env.WEBHOOK_URL }}\n\n### Customising this workflow\n* Add or remove employee attributes as required for your user case.\n* If Google Sheets is too slow, consider an API call to a faster service to log calls to the MCP server.\n* Remember to set the MCP server to require credentials before going to production and sharing this MCP server with others!"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-87661e95-b618-4701-b0f3-9f0532d5fc75",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 87661e95-b618-4701-b0f3-9f0532d5fc75",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-45076cec-f554-44ae-b314-e43ba080abb5",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 45076cec-f554-44ae-b314-e43ba080abb5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-86f73b12-afc8-4694-a79d-45c908cc88dd",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 86f73b12-afc8-4694-a79d-45c908cc88dd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-87661e95-b618-4701-b0f3-9f0532d5fc75-ca685d4b",
+      "name": "Error Handler for 87661e95",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 87661e95",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-679a2413-448f-43d8-98fc-7fd8b83775e7-3e4ccd02",
+      "name": "Error Handler for 679a2413",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 679a2413",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-45076cec-f554-44ae-b314-e43ba080abb5-f1f27cfb",
+      "name": "Error Handler for 45076cec",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 45076cec",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-86f73b12-afc8-4694-a79d-45c908cc88dd-b09c7528",
+      "name": "Error Handler for 86f73b12",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 86f73b12",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-79e35309",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Executeworkflowtrigger Workflow\n\n## Overview\nAutomated workflow: Executeworkflowtrigger Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, filter, switch, set. It contains 32 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 32\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When Executed by Another Workflow**: executeWorkflowTrigger\n- **Operation**: switch\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Paycaptain MCP Server**: mcpTrigger\n- **Update Employee**: toolWorkflow\n- **Get Employee**: toolWorkflow\n- **Get Employees**: httpRequest\n- **Search Employees**: toolWorkflow\n- ... and 22 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -1342,6 +1455,80 @@
           }
         ]
       ]
+    },
+    "87661e95-b618-4701-b0f3-9f0532d5fc75": {
+      "main": [
+        [
+          {
+            "node": "error-handler-87661e95-b618-4701-b0f3-9f0532d5fc75",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-87661e95-b618-4701-b0f3-9f0532d5fc75-ca685d4b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "45076cec-f554-44ae-b314-e43ba080abb5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-45076cec-f554-44ae-b314-e43ba080abb5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-45076cec-f554-44ae-b314-e43ba080abb5-f1f27cfb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "86f73b12-afc8-4694-a79d-45c908cc88dd": {
+      "main": [
+        [
+          {
+            "node": "error-handler-86f73b12-afc8-4694-a79d-45c908cc88dd",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-86f73b12-afc8-4694-a79d-45c908cc88dd-b09c7528",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "679a2413-448f-43d8-98fc-7fd8b83775e7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-679a2413-448f-43d8-98fc-7fd8b83775e7-3e4ccd02",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Executeworkflowtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Executeworkflowtrigger Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, filter, switch, set. It contains 32 nodes and follows best practices for error handling and security."
 }

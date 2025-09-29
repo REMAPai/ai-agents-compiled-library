@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Write a WordPress post with AI (starting from a few keywords)",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "a4f19a81-6101-48c2-9560-9cf231bc240b",
@@ -538,7 +541,7 @@
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -548,7 +551,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -567,11 +570,11 @@
         320
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Post on Wordpress').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -580,7 +583,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -768,7 +771,7 @@
           "cachedResultName": "GPT-4-1106-PREVIEW"
         },
         "options": {
-          "maxTokens": 2048
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "messages": {
           "values": [
@@ -803,7 +806,7 @@
           "cachedResultName": "GPT-4-0125-PREVIEW"
         },
         "options": {
-          "maxTokens": 2048
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "messages": {
           "values": [

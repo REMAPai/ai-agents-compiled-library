@@ -116,7 +116,7 @@
         "options": {},
         "resource": "company",
         "operation": "searchByDomain",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "typeVersion": 2,
       "alwaysOutputData": true
@@ -132,7 +132,7 @@
       "parameters": {
         "email": "={{ $('Enrich email').item.json.email }}",
         "options": {},
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "lastName": "={{ $('Enrich email').item.json.name.familyName }}",
           "firstName": "={{ $('Enrich email').item.json.name.fullName }}"
@@ -151,7 +151,7 @@
       "parameters": {
         "name": "={{ $('Enrich company').item.json.name }}",
         "resource": "company",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "twitterBio": "={{ $('Enrich company').item.json.twitter.bio }}",
           "description": "={{ $('Enrich company').item.json.description }}",
@@ -180,7 +180,7 @@
         "options": {
           "resolveData": true
         },
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "associatedCompanyId": "={{ $json.companyId }}"
         }
@@ -212,7 +212,7 @@
           "twitterFollowers": "={{ $('Enrich company').item.json.twitter.followers }}",
           "numberOfEmployees": "={{ $('Enrich company').item.json.metrics.employees }}"
         },
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "typeVersion": 2
     },
@@ -546,5 +546,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: If Workflow. This workflow integrates 7 different services: stickyNote, convertKitTrigger, filter, hubspot, clearbit. It contains 16 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: If Workflow. This workflow integrates 7 different services: stickyNote, convertKitTrigger, filter, hubspot, clearbit. It contains 16 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

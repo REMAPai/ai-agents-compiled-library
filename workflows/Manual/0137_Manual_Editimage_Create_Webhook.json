@@ -18,13 +18,13 @@
         210
       ],
       "parameters": {
-        "url": "https://api.twitter.com/2/users/{YOUR_USER_ID}/followers?user.fields=profile_image_url&max_results=3",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
-          "id": "2",
+          "id": "{{ $credentials.httpHeaderAuth.id }}",
           "name": "Twitter Token"
         }
       },
@@ -75,7 +75,7 @@
         210
       ],
       "parameters": {
-        "url": "={{$json[\"profile_image_url\"].replace('normal','400x400')}}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "responseFormat": "file",
         "dataPropertyName": "avatar"
@@ -90,7 +90,7 @@
         -40
       ],
       "parameters": {
-        "url": "{TEMPLATE_IMAGE_URL}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "responseFormat": "file",
         "dataPropertyName": "bg"
@@ -213,19 +213,19 @@
         110
       ],
       "parameters": {
-        "url": "https://api.twitter.com/1.1/account/update_profile_banner.json",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "bodyContentType": "multipart-form-data"
         },
         "requestMethod": "POST",
-        "authentication": "oAuth1",
+        "authentication": "{{ $credentials.oAuth1 }}",
         "jsonParameters": true,
         "sendBinaryData": true,
         "binaryPropertyName": "banner:bg"
       },
       "credentials": {
         "oAuth1Api": {
-          "id": "13",
+          "id": "{{ $credentials.oAuth1Api.id }}",
           "name": "Twitter OAuth1.0"
         }
       },

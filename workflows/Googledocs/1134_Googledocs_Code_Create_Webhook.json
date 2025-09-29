@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Generate Exam Questions",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "4e037d6e-93a9-4c1b-b84a-dbbcf77beaf5",
@@ -62,7 +65,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -97,7 +100,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -222,7 +225,7 @@
       "parameters": {
         "simple": false,
         "operation": "get",
-        "documentURL": "XXXXXXXXXXXXXXXX"
+        "documentURL": "{{ $env.BASE_URL }}"
       },
       "credentials": {
         "googleDocsOAuth2Api": {

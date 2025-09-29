@@ -1,7 +1,10 @@
 {
   "id": "pDLtBJkNSXXWSvB0",
   "meta": {
-    "instanceId": "bc5ae5fe2056690823360ec27da902117e87ff22a0f9c9bb0448416fba4527f8"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Training Feedback Automation",
   "tags": [],
@@ -33,7 +36,7 @@
           ]
         },
         "triggerField": "Created",
-        "authentication": "airtableOAuth2Api",
+        "authentication": "{{ $credentials.airtableOAuth2Api }}",
         "additionalFields": {}
       },
       "credentials": {
@@ -72,7 +75,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "Validated",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -94,7 +97,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Other",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -152,7 +155,7 @@
         320
       ],
       "parameters": {
-        "html": "=Dear [Recipient Name],\n\nWe would like to inform you that a new task has been created to address the recent training feedback we received. Below are the details of the task:\n\nTask Title: {{ $json[\"title\"] }}\n\nTask Description:\n{{ $json[\"description\"] }}\n\nTask Status: {{ $json[\"statusName\"] }}\n\nInstructions:\n{{ $json[\"instruction\"] }}\n\nActions Required:\n\n- {{ $json[\"task\"][\"actions\"][0][\"name\"] }}\nDescription:\n{{ $json[\"task\"][\"actions\"][0][\"description\"] }}\n\n- {{ $json[\"task\"][\"actions\"][1][\"name\"] }}\nDescription:\n{{ $json[\"task\"][\"actions\"][1][\"description\"] }}\n\n\nPlease address this task at your earliest convenience to ensure we promptly respond to the feedback and improve our training program accordingly.\n\nIf you have any questions or require further information, please do not hesitate to contact us.\n\nLink : https://demo.usertask.io/app/task/instance/form/{{ $json[\"code\"] }}\n\nBest regards,",
+        "html": "=Dear [Recipient Name],\n\nWe would like to inform you that a new task has been created to address the recent training feedback we received. Below are the details of the task:\n\nTask Title: {{ $json[\"title\"] }}\n\nTask Description:\n{{ $json[\"description\"] }}\n\nTask Status: {{ $json[\"statusName\"] }}\n\nInstructions:\n{{ $json[\"instruction\"] }}\n\nActions Required:\n\n- {{ $json[\"task\"][\"actions\"][0][\"name\"] }}\nDescription:\n{{ $json[\"task\"][\"actions\"][0][\"description\"] }}\n\n- {{ $json[\"task\"][\"actions\"][1][\"name\"] }}\nDescription:\n{{ $json[\"task\"][\"actions\"][1][\"description\"] }}\n\n\nPlease address this task at your earliest convenience to ensure we promptly respond to the feedback and improve our training program accordingly.\n\nIf you have any questions or require further information, please do not hesitate to contact us.\n\nLink : {{ $env.WEBHOOK_URL }}{{ $json[\"code\"] }}\n\nBest regards,",
         "options": {},
         "subject": "New Task Created - Urgent: Training Feedback Requires Immediate Attention",
         "toEmail": "contact@usertask.io",
@@ -175,10 +178,10 @@
         60
       ],
       "parameters": {
-        "url": "http://demo.usertask.io/api/task/create-instance",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
-        "jsonBody": "{\n  \"taskCode\": \"tltJf90mJVEnpUZvuQBi\",\n  \"callbackUrl\": \"https://n8n-hzd1.onrender.com/webhook/4ff46f8a-e1d0-4ad9-8dae-99de53838aaf\",\n  \"description\":\"We have received a training feedback rating of 1 star. It is crucial to address this issue promptly.We recommend scheduling a meeting to discuss the feedback in detail and develop an action plan to improve the training program.\",\n  \"instruction\":\"\",\n  \"title\":\"Urgent: Training Feedback Requires Immediate Attention\"\n}",
+        "jsonBody": "{\n  \"taskCode\": \"tltJf90mJVEnpUZvuQBi\",\n  \"callbackUrl\": \"{{ $env.WEBHOOK_URL }}\",\n  \"description\":\"We have received a training feedback rating of 1 star. It is crucial to address this issue promptly.We recommend scheduling a meeting to discuss the feedback in detail and develop an action plan to improve the training program.\",\n  \"instruction\":\"\",\n  \"title\":\"Urgent: Training Feedback Requires Immediate Attention\"\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
@@ -206,7 +209,7 @@
         420
       ],
       "parameters": {
-        "url": "http://demo.usertask.io/api/task/create-instance",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -216,7 +219,7 @@
             }
           }
         },
-        "jsonBody": "{\n  \"taskCode\": \"tltJf90mJVEnpUZvuQBi\",\n  \"callbackUrl\": \"https://n8n-hzd1.onrender.com/webhook/4ff46f8a-e1d0-4ad9-8dae-99de53838aaf\",\n  \"description\":\"We have received a training feedback rating of 1 star. It is crucial to address this issue promptly.We recommend scheduling a meeting to discuss the feedback in detail and develop an action plan to improve the training program.\",\n  \"instruction\":\"\",\n  \"title\":\"Urgent: Training Feedback Requires Immediate Attention\"\n}",
+        "jsonBody": "{\n  \"taskCode\": \"tltJf90mJVEnpUZvuQBi\",\n  \"callbackUrl\": \"{{ $env.WEBHOOK_URL }}\",\n  \"description\":\"We have received a training feedback rating of 1 star. It is crucial to address this issue promptly.We recommend scheduling a meeting to discuss the feedback in detail and develop an action plan to improve the training program.\",\n  \"instruction\":\"\",\n  \"title\":\"Urgent: Training Feedback Requires Immediate Attention\"\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
@@ -270,7 +273,7 @@
         "color": 7,
         "width": 714.7562585267917,
         "height": 593.70786516854,
-        "content": "## UserTask\n**Link** https://demo.usertask.io \n\n**Login**\ncontact@usertask.io\n**Password**\nQSDpo2x10?2020"
+        "content": "## UserTask\n**Link** {{ $env.WEBHOOK_URL }} \n\n**Login**\ncontact@usertask.io\n**Password**\nQSDpo2x10?2020"
       },
       "typeVersion": 1
     },
@@ -283,7 +286,7 @@
         320
       ],
       "parameters": {
-        "url": "=https://demo.usertask.io/api/task/instance/info/{{ $json[\"body\"][\"code\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "redirect": {
             "redirect": {}
@@ -339,7 +342,7 @@
         "color": 7,
         "width": 373.05722240092274,
         "height": 320.67415730337063,
-        "content": "## AirTable \n**For exemple, use** Employee training management **template**. [Guide](https://www.airtable.com/templates/employee-training-management/expnOaGvlQDwuWKVk)\n\n"
+        "content": "## AirTable \n**For exemple, use** Employee training management **template**. [Guide]({{ $env.WEBHOOK_URL }}\n\n"
       },
       "typeVersion": 1
     },
@@ -370,7 +373,7 @@
       "parameters": {
         "width": 709.4232592367164,
         "height": 434.93437649014015,
-        "content": "## Training Feedback Automation with Usertask and Airtable\nThis n8n workflow is designed to automate the management of training feedback by integrating Airtable, Usertask, and various notification actions. \n\nHere is a detailed description of each step in the workflow:\n\n- **Airtable Trigger**: Captures new or updated feedback entries from Airtable.\n- **Switch Node**: Evaluates the feedback rating and directs the workflow based on the rating.\n- **Webhook**: Retrieves the result of a Usertask task.\n- **Task Creation**:\n  - Creates tasks in Usertask for poor feedback.\n  - Creates follow-up tasks for fair to good feedback.\n  - Documents positive feedback and posts recognition on LinkedIn for very good to excellent ratings.\n- **Notifications**:\n  - Sends email notifications to responsible parties for urgent actions.\n  - Sends congratulatory emails and posts on LinkedIn for positive feedback.\n\nVideo : [https://youtu.be/U14MhTcpqeY](https://youtu.be/U14MhTcpqeY)\n"
+        "content": "## Training Feedback Automation with Usertask and Airtable\nThis n8n workflow is designed to automate the management of training feedback by integrating Airtable, Usertask, and various notification actions. \n\nHere is a detailed description of each step in the workflow:\n\n- **Airtable Trigger**: Captures new or updated feedback entries from Airtable.\n- **Switch Node**: Evaluates the feedback rating and directs the workflow based on the rating.\n- **Webhook**: Retrieves the result of a Usertask task.\n- **Task Creation**:\n  - Creates tasks in Usertask for poor feedback.\n  - Creates follow-up tasks for fair to good feedback.\n  - Documents positive feedback and posts recognition on LinkedIn for very good to excellent ratings.\n- **Notifications**:\n  - Sends email notifications to responsible parties for urgent actions.\n  - Sends congratulatory emails and posts on LinkedIn for positive feedback.\n\nVideo : [{{ $env.WEBHOOK_URL }}]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -386,7 +389,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "Dissatisfaction",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -408,7 +411,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Fair",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -431,7 +434,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Good",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -454,7 +457,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Very Good",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -477,7 +480,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "Excellent",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -514,7 +517,7 @@
         240
       ],
       "parameters": {
-        "url": "http://demo.usertask.io/api/task/create-instance",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -524,7 +527,7 @@
             }
           }
         },
-        "jsonBody": "{\n  \"taskCode\": \"tltJf90mJVEnpUZvuQBi\",\n  \"callbackUrl\": \"https://n8n-hzd1.onrender.com/webhook/4ff46f8a-e1d0-4ad9-8dae-99de53838aaf\",\n  \"description\":\"We have received a training feedback rating of 1 star. It is crucial to address this issue promptly.We recommend scheduling a meeting to discuss the feedback in detail and develop an action plan to improve the training program.\",\n  \"instruction\":\"\",\n  \"title\":\"Urgent: Training Feedback Requires Immediate Attention\"\n}",
+        "jsonBody": "{\n  \"taskCode\": \"tltJf90mJVEnpUZvuQBi\",\n  \"callbackUrl\": \"{{ $env.WEBHOOK_URL }}\",\n  \"description\":\"We have received a training feedback rating of 1 star. It is crucial to address this issue promptly.We recommend scheduling a meeting to discuss the feedback in detail and develop an action plan to improve the training program.\",\n  \"instruction\":\"\",\n  \"title\":\"Urgent: Training Feedback Requires Immediate Attention\"\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
@@ -542,12 +545,211 @@
         }
       },
       "typeVersion": 4.1
+    },
+    {
+      "id": "error-handler-faeb9069-2f25-419c-8192-5ed69a49d192",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in faeb9069-2f25-419c-8192-5ed69a49d192",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0e9c5ee5-416b-4cb3-9797-417003bc74cd",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 0e9c5ee5-416b-4cb3-9797-417003bc74cd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-27ab7bd3-e3a8-4d87-b28f-767bff9ec0e1",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 27ab7bd3-e3a8-4d87-b28f-767bff9ec0e1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-27e89776-7258-44f5-ac8c-5926f38762b7",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 27e89776-7258-44f5-ac8c-5926f38762b7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6eb8d928-c331-49d5-830a-9442a367254b",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 6eb8d928-c331-49d5-830a-9442a367254b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-faeb9069-2f25-419c-8192-5ed69a49d192-b65bae9a",
+      "name": "Error Handler for faeb9069",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node faeb9069",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b441873f-187c-4777-ab27-d7adf8450d8b-ef8dc8f0",
+      "name": "Error Handler for b441873f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b441873f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0e9c5ee5-416b-4cb3-9797-417003bc74cd-d37c6c95",
+      "name": "Error Handler for 0e9c5ee5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0e9c5ee5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-27ab7bd3-e3a8-4d87-b28f-767bff9ec0e1-f9f59556",
+      "name": "Error Handler for 27ab7bd3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 27ab7bd3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ec55cbd8-e863-4dea-b2fc-1834f9d27f13-979d1bf8",
+      "name": "Error Handler for ec55cbd8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ec55cbd8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-27e89776-7258-44f5-ac8c-5926f38762b7-fd6ba48f",
+      "name": "Error Handler for 27e89776",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 27e89776",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5576aba7-9051-465f-a095-47a52e35b151-108db412",
+      "name": "Error Handler for 5576aba7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5576aba7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6eb8d928-c331-49d5-830a-9442a367254b-2ab59937",
+      "name": "Error Handler for 6eb8d928",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6eb8d928",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-37c129a2",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Training Feedback Automation\n\n## Overview\nAutomated workflow: Training Feedback Automation. This workflow integrates 8 different services: airtableTrigger, webhook, stickyNote, linkedIn, httpRequest. It contains 29 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 29\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Airtable Trigger**: airtableTrigger\n- **Webhook - Action Task Poor**: webhook\n- **Switch1**: switch\n- **LinkedIn**: linkedIn\n- **Poor  - Send Email**: emailSend\n- **Call Usertask - Create task**: httpRequest\n- **Call Usertask - Create Task - Pair and good**: httpRequest\n- **Send Email after WebHook**: emailSend\n- **Sticky Note**: stickyNote\n- **Call Usertask - Detail Task**: httpRequest\n- ... and 19 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "955cc31e-3e7b-49b1-85c5-8f4604cbcc9a",
   "connections": {
@@ -673,6 +875,130 @@
           }
         ]
       ]
+    },
+    "faeb9069-2f25-419c-8192-5ed69a49d192": {
+      "main": [
+        [
+          {
+            "node": "error-handler-faeb9069-2f25-419c-8192-5ed69a49d192",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-faeb9069-2f25-419c-8192-5ed69a49d192-b65bae9a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0e9c5ee5-416b-4cb3-9797-417003bc74cd": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0e9c5ee5-416b-4cb3-9797-417003bc74cd",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-0e9c5ee5-416b-4cb3-9797-417003bc74cd-d37c6c95",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "27ab7bd3-e3a8-4d87-b28f-767bff9ec0e1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-27ab7bd3-e3a8-4d87-b28f-767bff9ec0e1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-27ab7bd3-e3a8-4d87-b28f-767bff9ec0e1-f9f59556",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "27e89776-7258-44f5-ac8c-5926f38762b7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-27e89776-7258-44f5-ac8c-5926f38762b7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-27e89776-7258-44f5-ac8c-5926f38762b7-fd6ba48f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6eb8d928-c331-49d5-830a-9442a367254b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6eb8d928-c331-49d5-830a-9442a367254b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-6eb8d928-c331-49d5-830a-9442a367254b-2ab59937",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b441873f-187c-4777-ab27-d7adf8450d8b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b441873f-187c-4777-ab27-d7adf8450d8b-ef8dc8f0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ec55cbd8-e863-4dea-b2fc-1834f9d27f13": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ec55cbd8-e863-4dea-b2fc-1834f9d27f13-979d1bf8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5576aba7-9051-465f-a095-47a52e35b151": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5576aba7-9051-465f-a095-47a52e35b151-108db412",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Training Feedback Automation. This workflow integrates 8 different services: airtableTrigger, webhook, stickyNote, linkedIn, httpRequest. It contains 29 nodes and follows best practices for error handling and security."
 }

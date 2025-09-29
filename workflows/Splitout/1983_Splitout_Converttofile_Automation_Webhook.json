@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "template-demo-chatgpt-image-1-with-drive-and-sheet copy",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "7d78d4e3-cbb3-4f32-82d9-73c9d7f6c892",
@@ -34,7 +37,7 @@
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -71,7 +74,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -337,8 +340,8 @@
           "value": {
             "prompt": "={{ $('When chat message received').item.json.chatInput }}",
             "datetime": "={{ $('HTTP Request').item.json.created.toDateTime('s').format('yyyy-MM-dd HH:mm:ss') }}",
-            "input token": "YOUR_VALUE_HERE",
-            "output token": "YOUR_VALUE_HERE",
+            "input token": "YOUR_TOKEN_HERE",
+            "output token": "YOUR_TOKEN_HERE",
             "input estimated price": "={{    (     ($('HTTP Request').item.json.usage.input_tokens || 0) * 10 / 1000000   ).toFixed(6)  }}",
             "total estimated price": "={{ \n  (\n    (($('HTTP Request').item.json.usage.input_tokens || 0) * 10 / 1000000) +\n    (($('HTTP Request').item.json.usage.output_tokens || 0) * 40 / 1000000)\n  ).toFixed(6)\n}}",
             "output estimated price": "={{    (     ($('HTTP Request').item.json.usage.output_tokens || 0) * 40 / 1000000   ).toFixed(6)  }}"

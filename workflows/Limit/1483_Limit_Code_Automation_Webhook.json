@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Linkedin Chrome Extensions",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "b203fb9c-cc9a-4b29-848f-44ce7272167e",
@@ -123,9 +126,9 @@
         400
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ encodeURI(\"site:chromewebstore.google.com \" + $json.id) }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -149,7 +152,7 @@
         "columns": {
           "value": {
             "id": "={{ $('Set extension IDs var').item.json.id }}",
-            "url": "={{ $json.results[0].link }}",
+            "url": "{{ $env.BASE_URL }}",
             "name": "={{ $json.results[0].title }}",
             "snippet": "={{ $json.results[0].snippet }}",
             "resource": "={{ $('Set extension IDs var').item.json.file }}",

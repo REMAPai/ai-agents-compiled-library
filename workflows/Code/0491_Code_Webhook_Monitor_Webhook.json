@@ -9,14 +9,14 @@
         140
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Webhook').item.json[\"body\"][\"presentation_id\"] }}:batchUpdate ",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"requests\": [\n    {\n        \"replaceImage\": {\n          \"imageObjectId\": \"{{ $json.objectId }}\",\n          \"url\": \"{{ $('Webhook').item.json[\"body\"][\"image_url\"] }}\",\n          \"imageReplaceMethod\": \"CENTER_CROP\"\n        }\n    },\n    {\n      \"updatePageElementAltText\": {\n        \"objectId\": \"{{ $json.objectId }}\",\n        \"description\": \"{{ $('Webhook').item.json[\"body\"][\"image_key\"] }}\"\n      }\n    }\n  ]\n}  \n   ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "googleSlidesOAuth2Api": {
@@ -112,10 +112,10 @@
         140
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Webhook').item.json.body.presentation_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "googleSlidesOAuth2Api": {
@@ -501,5 +501,10 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n",
+    "api"
+  ]
 }

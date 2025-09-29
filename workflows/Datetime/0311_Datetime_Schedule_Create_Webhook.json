@@ -62,7 +62,7 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "31",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "REPLACE ME"
         }
       },
@@ -117,19 +117,19 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('If database page not found').item.json.id }}"
             },
             {
-              "key": "YOUR_API_KEY",
-              "urlValue": "={{ $env.WEBHOOK_URL }}{{ $json.emailAddress }}/#all/{{ $('If database page not found').item.json.id }}"
+              "key": "YOUR_CREDENTIAL_HERE",
+              "urlValue": "{{ $env.BASE_URL }}"
             }
           ]
         }
       },
       "credentials": {
         "notionApi": {
-          "id": "18",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -147,7 +147,7 @@
         "filters": {
           "conditions": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "condition": "equals",
               "richTextValue": "={{ $json.id }}"
             }
@@ -168,7 +168,7 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "18",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -222,7 +222,7 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "18",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -245,7 +245,7 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "31",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "REPLACE ME"
         }
       },
@@ -327,12 +327,12 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "31",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "REPLACE ME"
         }
       },
@@ -541,5 +541,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Scheduletrigger Workflow. This workflow integrates 11 different services: notionTrigger, stickyNote, httpRequest, scheduleTrigger, merge. It contains 16 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Scheduletrigger Workflow. This workflow integrates 11 different services: notionTrigger, stickyNote, httpRequest, scheduleTrigger, merge. It contains 16 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

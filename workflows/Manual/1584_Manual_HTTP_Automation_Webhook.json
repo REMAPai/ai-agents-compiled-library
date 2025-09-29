@@ -30,10 +30,10 @@
         300
       ],
       "parameters": {
-        "url": "https://api.openai.com/v1/engines/text-davinci-001/completions",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "requestMethod": "POST",
-        "authentication": "headerAuth",
+        "authentication": "{{ $credentials.headerAuth }}",
         "jsonParameters": true,
         "bodyParametersJson": "={\n \"prompt\": \"Generate a tweet, with under 100 characters, about and including the hashtag {{$node[\"FunctionItem\"].json[\"hashtag\"]}}:\",\n \"temperature\": 0.7,\n \"max_tokens\": 64,\n \"top_p\": 1,\n \"frequency_penalty\": 0,\n \"presence_penalty\": 0\n}"
       },

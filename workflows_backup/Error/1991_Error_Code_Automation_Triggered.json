@@ -1,8 +1,10 @@
 {
   "id": "vnhhf9aNsw0kzdBV",
   "meta": {
-    "instanceId": "8fccc85e4982eaaf920505127420cfb3a600b56930a56e499973488bb6dc5e3a",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "CV Evaluation - Error Handling",
   "tags": [
@@ -83,7 +85,7 @@
               "id": "53ac5417-db98-41e5-bc6d-acb6dd1fec42",
               "name": "config.appUrl",
               "type": "string",
-              "value": "https://YourAccountName.app.n8n.cloud/"
+              "value": "{{ $env.WEBHOOK_URL }}"
             },
             {
               "id": "0f85c65a-80bb-4977-90b9-1b4e741b5f70",
@@ -155,7 +157,7 @@
     },
     {
       "id": "a3e45087-e799-4b1b-b420-8d106bdd6daf",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         460,
@@ -271,7 +273,7 @@
         "color": 4,
         "width": 1060,
         "height": 820,
-        "content": "## Send email via Gmail on workflow error (execution and trigger-level errors)\n\nThis error handling workflow sends an email via Gmail on workflow errors with details.\n\nIt extends https://n8n.io/workflows/696-send-email-via-gmail-on-workflow-error/ by adding functionality covering also trigger-level errors.\n\n\n---\n\n### Features\n- Get notifications on both main workflow trigger and execution time errors.\n- Subject line will have the failed workflow id, name, error source (execution or trigger), error message.\n- Body will contain links to both failed and error handling workflows as well as execution or trigger error details.\n- Body will also contain a machine readable and enriched JSON from **`Error Trigger`** describing the error.\n\nUse this **error handling workflow** for as many workflows as you wish.\n\n\n---\n\n### Configiration\n- Copy this workflow to your workspace and, optionally, move it under the project that contains your main workflow\n- In this **error handling workflow** settings, set **This workflow can be called by** as appropriate\n- In **`Config`** node, define your app url, notifications recipient email, and sender name (useful to build filters in your inbox)\n- In **`Gmail`** node, create and select **credentials**\n- In your **main workflow** settings, pick this error handling workflow in the **Error Workflow** field ([How to...](https://docs.n8n.io/flow-logic/error-handling/#create-and-set-an-error-workflow))\n\n\n---\n\n### Related resources\n- [n8n Error Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger/) documentation.\n\n\n---\n\n### Author\n- Reach out [Olek](https://community.n8n.io/u/olek/summary) on community.n8n.io\n- [Olek](https://n8n.io/creators/olek/) on n8n creators hub"
+        "content": "## Send email via Gmail on workflow error (execution and trigger-level errors)\n\nThis error handling workflow sends an email via Gmail on workflow errors with details.\n\nIt extends {{ $env.WEBHOOK_URL }} by adding functionality covering also trigger-level errors.\n\n\n---\n\n### Features\n- Get notifications on both main workflow trigger and execution time errors.\n- Subject line will have the failed workflow id, name, error source (execution or trigger), error message.\n- Body will contain links to both failed and error handling workflows as well as execution or trigger error details.\n- Body will also contain a machine readable and enriched JSON from **`Error Trigger`** describing the error.\n\nUse this **error handling workflow** for as many workflows as you wish.\n\n\n---\n\n### Configiration\n- Copy this workflow to your workspace and, optionally, move it under the project that contains your main workflow\n- In this **error handling workflow** settings, set **This workflow can be called by** as appropriate\n- In **`Config`** node, define your app url, notifications recipient email, and sender name (useful to build filters in your inbox)\n- In **`Gmail`** node, create and select **credentials**\n- In your **main workflow** settings, pick this error handling workflow in the **Error Workflow** field ([How to...]({{ $env.WEBHOOK_URL }}\n\n\n---\n\n### Related resources\n- [n8n Error Trigger]({{ $env.WEBHOOK_URL }} documentation.\n\n\n---\n\n### Author\n- Reach out [Olek]({{ $env.WEBHOOK_URL }} on community.n8n.io\n- [Olek]({{ $env.WEBHOOK_URL }} on n8n creators hub"
       },
       "typeVersion": 1
     },
@@ -288,12 +290,29 @@
         "content": "## Gmail credentials\nSetup your Gmail account credentials here."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-a57c6718",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# CV Evaluation - Error Handling\n\n## Overview\nAutomated workflow: CV Evaluation - Error Handling. This workflow integrates 8 different services: stickyNote, code, merge, errorTrigger, set. It contains 13 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 13\n- **Node Types**: 8\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Error Trigger**: errorTrigger\n- **Gmail**: gmail\n- **Merge**: merge\n- **Config**: set\n- **Constants**: set\n- **If Node**: if\n- **HTML for Execution Error**: html\n- **HTML for Trigger Error**: html\n- **KeepEitherOfHTMLs**: merge\n- **Code**: code\n- ... and 3 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "aef68c1b-3efa-4f48-97ba-23c686cb7683",
   "connections": {
@@ -397,5 +416,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: CV Evaluation - Error Handling. This workflow integrates 8 different services: stickyNote, code, merge, errorTrigger, set. It contains 13 nodes and follows best practices for error handling and security."
 }

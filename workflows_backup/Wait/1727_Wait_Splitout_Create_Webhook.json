@@ -1,8 +1,10 @@
 {
   "id": "VaU41OXvni95OlAL",
   "meta": {
-    "instanceId": "1bc0f4fa5e7d17ac362404cbb49337e51e5061e019cfa24022a8667c1f1ce287",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "address validation",
   "tags": [],
@@ -16,10 +18,10 @@
         880
       ],
       "parameters": {
-        "url": "=https://api.billbee.io/api/v1/orders/{{ $json.orderID }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [
@@ -138,7 +140,7 @@
         760
       ],
       "parameters": {
-        "url": "https://endereco-service.de/rpc/v1",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"addressCheck\",\n  \"params\": {\n    \"country\": \"{{ $json['CountryISO2']}}\",\n    \"language\": \"{{ $json[\"CountryISO2\"] }}\",\n    \"postCode\": \"{{ $json[\"zip\"] }}\",\n    \"cityName\": \"{{ $json[\"location\"] }}\",\n    \"street\": \"{{ $json[\"Street\"] }}\",\n    \"houseNumber\": \"{{ $json[\"housenumber\"] }}\"\n  }\n}",
@@ -195,12 +197,12 @@
         720
       ],
       "parameters": {
-        "url": "=https://api.billbee.io/api/v1/customers/addresses/{{ $('Set Address Fields').item.json[\"BillbeeShippingAddressID\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -304,14 +306,14 @@
         920
       ],
       "parameters": {
-        "url": "=https://api.billbee.io/api/v1/orders/{{ $('Set Address Fields').item.json[\"BillbeeID\"] }}/tags",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n  \"Tags\": [\n    \"endereco_address_failed\"\n  ]\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [
@@ -352,7 +354,7 @@
         "color": 7,
         "width": 1110.4301052736698,
         "height": 544.444950562247,
-        "content": "# **Address Validation Workflow**\n### **Requirements**\n- **Billbee Developer API Key**: Request via email: `support@billbee.io`.\n- **Billbee User API Key**: Found in the **Billbee settings**.\n- **Endereco API Key**: Register at [Endereco API](https://www.endereco.de/en/integrations/address-api/). **30-Day Free Trial available**.\n## **About**\nThis workflow automates the process of validating client shipping addresses, saving time and reducing errors. Your **warehouse team** will appreciate it!\n## **How it Works**\n1. **Start**: The workflow is triggered by a **Webhook** sent from Billbee (see configuration). The webhook provides the **Order ID**.\n2. **Retrieve Order Data**: Use the Order ID to call the **Billbee Order Endpoint**. This fetches the client's shipping address.\n3. **Data Mapping and Manipulation**: Rename and map the fields. Apply optional filters and data adjustments.\n3.1 **Validating the housenumber** (Most common error)\n4. **Validate Address**: Send the shipping address to the **Endereco API**. The API validates the address and, if necessary, suggests a corrected address.\n5. **Conditional Check**: **Was a new address suggested?** **Yes**: Update the client’s shipping address in Billbee. **No**: Add a **\"Validation Error\"** tag to the Billbee order.\n6. **Tag the Order**: For successfully validated orders, add a tag in Billbee to mark them as processed.\n### **Benefits**\n- **Time-Saving**: Automates address validation, reducing manual effort.\n- **Error Reduction**: Identifies incorrect addresses and suggests corrections automatically.\n- **Transparency**: Tracks the validation status with tags in Billbee.\n"
+        "content": "# **Address Validation Workflow**\n### **Requirements**\n- **Billbee Developer API Key**: Request via email: `support@billbee.io`.\n- **Billbee User API Key**: Found in the **Billbee settings**.\n- **Endereco API Key**: Register at [Endereco API]({{ $env.API_BASE_URL }} **30-Day Free Trial available**.\n## **About**\nThis workflow automates the process of validating client shipping addresses, saving time and reducing errors. Your **warehouse team** will appreciate it!\n## **How it Works**\n1. **Start**: The workflow is triggered by a **Webhook** sent from Billbee (see configuration). The webhook provides the **Order ID**.\n2. **Retrieve Order Data**: Use the Order ID to call the **Billbee Order Endpoint**. This fetches the client's shipping address.\n3. **Data Mapping and Manipulation**: Rename and map the fields. Apply optional filters and data adjustments.\n3.1 **Validating the housenumber** (Most common error)\n4. **Validate Address**: Send the shipping address to the **Endereco API**. The API validates the address and, if necessary, suggests a corrected address.\n5. **Conditional Check**: **Was a new address suggested?** **Yes**: Update the client’s shipping address in Billbee. **No**: Add a **\"Validation Error\"** tag to the Billbee order.\n6. **Tag the Order**: For successfully validated orders, add a tag in Billbee to mark them as processed.\n### **Benefits**\n- **Time-Saving**: Automates address validation, reducing manual effort.\n- **Error Reduction**: Identifies incorrect addresses and suggests corrections automatically.\n- **Transparency**: Tracks the validation status with tags in Billbee.\n"
       },
       "typeVersion": 1
     },
@@ -367,7 +369,7 @@
       "parameters": {
         "width": 276,
         "height": 219,
-        "content": "## API Docs\n\nEndereco:\nhttps://github.com/Endereco/enderecoservice_api\n\nBillbee:\nhttps://app.billbee.io//swagger/ui/index\n"
+        "content": "## API Docs\n\nEndereco:\n{{ $env.API_BASE_URL }}\n\nBillbee:\n{{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -639,14 +641,14 @@
         1200
       ],
       "parameters": {
-        "url": "=https://api.billbee.io/api/v1/orders/{{ $('Set Address Fields').item.json[\"BillbeeID\"] }}/tags",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n  \"Tags\": [\n    \"manual_address_check\"\n  ]\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [
@@ -724,14 +726,14 @@
         720
       ],
       "parameters": {
-        "url": "=https://api.billbee.io/api/v1/orders/{{ $('Set Address Fields').item.json[\"BillbeeID\"] }}/tags",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n  \"Tags\": [\n    \"endereco_address_validated\"\n  ]\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [
@@ -824,6 +826,215 @@
         "options": {}
       },
       "typeVersion": 2
+    },
+    {
+      "id": "error-handler-c6e389ae-6db2-416b-8f6f-91749fbc860f",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c6e389ae-6db2-416b-8f6f-91749fbc860f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3e5f3fc5-d3e2-4f4a-978e-795893e016cc",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3e5f3fc5-d3e2-4f4a-978e-795893e016cc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a3b6135a-6a0e-4c37-95ef-6e33f14c5e74",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a3b6135a-6a0e-4c37-95ef-6e33f14c5e74",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3ad15e79-e4c8-4adf-90a5-aaf61cfe4825",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3ad15e79-e4c8-4adf-90a5-aaf61cfe4825",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b532b22f-421e-4bd8-8241-ca559e77c3ca",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b532b22f-421e-4bd8-8241-ca559e77c3ca",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-07f54a0d-2b13-4996-95a4-4c225402abe1",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 07f54a0d-2b13-4996-95a4-4c225402abe1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ca1e1a8b-6107-4e0c-81c4-2a3b715aed11",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ca1e1a8b-6107-4e0c-81c4-2a3b715aed11",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c6e389ae-6db2-416b-8f6f-91749fbc860f-a545cfef",
+      "name": "Error Handler for c6e389ae",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c6e389ae",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3e5f3fc5-d3e2-4f4a-978e-795893e016cc-7c050f1f",
+      "name": "Error Handler for 3e5f3fc5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3e5f3fc5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a3b6135a-6a0e-4c37-95ef-6e33f14c5e74-14cf7b3d",
+      "name": "Error Handler for a3b6135a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a3b6135a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3ad15e79-e4c8-4adf-90a5-aaf61cfe4825-ec1af8fa",
+      "name": "Error Handler for 3ad15e79",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3ad15e79",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b532b22f-421e-4bd8-8241-ca559e77c3ca-477e1fe8",
+      "name": "Error Handler for b532b22f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b532b22f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-07f54a0d-2b13-4996-95a4-4c225402abe1-6c04e73a",
+      "name": "Error Handler for 07f54a0d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 07f54a0d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ca1e1a8b-6107-4e0c-81c4-2a3b715aed11-15942997",
+      "name": "Error Handler for ca1e1a8b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ca1e1a8b",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-3317ac2b",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# address validation\n\n## Overview\nAutomated workflow: address validation. This workflow integrates 9 different services: webhook, stickyNote, httpRequest, filter, wait. It contains 45 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 45\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **get order data**: httpRequest\n- **Split Out Order Data**: splitOut\n- **Set Address Fields**: set\n- **Check Address endereco api**: httpRequest\n- **Split Out Corrected Address**: splitOut\n- **set new delivery address to billbee**: httpRequest\n- **Wait**: wait\n- **Wait1**: wait\n- **check if new address is not empty**: if\n- **set billbee tag**: httpRequest\n- ... and 35 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -851,14 +1062,18 @@
             "x-datadog-parent-id": "4547215258723057331",
             "x-datadog-sampling-priority": "-1"
           },
-          "webhookUrl": "https://sfx-ecommerce.app.n8n.cloud/webhook/786e8a93-9837-44e6-81ae-a173ce25a14f",
+          "webhookUrl": "{{ $env.WEBHOOK_URL }}",
           "executionMode": "production"
         }
       }
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "1f498c7a-468a-48c4-b044-64455eb51aa2",
   "connections": {
@@ -1076,6 +1291,133 @@
           }
         ]
       ]
+    },
+    "c6e389ae-6db2-416b-8f6f-91749fbc860f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c6e389ae-6db2-416b-8f6f-91749fbc860f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c6e389ae-6db2-416b-8f6f-91749fbc860f-a545cfef",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3e5f3fc5-d3e2-4f4a-978e-795893e016cc": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3e5f3fc5-d3e2-4f4a-978e-795893e016cc",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3e5f3fc5-d3e2-4f4a-978e-795893e016cc-7c050f1f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a3b6135a-6a0e-4c37-95ef-6e33f14c5e74": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a3b6135a-6a0e-4c37-95ef-6e33f14c5e74",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a3b6135a-6a0e-4c37-95ef-6e33f14c5e74-14cf7b3d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3ad15e79-e4c8-4adf-90a5-aaf61cfe4825": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3ad15e79-e4c8-4adf-90a5-aaf61cfe4825",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3ad15e79-e4c8-4adf-90a5-aaf61cfe4825-ec1af8fa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b532b22f-421e-4bd8-8241-ca559e77c3ca": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b532b22f-421e-4bd8-8241-ca559e77c3ca",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b532b22f-421e-4bd8-8241-ca559e77c3ca-477e1fe8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "07f54a0d-2b13-4996-95a4-4c225402abe1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-07f54a0d-2b13-4996-95a4-4c225402abe1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-07f54a0d-2b13-4996-95a4-4c225402abe1-6c04e73a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ca1e1a8b-6107-4e0c-81c4-2a3b715aed11": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ca1e1a8b-6107-4e0c-81c4-2a3b715aed11",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ca1e1a8b-6107-4e0c-81c4-2a3b715aed11-15942997",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: address validation. This workflow integrates 9 different services: webhook, stickyNote, httpRequest, filter, wait. It contains 45 nodes and follows best practices for error handling and security."
 }

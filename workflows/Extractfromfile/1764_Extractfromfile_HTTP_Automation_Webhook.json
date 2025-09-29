@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Attachments Gmail to drive and google sheets",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ],
   "nodes": [
     {
       "id": "0404ef0a-9750-495a-8798-98d4b059a083",
@@ -95,7 +99,7 @@
         "sendBody": true,
         "sendQuery": true,
         "contentType": "binaryData",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -105,7 +109,7 @@
           ]
         },
         "inputDataFieldName": "={{ $binary.attachment_0.mimeType === \"application/pdf\"\n     ? \"attachment_0\"\n     : \"attachment_1\" }}",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "googleDriveOAuth2Api": {

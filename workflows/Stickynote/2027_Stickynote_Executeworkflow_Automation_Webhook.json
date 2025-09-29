@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "OpenSea Analytics Agent Tool",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "9478ead9-7f35-49b5-aff7-401ce9b8f4af",
@@ -55,7 +58,7 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}{collection_slug}/stats",
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "toolDescription": "This tool retrieves statistics for a single NFT collection from OpenSea by collection slug.",
         "parametersHeaders": {
@@ -127,7 +130,7 @@
         "url": "{{ $env.API_BASE_URL }}",
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "parametersQuery": {
           "values": [
@@ -184,7 +187,7 @@
         "url": "{{ $env.API_BASE_URL }}{address}",
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "parametersQuery": {
           "values": [
@@ -245,7 +248,7 @@
         "url": "{{ $env.API_BASE_URL }}{collection_slug}",
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "parametersQuery": {
           "values": [
@@ -302,7 +305,7 @@
         "url": "{{ $env.API_BASE_URL }}{chain}/contract/{address}/nfts/{identifier}",
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "parametersQuery": {
           "values": [

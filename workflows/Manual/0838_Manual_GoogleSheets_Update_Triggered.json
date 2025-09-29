@@ -26,7 +26,7 @@
         -100
       ],
       "parameters": {
-        "url": "={{ $json['Linkedin_URL_Person'] }}",
+        "url": "{{ $env.BASE_URL }}",
         "prompt": "Please extract the following information from the LinkedIn profile page:\n\n1. **Full Name**: Extract the full name of the individual.\n2. **Current or Most Recent Job Title**: Identify the job title next to the logo of the current or last employer.\n3a. **Current or Most Recent Employer**: Extract the name of the first company in the employment experience block. \n3b. Linkedin Company URL of the Current or Most Recent Employer: Extract the link of the first company in the employment experience block\n4. **Location**: Extract the location of the individual.\n5. **Number of Connections**: Extract the number of connections the individual has.\n6. **Number of Followers**: Extract the number of followers the individual has.\n7. **About Section Text**: Extract the text from the 'About' section.\n8. **Interest Level in AI**: Determine the person's interest level in AI (e.g., beginner, intermediate, advanced, expert).\n9. **Seniority Level**: Determine the seniority level of the person (e.g., junior, mid-level, senior, executive).\n10. **Technical Depth**: Determine the technical depth of the person (e.g., basic, intermediate, advanced, expert).\n11. **ICP Score**: Calculate the ICP Score based on the following criteria:\n    - AI Interest: beginner-5 pts, intermediate-10 pts, advanced-25 pts, expert-35 pts\n    - Technical Depth: basic-5 pts, intermediate-15 pts, advanced-25 pts, expert-35 pts\n    - Seniority Level: junior-5 pts, mid-level-15 pts, senior-25 pts, executive-30 pts\n    - Sum the points to get the ICP Score.\n\nEnsure that the extracted information is accurate and formatted according to the specified output schema.\n\nFor example, if the LinkedIn profile is of a senior software engineer with a strong interest in AI, return the following output:\n{\n  \"full_name\": \"Jane Doe\",\n  \"current_or_last_employer\": \"Tech Innovations Inc.\",\n  \"current_or_last_title\": \"Senior Software Engineer\",\n  \"location\": \"San Francisco, CA\",\n  \"number_of_connections\": 500,\n  \"number_of_followers\": 300,\n  \"about_section_text\": \"Experienced software engineer with a passion for developing innovative programs that expedite the efficiency and effectiveness of organizational success.\",\n  \"ai_interest_level\": \"advanced\",\n  \"seniority_level\": \"senior\",\n  \"technical_depth\": \"advanced\",\n  \"icp_score\": 85\n}\n",
         "resource": "extraction",
         "operation": "query",
@@ -148,7 +148,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -189,7 +189,7 @@
     },
     {
       "id": "documentation-b2d4b450",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -278,5 +278,9 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": null,
     "timezone": "UTC"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

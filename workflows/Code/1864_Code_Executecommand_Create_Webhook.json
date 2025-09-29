@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "AutoClip – Automatically Generate Video Clips and Upload to YouTube",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "99e8f5d2-247a-44c7-85db-4bdd63c2a4f6",
@@ -31,7 +34,7 @@
       "parameters": {
         "columns": {
           "value": {
-            "BackgroundURL": "={{ $json.webViewLink }}"
+            "BackgroundURL": "{{ $env.BASE_URL }}"
           },
           "schema": [
             {
@@ -219,7 +222,7 @@
       "parameters": {
         "columns": {
           "value": {
-            "MusicURL": "={{ $json.webViewLink }}"
+            "MusicURL": "{{ $env.BASE_URL }}"
           },
           "schema": [
             {
@@ -447,7 +450,7 @@
         20
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "body": "={\n  \"snippet\": {\n    \"title\": \"{{ $('Save Music Background Locally').item.json.quote.Qoute }}\",\n    \"description\": \"{{ $('Save Music Background Locally').item.json.quote.Qoute }}\\n{{ $('Save Music Background Locally').item.json.quote.Author }}\",\n    \"defaultLanguage\": \"en\",\n    \"defaultAudioLanguage\": \"en\"\n  },\n  \"status\": {\n    \"privacyStatus\": \"public\",\n    \"license\": \"youtube\",\n    \"embeddable\": true,\n    \"publicStatsViewable\": true,\n    \"madeForKids\": false\n  }\n}",
         "method": "POST",
         "options": {
@@ -460,7 +463,7 @@
         "sendBody": true,
         "contentType": "raw",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "rawContentType": "RAW/JSON",
         "headerParameters": {
           "parameters": [
@@ -474,7 +477,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "youTubeOAuth2Api": {
@@ -507,13 +510,13 @@
         20
       ],
       "parameters": {
-        "url": "={{ $('Initiate YouTube Resumable Upload').item.json.headers.location }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -523,7 +526,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "youTubeOAuth2Api": {
@@ -545,7 +548,7 @@
         "columns": {
           "value": {
             "Index": "={{ $('Save Music Background Locally').item.json.quote.Index }}",
-            "YoutubeURL": "={{ $env.WEBHOOK_URL }}{{ $json.id }}",
+            "YoutubeURL": "{{ $env.BASE_URL }}",
             "CreateStatus": "DONE"
           },
           "schema": [

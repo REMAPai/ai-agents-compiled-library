@@ -7,7 +7,12 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "AI-Generated Summary Block for WordPress Posts - with OpenAI, WordPress, Google Sheets & Slack",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "slack",
+    "google"
+  ],
   "nodes": [
     {
       "id": "0733b902-6707-4548-9498-44993ed6a16c",
@@ -128,7 +133,7 @@
         "path": "4946fc26-bea4-4244-b37c-203c39537246",
         "options": {},
         "httpMethod": "POST",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -167,11 +172,11 @@
         -820
       ],
       "parameters": {
-        "url": "=https://<your-domain.com>/wp-json/wp/v2/posts/{{ $('Loop Over Items').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -184,7 +189,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -226,7 +231,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Template - AI Summary WordPress Posts"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -381,7 +386,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Template - AI Summary WordPress Posts"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -412,7 +417,7 @@
         "otherOptions": {
           "mrkdwn": true
         },
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {

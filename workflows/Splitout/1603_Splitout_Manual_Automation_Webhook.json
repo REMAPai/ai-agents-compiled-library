@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Vision-Based AI Agent Scraper - with Google Sheets, ScrapingBee, and Gemini",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ],
   "nodes": [
     {
       "id": "90ac8845-342e-4fdb-ae09-cb9d169b4119",
@@ -118,7 +122,7 @@
           "cachedResultUrl": "",
           "cachedResultName": "Google Sheets - Workflow Vision-Based Scraping"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -385,7 +389,7 @@
           "value": {
             "promo": "={{ $json.promo }}",
             "category": "={{ $('Set fields').item.json.url }}",
-            "product_url": "={{ $json.product_title }}",
+            "product_url": "{{ $env.BASE_URL }}",
             "product_brand": "={{ $json.product_brand }}",
             "product_price": "={{ $json.product_price }}",
             "promo_percent": "={{ $json.promo_percentage }}"
@@ -465,7 +469,7 @@
           "cachedResultUrl": "",
           "cachedResultName": "Google Sheets - Workflow Vision-Based Scraping"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {

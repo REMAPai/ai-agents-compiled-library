@@ -53,7 +53,7 @@
       "parameters": {
         "query": "=query getProducts($first: Int = {{ $json.batchsize }}, $after: String = \"{{ $json.endCursor }}\") {\n  products(first: $first, after: $after) {\n    edges {\n      node {\n        title\n        tags\n        description\n        variants(first: 1) {\n          edges {\n            node {\n              price\n            }\n          }\n        }\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n",
         "endpoint": "{{ $env.API_BASE_URL }}",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -529,7 +529,7 @@
       "parameters": {
         "query": "=query getProducts($first: Int = 1) {\n  products(first: $first) {\n    edges {\n      node {\n        title\n        tags\n        description\n        variants(first: 1) {\n          edges {\n            node {\n              price\n            }\n          }\n        }\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n",
         "endpoint": "{{ $env.API_BASE_URL }}",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {

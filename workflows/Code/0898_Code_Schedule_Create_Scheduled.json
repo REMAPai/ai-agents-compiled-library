@@ -15,7 +15,7 @@
         140
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey"
       },
       "typeVersion": 1.3
@@ -253,7 +253,7 @@
         -20
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.stockSymbol }}&sort=RELEVANCE&time_from={{ $json.wantedDate }}&apikey={{ $json.apikey }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.1
@@ -302,7 +302,7 @@
         520
       ],
       "parameters": {
-        "url": "={{ $json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -329,7 +329,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -357,7 +357,7 @@
         800
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -398,7 +398,7 @@
         960
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -439,7 +439,7 @@
         1120
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -1782,5 +1782,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Memorybufferwindow Workflow. This workflow integrates 18 different services: stickyNote, httpRequest, formTrigger, code, scheduleTrigger. It contains 62 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Memorybufferwindow Workflow. This workflow integrates 18 different services: stickyNote, httpRequest, formTrigger, code, scheduleTrigger. It contains 62 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

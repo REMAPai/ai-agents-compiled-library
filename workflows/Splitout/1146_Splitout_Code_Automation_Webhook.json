@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "LinkedIn Leads Scraping & Enrichment (Main)",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "5d07dfa4-6e6a-41a6-a2ea-8a8787331735",
@@ -262,7 +265,7 @@
             "name": "={{ $json.name }}",
             "title": "={{ $json.title }}",
             "apollo_id": "={{ $json.id }}",
-            "linkedin_url": "={{ $json.linkedin_url }}",
+            "linkedin_url": "{{ $env.BASE_URL }}",
             "organization": "={{ $json.organization }}",
             "posts_scrape_status": "unscraped",
             "contacts_scrape_status": "pending",
@@ -1142,7 +1145,7 @@
         680
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.person.email }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -3769,7 +3772,7 @@
         1380
       ],
       "parameters": {
-        "url": "\"apify-actor-endpoint\"",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "jsonBody": "={\n    \"profileUrls\": [\n        \"{{ $json.linkedin_url }}\"\n    ]\n}",
         "sendBody": true,

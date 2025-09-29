@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Automated Research Report Generation with OpenAI, Wikipedia, Google Search, and Gmail/Telegram",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ],
   "nodes": [
     {
       "id": "46c09535-cd6b-481c-b520-67ecb4aad812",
@@ -42,7 +46,7 @@
         -100
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey"
       },
       "typeVersion": 1.3
@@ -56,7 +60,7 @@
         -100
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ encodeURIComponent($input.cleanedQuery) }}&apiKey=\"YOURAPIKEY\"",
+        "url": "{{ $env.BASE_URL }}",
         "sendQuery": true,
         "parametersQuery": {
           "values": [
@@ -94,7 +98,7 @@
         -100
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $input.query ? encodeURIComponent($input.query) : encodeURIComponent($json.refined_query) }}\n\n",
+        "url": "{{ $env.BASE_URL }}",
         "sendQuery": true,
         "parametersQuery": {
           "values": [
@@ -180,7 +184,7 @@
         -100
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}\"YOURAPIKEY\"={{ encodeURIComponent($input.query) }}",
+        "url": "{{ $env.BASE_URL }}",
         "sendQuery": true,
         "parametersQuery": {
           "values": [
@@ -205,9 +209,9 @@
         -100
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ encodeURIComponent( $json.refined_query ) }}&api_key=\"YOURAPIKEY\"",
+        "url": "{{ $env.BASE_URL }}",
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "parametersQuery": {
           "values": [
             {
@@ -219,7 +223,7 @@
         },
         "toolDescription": "Searches Google Scholar for academic papers",
         "optimizeResponse": true,
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "serpApi": {
@@ -480,7 +484,7 @@
         -320
       ],
       "parameters": {
-        "url": "={{ $json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {}

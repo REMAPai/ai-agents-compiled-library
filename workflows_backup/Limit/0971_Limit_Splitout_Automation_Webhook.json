@@ -1,8 +1,10 @@
 {
   "id": "4Tq5HZBdETVe7jEb",
   "meta": {
-    "instanceId": "2cb7a61f866faf57392b91b31f47e08a2b3640258f0abd08dd71f087f3243a5a",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "⚡AI-Powered YouTube Playlist & Video Summarization and Analysis v2",
   "tags": [],
@@ -368,14 +370,14 @@
         480
       ],
       "parameters": {
-        "url": "=https://3114dbb7-bd13-4807-8815-c3c8784f66d6.eu-west-1-0.aws.cloud.qdrant.io/collections/{{ $('Update Context Intent').first().json.playlistID }}/points/delete",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n  \"filter\": {}\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -384,7 +386,7 @@
             }
           ]
         },
-        "nodeCredentialType": "qdrantApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -442,7 +444,7 @@
         -40
       ],
       "parameters": {
-        "sessionKey": "={{ $('Chat').item.json.sessionId }}",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey",
         "contextWindowLength": 10
       },
@@ -511,7 +513,7 @@
         720
       ],
       "parameters": {
-        "sessionKey": "={{ $('Chat').item.json.sessionId }}",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey",
         "contextWindowLength": 10
       },
@@ -622,9 +624,9 @@
         -640
       ],
       "parameters": {
-        "key": "=context_intent_{{ $('Chat').item.json.sessionId }}",
+        "key": "YOUR_CREDENTIAL_HERE",
         "value": "=intent {{ $('Process Status').item.json.output?.intent || null }} url {{ $('Process Status').item.json.output?.url || \"\" }} id {{ $('Process Status').item.json.output?.id || \"\" }} limit {{ $('Process Status').item.json.output?.limit || 0 }} status {{ $('Process Status').item.json.output?.status || 'PENDING'  }}",
-        "keyType": "hash",
+        "keyType": "YOUR_CREDENTIAL_HERE",
         "operation": "set",
         "valueIsJSON": false
       },
@@ -646,8 +648,8 @@
         -460
       ],
       "parameters": {
-        "key": "=context_intent_{{ $('Chat').item.json.sessionId }}",
-        "keyType": "hash",
+        "key": "YOUR_CREDENTIAL_HERE",
+        "keyType": "YOUR_CREDENTIAL_HERE",
         "options": {
           "dotNotation": false
         },
@@ -676,7 +678,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "PROCESS",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -701,7 +703,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "QUERY",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -755,7 +757,7 @@
         -220
       ],
       "parameters": {
-        "sessionKey": "=intent_{{ $('Chat').item.json.sessionId }}",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey"
       },
       "typeVersion": 1.3
@@ -769,7 +771,7 @@
         -1180
       ],
       "parameters": {
-        "sessionKey": "=pl_n_{{ $('Chat').item.json.sessionId }}",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey"
       },
       "typeVersion": 1.3
@@ -927,7 +929,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "VIDEO",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -952,7 +954,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "PLAYLIST",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -1003,9 +1005,9 @@
         480
       ],
       "parameters": {
-        "key": "=context_intent_{{ $('Chat').first().json.sessionId }}",
+        "key": "YOUR_CREDENTIAL_HERE",
         "value": "=intent {{ $('Process Status').first().json.output?.intent || null }} url {{ $('Process Status').first().json.output?.url || \"\" }} id {{ $('Process Status').first().json.output?.id || \"\" }} limit {{ $('Process Status').first().json.output?.limit || 0 }} status DONE",
-        "keyType": "hash",
+        "keyType": "YOUR_CREDENTIAL_HERE",
         "operation": "set",
         "valueIsJSON": false
       },
@@ -1047,7 +1049,7 @@
         -200
       ],
       "parameters": {
-        "url": "={{ $('Update Context Intent').item.json.output.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -1075,7 +1077,7 @@
         -860
       ],
       "parameters": {
-        "url": "={{ $('Update Context Intent').item.json.output.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -1365,7 +1367,7 @@
     },
     {
       "id": "59be01b0-3ff9-4cc2-b569-c0cb4dcae3ec",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         -260,
@@ -1457,9 +1459,9 @@
         -640
       ],
       "parameters": {
-        "key": "=context_intent_{{ $('Chat').item.json.sessionId }}",
+        "key": "YOUR_CREDENTIAL_HERE",
         "value": "=intent {{ $('Process Status').item.json.output?.intent || null }} url {{ $('Process Status').item.json.output?.url || \"\" }} id {{ $('Process Status').item.json.output?.id || \"\" }} limit {{ $('Process Status').item.json.output?.limit || 0 }} status DONE",
-        "keyType": "hash",
+        "keyType": "YOUR_CREDENTIAL_HERE",
         "operation": "set",
         "valueIsJSON": false
       },
@@ -1485,12 +1487,267 @@
         "content": "# AI-Powered YouTube Playlist & Video Summarization and Analysis Chat Bot\n\nThis N8N workflow transforms YouTube playlists or individual videos into interactive knowledge bases. Instead of watching videos, users can chat with the workflow to get summaries and answers based on the video transcripts.\n\n## How it Works:\n\n1.  **Chat Interaction & Intent Detection:**\n    * The workflow starts via a chat interface (`Chat Trigger`), prompting the user for a YouTube playlist or video URL.\n    * It retrieves any previous conversation context stored in Redis.\n    * A Google Gemini AI agent (`Message Intent`) analyzes the user's input to determine if it contains a valid YouTube playlist URL, a video URL, or neither (`NONE`). It extracts the URL, the corresponding ID (Playlist ID or Video ID), and checks if the user specified a limit for the number of playlist videos to process.\n    * The workflow maintains context (like the current URL, ID, and processing status) using Redis (`Update Context Intent`, `Get Previous Context Intent`).\n\n2.  **Routing & Pre-processing Checks:**\n    * Based on the detected intent and whether the content needs processing, a `Switch` node (`Route Message Intent`) directs the workflow.\n    * If a valid URL is provided and hasn't been processed yet (`status != 'DONE'`), it proceeds to the processing pipeline.\n    * It checks if embeddings for the given ID already exist in the Qdrant vector store (`Qdrant Vector Store2`, `If`). If they do, it skips processing and moves to the query handling stage.\n    * If the input is a playlist URL but no video limit is specified (`limit=0`), it prompts the user to provide one (`Numb of Videos` agent).\n\n3.  **Video/Playlist Processing Pipeline:**\n    * **Data Fetching:**\n        * For **Playlists**: Fetches the playlist page (`Playlist HTTP Request`), extracts video details using custom code (`Get Playlist Videos Data`), limits the videos if specified (`Limit`), and then fetches the transcript for each video (`YouTube Transcript`).\n        * For **Videos**: Fetches the video page (`Video HTTP Request`), extracts title/description (`Get Title and Desc`), and fetches the transcript (`YouTube Transcript1`).\n    * **Transcript Processing & Summarization:**\n        * Transcripts are retrieved using the `youtubeTranscripter` node.\n        * Transcripts are concatenated (`Concatenate`, `Concatenate1`).\n        * Data (like video ID, title, transcript text) is merged and structured (`Merge`, `Edit Fields`).\n        * Each video's transcript is summarized by a Google Gemini AI chain (`Summarize & Analyze Transcript`).\n    * **Embedding & Storage:**\n        * Any existing data for the playlist/video ID is cleared from the Qdrant vector store (`Delete Collection`).\n        * The processed transcripts (potentially alongside summaries/metadata) are loaded (`Default Data Loader`).\n        * Text is split into manageable chunks (`Recursive Character Text Splitter`).\n        * Google Gemini generates vector embeddings for the text chunks (`Embeddings Google Gemini`).\n        * These embeddings are stored in a Qdrant collection, indexed by the playlist or video ID (`Qdrant Vector Store`).\n    * **Status Update & Final Summary:**\n        * The context status in Redis is updated to 'DONE' (`Update Context Process Done1`).\n        * All individual video summaries are combined (`Full Summary`).\n        * An AI agent (`AI Agent`) may generate a final, comprehensive summary or response based on the processed data, using a tool to query the vector store (`Answer questions with a vector store1`).\n\n4.  **Query Handling (Chatting with Content):**\n    * If the user's input is identified as a query rather than a new URL to process (or if processing for a URL is complete), the workflow activates the main query handler.\n    * A conversational AI agent (`Handle Queries`), powered by Google Gemini and equipped with chat memory (`Chat Buffer Memory`), answers user questions.\n    * This agent uses a specialized tool (`Answer questions with a vector store`) that retrieves relevant information directly from the Qdrant vector store based on the user's query and the stored embeddings."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-1cbcec5e-b58c-4fce-b944-08c47a7385db",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 1cbcec5e-b58c-4fce-b944-08c47a7385db",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fa6b8a79-436e-4742-9732-cd5c1b2d3c88",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in fa6b8a79-436e-4742-9732-cd5c1b2d3c88",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-41a07802-3fba-42fa-8482-f526a7e1b173",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 41a07802-3fba-42fa-8482-f526a7e1b173",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-505077d1-a2e4-4b0d-99d6-756940022c3d-04009733",
+      "name": "Error Handler for 505077d1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 505077d1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a3b23c6b-14c0-4805-8220-7c6166268276-ccb325d4",
+      "name": "Error Handler for a3b23c6b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a3b23c6b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6f4ee00d-dcdc-4468-9713-115912c1e571-c69cd450",
+      "name": "Error Handler for 6f4ee00d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6f4ee00d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-75442631-512e-4b0e-a5a8-ed3e3a3e1f94-874108a4",
+      "name": "Error Handler for 75442631",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 75442631",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cf1e5c50-9c89-465f-beca-482cbd9affba-1ff74c54",
+      "name": "Error Handler for cf1e5c50",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node cf1e5c50",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1cbcec5e-b58c-4fce-b944-08c47a7385db-9adb1c8c",
+      "name": "Error Handler for 1cbcec5e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1cbcec5e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c0ecf826-b803-421a-aa2a-cb713131fbb7-d20c4236",
+      "name": "Error Handler for c0ecf826",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c0ecf826",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d3f71d59-a158-43e2-bfbd-a3bec20dea5b-94afdaab",
+      "name": "Error Handler for d3f71d59",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d3f71d59",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fa6b8a79-436e-4742-9732-cd5c1b2d3c88-f2b23025",
+      "name": "Error Handler for fa6b8a79",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fa6b8a79",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-41a07802-3fba-42fa-8482-f526a7e1b173-d2f0890f",
+      "name": "Error Handler for 41a07802",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 41a07802",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-71b60b8e-06df-45a8-85a3-7b9e938fb6f0-80d8c20c",
+      "name": "Error Handler for 71b60b8e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 71b60b8e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-22f18788-b47f-4187-9146-28e6de5ec7a6-2ef9e5f5",
+      "name": "Error Handler for 22f18788",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 22f18788",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2aa52dd2-169b-43dc-8202-1d60f5fd55c0-fbb7ddc3",
+      "name": "Error Handler for 2aa52dd2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2aa52dd2",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7c289d61-09b2-461e-b771-8781f60828c7-1d4742ff",
+      "name": "Error Handler for 7c289d61",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7c289d61",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-29d8db09",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# ⚡AI-Powered YouTube Playlist & Video Summarization and Analysis v2\n\n## Overview\nAutomated workflow: ⚡AI-Powered YouTube Playlist & Video Summarization and Analysis v2. This workflow integrates 24 different services: stickyNote, vectorStoreQdrant, textSplitterRecursiveCharacterTextSplitter, merge, switch. It contains 89 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 89\n- **Node Types**: 24\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Google Gemini Chat Model1**: lmChatGoogleGemini\n- **Handle Queries**: agent\n- **Split Out**: splitOut\n- **Summarize & Analyze Transcript**: chainLlm\n- **Concatenate**: summarize\n- **Split Out1**: splitOut\n- **Limit**: limit\n- **Qdrant Vector Store**: vectorStoreQdrant\n- **Recursive Character Text Splitter**: textSplitterRecursiveCharacterTextSplitter\n- **Embeddings Google Gemini**: embeddingsGoogleGemini\n- ... and 79 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "7c1d0978-ccea-4618-bcbf-560b34f77023",
   "connections": {
@@ -2169,6 +2426,182 @@
           }
         ]
       ]
+    },
+    "1cbcec5e-b58c-4fce-b944-08c47a7385db": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1cbcec5e-b58c-4fce-b944-08c47a7385db",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-1cbcec5e-b58c-4fce-b944-08c47a7385db-9adb1c8c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fa6b8a79-436e-4742-9732-cd5c1b2d3c88": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fa6b8a79-436e-4742-9732-cd5c1b2d3c88",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-fa6b8a79-436e-4742-9732-cd5c1b2d3c88-f2b23025",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "41a07802-3fba-42fa-8482-f526a7e1b173": {
+      "main": [
+        [
+          {
+            "node": "error-handler-41a07802-3fba-42fa-8482-f526a7e1b173",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-41a07802-3fba-42fa-8482-f526a7e1b173-d2f0890f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "505077d1-a2e4-4b0d-99d6-756940022c3d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-505077d1-a2e4-4b0d-99d6-756940022c3d-04009733",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a3b23c6b-14c0-4805-8220-7c6166268276": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a3b23c6b-14c0-4805-8220-7c6166268276-ccb325d4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6f4ee00d-dcdc-4468-9713-115912c1e571": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6f4ee00d-dcdc-4468-9713-115912c1e571-c69cd450",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "75442631-512e-4b0e-a5a8-ed3e3a3e1f94": {
+      "main": [
+        [
+          {
+            "node": "error-handler-75442631-512e-4b0e-a5a8-ed3e3a3e1f94-874108a4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cf1e5c50-9c89-465f-beca-482cbd9affba": {
+      "main": [
+        [
+          {
+            "node": "error-handler-cf1e5c50-9c89-465f-beca-482cbd9affba-1ff74c54",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c0ecf826-b803-421a-aa2a-cb713131fbb7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c0ecf826-b803-421a-aa2a-cb713131fbb7-d20c4236",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d3f71d59-a158-43e2-bfbd-a3bec20dea5b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d3f71d59-a158-43e2-bfbd-a3bec20dea5b-94afdaab",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "71b60b8e-06df-45a8-85a3-7b9e938fb6f0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-71b60b8e-06df-45a8-85a3-7b9e938fb6f0-80d8c20c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "22f18788-b47f-4187-9146-28e6de5ec7a6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-22f18788-b47f-4187-9146-28e6de5ec7a6-2ef9e5f5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2aa52dd2-169b-43dc-8202-1d60f5fd55c0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2aa52dd2-169b-43dc-8202-1d60f5fd55c0-fbb7ddc3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7c289d61-09b2-461e-b771-8781f60828c7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7c289d61-09b2-461e-b771-8781f60828c7-1d4742ff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: ⚡AI-Powered YouTube Playlist & Video Summarization and Analysis v2. This workflow integrates 24 different services: stickyNote, vectorStoreQdrant, textSplitterRecursiveCharacterTextSplitter, merge, switch. It contains 89 nodes and follows best practices for error handling and security."
 }

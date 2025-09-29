@@ -111,7 +111,7 @@
           "fromEmail": "mutasem@n8n.io"
         },
         "resource": "engagement",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "associations": {
             "contactIds": "={{ $json.id }}"
@@ -136,7 +136,7 @@
       ],
       "parameters": {
         "operation": "search",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "filterGroupsUi": {
           "filterGroupsValues": [
             {
@@ -211,10 +211,10 @@
         1280
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}/HUBSPOT_DEFINED/9",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotOAuth2Api": {
@@ -461,5 +461,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -145,7 +145,7 @@
         480
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Setup').first().json.apiKey }}&q={{ $json.companyName }}&from={{ DateTime.now().minus({ days: $('Setup').first().json.newsAge }).toFormat('yyyy-MM-dd') }}&sortBy=publishedAt&language=en&pageSize={{ $('Setup').first().json.maxArticles }}&searchIn=title",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.1
@@ -180,7 +180,7 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "10",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "mrdosija@gmail.com"
         }
       },
@@ -250,7 +250,7 @@
       },
       "credentials": {
         "googleCalendarOAuth2Api": {
-          "id": "22",
+          "id": "{{ $credentials.googleCalendarOAuth2Api.id }}",
           "name": "Google Calendar account"
         }
       },
@@ -436,5 +436,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Set Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, code, scheduleTrigger, set. It contains 15 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Set Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, code, scheduleTrigger, set. It contains 15 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

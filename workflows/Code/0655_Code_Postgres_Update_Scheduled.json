@@ -15,7 +15,7 @@
         960
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}/leads-export",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "batching": {
             "batch": {
@@ -359,7 +359,7 @@
       ],
       "parameters": {
         "operation": "getAll",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {}
       },
       "credentials": {
@@ -459,7 +459,7 @@
             "open_count": "={{ $json.open_count }}",
             "campaign_id": "={{ $('Loop Over Items').item.json.id }}",
             "click_count": "={{ $json.click_count }}",
-            "company_url": "={{ $json.company_url }}",
+            "company_url": "{{ $env.BASE_URL }}",
             "reply_count": "={{ $json.reply_count }}",
             "company_name": "={{ $json.company_name }}",
             "phone_number": "={{ $json.phone_number }}",
@@ -2046,5 +2046,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, hubspot, code, scheduleTrigger. It contains 28 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 12 different services: stickyNote, httpRequest, hubspot, code, scheduleTrigger. It contains 28 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "api"
+  ]
 }

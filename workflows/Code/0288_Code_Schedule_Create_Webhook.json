@@ -40,7 +40,7 @@
       },
       "credentials": {
         "stripeApi": {
-          "id": "22",
+          "id": "{{ $credentials.stripeApi.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -132,7 +132,7 @@
       "parameters": {
         "email": "={{$node[\"Aggregate totals\"].json[\"email\"]}}",
         "resource": "contact",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "customPropertiesUi": {
             "customPropertiesValues": [
@@ -146,7 +146,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "11",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -235,7 +235,7 @@
       },
       "credentials": {
         "stripeApi": {
-          "id": "22",
+          "id": "{{ $credentials.stripeApi.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -280,14 +280,14 @@
         1540
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{$(\"Configure\").first().json[\"contactPropertyId\"]}}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "11",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -313,7 +313,7 @@
           }
         },
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -346,11 +346,11 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "11",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "[UPDATE ME]"
         }
       },
@@ -778,5 +778,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: If Workflow. This workflow integrates 12 different services: itemLists, stickyNote, httpRequest, hubspot, code. It contains 28 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: If Workflow. This workflow integrates 12 different services: itemLists, stickyNote, httpRequest, hubspot, code. It contains 28 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

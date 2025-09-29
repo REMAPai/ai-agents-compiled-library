@@ -678,11 +678,11 @@
         "dataToSave": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "value": "={{ $json.requestId }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "value": "={{ $json.jobType }}"
             }
           ]
@@ -702,7 +702,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -725,7 +725,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -750,7 +750,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_3",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -864,19 +864,19 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.output.description }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "statusValue": "Not started"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Set Variables').first().json.request_id }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "title": "={{ $json.output.title }}"
             }
           ]
@@ -1029,7 +1029,7 @@
         "filters": {
           "conditions": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "condition": "equals",
               "richTextValue": "={{ $json.requestId.toString() }}"
             }
@@ -1076,7 +1076,7 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "statusValue": "In progress"
             }
           ]
@@ -1110,11 +1110,11 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "statusValue": "Done"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "date": "={{ $now.toISO() }}"
             }
           ]
@@ -1260,7 +1260,7 @@
         1760
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Get Existing Row1').first().json.id }}/children",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {
           "timeout": "={{ 1000 * 60 }}"
@@ -1269,7 +1269,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -1278,7 +1278,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "notionApi": {
@@ -1351,7 +1351,7 @@
         "filters": {
           "conditions": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "condition": "equals",
               "richTextValue": "={{ $json.requestId.toString() }}"
             }
@@ -2021,7 +2021,7 @@
         "options": {},
         "sendBody": true,
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -3083,5 +3083,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Outputparserstructured Workflow. This workflow integrates 24 different services: stickyNote, merge, switch, lmChatOpenAi, executeWorkflow. It contains 93 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Outputparserstructured Workflow. This workflow integrates 24 different services: stickyNote, merge, switch, lmChatOpenAi, executeWorkflow. It contains 93 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

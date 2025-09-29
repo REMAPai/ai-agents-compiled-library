@@ -15,7 +15,7 @@
         800
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "requestMethod": "POST",
         "bodyParametersUi": {
@@ -48,7 +48,7 @@
         560
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.body.data.fields[0].value }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -175,13 +175,13 @@
         420
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "bodyContentType": "json",
           "bodyContentCustomMimeType": "application/json"
         },
         "requestMethod": "POST",
-        "authentication": "basicAuth",
+        "authentication": "{{ $credentials.basicAuth }}",
         "jsonParameters": true,
         "bodyParametersJson": "={\n\"message\":\"Low credits for CaptainVerify Mail. Balance = {{ $json[\"credits\"] }}\"\n}",
         "headerParametersJson": "={\"OCS-APIRequest\":\"true\"}"
@@ -199,13 +199,13 @@
         420
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "bodyContentType": "json",
           "bodyContentCustomMimeType": "application/json"
         },
         "requestMethod": "POST",
-        "authentication": "basicAuth",
+        "authentication": "{{ $credentials.basicAuth }}",
         "jsonParameters": true,
         "bodyParametersJson": "={\n\"message\":\"Invalid mail on submission form for contact : {{ $('Execute Workflow Trigger').item.json[\"body\"][\"data\"][\"fields\"][1][\"value\"] }} et mail : {{ $('CaptainMail').item.json[\"email\"] }} \"\n}",
         "headerParametersJson": "={\"OCS-APIRequest\":\"true\"}"
@@ -386,13 +386,13 @@
         800
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "bodyContentType": "json",
           "bodyContentCustomMimeType": "application/json"
         },
         "requestMethod": "POST",
-        "authentication": "basicAuth",
+        "authentication": "{{ $credentials.basicAuth }}",
         "jsonParameters": true,
         "bodyParametersJson": "={\n\"message\":\"Lead créé ! Saisie du Formulaire choix séance. Contact : {{ $('Tally Forms Trigger').item.json[\"body\"][\"data\"][\"fields\"][1][\"value\"] }} et mail : {{ $('CaptainMail').item.json[\"email\"] }} \"\n}",
         "headerParametersJson": "={\"OCS-APIRequest\":\"true\"}"
@@ -867,5 +867,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 6 different services: stickyNote, httpRequest, stopAndError, sendInBlue, if. It contains 34 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 6 different services: stickyNote, httpRequest, stopAndError, sendInBlue, if. It contains 34 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "api"
+  ]
 }

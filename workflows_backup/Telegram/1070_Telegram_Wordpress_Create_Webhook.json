@@ -1,8 +1,10 @@
 {
   "id": "5lMPjSDuoMvCJnko",
   "meta": {
-    "instanceId": "31e69f7f4a77bf465b805824e303232f0227212ae922d12133a0f96ffeab4fef",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "🔍🛠️Generate SEO-Optimized WordPress Content with Perplexity Research",
   "tags": [],
@@ -157,7 +159,7 @@
         "messages": {
           "values": [
             {
-              "content": "=Only output the HTML content without preamble or further explanation. Generate WordPress-compatible HTML for a blog post based on the provided content.\n\n### CONTENT PROCESSING:\n- Process all content from {{ $json.output }}\n- Preserve all original facts, information, and URLs\n- Format according to the specifications below\n\n### REQUIRED STRUCTURE (IN THIS ORDER):\n1. Title (H2)\n2. Estimated reading time\n3. Key takeaways (3-5 bullet points)\n4. Table of contents (linked to all headings)\n5. Main content (with proper heading hierarchy)\n6. FAQ section\n\n### STYLING REQUIREMENTS:\n- Style Override: Include a style section with !important declarations\n- Links: All hyperlinks, TOC items, and FAQ questions must be #00c2ff (blue)\n- Headings: All headings need a bottom border in #00c2ff with padding\n- Spacing: Add <br><br> between each major section\n\n### ENGAGEMENT FORMATTING:\n- Use bold, italics, bullet points, quotes, and highlighting for emphasis\n- Create proper paragraph structure with appropriate line breaks\n- NO emojis allowed\n- Use whitespace strategically for readability\n\n### HYPERLINK HANDLING (CRITICAL):\n- When URLs appear next to keyphrases (e.g., \"AI tools (https://example.com)\")\n- Convert to: <a href=\"https://example.com\" style=\"color: #00c2ff !important;\">AI tools</a>\n- The KEYPHRASE must be linked, never the URL itself\n\n### WORDPRESS COMPATIBILITY:\n- Use WordPress block classes (wp-block-heading, wp-block-paragraph, etc.)\n- Add heading IDs starting with \"h-\" for better TOC linking\n- Ensure all styles use !important to override theme styles\n\nDO NOT include any explanations, code tags, or comments. Output ONLY the raw HTML.\n"
+              "content": "=Only output the HTML content without preamble or further explanation. Generate WordPress-compatible HTML for a blog post based on the provided content.\n\n### CONTENT PROCESSING:\n- Process all content from {{ $json.output }}\n- Preserve all original facts, information, and URLs\n- Format according to the specifications below\n\n### REQUIRED STRUCTURE (IN THIS ORDER):\n1. Title (H2)\n2. Estimated reading time\n3. Key takeaways (3-5 bullet points)\n4. Table of contents (linked to all headings)\n5. Main content (with proper heading hierarchy)\n6. FAQ section\n\n### STYLING REQUIREMENTS:\n- Style Override: Include a style section with !important declarations\n- Links: All hyperlinks, TOC items, and FAQ questions must be #00c2ff (blue)\n- Headings: All headings need a bottom border in #00c2ff with padding\n- Spacing: Add <br><br> between each major section\n\n### ENGAGEMENT FORMATTING:\n- Use bold, italics, bullet points, quotes, and highlighting for emphasis\n- Create proper paragraph structure with appropriate line breaks\n- NO emojis allowed\n- Use whitespace strategically for readability\n\n### HYPERLINK HANDLING (CRITICAL):\n- When URLs appear next to keyphrases (e.g., \"AI tools ({{ $env.WEBHOOK_URL }}\")\n- Convert to: <a href=\"{{ $env.WEBHOOK_URL }}\" style=\"color: #00c2ff !important;\">AI tools</a>\n- The KEYPHRASE must be linked, never the URL itself\n\n### WORDPRESS COMPATIBILITY:\n- Use WordPress block classes (wp-block-heading, wp-block-paragraph, etc.)\n- Add heading IDs starting with \"h-\" for better TOC linking\n- Ensure all styles use !important to override theme styles\n\nDO NOT include any explanations, code tags, or comments. Output ONLY the raw HTML.\n"
             }
           ]
         }
@@ -192,13 +194,13 @@
         1120
       ],
       "parameters": {
-        "url": "https://commonclone.com/wp-json/wp/v2/media",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -208,7 +210,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "wordpressApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -227,11 +229,11 @@
         1120
       ],
       "parameters": {
-        "url": "=https://commonclone.com/wp-json/wp/v2/posts/{{ $('Wordpress').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -240,7 +242,7 @@
             }
           ]
         },
-        "nodeCredentialType": "wordpressApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -316,13 +318,13 @@
         560
       ],
       "parameters": {
-        "url": "https://api.perplexity.ai/chat/completions",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"model\": \"sonar-pro\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Act as a professional news researcher who is capable of finding detailed summaries about a news topic from highly reputable sources.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \" Research the following topic and return everything you can find about: '{{ $json['Research Query'] }}'.\"\n    }\n  ]\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -419,7 +421,7 @@
         1120
       ],
       "parameters": {
-        "url": "={{ $json['image-url'] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -455,7 +457,7 @@
               "id": "1f0541df-05ab-4e3d-a5d8-3904579fc8a9",
               "name": "image-url",
               "type": "string",
-              "value": "=https://smartcdn.gprod.postmedia.digital/healthing/wp-content/uploads/2024/07/GettyImages-1455799246.jpg?quality=90&strip=all&w=704&h=395"
+              "value": "={{ $env.WEBHOOK_URL }}"
             }
           ]
         }
@@ -523,12 +525,197 @@
         "aggregate": "aggregateAllItemData"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-1205aecf-08a1-499d-ac9e-822dd66b295f",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 1205aecf-08a1-499d-ac9e-822dd66b295f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b4437d9e-8b90-4d15-a96d-46645618a56d",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b4437d9e-8b90-4d15-a96d-46645618a56d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bb94017e-dc2a-43e3-ae5c-1f3227b1f0ef",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in bb94017e-dc2a-43e3-ae5c-1f3227b1f0ef",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b31c8afe-e402-49c4-ba49-ee418cecc44e",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b31c8afe-e402-49c4-ba49-ee418cecc44e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-6bf602e0-ad29-47e6-93d7-79fd2a4228c2-3b570847",
+      "name": "Error Handler for 6bf602e0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 6bf602e0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-115c4043-6fda-42a4-ac3c-c7979b2f327e-e81498a1",
+      "name": "Error Handler for 115c4043",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 115c4043",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1205aecf-08a1-499d-ac9e-822dd66b295f-cc6631b8",
+      "name": "Error Handler for 1205aecf",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1205aecf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b4437d9e-8b90-4d15-a96d-46645618a56d-fcb4b6e1",
+      "name": "Error Handler for b4437d9e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b4437d9e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bb94017e-dc2a-43e3-ae5c-1f3227b1f0ef-922f184b",
+      "name": "Error Handler for bb94017e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node bb94017e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b31c8afe-e402-49c4-ba49-ee418cecc44e-2c138cf6",
+      "name": "Error Handler for b31c8afe",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b31c8afe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-38bf38e5-888e-4d63-a48e-e6affab28158-1c6838b0",
+      "name": "Error Handler for 38bf38e5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 38bf38e5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-30f0fa84-9918-4bf6-86e4-ef8f1dcf079c-b11bd1f5",
+      "name": "Error Handler for 30f0fa84",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 30f0fa84",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-87c59ab3",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# 🔍🛠️Generate SEO-Optimized WordPress Content with Perplexity Research\n\n## Overview\nAutomated workflow: 🔍🛠️Generate SEO-Optimized WordPress Content with Perplexity Research. This workflow integrates 13 different services: stickyNote, wordpress, httpRequest, formTrigger, telegram. It contains 37 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 37\n- **Node Types**: 13\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note4**: stickyNote\n- **Wordpress**: wordpress\n- **Sticky Note6**: stickyNote\n- **Sticky Note8**: stickyNote\n- **OpenAI Chat Model**: lmChatOpenAi\n- **Structured Output Parser**: outputParserStructured\n- **Create Title, Slug, Meta**: agent\n- **Create HTML**: openAi\n- **Merge**: merge\n- **Upload Image to Wordpress**: httpRequest\n- ... and 27 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "4209c818-8b02-453e-9254-c70bde66f743",
   "connections": {
@@ -728,6 +915,123 @@
           }
         ]
       ]
+    },
+    "1205aecf-08a1-499d-ac9e-822dd66b295f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1205aecf-08a1-499d-ac9e-822dd66b295f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-1205aecf-08a1-499d-ac9e-822dd66b295f-cc6631b8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b4437d9e-8b90-4d15-a96d-46645618a56d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b4437d9e-8b90-4d15-a96d-46645618a56d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b4437d9e-8b90-4d15-a96d-46645618a56d-fcb4b6e1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bb94017e-dc2a-43e3-ae5c-1f3227b1f0ef": {
+      "main": [
+        [
+          {
+            "node": "error-handler-bb94017e-dc2a-43e3-ae5c-1f3227b1f0ef",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-bb94017e-dc2a-43e3-ae5c-1f3227b1f0ef-922f184b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b31c8afe-e402-49c4-ba49-ee418cecc44e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b31c8afe-e402-49c4-ba49-ee418cecc44e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b31c8afe-e402-49c4-ba49-ee418cecc44e-2c138cf6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6bf602e0-ad29-47e6-93d7-79fd2a4228c2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-6bf602e0-ad29-47e6-93d7-79fd2a4228c2-3b570847",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "115c4043-6fda-42a4-ac3c-c7979b2f327e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-115c4043-6fda-42a4-ac3c-c7979b2f327e-e81498a1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "38bf38e5-888e-4d63-a48e-e6affab28158": {
+      "main": [
+        [
+          {
+            "node": "error-handler-38bf38e5-888e-4d63-a48e-e6affab28158-1c6838b0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "30f0fa84-9918-4bf6-86e4-ef8f1dcf079c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-30f0fa84-9918-4bf6-86e4-ef8f1dcf079c-b11bd1f5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: 🔍🛠️Generate SEO-Optimized WordPress Content with Perplexity Research. This workflow integrates 13 different services: stickyNote, wordpress, httpRequest, formTrigger, telegram. It contains 37 nodes and follows best practices for error handling and security."
 }

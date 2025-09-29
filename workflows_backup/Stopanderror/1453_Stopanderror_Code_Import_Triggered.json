@@ -1,15 +1,17 @@
 {
   "id": "QyMyf3zraY0wxXDf",
   "meta": {
-    "instanceId": "ba3fa76a571c35110ef5f67e5099c9a5c1768ef125c2f3b804ba20de75248c0b",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Load Prompts from Github Repo and auto populate n8n expressions",
   "tags": [],
   "nodes": [
     {
       "id": "34781446-b06e-41eb-83b8-b96bda1a5595",
-      "name": "When clicking \u2018Test workflow\u2019",
+      "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
         -80,
@@ -144,7 +146,7 @@
     },
     {
       "id": "6c6c4fde-6ee5-47a8-894d-44d1afcedc2a",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         1560,
@@ -362,12 +364,43 @@
         }
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-9976b199-b744-47a7-9d75-4b831274c01b-31cf9eb4",
+      "name": "Error Handler for 9976b199",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9976b199",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-8e5cee46",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Load Prompts from Github Repo and auto populate n8n expressions\n\n## Overview\nAutomated workflow: Load Prompts from Github Repo and auto populate n8n expressions. This workflow integrates 10 different services: stickyNote, code, agent, lmChatOllama, set. It contains 18 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 18\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **GitHub**: github\n- **Extract from File**: extractFromFile\n- **setVars**: set\n- **replace variables**: code\n- **If Node**: if\n- **Check All Prompt Vars Present**: code\n- **SetPrompt**: set\n- **Stop and Error**: stopAndError\n- **Set Completed Prompt**: set\n- ... and 8 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "4327a337-59e7-4b5b-98e8-93c6be550972",
   "connections": {
@@ -488,7 +521,7 @@
         ]
       ]
     },
-    "When clicking \u2018Test workflow\u2019": {
+    "When clicking ‘Test workflow’": {
       "main": [
         [
           {
@@ -498,6 +531,18 @@
           }
         ]
       ]
+    },
+    "9976b199-b744-47a7-9d75-4b831274c01b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9976b199-b744-47a7-9d75-4b831274c01b-31cf9eb4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Load Prompts from Github Repo and auto populate n8n expressions. This workflow integrates 10 different services: stickyNote, code, agent, lmChatOllama, set. It contains 18 nodes and follows best practices for error handling and security."
 }

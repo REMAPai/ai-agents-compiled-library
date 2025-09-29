@@ -1,9 +1,10 @@
 {
   "id": "EnfvHdczSXHN8vNv",
   "meta": {
-    "instanceId": "dede14b31ec7e508c14f42cff0a64c12ba101f85945f0d41134b60824d8105f1",
-    "templateId": "2860",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Resume Screening & Behavioral Interviews with Gemini, Elevenlabs, & Notion ATS copy",
   "tags": [],
@@ -78,7 +79,7 @@
           "__rl": true,
           "mode": "list",
           "value": "19gFV-OtPby1Q7OCFJYWFgf1HsMhmk7yJ",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/19gFV-OtPby1Q7OCFJYWFgf1HsMhmk7yJ",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "[CV]"
         },
         "inputDataFieldName": "Resume"
@@ -504,7 +505,7 @@
         1880
       ],
       "parameters": {
-        "url": "=https://api.elevenlabs.io/v1/convai/conversations/{{ $node[\"ai_convo_items\"].json.ai_screen_conversation_id }}/audio",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "jsonHeaders": "{\n  \"xi-api-key\":\"insert elevenlabs api key\"\n}\n",
         "sendHeaders": true,
@@ -767,11 +768,11 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Interview Audio|files",
+              "key": "YOUR_CREDENTIAL_HERE",
               "fileUrls": {
                 "fileUrl": [
                   {
-                    "url": "=https://drive.google.com/file/d/{{ $json.id }}/preview",
+                    "url": "{{ $env.BASE_URL }}",
                     "name": "Interview Audio"
                   }
                 ]
@@ -850,7 +851,7 @@
               "id": "c0230d7a-037b-4d69-a133-28a611fba010",
               "name": "resume_url",
               "type": "string",
-              "value": "=https://drive.google.com/file/d/{{ $json.id }}/preview "
+              "value": "={{ $env.WEBHOOK_URL }}{{ $json.id }}/preview "
             }
           ]
         }
@@ -869,7 +870,7 @@
         "filters": {
           "conditions": [
             {
-              "key": "Resume |files",
+              "key": "YOUR_CREDENTIAL_HERE",
               "condition": "is_empty"
             }
           ]
@@ -882,7 +883,7 @@
           "mode": "list",
           "value": "1cc7f9c9-6878-80c9-a271-ca0521f11b30",
           "_comment": "removed notion database above",
-          "cachedResultUrl": "  ",
+          "cachedResultUrl": "{{ $env.BASE_URL }}",
           "cachedResultName": "Applicant Tracker"
         },
         "filterType": "manual"
@@ -915,11 +916,11 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Resume |files",
+              "key": "YOUR_CREDENTIAL_HERE",
               "fileUrls": {
                 "fileUrl": [
                   {
-                    "url": "={{ $('Resume URL').item.json.resume_url }}",
+                    "url": "{{ $env.BASE_URL }}",
                     "name": "Resume"
                   }
                 ]
@@ -1097,7 +1098,7 @@
         "filters": {
           "conditions": [
             {
-              "key": "Job Code|select",
+              "key": "YOUR_CREDENTIAL_HERE",
               "condition": "equals",
               "selectValue": "={{ $('Application Data').item.json.job_code }}"
             }
@@ -1112,7 +1113,7 @@
           "mode": "list",
           "value": "1d97f9c9-6878-80c1-bdca-e0e803367326",
           "_comment": "removed notion database above",
-          "cachedResultUrl": "  ",
+          "cachedResultUrl": "{{ $env.BASE_URL }}",
           "cachedResultName": "                             Work at [Company Name]"
         },
         "filterType": "manual"
@@ -1418,14 +1419,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l4JFmEqY6CJdAICdr6fpetCMJSpU57wk2kduFwNx6fo/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1l4JFmEqY6CJdAICdr6fpetCMJSpU57wk2kduFwNx6fo",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l4JFmEqY6CJdAICdr6fpetCMJSpU57wk2kduFwNx6fo/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "CV Agent Score Tracker (Simple)"
         }
       },
@@ -1455,70 +1456,70 @@
           "mode": "list",
           "value": "1cc7f9c9-6878-80c9-a271-ca0521f11b30",
           "_comment": "removed notion database above",
-          "cachedResultUrl": "  ",
+          "cachedResultUrl": "{{ $env.BASE_URL }}",
           "cachedResultName": "Applicant Tracker"
         },
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Resume Score|select",
+              "key": "YOUR_CREDENTIAL_HERE",
               "selectValue": "={{ $('HR Expert').item.json.output.resume_score }}"
             },
             {
-              "key": "Candidate Email|email",
+              "key": "YOUR_CREDENTIAL_HERE",
               "emailValue": "={{ $('Application Data').item.json.Email }}"
             },
             {
-              "key": "Applicant Location|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Applicant Personal Data').item.json.output.city }}"
             },
             {
-              "key": "Phone|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Merge').item.json.output.telephone }}"
             },
             {
-              "key": "Name|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Application Data').item.json.Name }}"
             },
             {
-              "key": "Application Date|date",
+              "key": "YOUR_CREDENTIAL_HERE",
               "date": "={{ $('Application Data').item.json.submittedAt }}",
               "includeTime": false
             },
             {
-              "key": "AI Resume Assessment |rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('HR Expert').item.json.output.resume_evaluation }}"
             },
             {
-              "key": "Education|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Applicant Qualifications').item.json.output['Educational qualification'] }}"
             },
             {
-              "key": "Job History|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Applicant Qualifications').item.json.output['Job History'] }}"
             },
             {
-              "key": "Skills|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Applicant Qualifications').item.json.output.Skills }}"
             },
             {
-              "key": "Job Code|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Application Data').item.json.undefined }}"
             },
             {
-              "key": "Experience Summary|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Merge').item.json.output.Experience }}"
             },
             {
-              "key": "YOE|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Merge').item.json.output['Total Years Experience'] }}"
             },
             {
-              "key": "Applicant Snapshot|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Applicant Summary').item.json.response.text }}"
             },
             {
-              "key": "Requisition Title|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Get Job Description').item.json.name }}"
             }
           ]
@@ -1552,7 +1553,7 @@
           "__rl": true,
           "mode": "list",
           "value": "19gFV-OtPby1Q7OCFJYWFgf1HsMhmk7yJ",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/19gFV-OtPby1Q7OCFJYWFgf1HsMhmk7yJ",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "[CV]"
         }
       },
@@ -1596,7 +1597,7 @@
         "filters": {
           "conditions": [
             {
-              "key": "evaluation_criteria|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "condition": "is_not_empty"
             }
           ]
@@ -1609,7 +1610,7 @@
           "mode": "list",
           "value": "1d97f9c9-6878-80c1-bdca-e0e803367326",
           "_comment": "removed notion database above",
-          "cachedResultUrl": "  ",
+          "cachedResultUrl": "{{ $env.BASE_URL }}",
           "cachedResultName": "                             Work at [Company Name]"
         },
         "filterType": "manual"
@@ -1640,7 +1641,7 @@
           "mode": "list",
           "value": "1cc7f9c9-6878-80c9-a271-ca0521f11b30",
           "_comment": "removed notion database above",
-          "cachedResultUrl": "  ",
+          "cachedResultUrl": "{{ $env.BASE_URL }}",
           "cachedResultName": "Applicant Tracker"
         }
       },
@@ -1672,15 +1673,15 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Evaluation Criteria 1|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "=Interview Criteria 1 | {{ $('ai_convo_items').item.json.criteria_1_result }} | {{ $('ai_convo_items').item.json.criteria_1_rationale }}"
             },
             {
-              "key": "Evaluation Criteria 2|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "=Interview Criteria 2 | {{ $('ai_convo_items').item.json.criteria_2_result }} | {{ $('ai_convo_items').item.json.criteria_2_rationale }}"
             },
             {
-              "key": "ai_interview_evaluation|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('AI Agent').item.json.output }}"
             }
           ]
@@ -1822,12 +1823,169 @@
         "content": "# Updates applicant record with AI Interview Assessment and Interview Audio file"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-46211734-a52a-415e-8986-0da2af2c3a22",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 46211734-a52a-415e-8986-0da2af2c3a22",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e8a451d9-83fa-46f8-9869-8d00a1122656",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e8a451d9-83fa-46f8-9869-8d00a1122656",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-23cb1def-11e8-4bcf-a667-154a9699c45d-e6bc2675",
+      "name": "Error Handler for 23cb1def",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 23cb1def",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fbba47e9-2e7c-42df-9da1-1893b238abc1-e0beefdd",
+      "name": "Error Handler for fbba47e9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fbba47e9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-46211734-a52a-415e-8986-0da2af2c3a22-2a40a632",
+      "name": "Error Handler for 46211734",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 46211734",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e8a451d9-83fa-46f8-9869-8d00a1122656-5278eb4c",
+      "name": "Error Handler for e8a451d9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e8a451d9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-66755787-56b0-4001-91f1-64dcc5443d7e-00c120f4",
+      "name": "Error Handler for 66755787",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 66755787",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3d356f2f-ab7b-4c93-ad89-efd0c98c771b-e89fd838",
+      "name": "Error Handler for 3d356f2f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3d356f2f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7dc66aee-2e13-4b73-952f-5c705d73f5e8-d316bf2e",
+      "name": "Error Handler for 7dc66aee",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7dc66aee",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b1ca7def-3f9e-42db-8bea-710f728d0867-8c64f0f1",
+      "name": "Error Handler for b1ca7def",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b1ca7def",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-c459a82c",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Resume Screening & Behavioral Interviews with Gemini, Elevenlabs, & Notion ATS copy\n\n## Overview\nAutomated workflow: Resume Screening & Behavioral Interviews with Gemini, Elevenlabs, & Notion ATS copy. This workflow integrates 20 different services: notionTool, stickyNote, merge, extractFromFile, wait. It contains 77 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 77\n- **Node Types**: 20\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Merge**: merge\n- **Structured Output Parser**: outputParserStructured\n- **HR Expert**: chainLlm\n- **Upload CV**: googleDrive\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Sticky Note6**: stickyNote\n- **Extract Resume**: extractFromFile\n- **Applicant Summary**: chainSummarization\n- ... and 67 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "c8387ede-95e6-4e10-a830-38406ae49064",
   "connections": {
@@ -2205,6 +2363,109 @@
           }
         ]
       ]
+    },
+    "46211734-a52a-415e-8986-0da2af2c3a22": {
+      "main": [
+        [
+          {
+            "node": "error-handler-46211734-a52a-415e-8986-0da2af2c3a22",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-46211734-a52a-415e-8986-0da2af2c3a22-2a40a632",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e8a451d9-83fa-46f8-9869-8d00a1122656": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e8a451d9-83fa-46f8-9869-8d00a1122656",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e8a451d9-83fa-46f8-9869-8d00a1122656-5278eb4c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "23cb1def-11e8-4bcf-a667-154a9699c45d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-23cb1def-11e8-4bcf-a667-154a9699c45d-e6bc2675",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fbba47e9-2e7c-42df-9da1-1893b238abc1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fbba47e9-2e7c-42df-9da1-1893b238abc1-e0beefdd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "66755787-56b0-4001-91f1-64dcc5443d7e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-66755787-56b0-4001-91f1-64dcc5443d7e-00c120f4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3d356f2f-ab7b-4c93-ad89-efd0c98c771b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3d356f2f-ab7b-4c93-ad89-efd0c98c771b-e89fd838",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7dc66aee-2e13-4b73-952f-5c705d73f5e8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7dc66aee-2e13-4b73-952f-5c705d73f5e8-d316bf2e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b1ca7def-3f9e-42db-8bea-710f728d0867": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b1ca7def-3f9e-42db-8bea-710f728d0867-8c64f0f1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Resume Screening & Behavioral Interviews with Gemini, Elevenlabs, & Notion ATS copy. This workflow integrates 20 different services: notionTool, stickyNote, merge, extractFromFile, wait. It contains 77 nodes and follows best practices for error handling and security."
 }

@@ -144,37 +144,37 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "selectValue": "={{ $json['aiResponse.Competitors'].Tag }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json['aiResponse.Competitors'].Reason }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json['aiResponse.Competitors'].Pricing ? $json['aiResponse.Competitors'].Pricing : 'None Found' }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "checkboxValue": "={{ typeof $json['aiResponse.Competitors'].Known === 'string' ? false : $json['aiResponse.Competitors'].Known }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "title": "={{ $json['aiResponse.Competitors'].Name }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "relationValue": [
                 "={{ $('Execute Workflow Trigger').item.json.notionData[0].id }}"
               ]
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "multiSelectValue": "={{ $json['aiResponse.Competitors'].Sentiment }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "date": "={{ $('Execute Workflow Trigger').item.json.metaData.started }}"
             }
           ]
@@ -182,7 +182,7 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "80",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion david-internal"
         }
       },
@@ -214,23 +214,23 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "title": "={{ $json[\"AIoutput.Integrations\"].IntegrationName }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "selectValue": "={{ $json[\"AIoutput.Integrations\"].IntegrationStatus }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json[\"AIoutput.Integrations\"].SummaryOfUse }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "selectValue": "={{ $json[\"AIoutput.Integrations\"].UsageStatus }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "relationValue": [
                 "={{ $('Execute Workflow Trigger').item.json.notionData[0].id }}"
               ]
@@ -240,7 +240,7 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "80",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion david-internal"
         }
       },
@@ -268,7 +268,7 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Execute Workflow Trigger').item.json.AIoutput.Objection.Nature }}"
             }
           ]
@@ -276,7 +276,7 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "80",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion david-internal"
         }
       },
@@ -449,19 +449,19 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.AIoutput.CallSummary }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.AIoutput.NextSteps.map(step => `• ${step}`).join('\\n\\n') }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "selectValue": "={{ $json.AIoutput.Sentiment }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.AIoutput.CustomerPainPoints.map(painPoint => `• ${painPoint}`).join('\\n\\n') }}"
             }
           ]
@@ -469,7 +469,7 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "80",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion david-internal"
         }
       },
@@ -547,14 +547,14 @@
         -1180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Execute Workflow Trigger').item.json.notionData[0].id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "jsonBody": "={\n    \"object\": \"page\",\n    \"id\": \"{{ $('Execute Workflow Trigger').item.json.notionData[0].id }}\",\n    \"properties\": {\n    \"Objections\": {\n      \"multi_select\": {{ $json.tag.toJsonString() }}\n    }\n  }\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -563,11 +563,11 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "notionApi": {
-          "id": "80",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion david-internal"
         }
       },
@@ -760,25 +760,25 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "multiSelectValue": "={{ $json.DepartmentTags }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "multiSelectValue": "={{ $json.IndustryTags }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "title": "={{ $json.Summary }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "relationValue": [
                 "={{ $('Execute Workflow Trigger').item.json.notionData[0].id }}"
               ]
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "selectValue": "={{ $json.ImplementationStatus }}"
             }
           ]
@@ -1318,5 +1318,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: If Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, wait, splitOut, set. It contains 39 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: If Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, wait, splitOut, set. It contains 39 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

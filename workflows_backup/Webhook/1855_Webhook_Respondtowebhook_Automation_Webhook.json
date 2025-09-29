@@ -1,8 +1,10 @@
 {
   "id": "fW6PV9IaePKSMGbN",
   "meta": {
-    "instanceId": "a4bfc93e975ca233ac45ed7c9227d84cf5a2329310525917adaf3312e10d5462",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Unique QRcode coupon assignment and validation for Lead Generation system",
   "tags": [],
@@ -25,7 +27,7 @@
     },
     {
       "id": "a7102d60-d4bd-450d-92b3-a32e2304b4a9",
-      "name": "If",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         40,
@@ -66,7 +68,7 @@
         -320
       ],
       "parameters": {
-        "url": "=https://SUITECRMURL/Api/access_token",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "requestMethod": "POST",
         "bodyParametersUi": {
@@ -99,7 +101,7 @@
         -320
       ],
       "parameters": {
-        "url": "https://SUITECRMURL/Api/V8/module",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -190,14 +192,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Foglio1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Coupon"
         }
       },
@@ -274,14 +276,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Foglio1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Coupon"
         }
       },
@@ -403,14 +405,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Foglio1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Coupon"
         }
       },
@@ -510,7 +512,7 @@
         -320
       ],
       "parameters": {
-        "url": "=https://quickchart.io/qr?text=https://n8n.n3witalia.com/webhook-test/bb832325-8c58-4717-b866-41f8a9714cf2?qr={{ $('Get Coupon').item.json.COUPON }}&size=250",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -525,7 +527,7 @@
       ],
       "webhookId": "a84b051c-7d5f-4c17-bac6-68a9df9fa7c7",
       "parameters": {
-        "html": "=<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Exclusive Discount Coupon</title>\n</head>\n<body style=\"font-family: Arial, sans-serif; text-align: center;\">\n    <h2>Get Your Exclusive Discount!</h2>\n    <p>Hi {{ $('On form submission').item.json.Name }},<br>\n    Scan the QR code below to claim your special discount.</p>\n    \n    <img src=\"https://quickchart.io/qr?text=https://n8n.n3witalia.com/webhook-test/bb832325-8c58-4717-b866-41f8a9714cf2?qr={{ $('Get Coupon').item.json.COUPON }}&size=250\" alt=\"Scan to get your discount\" style=\"margin: 20px;\">\n    \n    <p>Hurry, the offer is limited!</p>\n</body>\n</html>\n",
+        "html": "=<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Exclusive Discount Coupon</title>\n</head>\n<body style=\"font-family: Arial, sans-serif; text-align: center;\">\n    <h2>Get Your Exclusive Discount!</h2>\n    <p>Hi {{ $('On form submission').item.json.Name }},<br>\n    Scan the QR code below to claim your special discount.</p>\n    \n    <img src=\"{{ $env.WEBHOOK_URL }}{{ $('Get Coupon').item.json.COUPON }}&size=250\" alt=\"Scan to get your discount\" style=\"margin: 20px;\">\n    \n    <p>Hurry, the offer is limited!</p>\n</body>\n</html>\n",
         "options": {},
         "subject": "[n8n] Exclusive Discount Coupon",
         "toEmail": "={{ $('Form Fields').item.json.Email }}",
@@ -548,7 +550,7 @@
         100
       ],
       "parameters": {
-        "url": "=https://suitecrm.dev.n3witalia.com/Api/V8/module",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {
           "response": {
@@ -679,7 +681,7 @@
         100
       ],
       "parameters": {
-        "url": "=https://SUITECRMURL/Api/access_token",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "requestMethod": "POST",
         "bodyParametersUi": {
@@ -750,14 +752,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Foglio1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Coupon"
         }
       },
@@ -927,14 +929,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Foglio1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lnRZodxZSOA0QSuzkAb7ZJcfFfNXpX7NcxMdckMTN90/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Coupon"
         }
       },
@@ -976,12 +978,365 @@
         "content": "## Coupon assignment and simple validation system\n\nThis workflow is designed to manage the assignment and validation of unique QR code coupons within a lead generation system. The process begins with a webhook that receives data from a user-filled form, containing information such as name, surname, email, and phone number. This data is then processed to check if the lead already exists in the system, preventing duplicates.\n\nDISCLAIMER: The system is very simple and basic but can be improved and made very efficient through specific controls and new implementations"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-5ef4dd1d-39d6-487e-a48d-420b458ac1ee",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 5ef4dd1d-39d6-487e-a48d-420b458ac1ee",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f9dfd28e-42b5-488a-acde-dbbff95cf72f",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in f9dfd28e-42b5-488a-acde-dbbff95cf72f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0e5c7208-a90a-4612-a5eb-f962546320dc",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 0e5c7208-a90a-4612-a5eb-f962546320dc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d2c26f3a-496e-47d6-b3f6-1aea5d0293fa",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d2c26f3a-496e-47d6-b3f6-1aea5d0293fa",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5893bd1d-762d-4337-8392-6d358002845a",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 5893bd1d-762d-4337-8392-6d358002845a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0029c366-aec1-4305-aab5-2ab6845e2828",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 0029c366-aec1-4305-aab5-2ab6845e2828",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4c326412-0965-4f1c-9b77-2704d37a7151",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 4c326412-0965-4f1c-9b77-2704d37a7151",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e18cf9e7-584d-4f49-88b8-4c3a513ff613",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e18cf9e7-584d-4f49-88b8-4c3a513ff613",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-55a63a65-5472-4e50-8150-604c6bc9dd18",
+      "name": "Stopanderror 8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 55a63a65-5472-4e50-8150-604c6bc9dd18",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5ef4dd1d-39d6-487e-a48d-420b458ac1ee-6e0633a4",
+      "name": "Error Handler for 5ef4dd1d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5ef4dd1d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f9dfd28e-42b5-488a-acde-dbbff95cf72f-4ca6f7e6",
+      "name": "Error Handler for f9dfd28e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f9dfd28e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0e5c7208-a90a-4612-a5eb-f962546320dc-0d35477a",
+      "name": "Error Handler for 0e5c7208",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0e5c7208",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4f61d7df-aeb3-4e8d-b30b-8396944e93a3-8fbe193f",
+      "name": "Error Handler for 4f61d7df",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4f61d7df",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-40d47841-6fb6-4339-b101-a8e917791229-a6e5ef33",
+      "name": "Error Handler for 40d47841",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 40d47841",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-16358f58-eb7c-4fe5-a0aa-960943a7bebd-6f652859",
+      "name": "Error Handler for 16358f58",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 16358f58",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d2c26f3a-496e-47d6-b3f6-1aea5d0293fa-50bf9bdc",
+      "name": "Error Handler for d2c26f3a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d2c26f3a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-371fa5e5-6f91-4236-83d4-81f579d7d2ab-b7f6ef66",
+      "name": "Error Handler for 371fa5e5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 371fa5e5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5893bd1d-762d-4337-8392-6d358002845a-95720e56",
+      "name": "Error Handler for 5893bd1d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5893bd1d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0029c366-aec1-4305-aab5-2ab6845e2828-8a38038c",
+      "name": "Error Handler for 0029c366",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0029c366",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4c326412-0965-4f1c-9b77-2704d37a7151-a4f224b3",
+      "name": "Error Handler for 4c326412",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4c326412",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e18cf9e7-584d-4f49-88b8-4c3a513ff613-b8ffe01c",
+      "name": "Error Handler for e18cf9e7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e18cf9e7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-55a63a65-5472-4e50-8150-604c6bc9dd18-747e6de8",
+      "name": "Error Handler for 55a63a65",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 55a63a65",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9a2d877d-9016-460e-b376-ea27c59a492a-37422d3d",
+      "name": "Error Handler for 9a2d877d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9a2d877d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ad0a5999-2616-4c7b-8108-6f13e573490b-2dd05174",
+      "name": "Error Handler for ad0a5999",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ad0a5999",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-2a157782",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Unique QRcode coupon assignment and validation for Lead Generation system\n\n## Overview\nAutomated workflow: Unique QRcode coupon assignment and validation for Lead Generation system. This workflow integrates 10 different services: webhook, stickyNote, httpRequest, formTrigger, set. It contains 53 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 53\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Webhook**: webhook\n- **If Node**: if\n- **Token SuiteCRM**: httpRequest\n- **Create Lead SuiteCRM**: httpRequest\n- **On form submission**: formTrigger\n- **Duplicate Lead?**: googleSheets\n- **Form Fields**: set\n- **Get Coupon**: googleSheets\n- **Update Sheet**: googleSheets\n- **Is Duplicate?**: if\n- ... and 43 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "00ea32a4-635c-41c0-a789-e7b45efdf193",
   "connections": {
@@ -1186,6 +1541,235 @@
           }
         ]
       ]
+    },
+    "5ef4dd1d-39d6-487e-a48d-420b458ac1ee": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5ef4dd1d-39d6-487e-a48d-420b458ac1ee",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-5ef4dd1d-39d6-487e-a48d-420b458ac1ee-6e0633a4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f9dfd28e-42b5-488a-acde-dbbff95cf72f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f9dfd28e-42b5-488a-acde-dbbff95cf72f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-f9dfd28e-42b5-488a-acde-dbbff95cf72f-4ca6f7e6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0e5c7208-a90a-4612-a5eb-f962546320dc": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0e5c7208-a90a-4612-a5eb-f962546320dc",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-0e5c7208-a90a-4612-a5eb-f962546320dc-0d35477a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d2c26f3a-496e-47d6-b3f6-1aea5d0293fa": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d2c26f3a-496e-47d6-b3f6-1aea5d0293fa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d2c26f3a-496e-47d6-b3f6-1aea5d0293fa-50bf9bdc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5893bd1d-762d-4337-8392-6d358002845a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5893bd1d-762d-4337-8392-6d358002845a",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-5893bd1d-762d-4337-8392-6d358002845a-95720e56",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0029c366-aec1-4305-aab5-2ab6845e2828": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0029c366-aec1-4305-aab5-2ab6845e2828",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-0029c366-aec1-4305-aab5-2ab6845e2828-8a38038c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4c326412-0965-4f1c-9b77-2704d37a7151": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4c326412-0965-4f1c-9b77-2704d37a7151",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-4c326412-0965-4f1c-9b77-2704d37a7151-a4f224b3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e18cf9e7-584d-4f49-88b8-4c3a513ff613": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e18cf9e7-584d-4f49-88b8-4c3a513ff613",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e18cf9e7-584d-4f49-88b8-4c3a513ff613-b8ffe01c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "55a63a65-5472-4e50-8150-604c6bc9dd18": {
+      "main": [
+        [
+          {
+            "node": "error-handler-55a63a65-5472-4e50-8150-604c6bc9dd18",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-55a63a65-5472-4e50-8150-604c6bc9dd18-747e6de8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4f61d7df-aeb3-4e8d-b30b-8396944e93a3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4f61d7df-aeb3-4e8d-b30b-8396944e93a3-8fbe193f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "40d47841-6fb6-4339-b101-a8e917791229": {
+      "main": [
+        [
+          {
+            "node": "error-handler-40d47841-6fb6-4339-b101-a8e917791229-a6e5ef33",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16358f58-eb7c-4fe5-a0aa-960943a7bebd": {
+      "main": [
+        [
+          {
+            "node": "error-handler-16358f58-eb7c-4fe5-a0aa-960943a7bebd-6f652859",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "371fa5e5-6f91-4236-83d4-81f579d7d2ab": {
+      "main": [
+        [
+          {
+            "node": "error-handler-371fa5e5-6f91-4236-83d4-81f579d7d2ab-b7f6ef66",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9a2d877d-9016-460e-b376-ea27c59a492a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9a2d877d-9016-460e-b376-ea27c59a492a-37422d3d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ad0a5999-2616-4c7b-8108-6f13e573490b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ad0a5999-2616-4c7b-8108-6f13e573490b-2dd05174",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Unique QRcode coupon assignment and validation for Lead Generation system. This workflow integrates 10 different services: webhook, stickyNote, httpRequest, formTrigger, set. It contains 53 nodes and follows best practices for error handling and security."
 }

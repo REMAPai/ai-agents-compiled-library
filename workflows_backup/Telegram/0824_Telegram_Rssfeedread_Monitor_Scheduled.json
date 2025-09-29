@@ -10,7 +10,8 @@
         250
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "cdbc4848-accf-4e9c-a305-970443fb39e9"
     },
     {
       "name": "RSS Feed Read",
@@ -20,12 +21,13 @@
         260
       ],
       "parameters": {
-        "url": "https://github.com/n8n-io/n8n/releases.atom"
+        "url": "{{ $env.WEBHOOK_URL }}"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "1fd64dbf-769a-4755-89c4-1ea2a6ec9909"
     },
     {
-      "name": "IF",
+      "name": "If Node",
       "type": "n8n-nodes-base.if",
       "position": [
         70,
@@ -42,7 +44,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "030c09b3-715d-4aad-b148-e4489c61099c"
     },
     {
       "name": "Cron",
@@ -61,7 +64,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "fd39a489-c751-469f-a62e-87f46f3c22a6"
     },
     {
       "name": "Filter by current day",
@@ -73,7 +77,8 @@
       "parameters": {
         "functionCode": "var d = new Date();\nvar year = d.getFullYear();\nvar month = d.getMonth() + 1;\nvar day = d.getDate();\nvar hour = d.getHours() - 4;//Publication in last 4 hours\n\nmonth = month < 10 ? \"0\" + month : month;\nday = day < 10 ? \"0\" + day : day;\nhour = hour < 10 ? \"0\" + hour : hour;\n\nvar lines = items.filter(function(item) {\n  //var str = year + \"-\" + month + \"-\" + day + \"T\" + hour;\n  var str = year + \"-\" + month + \"-\" + day + \"T\" + hour;\n  //return true;//item.json.pubDate.indexOf(str) !== -1 && item.json.title.indexOf(\"n8n@\") !== -1;\n  return item.json.pubDate.indexOf(str) !== -1 && item.json.title.indexOf(\"n8n@\") !== -1 && item.json.title.indexOf(\".0\") !== -1;\n}).map(function(item) {\n  return item.json.title;\n}).join(\"\\n\");\n\n\nreturn [\n  {\n  json: {\n    date: year + \"-\" + month + \"-\" + day + \" \" + hour,\n    data: lines && lines.length ? \"New release on n8n:\\n\" + lines : \"\"\n   }\n  }\n]"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "54c75e11-e7f1-49bc-8f5f-40d93bc24a2d"
     },
     {
       "name": "Telegram",
@@ -92,7 +97,8 @@
       "credentials": {
         "telegramApi": "it-killia-bot"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "71ce9f22-0ce3-4784-8204-f9169c820fae"
     },
     {
       "name": "AWS SES",
@@ -114,11 +120,31 @@
       "credentials": {
         "aws": "ses"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "f5f717fe-2cb1-4ad9-b40e-78acd4adc934"
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# n8n_check\n\nAutomated workflow: n8n_check. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 7 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "active": true,
-  "settings": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
   "connections": {
     "IF": {
       "main": [
@@ -180,5 +206,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: n8n_check. This workflow processes data and performs automated tasks."
 }

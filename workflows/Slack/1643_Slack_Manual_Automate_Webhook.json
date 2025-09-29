@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Slack AI Chatbot with RAG for company staff",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "slack"
+  ],
   "nodes": [
     {
       "id": "df994f64-af5b-49f5-ad83-5c4b69983d41",
@@ -35,7 +39,7 @@
         600
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey",
         "contextWindowLength": 10
       },
@@ -193,7 +197,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -228,7 +232,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [

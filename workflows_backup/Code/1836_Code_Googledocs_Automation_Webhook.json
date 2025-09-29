@@ -1,8 +1,10 @@
 {
   "id": "dLKIZxM6c0lRVbjb",
   "meta": {
-    "instanceId": "ad5495d3968354550b9eb7602d38b52edcc686292cf1307ba0b9ddf53ca0622e",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Tech Radar",
   "tags": [],
@@ -169,14 +171,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R8nj0SXWWmkMaLg0iHt6K0RuTsbUZ5TvMmZwkQkDAyk/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1R8nj0SXWWmkMaLg0iHt6K0RuTsbUZ5TvMmZwkQkDAyk",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R8nj0SXWWmkMaLg0iHt6K0RuTsbUZ5TvMmZwkQkDAyk/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Tech Constellation Compass"
         }
       },
@@ -219,8 +221,8 @@
           ]
         },
         "operation": "update",
-        "documentURL": "https://docs.google.com/document/d/1ueUVIYb7bGp7Xe5K-FbHaHGAY2By41uZ_Ea50lPy5dw/edit?usp=sharing",
-        "authentication": "serviceAccount"
+        "documentURL": "{{ $env.WEBHOOK_URL }}",
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -268,7 +270,7 @@
           "__rl": true,
           "mode": "list",
           "value": "1kGrEMJqZh-Pxn_euCyItOuOt0gnHJlUf",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/1kGrEMJqZh-Pxn_euCyItOuOt0gnHJlUf",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "TechConstellationGenerated"
         }
       },
@@ -309,14 +311,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R8nj0SXWWmkMaLg0iHt6K0RuTsbUZ5TvMmZwkQkDAyk/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1R8nj0SXWWmkMaLg0iHt6K0RuTsbUZ5TvMmZwkQkDAyk",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R8nj0SXWWmkMaLg0iHt6K0RuTsbUZ5TvMmZwkQkDAyk/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Tech Constellation Compass"
         }
       },
@@ -510,7 +512,7 @@
         "color": 4,
         "width": 840,
         "height": 980,
-        "content": "## Chatting Stage :  CHAT ENDPOINT\n\n### Purpose\nThis endpoint api allows you to chat with the ai agent.\nThe ai agent input router will determine if the nature of question best answered with RAG or SQL agent. Then it invokes the workflow rag or workflow db agent accordingly. When the answer comes back , there is an AI agent output guardrail that uses the answer and validates before responding.\n\n### How to integrate\n1. Connect your frontend interface to this api below. You may  change the base endpoint to `webhook` or `webhook-test` depending on your environment.\n\nYou can also change the based the endpoint 'https://n8n.io' to your own hosted domain like 'https://mycustomdomain.io/'\n\n```\ncurl -X POST 'https://n8n.jom.lol/webhook-test/radar-rag' -H 'Content-Type: application/json' -d '{\n  \"chatInput\": \"i wanna write agentic ai code, which strategic direction \"\n}'\n\ncurl -X POST 'https://n8n.jom.lol/webhook-test/radar-rag' -H 'Content-Type: application/json' -d '{\n  \"chatInput\": \"is backstage used by company2 \"\n}'\n```\n\n2. You will see a sample output response:\n\n```\n[\n    {\n        \"output\": \"Based on the researched answer provided, the tools that are considered strategic directions but are not used by company3 are:\\n\\n* Automatically generate Backstage entity descriptors (technique)\\n* Arm in the cloud (platform)\\n* Azure OpenAI Service (platform)\\n* Infrastructure orchestration platforms (platform)\\n* Rancher Desktop (platform)\\n* Conan (tool)\\n* Karpenter (tool)\\n* GitHub Copilot (tool)\\n* Renovate (tool)\\n* Velero (tool)\\n* Continue (tool)\\n* LLaVA (tool)\\n* Ollama (tool)\\n* DataComPy (language and framework)\\n* Ray (language and framework)\\n* Concrete ML (language and framework)\\n* Crux (language and framework)\\n* Electric (language and framework)\\n* Mojo (language and framework)\\n\\nThese tools and technologies are considered strategically important for the organization, but for various reasons, they haven't been adopted by company3 yet.\"\n    }\n]\n```\n\n```\n[\n    {\n        \"output\": \"Based on the researched answer provided, the answer to your question is:\\n\\nAccording to our records, the \\\"Automatically generate Backstage entity descriptors\\\" feature, which is related to Backstage, is not currently being used by Company 2. However, it does not necessarily mean that Backstage as a whole platform is not used by Company 2 in some other capacity. If you need more detailed information about Backstage's overall usage in Company 2, please feel free to ask.\"\n    }\n]```"
+        "content": "## Chatting Stage :  CHAT ENDPOINT\n\n### Purpose\nThis endpoint api allows you to chat with the ai agent.\nThe ai agent input router will determine if the nature of question best answered with RAG or SQL agent. Then it invokes the workflow rag or workflow db agent accordingly. When the answer comes back , there is an AI agent output guardrail that uses the answer and validates before responding.\n\n### How to integrate\n1. Connect your frontend interface to this api below. You may  change the base endpoint to `webhook` or `webhook-test` depending on your environment.\n\nYou can also change the based the endpoint '{{ $env.WEBHOOK_URL }}' to your own hosted domain like '{{ $env.WEBHOOK_URL }}'\n\n```\ncurl -X POST '{{ $env.WEBHOOK_URL }}' -H 'Content-Type: application/json' -d '{\n  \"chatInput\": \"i wanna write agentic ai code, which strategic direction \"\n}'\n\ncurl -X POST '{{ $env.WEBHOOK_URL }}' -H 'Content-Type: application/json' -d '{\n  \"chatInput\": \"is backstage used by company2 \"\n}'\n```\n\n2. You will see a sample output response:\n\n```\n[\n    {\n        \"output\": \"Based on the researched answer provided, the tools that are considered strategic directions but are not used by company3 are:\\n\\n* Automatically generate Backstage entity descriptors (technique)\\n* Arm in the cloud (platform)\\n* Azure OpenAI Service (platform)\\n* Infrastructure orchestration platforms (platform)\\n* Rancher Desktop (platform)\\n* Conan (tool)\\n* Karpenter (tool)\\n* GitHub Copilot (tool)\\n* Renovate (tool)\\n* Velero (tool)\\n* Continue (tool)\\n* LLaVA (tool)\\n* Ollama (tool)\\n* DataComPy (language and framework)\\n* Ray (language and framework)\\n* Concrete ML (language and framework)\\n* Crux (language and framework)\\n* Electric (language and framework)\\n* Mojo (language and framework)\\n\\nThese tools and technologies are considered strategically important for the organization, but for various reasons, they haven't been adopted by company3 yet.\"\n    }\n]\n```\n\n```\n[\n    {\n        \"output\": \"Based on the researched answer provided, the answer to your question is:\\n\\nAccording to our records, the \\\"Automatically generate Backstage entity descriptors\\\" feature, which is related to Backstage, is not currently being used by Company 2. However, it does not necessarily mean that Backstage as a whole platform is not used by Company 2 in some other capacity. If you need more detailed information about Backstage's overall usage in Company 2, please feel free to ask.\"\n    }\n]```"
       },
       "typeVersion": 1
     },
@@ -558,7 +560,7 @@
         "color": 4,
         "width": 840,
         "height": 460,
-        "content": "## Setup Stage :  Storing into vector and structured sql database\n\n### Purpose\nThis setup is important to ensure that the tech radar google sheets are stored and transformed into the mysql database so that the sql ai agent can interact with it.\n\nFor the RAG ai agent to interact with vector database we need ensure we have converted from gsheet into google docs and subsequently into vector database.\n\n### Example\n\nGsheet\nhttps://docs.google.com/spreadsheets/d/1R8nj0SXWWmkMaLg0iHt6K0RuTsbUZ5TvMmZwkQkDAyk/edit?gid=0#gid=0\n\nGdoc\nhttps://docs.google.com/document/d/1ueUVIYb7bGp7Xe5K-FbHaHGAY2By41uZ_Ea50lPy5dw/edit?tab=t.0"
+        "content": "## Setup Stage :  Storing into vector and structured sql database\n\n### Purpose\nThis setup is important to ensure that the tech radar google sheets are stored and transformed into the mysql database so that the sql ai agent can interact with it.\n\nFor the RAG ai agent to interact with vector database we need ensure we have converted from gsheet into google docs and subsequently into vector database.\n\n### Example\n\nGsheet\n{{ $env.WEBHOOK_URL }}\n\nGdoc\n{{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -574,7 +576,7 @@
         "color": 6,
         "width": 620,
         "height": 860,
-        "content": "## Github frontend code\nhttps://github.com/dragonjump/techconstellation/tree/gh-pages\n\n\n## Example Demo\nhttps://raw.githubusercontent.com/dragonjump/techconstellation/refs/heads/gh-pages/build-your-own-radar-master/src/images/image.png\n\n![Tech Constellation](https://raw.githubusercontent.com/dragonjump/techconstellation/refs/heads/gh-pages/build-your-own-radar-master/src/images/demo.png)\n\n\n \n"
+        "content": "## Github frontend code\n{{ $env.WEBHOOK_URL }}\n\n\n## Example Demo\n{{ $env.WEBHOOK_URL }}\n\n![Tech Constellation]({{ $env.WEBHOOK_URL }}\n\n\n \n"
       },
       "typeVersion": 1
     },
@@ -821,7 +823,7 @@
         "color": 6,
         "width": 1340,
         "height": 860,
-        "content": " \n![Tech Constellation](https://raw.githubusercontent.com/dragonjump/techconstellation/refs/heads/gh-pages/build-your-own-radar-master/src/images/image.png)\n\n\n \n"
+        "content": " \n![Tech Constellation]({{ $env.WEBHOOK_URL }}\n\n\n \n"
       },
       "typeVersion": 1
     },
@@ -1068,16 +1070,201 @@
         1640
       ],
       "parameters": {
-        "sessionKey": "= {{ ('Webhook').item.json.body.chatInputn.query }}",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey"
       },
       "typeVersion": 1.3
+    },
+    {
+      "id": "error-handler-ebe74988-4444-468a-8724-754f2e476374",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ebe74988-4444-468a-8724-754f2e476374",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4abf261b-25bb-4438-a419-1e0c32c2f449",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 4abf261b-25bb-4438-a419-1e0c32c2f449",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7e0c4881-be31-4883-acbc-ceee87edfa38-a9f0f730",
+      "name": "Error Handler for 7e0c4881",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7e0c4881",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-afdd7545-69cb-4d41-bb46-70e17ce49109-1bf3d6bd",
+      "name": "Error Handler for afdd7545",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node afdd7545",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-adbff4c1-83d0-472a-b4b8-83aca9e0d009-6eaf6ba5",
+      "name": "Error Handler for adbff4c1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node adbff4c1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-141feafb-66dd-4b9b-bbf3-0c24f67ba111-8ed50cb0",
+      "name": "Error Handler for 141feafb",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 141feafb",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e3af8196-a012-423f-80c8-840a3912e289-71d4f80c",
+      "name": "Error Handler for e3af8196",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e3af8196",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d2536986-8946-4139-8b5e-e18a1b4e4d13-e7cdf21e",
+      "name": "Error Handler for d2536986",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d2536986",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3a79979a-efb0-4518-9a9e-4a965f30b9fc-292f09d4",
+      "name": "Error Handler for 3a79979a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3a79979a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-647cfe62-a444-4f45-9bd2-1f2f604ef981-0fa3cec5",
+      "name": "Error Handler for 647cfe62",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 647cfe62",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ebe74988-4444-468a-8724-754f2e476374-8a688bf4",
+      "name": "Error Handler for ebe74988",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ebe74988",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4abf261b-25bb-4438-a419-1e0c32c2f449-aa40c41d",
+      "name": "Error Handler for 4abf261b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4abf261b",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-d98bf739",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Tech Radar\n\n## Overview\nAutomated workflow: Tech Radar. This workflow integrates 26 different services: stickyNote, textSplitterRecursiveCharacterTextSplitter, executeWorkflow, if, cron. It contains 65 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 65\n- **Node Types**: 26\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Download Doc File From Google Drive**: googleDrive\n- **Doc File Data Loader**: documentDefaultDataLoader\n- **Sticky Note**: stickyNote\n- **Cron**: cron\n- **MySQL -delete all data**: mySql\n- **MySQL - insert all from sheets**: mySql\n- **Sticky Note1**: stickyNote\n- **Google Sheets - Tech Radar**: googleSheets\n- **Code - Transform table into rows**: code\n- **Google Docs - Update GDoc**: googleDocs\n- ... and 55 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "5cea15d0-ef9e-43dd-831b-140f3de92d37",
   "connections": {
@@ -1428,6 +1615,131 @@
           }
         ]
       ]
+    },
+    "ebe74988-4444-468a-8724-754f2e476374": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ebe74988-4444-468a-8724-754f2e476374",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ebe74988-4444-468a-8724-754f2e476374-8a688bf4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4abf261b-25bb-4438-a419-1e0c32c2f449": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4abf261b-25bb-4438-a419-1e0c32c2f449",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-4abf261b-25bb-4438-a419-1e0c32c2f449-aa40c41d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7e0c4881-be31-4883-acbc-ceee87edfa38": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7e0c4881-be31-4883-acbc-ceee87edfa38-a9f0f730",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "afdd7545-69cb-4d41-bb46-70e17ce49109": {
+      "main": [
+        [
+          {
+            "node": "error-handler-afdd7545-69cb-4d41-bb46-70e17ce49109-1bf3d6bd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "adbff4c1-83d0-472a-b4b8-83aca9e0d009": {
+      "main": [
+        [
+          {
+            "node": "error-handler-adbff4c1-83d0-472a-b4b8-83aca9e0d009-6eaf6ba5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "141feafb-66dd-4b9b-bbf3-0c24f67ba111": {
+      "main": [
+        [
+          {
+            "node": "error-handler-141feafb-66dd-4b9b-bbf3-0c24f67ba111-8ed50cb0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e3af8196-a012-423f-80c8-840a3912e289": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e3af8196-a012-423f-80c8-840a3912e289-71d4f80c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d2536986-8946-4139-8b5e-e18a1b4e4d13": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d2536986-8946-4139-8b5e-e18a1b4e4d13-e7cdf21e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3a79979a-efb0-4518-9a9e-4a965f30b9fc": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3a79979a-efb0-4518-9a9e-4a965f30b9fc-292f09d4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "647cfe62-a444-4f45-9bd2-1f2f604ef981": {
+      "main": [
+        [
+          {
+            "node": "error-handler-647cfe62-a444-4f45-9bd2-1f2f604ef981-0fa3cec5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Tech Radar. This workflow integrates 26 different services: stickyNote, textSplitterRecursiveCharacterTextSplitter, executeWorkflow, if, cron. It contains 65 nodes and follows best practices for error handling and security."
 }

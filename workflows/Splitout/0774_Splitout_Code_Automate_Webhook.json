@@ -6,7 +6,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "My workflow 2",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "1562791c-33a9-425c-a774-32e328bd4715",
@@ -122,7 +125,7 @@
         400
       ],
       "parameters": {
-        "url": "=https://{{ $item(\"0\").$node[\"Assign Credentials\"].json[\"instance_url\"] }}/templates/email/create",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "redirect": {
@@ -157,7 +160,7 @@
         420
       ],
       "parameters": {
-        "url": "=https://{{ $('Assign Credentials').item.json.instance_url }}/templates/email/list ",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "redirect": {
             "redirect": {}
@@ -192,7 +195,7 @@
         200
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "redirect": {
             "redirect": {}
@@ -386,7 +389,7 @@
         180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "redirect": {
             "redirect": {}
@@ -448,7 +451,7 @@
         400
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "redirect": {
             "redirect": {}
@@ -732,7 +735,7 @@
         180
       ],
       "parameters": {
-        "url": "=https://{{ $('Assign Credentials').item.json.instance_url }}/templates/email/update ",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"email_template_id\": {{ $('If campaign is modified recently').item.json.campaign_name }},\n  \"template_name\": \"{{ $('If campaign is modified recently').item.json.unified_name }}\",\n  \"subject\": \"Subject Line\",\n  \"body\":{{ $json.encoded_html }} ,\n  \"plaintext_body\": {{ $json.encoded_plaintext_body }}\n} ",

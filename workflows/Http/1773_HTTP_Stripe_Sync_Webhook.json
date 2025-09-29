@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Stripe Payment Order Sync – Auto Retrieve Customer & Product Purchased",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "90322fe5-5536-41c3-ac08-ea87a856781b",
@@ -40,10 +43,10 @@
         0
       ],
       "parameters": {
-        "url": "=https://api.stripe.com/v1/checkout/sessions/{{ $json.data.object.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -52,7 +55,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "stripeApi": {
@@ -117,7 +120,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -144,7 +147,7 @@
     },
     {
       "id": "documentation-3b8c62cd",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [

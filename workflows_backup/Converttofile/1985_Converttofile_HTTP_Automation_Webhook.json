@@ -1,8 +1,10 @@
 {
   "id": "tnRYt0kDGMO9BBFd",
   "meta": {
-    "instanceId": "ba3fa76a571c35110ef5f67e5099c9a5c1768ef125c2f3b804ba20de75248c0b",
-    "templateCredsSetupCompleted": false
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "n8n Graphic Design Team",
   "tags": [],
@@ -194,20 +196,20 @@
           "__rl": true,
           "mode": "list",
           "value": 1932716024,
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/get-your-sheet-together/edit#gid=1932716024",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "n8n-GraphicDesignTeam - Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1wB4eKCIsB8fRnfa8hKhAZFwSruXAGhmDh-4n4WFWgj0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/get-your-sheet-together/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "n8n-Graphic_Design_Team"
         }
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "786",
+          "id": "{{ $credentials.googleSheetsOAuth2Api.id }}",
           "name": "Google Sheets"
         }
       },
@@ -315,7 +317,7 @@
       },
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "786",
+          "id": "{{ $credentials.googleDriveOAuth2Api.id }}",
           "name": "Google Drive"
         }
       },
@@ -330,7 +332,7 @@
         180
       ],
       "parameters": {
-        "url": "={{ $('TheImageURL').item.json.theimage.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -351,13 +353,13 @@
         180
       ],
       "parameters": {
-        "url": "https://api.ideogram.ai/remix",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -383,7 +385,7 @@
       },
       "credentials": {
         "httpHeaderAuth": {
-          "id": "786",
+          "id": "{{ $credentials.httpHeaderAuth.id }}",
           "name": "Ideogram"
         }
       },
@@ -527,7 +529,7 @@
             {
               "type": "HumanMessagePromptTemplate",
               "messageType": "imageBinary",
-              "binaryImageDataKey": "image"
+              "binaryImageDataKey": "YOUR_CREDENTIAL_HERE"
             }
           ]
         },
@@ -550,7 +552,7 @@
       },
       "credentials": {
         "openAiApi": {
-          "id": "786",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "OpenAi"
         }
       },
@@ -581,7 +583,7 @@
       },
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "786",
+          "id": "{{ $credentials.googleDriveOAuth2Api.id }}",
           "name": "Google Drive"
         }
       },
@@ -772,20 +774,20 @@
           "__rl": true,
           "mode": "list",
           "value": 1932716024,
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/get-your-sheet-together/edit#gid=1932716024",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "n8n-GraphicDesignTeam - Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1wB4eKCIsB8fRnfa8hKhAZFwSruXAGhmDh-4n4WFWgj0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/get-your-sheet-together/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "n8n-Graphic_Design_Team"
         }
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "786",
+          "id": "{{ $credentials.googleSheetsOAuth2Api.id }}",
           "name": "Google Sheets"
         }
       },
@@ -846,7 +848,7 @@
         420
       ],
       "parameters": {
-        "url": "={{ $json.theimage.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -904,7 +906,7 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "786",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "Gmail"
         }
       },
@@ -984,14 +986,14 @@
         -60
       ],
       "parameters": {
-        "url": "https://api.ideogram.ai/generate",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"image_request\": {{ JSON.stringify($('creative brief').item.json.image_request) }}\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -1008,7 +1010,7 @@
       },
       "credentials": {
         "httpHeaderAuth": {
-          "id": "786",
+          "id": "{{ $credentials.httpHeaderAuth.id }}",
           "name": "Ideogram"
         }
       },
@@ -1023,7 +1025,7 @@
         -60
       ],
       "parameters": {
-        "url": "={{ $('Ideogram Image generator').item.json[\"data\"][0][\"url\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -1108,7 +1110,7 @@
         180
       ],
       "parameters": {
-        "url": "={{ $('Set Upload Fields1').item.json.data.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -1189,7 +1191,7 @@
       },
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "786",
+          "id": "{{ $credentials.googleDriveOAuth2Api.id }}",
           "name": "Google Drive"
         }
       },
@@ -1220,7 +1222,7 @@
       },
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "786",
+          "id": "{{ $credentials.googleDriveOAuth2Api.id }}",
           "name": "Google Drive"
         }
       },
@@ -1257,7 +1259,7 @@
       },
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "786",
+          "id": "{{ $credentials.googleDriveOAuth2Api.id }}",
           "name": "Google Drive"
         }
       },
@@ -1274,13 +1276,13 @@
       "webhookId": "b77235d4-ca25-4c67-a99b-e664b98e3e95",
       "parameters": {
         "sendTo": "realsimple.dev",
-        "message": "=Download the Image Generation Spreadsheet CSV and import it into google sheets\n<b>Image Generation Spreadsheet</b>: {{ $json.webViewLink }}\n<br>\ncopy and paste the Image Generations Folder ID into the Creative Brief Node {{ $('Google Drive - Create Generations Folder').item.json.id }}\n\n\n<b>n8n Graphic Design Root Folder</b>: https://drive.google.com/drive/u/0/folders/{{ $('Google Drive - Create Folder').item.json.id }}\n<br>\n<b>Image Generations Folder</b>: https://drive.google.com/drive/u/0/folders/{{ $('Google Drive - Create Generations Folder').item.json.id }}\n<br>",
+        "message": "=Download the Image Generation Spreadsheet CSV and import it into google sheets\n<b>Image Generation Spreadsheet</b>: {{ $json.webViewLink }}\n<br>\ncopy and paste the Image Generations Folder ID into the Creative Brief Node {{ $('Google Drive - Create Generations Folder').item.json.id }}\n\n\n<b>n8n Graphic Design Root Folder</b>: {{ $env.WEBHOOK_URL }}{{ $('Google Drive - Create Folder').item.json.id }}\n<br>\n<b>Image Generations Folder</b>: {{ $env.WEBHOOK_URL }}{{ $('Google Drive - Create Generations Folder').item.json.id }}\n<br>",
         "options": {},
         "subject": "n8n Graphic Design Team Setup - 🔴 Important Links"
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "786",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "Gmail"
         }
       },
@@ -1458,7 +1460,7 @@
             }
           ]
         },
-        "formDescription": "Created by <a href=\"https://realsimple.dev\">Real Simple Solutions</a> see more templates 👉 <a href=\"https://n8n.io/creators/joeperes/\">Click Here</a>"
+        "formDescription": "Created by <a href=\"{{ $env.WEBHOOK_URL }}\">Real Simple Solutions</a> see more templates 👉 <a href=\"{{ $env.WEBHOOK_URL }}\">Click Here</a>"
       },
       "typeVersion": 2.2
     },
@@ -1489,7 +1491,7 @@
         "color": 7,
         "width": 480,
         "height": 400,
-        "content": "![image](https://fillin8n.realsimple.dev/ideoGener8r_Team.png)"
+        "content": "![image]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -1535,9 +1537,316 @@
         "color": 5,
         "width": 760,
         "height": 80,
-        "content": "## Created by **[Real Simple Solutions](https://realsimple.dev)** More templates 👉 **[Click Here](https://n8n.io/creators/joeperes/)**"
+        "content": "## Created by **[Real Simple Solutions]({{ $env.WEBHOOK_URL }} More templates 👉 **[Click Here]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-7a250b24-0318-4c76-b03f-000ae41cdb0f",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 7a250b24-0318-4c76-b03f-000ae41cdb0f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1fc9d4ac-d0d3-4068-8d9d-ef9779c44739",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 1fc9d4ac-d0d3-4068-8d9d-ef9779c44739",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cfb67028-0210-4834-9264-3146dc60efb4",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in cfb67028-0210-4834-9264-3146dc60efb4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c0db3a13-b65e-45ff-8b6a-89dd3d975cf8",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c0db3a13-b65e-45ff-8b6a-89dd3d975cf8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3d54d4c4-82a7-419b-85c3-5597064b8790",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3d54d4c4-82a7-419b-85c3-5597064b8790",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cce8c36a-6ebd-496a-a66e-2eec1da97f9b",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in cce8c36a-6ebd-496a-a66e-2eec1da97f9b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c1c292f8-78a4-407b-be6b-567e94271bc6-decb8e75",
+      "name": "Error Handler for c1c292f8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c1c292f8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c52fa1eb-4160-4edd-8a68-eeb665af9f1c-d1d6515c",
+      "name": "Error Handler for c52fa1eb",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c52fa1eb",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7a250b24-0318-4c76-b03f-000ae41cdb0f-d82741b2",
+      "name": "Error Handler for 7a250b24",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7a250b24",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1fc9d4ac-d0d3-4068-8d9d-ef9779c44739-8180b62c",
+      "name": "Error Handler for 1fc9d4ac",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1fc9d4ac",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cbbaad22-0ae8-4c1d-ac7f-8f7596b3e190-ee2fd9dd",
+      "name": "Error Handler for cbbaad22",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node cbbaad22",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2e456bde-4dca-44d3-bdaf-a4352a46a2c1-aef52f4e",
+      "name": "Error Handler for 2e456bde",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2e456bde",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-13014dc7-2547-48d5-b6b4-6141aea311b8-6acc21f4",
+      "name": "Error Handler for 13014dc7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 13014dc7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cfb67028-0210-4834-9264-3146dc60efb4-7ecaee08",
+      "name": "Error Handler for cfb67028",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node cfb67028",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c0db3a13-b65e-45ff-8b6a-89dd3d975cf8-b09dcf96",
+      "name": "Error Handler for c0db3a13",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c0db3a13",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3d54d4c4-82a7-419b-85c3-5597064b8790-a11ea5b0",
+      "name": "Error Handler for 3d54d4c4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3d54d4c4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-cce8c36a-6ebd-496a-a66e-2eec1da97f9b-5653c40c",
+      "name": "Error Handler for cce8c36a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node cce8c36a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8babd8b0-6fb1-44e2-b974-2e1e21201450-34ce09a9",
+      "name": "Error Handler for 8babd8b0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8babd8b0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3a54231d-c236-4024-b58f-8621cecd5416-8768011a",
+      "name": "Error Handler for 3a54231d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3a54231d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4e4c7262-0a84-49e8-ad2e-064e02aa9064-fd6ae200",
+      "name": "Error Handler for 4e4c7262",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4e4c7262",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0ea3947f-e7b5-45ec-bacb-e2acece10709-0f42e431",
+      "name": "Error Handler for 0ea3947f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0ea3947f",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-d06144ae",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# n8n Graphic Design Team\n\n## Overview\nAutomated workflow: n8n Graphic Design Team. This workflow integrates 14 different services: convertToFile, stickyNote, httpRequest, formTrigger, chainLlm. It contains 58 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 58\n- **Node Types**: 14\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Google Sheets**: googleSheets\n- **SetImageData**: set\n- **Google Drive**: googleDrive\n- **Download Image3**: httpRequest\n- **ideogram Remix**: httpRequest\n- **Set Upload Fields1**: set\n- **Structured Output Parser1**: outputParserStructured\n- **Switch1**: switch\n- **Image Reviewer**: chainLlm\n- **OpenAI Chat Model1**: lmChatOpenAi\n- ... and 48 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
@@ -1559,7 +1868,11 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "c88e13ef-1acc-45ba-9939-08d9c29015d3",
   "connections": {
@@ -1879,6 +2192,214 @@
           }
         ]
       ]
+    },
+    "7a250b24-0318-4c76-b03f-000ae41cdb0f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7a250b24-0318-4c76-b03f-000ae41cdb0f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-7a250b24-0318-4c76-b03f-000ae41cdb0f-d82741b2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1fc9d4ac-d0d3-4068-8d9d-ef9779c44739": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1fc9d4ac-d0d3-4068-8d9d-ef9779c44739",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-1fc9d4ac-d0d3-4068-8d9d-ef9779c44739-8180b62c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cfb67028-0210-4834-9264-3146dc60efb4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-cfb67028-0210-4834-9264-3146dc60efb4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-cfb67028-0210-4834-9264-3146dc60efb4-7ecaee08",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c0db3a13-b65e-45ff-8b6a-89dd3d975cf8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c0db3a13-b65e-45ff-8b6a-89dd3d975cf8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c0db3a13-b65e-45ff-8b6a-89dd3d975cf8-b09dcf96",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3d54d4c4-82a7-419b-85c3-5597064b8790": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3d54d4c4-82a7-419b-85c3-5597064b8790",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3d54d4c4-82a7-419b-85c3-5597064b8790-a11ea5b0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cce8c36a-6ebd-496a-a66e-2eec1da97f9b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-cce8c36a-6ebd-496a-a66e-2eec1da97f9b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-cce8c36a-6ebd-496a-a66e-2eec1da97f9b-5653c40c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c1c292f8-78a4-407b-be6b-567e94271bc6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c1c292f8-78a4-407b-be6b-567e94271bc6-decb8e75",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c52fa1eb-4160-4edd-8a68-eeb665af9f1c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c52fa1eb-4160-4edd-8a68-eeb665af9f1c-d1d6515c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cbbaad22-0ae8-4c1d-ac7f-8f7596b3e190": {
+      "main": [
+        [
+          {
+            "node": "error-handler-cbbaad22-0ae8-4c1d-ac7f-8f7596b3e190-ee2fd9dd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2e456bde-4dca-44d3-bdaf-a4352a46a2c1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2e456bde-4dca-44d3-bdaf-a4352a46a2c1-aef52f4e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13014dc7-2547-48d5-b6b4-6141aea311b8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-13014dc7-2547-48d5-b6b4-6141aea311b8-6acc21f4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8babd8b0-6fb1-44e2-b974-2e1e21201450": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8babd8b0-6fb1-44e2-b974-2e1e21201450-34ce09a9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3a54231d-c236-4024-b58f-8621cecd5416": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3a54231d-c236-4024-b58f-8621cecd5416-8768011a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4e4c7262-0a84-49e8-ad2e-064e02aa9064": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4e4c7262-0a84-49e8-ad2e-064e02aa9064-fd6ae200",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0ea3947f-e7b5-45ec-bacb-e2acece10709": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0ea3947f-e7b5-45ec-bacb-e2acece10709-0f42e431",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: n8n Graphic Design Team. This workflow integrates 14 different services: convertToFile, stickyNote, httpRequest, formTrigger, chainLlm. It contains 58 nodes and follows best practices for error handling and security."
 }

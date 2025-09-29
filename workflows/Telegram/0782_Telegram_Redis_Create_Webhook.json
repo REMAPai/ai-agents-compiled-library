@@ -154,7 +154,7 @@
         2060
       ],
       "parameters": {
-        "key": "YOUR_API_KEY",
+        "key": "YOUR_CREDENTIAL_HERE",
         "options": {},
         "operation": "get",
         "propertyName": "data"
@@ -252,7 +252,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -320,7 +320,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -345,7 +345,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -386,7 +386,7 @@
         2060
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey",
         "contextWindowLength": 10
       },
@@ -474,7 +474,7 @@
         2700
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey",
         "contextWindowLength": 100
       },
@@ -495,9 +495,9 @@
         1620
       ],
       "parameters": {
-        "key": "YOUR_API_KEY",
+        "key": "YOUR_CREDENTIAL_HERE",
         "value": "={{\n{\n  \"has_session\": true,\n  \"session_createdAt\": $now,\n  \"current_question_idx\": 0\n}\n}}",
-        "keyType": "YOUR_API_KEY",
+        "keyType": "YOUR_CREDENTIAL_HERE",
         "operation": "set"
       },
       "credentials": {
@@ -517,7 +517,7 @@
         2060
       ],
       "parameters": {
-        "key": "YOUR_API_KEY",
+        "key": "YOUR_CREDENTIAL_HERE",
         "options": {},
         "operation": "get",
         "propertyName": "data"
@@ -539,9 +539,9 @@
         2060
       ],
       "parameters": {
-        "key": "YOUR_API_KEY",
+        "key": "YOUR_CREDENTIAL_HERE",
         "value": "={{\n{\n  \"current_question_idx\": $json.next_question_idx < $json.num_questions\n    ? $json.next_question_idx\n    : $json.num_questions,\n  \"session_updated\": $now,\n}\n}}",
-        "keyType": "YOUR_API_KEY",
+        "keyType": "YOUR_CREDENTIAL_HERE",
         "operation": "set"
       },
       "credentials": {
@@ -647,14 +647,14 @@
         2540
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Variables1').first().json.gsheetId }}/values/Sheet1!{{ $('Append Responses1').first().json.cell }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "jsonBody": "={{\n{\n  \"range\": `Sheet1!${$('Append Responses1').first().json.cell}`,\n  \"majorDimension\": \"ROWS\",\n  \"values\": [[\n    $('Append Responses1').first().json.payload + '\\n\\nAgent: ' + $('Interview Agent1').first().json.output]]\n}\n}}",
         "sendBody": true,
         "sendQuery": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -663,7 +663,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -682,7 +682,7 @@
         2440
       ],
       "parameters": {
-        "key": "YOUR_API_KEY",
+        "key": "YOUR_CREDENTIAL_HERE",
         "options": {},
         "operation": "get",
         "propertyName": "data"
@@ -704,14 +704,14 @@
         2180
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Variables1').first().json.gsheetId }}/values/Sheet1!{{ $('Append Responses1').first().json.cell }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "jsonBody": "={{\n{\n  \"range\": `Sheet1!${$('Append Responses1').first().json.cell}`,\n  \"majorDimension\": \"ROWS\",\n  \"values\": [[$('Append Responses1').first().json.payload]]\n}\n}}",
         "sendBody": true,
         "sendQuery": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -720,7 +720,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -816,19 +816,19 @@
         "dataToSave": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "value": "=state_message"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "value": "={{ $json.gsheetId }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "value": "={{ $json.title }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "value": "={{ $('Telegram Trigger').item.json.message.from.id }}"
             }
           ]
@@ -2238,5 +2238,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Telegramtrigger Workflow. This workflow integrates 16 different services: textClassifier, telegramTrigger, httpRequest, stickyNote, telegram. It contains 56 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Telegramtrigger Workflow. This workflow integrates 16 different services: textClassifier, telegramTrigger, httpRequest, stickyNote, telegram. It contains 56 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

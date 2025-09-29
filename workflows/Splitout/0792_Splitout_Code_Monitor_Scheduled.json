@@ -26,7 +26,7 @@
         0
       ],
       "parameters": {
-        "url": "https://{store}.myshopify.com/admin/api/2025-01/orders.json",
+        "url": "{{ $env.SHOPIFY_URL }}",
         "options": {
           "response": {
             "response": {
@@ -35,7 +35,7 @@
           }
         },
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -52,7 +52,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "shopifyAccessTokenApi": {
@@ -200,7 +200,7 @@
       "parameters": {
         "width": 232,
         "height": 346,
-        "content": "## Edit this node 👇\n\nGet your store URL and replace in the GET url: https://{your-store}.myshopify.com/admin/api/2025-01/orders.json\n"
+        "content": "## Edit this node 👇\n\nGet your store URL and replace in the GET url: {{ $env.SHOPIFY_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -483,5 +483,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, code, scheduleTrigger, splitOut. It contains 14 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, code, scheduleTrigger, splitOut. It contains 14 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

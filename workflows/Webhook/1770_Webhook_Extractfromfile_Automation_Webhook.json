@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Image-Based Data Extraction API using Gemini AI",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "e3448003-5c62-4da6-8fcc-6817915dcbb8",
@@ -47,7 +50,7 @@
         40
       ],
       "parameters": {
-        "url": "={{ $json.body.image_url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -61,14 +64,14 @@
         40
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"contents\": [\n    {\n      \"role\": \"user\",\n      \"parts\": [\n        {\n          \"inlineData\": {\n            \"data\": \"{{$json.data1}}\",\n            \"mimeType\": \"image/jpeg\"\n          }\n        }\n      ]\n    },\n    {\n      \"role\": \"user\",\n      \"parts\": [\n        {\n          \"text\": \"check this\"\n        }\n      ]\n    }\n  ],\n  \"systemInstruction\": {\n    \"role\": \"user\",\n    \"parts\": [\n      {\n        \"text\": \"{{ $('Webhook').first().json.body.Requirement}}\"\n      }\n    ]\n  },\n  \"generationConfig\": {\n    \"temperature\": 1,\n    \"topK\": 40,\n    \"topP\": 0.95,\n    \"maxOutputTokens\": 8192,\n    \"responseMimeType\": \"application/json\",\n    \"responseSchema\": {\n      \"type\": \"object\",\n      \"properties\": {{ $('Webhook').first().json.body.properties.toJsonString()}}\n    }\n  }\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "googlePalmApi": {
@@ -161,7 +164,7 @@
           "encoding": "ascii"
         },
         "operation": "binaryToPropery",
-        "destinationKey": "YOUR_API_KEY"
+        "destinationKey": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 1
     },

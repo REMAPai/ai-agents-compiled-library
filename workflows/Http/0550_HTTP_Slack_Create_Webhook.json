@@ -50,8 +50,8 @@
         "jsonBody": "={\n  \"inputs\": [\n    {\n      \"id\": \"{{ $json.deal_id_won }}\"\n    }\n  ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotAppToken": {
@@ -59,7 +59,7 @@
           "name": "HubSpot App Token account"
         },
         "hubspotOAuth2Api": {
-          "id": "2",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot account OAuth - Arnaud"
         }
       },
@@ -87,7 +87,7 @@
       },
       "credentials": {
         "slackApi": {
-          "id": "5",
+          "id": "{{ $credentials.slackApi.id }}",
           "name": "Slack account"
         }
       },
@@ -109,7 +109,7 @@
         "sendBody": true,
         "sendQuery": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -118,7 +118,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotAppToken": {
@@ -143,8 +143,8 @@
         "jsonBody": "={{ {\n  \"idProperty\": \"hs_sku\",\n  \"inputs\":  $jmespath($json.results,\"[].properties.{id:to_string(hs_sku)}\") \n,\n  \"properties\": [\n    \"idProperty\",\n    \"name\",\n    \"hs_object_id\",\n    \"recurringbillingfrequency\",\n\"hs_price_eur\"\n  ]\n}\n\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotAppToken": {
@@ -169,8 +169,8 @@
         "jsonBody": "={{ {\"inputs\":$jmespath($json.results,\"[].id\")\n.map(id => ({\n    \"associations\": [\n        {\n            \"types\": [\n                {\n                    \"associationCategory\": \"HUBSPOT_DEFINED\",\n                    \"associationTypeId\": 20\n                }\n            ],\n            \"to\": {\n                \"id\": $('Retrieve deals Ids').item.json[\"deal_id_created\"]\n            }\n        }\n    ],\n    \"properties\": {\n        \"hs_product_id\": id,\n        \"quantity\": \"1\"\n    }\n})) } \n\n}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotAppToken": {
@@ -599,5 +599,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Set Workflow. This workflow integrates 6 different services: webhook, stickyNote, httpRequest, set, stopAndError. It contains 22 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Set Workflow. This workflow integrates 6 different services: webhook, stickyNote, httpRequest, set, stopAndError. It contains 22 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

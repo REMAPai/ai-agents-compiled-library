@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "🎥 Analyze YouTube Video for Summaries, Transcripts & Content + Google Gemini AI",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ],
   "nodes": [
     {
       "id": "6d96092e-a12e-42e7-9700-63d19c3f2403",
@@ -91,7 +95,7 @@
         540
       ],
       "parameters": {
-        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={{ $('Config').item.json.google_api_key }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{ JSON.stringify({\n  \"contents\": [\n    {\n      \"role\": \"user\",\n      \"parts\": [\n        {\n          \"text\": $json.meta_prompt\n        },\n        { \n          \"file_data\": { \n            \"file_uri\": $('Config').item.json.youtube_url\n          } \n        }\n      ]\n    }\n  ],\n  \"generationConfig\": {\n    \"temperature\": 0.2,\n    \"topP\": 0.8,\n    \"topK\": 40,\n    \"maxOutputTokens\": 2048,\n  },\n  \"model\": \"gemini-1.5-flash\"\n}) }}\n",
@@ -298,7 +302,7 @@
         980
       ],
       "parameters": {
-        "url": "=https://generativelanguage.googleapis.com/v1beta/models/{{ $json.model }}:generateContent?key={{$('Config').item.json.google_api_key }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"contents\": [{\n    \"parts\": [\n      { \"text\": {{ JSON.stringify($json.prompt) }} },\n      { \"file_data\": { \n          \"file_uri\": \"{{ $('Config').item.json.youtube_url }}\" \n        } \n      }\n    ]\n  }]\n}",
@@ -609,7 +613,7 @@
         100
       ],
       "parameters": {
-        "url": "={{ $json.youtubeUrl }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2

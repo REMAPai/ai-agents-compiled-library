@@ -14,11 +14,12 @@
       },
       "credentials": {
         "clearbitApi": {
-          "id": "296",
+          "id": "{{ $credentials.clearbitApi.id }}",
           "name": "Clearbit account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "c6862e64-f520-47cf-bb80-a89c86c6528d"
     },
     {
       "name": "Hubspot Trigger",
@@ -38,11 +39,12 @@
       },
       "credentials": {
         "hubspotDeveloperApi": {
-          "id": "295",
+          "id": "{{ $credentials.hubspotDeveloperApi.id }}",
           "name": "Hubspot Developer account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "6e9a1111-b506-4f55-95a6-fa45eb0c025b"
     },
     {
       "name": "Get Contact",
@@ -55,16 +57,17 @@
         "resource": "contact",
         "contactId": "={{$json[\"contactId\"]}}",
         "operation": "get",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {}
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "268",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot@Test Account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "d4b4e1b8-f77b-4ed6-aec2-303df9048673"
     },
     {
       "name": "Update Contact",
@@ -76,7 +79,7 @@
       "parameters": {
         "email": "={{$json[\"email\"]}}",
         "resource": "contact",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "city": "={{$json[\"geo\"][\"city\"]}}",
           "jobTitle": "={{$json[\"employment\"][\"title\"]}}",
@@ -85,15 +88,16 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "268",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot@Test Account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "ccd23436-300c-4a11-af45-c37a9fff7670"
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -106,7 +110,7 @@
     },
     {
       "id": "documentation-1ef4b946",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -167,5 +171,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

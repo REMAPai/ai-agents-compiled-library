@@ -533,13 +533,13 @@
         1240
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.subdomain }}/v1/webhooks/",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{ $json.removeField(\"subdomain\").toJsonString() }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -654,9 +654,9 @@
         1480
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.subdomain }}/v1/webhooks/monitor_fields",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -720,9 +720,9 @@
         1140
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Format payload for BambooHR webhook').item.json.subdomain }}/v1/webhooks/{{ $('Create webhook in BambooHR').item.json.id }}/log",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -905,8 +905,8 @@
         "keys": {
           "key": [
             {
-              "newKey": "=employee{{ $if($json.employee.length > 1,\"s\",\"\") }}",
-              "currentKey": "employee"
+              "newKey": "{{ $credentials.newKey }}",
+              "currentKey": "{{ $credentials.currentKey }}"
             }
           ]
         },
@@ -983,10 +983,10 @@
         1020
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{subdomain}/v1/webhooks/{webhook_id}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {

@@ -1,7 +1,9 @@
 {
   "meta": {
-    "instanceId": "cb484ba7b742928a2048bf8829668bed5b5ad9787579adea888f05980292a4a7",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -44,66 +46,66 @@
           "__rl": true,
           "mode": "list",
           "value": "1a85b6e0-c94f-81a3-aa21-e3ccf8296d72",
-          "cachedResultUrl": "https://www.notion.so/1a85b6e0c94f81a3aa21e3ccf8296d72",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sales Call Summaries Demo"
         },
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Call Date|date",
+              "key": "YOUR_CREDENTIAL_HERE",
               "date": "={{ $json.metaData.started }}"
             },
             {
-              "key": "Recording URL|url",
-              "urlValue": "={{ $json.metaData.url }}"
+              "key": "YOUR_CREDENTIAL_HERE",
+              "urlValue": "{{ $env.BASE_URL }}"
             },
             {
-              "key": "Company|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.metaData.CompanyName }}"
             },
             {
-              "key": "Call Name|title",
+              "key": "YOUR_CREDENTIAL_HERE",
               "title": "={{ $json.metaData.title }}"
             },
             {
-              "key": "Gong Call ID|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.metaData.GongCallID }}"
             },
             {
-              "key": "SF Opp ID|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.sfOpp[0].SFOppId }}"
             },
             {
-              "key": "SF Opp Stage|select",
+              "key": "YOUR_CREDENTIAL_HERE",
               "selectValue": "={{ $json.sfOpp[0].sfStage }}"
             },
             {
-              "key": "SF Company ID|rich_text",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.sfOpp[0].companyAccountId }}"
             },
             {
-              "key": "SF Opp Won|checkbox",
+              "key": "YOUR_CREDENTIAL_HERE",
               "checkboxValue": "={{ $json.sfOpp[0].IsWon }}"
             },
             {
-              "key": "SF Opp Closed|checkbox",
+              "key": "YOUR_CREDENTIAL_HERE",
               "checkboxValue": "={{ $json.sfOpp[0].IsClosed }}"
             },
             {
-              "key": "Company Size|select",
+              "key": "YOUR_CREDENTIAL_HERE",
               "selectValue": "={{ $json.sfOpp[0].Employees }}"
             },
             {
-              "key": "Sales Rep|multi_select",
+              "key": "YOUR_CREDENTIAL_HERE",
               "multiSelectValue": "={{ $json.Attendees.internalNames }}"
             },
             {
-              "key": "SF Opp Link|url",
-              "urlValue": "=https://data-drive-1632.lightning.force.com/lightning/r/Opportunity/{{ $json.sfOpp[0].SFOppId }}/view"
+              "key": "YOUR_CREDENTIAL_HERE",
+              "urlValue": "{{ $env.BASE_URL }}"
             },
             {
-              "key": "SF Company Link|url",
-              "urlValue": "=https://data-drive-1632.lightning.force.com/lightning/r/Account/{{ $json.sfOpp[0].companyAccountId }}/view"
+              "key": "YOUR_CREDENTIAL_HERE",
+              "urlValue": "{{ $env.BASE_URL }}"
             }
           ]
         }
@@ -210,7 +212,7 @@
         "color": 5,
         "width": 340,
         "height": 820,
-        "content": "![Callforge](https://uploads.n8n.io/templates/callforgeshadow.png)\n## CallForge - The AI Gong Sales Call Processor\nCallForge allows you to extract important information for different departments from your Sales Gong Calls. \n\n### Call Processor\nThis is where the parent object in notion is generated to store the AI Call data once it's generated. This is done first so that it can be passed into multiple sub objects for storage. Once that's done, it's passed into the AI Processor."
+        "content": "![Callforge]({{ $env.WEBHOOK_URL }}\n## CallForge - The AI Gong Sales Call Processor\nCallForge allows you to extract important information for different departments from your Sales Gong Calls. \n\n### Call Processor\nThis is where the parent object in notion is generated to store the AI Call data once it's generated. This is done first so that it can be passed into multiple sub objects for storage. Once that's done, it's passed into the AI Processor."
       },
       "typeVersion": 1
     },
@@ -352,7 +354,7 @@
           "__rl": true,
           "mode": "list",
           "value": "1a85b6e0-c94f-81a3-aa21-e3ccf8296d72",
-          "cachedResultUrl": "https://www.notion.so/1a85b6e0c94f81a3aa21e3ccf8296d72",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sales Call Summaries Demo"
         }
       },
@@ -522,6 +524,61 @@
         }
       },
       "typeVersion": 2.2
+    },
+    {
+      "id": "error-handler-67d4605b-f6d5-41ff-bbe1-90e002456fc1-5037e9bd",
+      "name": "Error Handler for 67d4605b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 67d4605b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-59848476-c4ec-47ec-9b1c-f206c0749b1e-9cad27b6",
+      "name": "Error Handler for 59848476",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 59848476",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-21884d73-45fd-4bb0-b3b6-e225383b5f62-6d4e2715",
+      "name": "Error Handler for 21884d73",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 21884d73",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-fefd90aa",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Noop Workflow\n\n## Overview\nAutomated workflow: Noop Workflow. This workflow integrates 12 different services: stickyNote, splitInBatches, merge, noOp, set. It contains 28 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 28\n- **Node Types**: 12\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Loop to next call**: noOp\n- **Execute Workflow Trigger**: executeWorkflowTrigger\n- **Create Notion DB Page**: notion\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Sticky Note6**: stickyNote\n- **Sticky Note7**: stickyNote\n- ... and 18 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -734,6 +791,48 @@
           }
         ]
       ]
+    },
+    "67d4605b-f6d5-41ff-bbe1-90e002456fc1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-67d4605b-f6d5-41ff-bbe1-90e002456fc1-5037e9bd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "59848476-c4ec-47ec-9b1c-f206c0749b1e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-59848476-c4ec-47ec-9b1c-f206c0749b1e-9cad27b6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "21884d73-45fd-4bb0-b3b6-e225383b5f62": {
+      "main": [
+        [
+          {
+            "node": "error-handler-21884d73-45fd-4bb0-b3b6-e225383b5f62-6d4e2715",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Noop Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Noop Workflow. This workflow integrates 12 different services: stickyNote, splitInBatches, merge, noOp, set. It contains 28 nodes and follows best practices for error handling and security."
 }

@@ -22,8 +22,8 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotOAuth2Api": {
@@ -48,8 +48,8 @@
         "jsonBody": "={\n  \"filterGroups\": [\n    {\n      \"filters\": [\n        {\n          \"propertyName\": \"hubspot_owner_id\",\n          \"operator\": \"EQ\",\n          \"value\": \"{{ $('When Executed by Another Workflow').item.json.ownerId }}\"\n        }\n      ]\n    }\n  ],\n  \"properties\": [\"firstname\", \"lastname\", \"email\", \"linkedinURL\", \"company\"],\n\"limit\": 200,\n\"after\": {{ $node['Edit'].json[\"sofar\"] }}\n} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "hubspotOAuth2Api": {
@@ -424,7 +424,7 @@
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -782,7 +782,7 @@
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -914,7 +914,7 @@
             "date": "= {{new Date().format('dd-MM-yyyy')}}",
             "email": "={{ $('Change this for testing').item.json.properties.email }}",
             "last post": "={{ $('Set last_post').item.json.last_post }}",
-            "linkedin_url": "={{ $('Merge profileURL').item.json.profileURL }}",
+            "linkedin_url": "{{ $env.BASE_URL }}",
             "current position": "={{ $json.last_position }}"
           },
           "schema": [
@@ -1007,7 +1007,7 @@
           "value": {
             "date": "= {{new Date().format('dd-MM-yyyy')}}",
             "email": "={{ $('Change this for testing').item.json.properties.email }}",
-            "linkedin_url": "={{ $('Merge profileURL').item.json.profileURL }}",
+            "linkedin_url": "{{ $env.BASE_URL }}",
             "current position": "={{ $json.last_position }}"
           },
           "schema": [
@@ -2058,5 +2058,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

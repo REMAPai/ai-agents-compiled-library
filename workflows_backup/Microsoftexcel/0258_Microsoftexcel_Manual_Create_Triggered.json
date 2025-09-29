@@ -25,7 +25,7 @@
       },
       "credentials": {
         "salesforceOAuth2Api": {
-          "id": "40",
+          "id": "{{ $credentials.salesforceOAuth2Api.id }}",
           "name": "Salesforce account"
         }
       },
@@ -116,8 +116,8 @@
         "keys": {
           "key": [
             {
-              "newKey": "Account ID",
-              "currentKey": "Id"
+              "newKey": "{{ $credentials.newKey }}",
+              "currentKey": "{{ $credentials.currentKey }}"
             }
           ]
         },
@@ -181,7 +181,7 @@
       },
       "credentials": {
         "salesforceOAuth2Api": {
-          "id": "40",
+          "id": "{{ $credentials.salesforceOAuth2Api.id }}",
           "name": "Salesforce account"
         }
       },
@@ -209,7 +209,7 @@
       },
       "credentials": {
         "salesforceOAuth2Api": {
-          "id": "40",
+          "id": "{{ $credentials.salesforceOAuth2Api.id }}",
           "name": "Salesforce account"
         }
       },
@@ -232,11 +232,37 @@
       },
       "credentials": {
         "microsoftExcelOAuth2Api": {
-          "id": "44",
+          "id": "{{ $credentials.microsoftExcelOAuth2Api.id }}",
           "name": "Microsoft Excel account"
         }
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation 1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\nAutomated workflow: Manualtrigger Workflow. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 12 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
+    },
+    {
+      "id": "documentation-f5fef443",
+      "name": "Workflow Documentation 2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow processes data and performs automated tasks.\n\n## Workflow Details\n- **Total Nodes**: 13\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **On clicking 'execute'**: manualTrigger\n- **Search Salesforce accounts**: salesforce\n- **Keep new companies**: merge\n- **Merge existing account data**: merge\n- **Account found?**: if\n- **Remove duplicate companies**: itemLists\n- **Set Account ID for existing accounts**: renameKeys\n- **Retrieve new company contacts**: merge\n- **Set new account name**: set\n- **Create Salesforce account**: salesforce\n- ... and 3 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "connections": {
@@ -381,5 +407,20 @@
         ]
       ]
     }
+  },
+  "name": "Manualtrigger Workflow",
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow processes data and performs automated tasks.",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "meta": {
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   }
 }

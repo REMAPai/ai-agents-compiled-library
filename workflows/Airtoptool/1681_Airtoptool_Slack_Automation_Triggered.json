@@ -107,7 +107,7 @@
         280
       ],
       "parameters": {
-        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', ``, 'string') }}",
+        "url": "{{ $env.BASE_URL }}",
         "resource": "window",
         "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Window_ID', \"The `windowId` returned by the `Open window` tool\", 'string') }}",
         "operation": "load",
@@ -191,7 +191,7 @@
         "description": "Start a new browser session and window",
         "workflowInputs": {
           "value": {
-            "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('url', `URL to load in the browser window`, 'string') }}",
+            "url": "{{ $env.BASE_URL }}",
             "profile_name": "={{ $json['Airtop Profile Name (for sites that require authentication)'] }}"
           },
           "schema": [
@@ -300,7 +300,7 @@
           "cachedResultName": "n8n-debug"
         },
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
@@ -391,7 +391,7 @@
         2100
       ],
       "parameters": {
-        "url": "={{ $('When Executed by Another Workflow').item.json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "resource": "window",
         "getLiveView": true,
         "additionalFields": {}
@@ -496,7 +496,7 @@
           "cachedResultName": "n8n-debug"
         },
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {

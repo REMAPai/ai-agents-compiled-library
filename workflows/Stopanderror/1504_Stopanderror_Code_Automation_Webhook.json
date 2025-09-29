@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "2. Refresh Pipedrive tokens",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "2b66edcd-c71a-4dac-971f-deb1b09ef85b",
@@ -166,12 +169,12 @@
         "filters": {
           "conditions": [
             {
-              "keyName": "YOUR_API_KEY",
-              "keyValue": "YOUR_API_KEY"
+              "keyName": "YOUR_CREDENTIAL_HERE",
+              "keyValue": "YOUR_CREDENTIAL_HERE"
             },
             {
-              "keyName": "YOUR_API_KEY",
-              "keyValue": "YOUR_API_KEY"
+              "keyName": "YOUR_CREDENTIAL_HERE",
+              "keyValue": "YOUR_CREDENTIAL_HERE"
             }
           ]
         },
@@ -195,7 +198,7 @@
         660
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $node[\"Receive request\"].json[\"body\"][\"person\"][\"email\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -274,7 +277,7 @@
         "jsonBody": "{\n\n  \"appId\":\"57db0bab2932f657\"\n\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -403,8 +406,8 @@
         "filters": {
           "conditions": [
             {
-              "keyName": "YOUR_API_KEY",
-              "keyValue": "YOUR_API_KEY"
+              "keyName": "YOUR_CREDENTIAL_HERE",
+              "keyValue": "YOUR_CREDENTIAL_HERE"
             }
           ]
         },
@@ -452,8 +455,8 @@
         "filters": {
           "conditions": [
             {
-              "keyName": "YOUR_API_KEY",
-              "keyValue": "YOUR_API_KEY",
+              "keyName": "YOUR_CREDENTIAL_HERE",
+              "keyValue": "YOUR_CREDENTIAL_HERE",
               "condition": "eq"
             }
           ]
@@ -498,12 +501,12 @@
         "filters": {
           "conditions": [
             {
-              "keyName": "YOUR_API_KEY",
-              "keyValue": "YOUR_API_KEY"
+              "keyName": "YOUR_CREDENTIAL_HERE",
+              "keyValue": "YOUR_CREDENTIAL_HERE"
             },
             {
-              "keyName": "YOUR_API_KEY",
-              "keyValue": "YOUR_API_KEY"
+              "keyName": "YOUR_CREDENTIAL_HERE",
+              "keyValue": "YOUR_CREDENTIAL_HERE"
             }
           ]
         },
@@ -611,8 +614,8 @@
         "filters": {
           "conditions": [
             {
-              "keyName": "YOUR_API_KEY",
-              "keyValue": "YOUR_API_KEY",
+              "keyName": "YOUR_CREDENTIAL_HERE",
+              "keyValue": "YOUR_CREDENTIAL_HERE",
               "condition": "eq"
             }
           ]
@@ -656,7 +659,7 @@
         "options": {},
         "httpMethod": "POST",
         "responseMode": "lastNode",
-        "authentication": "basicAuth"
+        "authentication": "{{ $credentials.basicAuth }}"
       },
       "credentials": {
         "httpBasicAuth": {
@@ -680,7 +683,7 @@
         "options": {},
         "httpMethod": "POST",
         "responseMode": "responseNode",
-        "authentication": "basicAuth"
+        "authentication": "{{ $credentials.basicAuth }}"
       },
       "credentials": {
         "httpBasicAuth": {
@@ -850,7 +853,7 @@
             "content-type": "application/json",
             "authorization": "Basic xxxxxxx==",
             "cache-control": "no-cache",
-            "postman-token": "YOUR_VALUE_HERE",
+            "postman-token": "YOUR_TOKEN_HERE",
             "content-length": "52",
             "accept-encoding": "gzip, deflate, br",
             "x-forwarded-for": "54.86.50.139",

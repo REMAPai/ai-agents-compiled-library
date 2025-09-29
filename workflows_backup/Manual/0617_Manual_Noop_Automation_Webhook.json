@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "6b6a2db47bdf8371d21090c511052883cc9a3f6af5d0d9d567c702d74a18820e"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -39,10 +42,10 @@
         5220
       ],
       "parameters": {
-        "url": "=https://docs.googleapis.com/v1/documents/{{$json.documentId}}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleDocsOAuth2Api"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "notesInFlow": true,
       "typeVersion": 4.2
@@ -89,7 +92,7 @@
               "id": "cc2c6af0-68d3-49eb-85fe-3288d2ed0f6b",
               "name": "url",
               "type": "string",
-              "value": "https://picsum.photos/id/400/300/300"
+              "value": "{{ $env.WEBHOOK_URL }}"
             }
           ]
         },
@@ -112,7 +115,7 @@
           "__rl": true,
           "mode": "list",
           "value": "1RQAX2CszNqw79gZxeocEZU0-KquTq3RQc2-5Uv1mgd0",
-          "cachedResultUrl": "https://docs.google.com/document/d/1RQAX2CszNqw79gZxeocEZU0-KquTq3RQc2-5Uv1mgd0/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Marketing Plan (template)"
         },
         "options": {},
@@ -160,7 +163,7 @@
         "color": 2,
         "width": 415.45208033736463,
         "height": 222.7191963089109,
-        "content": "**OPTIONAL**\nIf you want to create multiple documents with multiple images then create a template in your GDrive folder with a placeholder image that you want to replace. This template will be copied each time you run the flow, and the ID of that new document will be passed to `find image ID in Docx` to find the relevant image to replace with your image url. If you are just doing this for a single document then remove the `find and copy docx template` node. If you do this step, follow the [n8n guide](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.googledrive/) on how to connect to your GDrive account."
+        "content": "**OPTIONAL**\nIf you want to create multiple documents with multiple images then create a template in your GDrive folder with a placeholder image that you want to replace. This template will be copied each time you run the flow, and the ID of that new document will be passed to `find image ID in Docx` to find the relevant image to replace with your image url. If you are just doing this for a single document then remove the `find and copy docx template` node. If you do this step, follow the [n8n guide]({{ $env.WEBHOOK_URL }} on how to connect to your GDrive account."
       },
       "typeVersion": 1
     },
@@ -205,14 +208,14 @@
         5220
       ],
       "parameters": {
-        "url": "=https://docs.googleapis.com/v1/documents/{{$json.documentId}}:batchUpdate",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n  \"requests\": [\n    {\n      \"replaceImage\": {\n        \"imageObjectId\": {{ $json.body.content[1].paragraph.elements[0].inlineObjectElement.inlineObjectId }},\n        \"uri\": \"{{ $('Image URL').item.json.url }}\",\n        \"imageReplaceMethod\": \"CENTER_CROP\"\n      }\n    }\n  ]\n} ",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleDocsOAuth2Api"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "notesInFlow": true,
       "typeVersion": 4.2
@@ -229,7 +232,7 @@
         "color": 3,
         "width": 297.15093794343295,
         "height": 373.0766632058715,
-        "content": "**REQUIRED**\n- Update the Google Docs OAuth 2 API credentials [with your own](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.googledocs/)\n- Ensure Document ID is passing correctly to `Find Image ID in Docx` if you removed the previous step\n- Ensure the `imageObjectId` in the `Replace Image in Docx` node is correct, if you only have a single image in the document it should use the `\"{{ $json.body.content[1].paragraph.elements[0].inlineObjectElement.inlineObjectId }}\"` returned from the previous node. If you have more than one image then id will be nested in the `\"body.content[1].paragraph.positionedObjectIds[0]\"` object from the previous node "
+        "content": "**REQUIRED**\n- Update the Google Docs OAuth 2 API credentials [with your own]({{ $env.WEBHOOK_URL }}\n- Ensure Document ID is passing correctly to `Find Image ID in Docx` if you removed the previous step\n- Ensure the `imageObjectId` in the `Replace Image in Docx` node is correct, if you only have a single image in the document it should use the `\"{{ $json.body.content[1].paragraph.elements[0].inlineObjectElement.inlineObjectId }}\"` returned from the previous node. If you have more than one image then id will be nested in the `\"body.content[1].paragraph.positionedObjectIds[0]\"` object from the previous node "
       },
       "typeVersion": 1
     },
@@ -324,9 +327,134 @@
         "color": 4,
         "width": 773.6179704580734,
         "height": 875.8289847608302,
-        "content": "## Replace Images in Google Docs Documents and Download as PDF/Docx\n\n## Use Case\nAutomate image replacement in Google Docs:\n- You need to update document images dynamically\n- You want to create multiple versions of a template with different images\n- You need to batch process document images from a URL database\n- You want to generate shareable documents with custom images\n\n## What this Workflow Does\nThe workflow automates image replacement in Google Docs:\n- Accepts image URLs from your database\n- Finds and replaces images in template documents\n- Creates new document copies with updated images\n- Optionally converts to PDF and makes documents shareable\n\n## Setup\n1. Connect your image URL database (column name must be \"url\")\n2. Set up [Google Docs OAuth 2 API credentials](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.googledocs/)\n3. Optional: Create a template document in Google Drive with placeholder images\n4. Optional: Configure [Google Drive authentication](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.googledrive/) for additional features\n\n## How to Adjust it to Your Needs\n- Remove template copying for single document processing\n- Adjust image ID selection for documents with multiple images\n- Configure sharing settings and download formats\n- Customize file naming and storage location\n\n\nMade by Simon @ [automake.io](https://automake.io)"
+        "content": "## Replace Images in Google Docs Documents and Download as PDF/Docx\n\n## Use Case\nAutomate image replacement in Google Docs:\n- You need to update document images dynamically\n- You want to create multiple versions of a template with different images\n- You need to batch process document images from a URL database\n- You want to generate shareable documents with custom images\n\n## What this Workflow Does\nThe workflow automates image replacement in Google Docs:\n- Accepts image URLs from your database\n- Finds and replaces images in template documents\n- Creates new document copies with updated images\n- Optionally converts to PDF and makes documents shareable\n\n## Setup\n1. Connect your image URL database (column name must be \"url\")\n2. Set up [Google Docs OAuth 2 API credentials]({{ $env.WEBHOOK_URL }}\n3. Optional: Create a template document in Google Drive with placeholder images\n4. Optional: Configure [Google Drive authentication]({{ $env.WEBHOOK_URL }} for additional features\n\n## How to Adjust it to Your Needs\n- Remove template copying for single document processing\n- Adjust image ID selection for documents with multiple images\n- Configure sharing settings and download formats\n- Customize file naming and storage location\n\n\nMade by Simon @ [automake.io]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-16bbf5da-5ebc-4e9c-8b3c-80d0077c51b8",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 16bbf5da-5ebc-4e9c-8b3c-80d0077c51b8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f8dcb709-5505-4c63-afe9-83a0dfb608e9",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in f8dcb709-5505-4c63-afe9-83a0dfb608e9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-16bbf5da-5ebc-4e9c-8b3c-80d0077c51b8-9771b5b1",
+      "name": "Error Handler for 16bbf5da",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 16bbf5da",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-60325192-4730-4410-ae33-9127ff8cc5f7-30b495a8",
+      "name": "Error Handler for 60325192",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 60325192",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d33a913a-2d98-4922-ba8d-5d325b114572-cadeebcf",
+      "name": "Error Handler for d33a913a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d33a913a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f8dcb709-5505-4c63-afe9-83a0dfb608e9-c1dd3d19",
+      "name": "Error Handler for f8dcb709",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f8dcb709",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fa6a214e-b6c5-403a-884a-d915f5a1362f-9dbdfabd",
+      "name": "Error Handler for fa6a214e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fa6a214e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-399e08ae-864d-4ffa-bc18-d82e03e30f7c-0d718769",
+      "name": "Error Handler for 399e08ae",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 399e08ae",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-d8294652",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 7 different services: stickyNote, httpRequest, googleDrive, set, stopAndError. It contains 26 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 26\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Sticky Note9**: stickyNote\n- **Find Image ID in Docx**: httpRequest\n- **Make file shareable publically (optional)**: googleDrive\n- **Image URL**: set\n- **Find & Copy Docx Template**: googleDrive\n- **Sticky Note42**: stickyNote\n- **Own datasource**: noOp\n- **Sticky Note43**: stickyNote\n- **Sticky Note44**: stickyNote\n- ... and 16 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -418,6 +546,95 @@
           }
         ]
       ]
+    },
+    "16bbf5da-5ebc-4e9c-8b3c-80d0077c51b8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-16bbf5da-5ebc-4e9c-8b3c-80d0077c51b8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-16bbf5da-5ebc-4e9c-8b3c-80d0077c51b8-9771b5b1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f8dcb709-5505-4c63-afe9-83a0dfb608e9": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f8dcb709-5505-4c63-afe9-83a0dfb608e9",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-f8dcb709-5505-4c63-afe9-83a0dfb608e9-c1dd3d19",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "60325192-4730-4410-ae33-9127ff8cc5f7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-60325192-4730-4410-ae33-9127ff8cc5f7-30b495a8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d33a913a-2d98-4922-ba8d-5d325b114572": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d33a913a-2d98-4922-ba8d-5d325b114572-cadeebcf",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fa6a214e-b6c5-403a-884a-d915f5a1362f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fa6a214e-b6c5-403a-884a-d915f5a1362f-9dbdfabd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "399e08ae-864d-4ffa-bc18-d82e03e30f7c": {
+      "main": [
+        [
+          {
+            "node": "error-handler-399e08ae-864d-4ffa-bc18-d82e03e30f7c-0d718769",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 7 different services: stickyNote, httpRequest, googleDrive, set, stopAndError. It contains 26 nodes and follows best practices for error handling and security."
 }

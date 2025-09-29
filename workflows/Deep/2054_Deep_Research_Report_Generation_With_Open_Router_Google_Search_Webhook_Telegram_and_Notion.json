@@ -21,7 +21,7 @@
     {
       "parameters": {
         "sessionIdType": "customKey",
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "contextWindowLength": 10
       },
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
@@ -74,7 +74,7 @@
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "output_1"
+              "outputKey": "YOUR_CREDENTIAL_HERE"
             },
             {
               "conditions": {
@@ -99,7 +99,7 @@
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "output_2"
+              "outputKey": "YOUR_CREDENTIAL_HERE"
             }
           ]
         },
@@ -191,7 +191,7 @@
       "parameters": {
         "method": "POST",
         "url": "{{ $env.API_BASE_URL }}",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth",
         "sendBody": true,
         "bodyParameters": {
@@ -267,7 +267,7 @@
       "parameters": {
         "method": "POST",
         "url": "{{ $env.API_BASE_URL }}",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth",
         "sendBody": true,
         "bodyParameters": {
@@ -363,23 +363,23 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Code').item.json.randomId.toString() }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "title": "={{ $json.message.content.title }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.message.content.description }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "date": "={{ $now.toISO() }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "statusValue": "In progress"
             }
           ]
@@ -407,11 +407,11 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "statusValue": "Done"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "date": "={{ $now.toISO() }}"
             }
           ]
@@ -430,9 +430,9 @@
     {
       "parameters": {
         "method": "PATCH",
-        "url": "={{ $env.API_BASE_URL }}{{ $('Convert to HTML').item.json.id }}/children",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID",
+        "url": "{{ $env.BASE_URL }}",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -636,7 +636,7 @@
         "filters": {
           "conditions": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "condition": "equals",
               "richTextValue": "={{ $('Code').item.json.randomId.toString() }}"
             }
@@ -1675,6 +1675,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "id": "3ycewf83b8KVQi8N",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "webhook",
+    "google"
+  ],
   "description": "Automated workflow: Deep Research Report Generation Using Open Router, Google Search, Webhook/Telegram and Notion. This workflow integrates 22 different services: stickyNote, switch, splitInBatches, chainLlm, set. It contains 56 nodes and follows best practices for error handling and security."
 }

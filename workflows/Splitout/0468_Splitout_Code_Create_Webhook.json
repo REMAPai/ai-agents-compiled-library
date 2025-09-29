@@ -751,7 +751,7 @@
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -761,7 +761,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -780,7 +780,7 @@
         1080
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Post on Wordpress').first().json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendQuery": true,
@@ -1159,5 +1159,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 13 different services: stickyNote, formTrigger, wordpress, httpRequest, code. It contains 44 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 13 different services: stickyNote, formTrigger, wordpress, httpRequest, code. It contains 44 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

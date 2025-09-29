@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Update all Zammad Roles to default values",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "32904945-fd7b-413f-898c-62b04406dfb0",
@@ -156,7 +159,7 @@
         -20
       ],
       "parameters": {
-        "url": "={{ $json.zammad_base_url }}/api/v1/roles",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -297,7 +300,7 @@
         200
       ],
       "parameters": {
-        "url": "={{ $('Basic Variables').item.json.zammad_base_url }}/api/v1/users/{{ $json.user_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "jsonBody": "={\n  \"role_ids\": [\n    {{ $('Basic Variables').item.json.default_roles }}\n  ]\n} ",
@@ -345,7 +348,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -400,7 +403,7 @@
     },
     {
       "id": "documentation-7450e0d7",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [

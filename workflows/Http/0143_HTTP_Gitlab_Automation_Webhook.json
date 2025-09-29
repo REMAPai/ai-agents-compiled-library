@@ -24,10 +24,10 @@
         40
       ],
       "parameters": {
-        "url": "https://app.getoutline.com/api/documents.create",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "requestMethod": "POST",
-        "authentication": "headerAuth",
+        "authentication": "{{ $credentials.headerAuth }}",
         "jsonParameters": true,
         "bodyParametersJson": "={ \n\"collectionId\": \"PLACEHOLDER\",\n\"parentDocumentId\": \"PLACEHOLDER\",\n\"publish\": true, \n\"title\": {{JSON.stringify(\"Release \" + $json.body.name)}},\n\"text\": {{JSON.stringify($json.body.description + '\\n\\n\\\\\\n[More info](' + $json.body.url + ')')}}\n}"
       },

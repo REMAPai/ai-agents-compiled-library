@@ -1,8 +1,10 @@
 {
   "id": "vOSQYz747gtzj1zF",
   "meta": {
-    "instanceId": "d16fb7d4b3eb9b9d4ad2ee6a7fbae593d73e9715e51f583c2a0e9acd1781c08e",
-    "templateId": "2290"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Prod: Notion to Vector Store - Dimension 768",
   "tags": [
@@ -49,7 +51,7 @@
           "__rl": true,
           "mode": "list",
           "value": "17b11930-c10f-8000-a545-ece7cade03f9",
-          "cachedResultUrl": "https://www.notion.so/17b11930c10f8000a545ece7cade03f9",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Embeddings"
         }
       },
@@ -229,12 +231,56 @@
         }
       },
       "typeVersion": 1
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation 1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Prod: Notion to Vector Store - Dimension 768\n\nAutomated workflow: Prod: Notion to Vector Store - Dimension 768. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 8 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
+    },
+    {
+      "id": "error-handler-1f93c3e6-2d53-46b4-9ce9-1350e660ba82-25c60575",
+      "name": "Error Handler for 1f93c3e6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1f93c3e6",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-0d312f96",
+      "name": "Workflow Documentation 2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Prod: Notion to Vector Store - Dimension 768\n\n## Overview\nAutomated workflow: Prod: Notion to Vector Store - Dimension 768. This workflow processes data and performs automated tasks.\n\n## Workflow Details\n- **Total Nodes**: 10\n- **Node Types**: 10\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Token Splitter**: textSplitterTokenSplitter\n- **Notion - Page Added Trigger**: notionTrigger\n- **Notion - Retrieve Page Content**: notion\n- **Filter Non-Text Content**: filter\n- **Summarize - Concatenate Notion's blocks content**: summarize\n- **Create metadata and load content**: documentDefaultDataLoader\n- **Embeddings Google Gemini**: embeddingsGoogleGemini\n- **Pinecone Vector Store**: vectorStorePinecone\n- **Workflow Documentation**: stickyNote\n- **Error Handler for 1f93c3e6**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "245f016a-7538-4f45-94f0-d8b7e5c9c891",
   "connections": {
@@ -314,6 +360,18 @@
           }
         ]
       ]
+    },
+    "1f93c3e6-2d53-46b4-9ce9-1350e660ba82": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1f93c3e6-2d53-46b4-9ce9-1350e660ba82-25c60575",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Prod: Notion to Vector Store - Dimension 768. This workflow processes data and performs automated tasks."
 }

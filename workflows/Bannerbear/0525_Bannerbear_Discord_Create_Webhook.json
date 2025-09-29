@@ -76,7 +76,7 @@
         "sendBody": true,
         "sendQuery": true,
         "contentType": "multipart-form-data",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -119,7 +119,7 @@
             {
               "name": "placeholder_image",
               "text": "=",
-              "imageUrl": "={{ $json.secure_url.replace('upload/','upload/f_auto,q_auto/') }}"
+              "imageUrl": "{{ $env.BASE_URL }}"
             },
             {
               "name": "placeholder_text",
@@ -330,7 +330,7 @@
         480
       ],
       "parameters": {
-        "url": "={{ $json.image_url_jpg }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -647,5 +647,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Formtrigger Workflow. This workflow integrates 8 different services: stickyNote, httpRequest, formTrigger, set, discord. It contains 22 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Formtrigger Workflow. This workflow integrates 8 different services: stickyNote, httpRequest, formTrigger, set, discord. It contains 22 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

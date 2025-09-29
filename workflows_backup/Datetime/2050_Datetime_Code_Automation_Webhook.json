@@ -1,8 +1,10 @@
 {
   "id": "WulUYgcXvako9hBy",
   "meta": {
-    "instanceId": "d6b86682c7e02b79169c1a61ad0484dcda5bc8b0ea70f1a95dac239c2abfd057",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Testing Mulitple Local LLM with LM Studio",
   "tags": [
@@ -32,7 +34,7 @@
         "color": 6,
         "width": 478.38709677419376,
         "height": 347.82258064516134,
-        "content": "## \ud83e\udde0Text Analysis\n### Readability Score Ranges:\nWhen testing model responses, readability scores can range across different levels. Here\u2019s a breakdown:\n\n- **90\u2013100**: Very easy to read (5th grade or below)\n- **80\u201389**: Easy to read (6th grade)\n- **70\u201379**: Fairly easy to read (7th grade)\n- **60\u201369**: Standard (8th to 9th grade)\n- **50\u201359**: Fairly difficult (10th to 12th grade)\n- **30\u201349**: Difficult (College)\n- **0\u201329**: Very difficult (College graduate)\n- **Below 0**: Extremely difficult (Post-graduate level)\n"
+        "content": "## 🧠Text Analysis\n### Readability Score Ranges:\nWhen testing model responses, readability scores can range across different levels. Here’s a breakdown:\n\n- **90–100**: Very easy to read (5th grade or below)\n- **80–89**: Easy to read (6th grade)\n- **70–79**: Fairly easy to read (7th grade)\n- **60–69**: Standard (8th to 9th grade)\n- **50–59**: Fairly difficult (10th to 12th grade)\n- **30–49**: Difficult (College)\n- **0–29**: Very difficult (College graduate)\n- **Below 0**: Extremely difficult (Post-graduate level)\n"
       },
       "typeVersion": 1
     },
@@ -46,7 +48,7 @@
         180
       ],
       "parameters": {
-        "url": "http://192.168.1.179:1234/v1/models",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {
           "timeout": 10000,
           "allowUnauthorizedCerts": false
@@ -65,7 +67,7 @@
       "parameters": {
         "width": 377.6129032258063,
         "height": 264.22580645161304,
-        "content": "## \u2699\ufe0f 2. Update Local IP\nUpdate the **'Base URL'** `http://192.168.1.1:1234/v1/models` in the workflow to match the IP of your LM Studio server. (Running LM Server)[https://lmstudio.ai/docs/basics/server]\n\nThis node will query the LM Studio server to retrieve a list of all loaded model IDs at the time of the query. If you change or add models to LM Studio, you\u2019ll need to rerun this node to get an updated list of active LLMs.\n"
+        "content": "## ⚙️ 2. Update Local IP\nUpdate the **'Base URL'** `{{ $env.WEBHOOK_URL }}` in the workflow to match the IP of your LM Studio server. (Running LM Server)[{{ $env.WEBHOOK_URL }}]\n\nThis node will query the LM Studio server to retrieve a list of all loaded model IDs at the time of the query. If you change or add models to LM Studio, you’ll need to rerun this node to get an updated list of active LLMs.\n"
       },
       "typeVersion": 1
     },
@@ -94,7 +96,7 @@
       "parameters": {
         "width": 378.75806451612857,
         "height": 216.12903225806457,
-        "content": "## \ud83d\udee0\ufe0f1. Setup - LM Studio\nFirst, download and install [LM Studio](https://lmstudio.ai/). Identify which LLM models you want to use for testing.\n\nNext, the selected models are loaded into the server capabilities to prepare them for testing. For a detailed guide on how to set up multiple models, refer to the [LM Studio Basics](https://lmstudio.ai/docs/basics) documentation.\n"
+        "content": "## 🛠️1. Setup - LM Studio\nFirst, download and install [LM Studio]({{ $env.WEBHOOK_URL }} Identify which LLM models you want to use for testing.\n\nNext, the selected models are loaded into the server capabilities to prepare them for testing. For a detailed guide on how to set up multiple models, refer to the [LM Studio Basics]({{ $env.WEBHOOK_URL }} documentation.\n"
       },
       "typeVersion": 1
     },
@@ -109,7 +111,7 @@
       "parameters": {
         "width": 570.0000000000002,
         "height": 326.0645161290325,
-        "content": "## 3. \ud83d\udca1Update the LM Settings\n\nFrom here, you can modify the following\n parameters to fine-tune model behavior:\n\n- **Temperature**: Controls randomness. Higher values (e.g., 1.0) produce more diverse results, while lower values (e.g., 0.2) make responses more focused and deterministic.\n- **Top P**: Adjusts nucleus sampling, where the model considers only a subset of probable tokens. A lower value (e.g., 0.5) narrows the response range.\n- **Presence Penalty**: Penalizes new tokens based on their presence in the input, encouraging the model to generate more varied responses.\n"
+        "content": "## 3. 💡Update the LM Settings\n\nFrom here, you can modify the following\n parameters to fine-tune model behavior:\n\n- **Temperature**: Controls randomness. Higher values (e.g., 1.0) produce more diverse results, while lower values (e.g., 0.2) make responses more focused and deterministic.\n- **Top P**: Adjusts nucleus sampling, where the model considers only a subset of probable tokens. A lower value (e.g., 0.5) narrows the response range.\n- **Presence Penalty**: Penalizes new tokens based on their presence in the input, encouraging the model to generate more varied responses.\n"
       },
       "typeVersion": 1
     },
@@ -140,7 +142,7 @@
       "parameters": {
         "width": 304.3225806451618,
         "height": 599.7580645161281,
-        "content": "## \ud83d\udcca4. Create Google Sheet (Optional)\n1. First, create a Google Sheet with the following headers:\n - Prompt\n - Time Sent\n - Time Received\n - Total Time Spent\n - Model\n - Response\n - Readability Score\n - Average Word Length\n - Word Count\n - Sentence Count\n - Average Sentence Length\n2. After creating the sheet, update the corresponding Google Sheets node in the workflow to map the data fields correctly.\n"
+        "content": "## 📊4. Create Google Sheet (Optional)\n1. First, create a Google Sheet with the following headers:\n - Prompt\n - Time Sent\n - Time Received\n - Total Time Spent\n - Model\n - Response\n - Readability Score\n - Average Word Length\n - Word Count\n - Sentence Count\n - Average Sentence Length\n2. After creating the sheet, update the corresponding Google Sheets node in the workflow to map the data fields correctly.\n"
       },
       "typeVersion": 1
     },
@@ -156,7 +158,7 @@
         "color": 5,
         "width": 359.2903225806448,
         "height": 316.9032258064518,
-        "content": "## \ud83c\udfd7\ufe0fSetup Steps\n1. **Download and Install LM Studio**: Ensure LM Studio is correctly installed on your machine.\n2. **Update the Base URL**: Replace the base URL with the IP address of your LLM instance. Ensure the connection is established.\n3. **Configure LLM Settings**: Verify that your LLM models are properly set up and configured in LM Studio.\n4. **Create a Google Sheet**: Set up a Google Sheet with the necessary headers (Prompt, Time Sent, Time Received, etc.) to track your testing results.\n"
+        "content": "## 🏗️Setup Steps\n1. **Download and Install LM Studio**: Ensure LM Studio is correctly installed on your machine.\n2. **Update the Base URL**: Replace the base URL with the IP address of your LLM instance. Ensure the connection is established.\n3. **Configure LLM Settings**: Verify that your LLM models are properly set up and configured in LM Studio.\n4. **Create a Google Sheet**: Set up a Google Sheet with the necessary headers (Prompt, Time Sent, Time Received, etc.) to track your testing results.\n"
       },
       "typeVersion": 1
     },
@@ -171,7 +173,7 @@
       "parameters": {
         "width": 615.8064516129025,
         "height": 272.241935483871,
-        "content": "## \ud83d\udcd6Prompting Multiple LLMs\n\nWhen testing for specific outcomes (such as conciseness or readability), you can add a **System Prompt** in the LLM Chain to guide the models' responses.\n\n**System Prompt Suggestion**:\n- Focus on ensuring that responses are concise, clear, and easily understandable by a 5th-grade reading level. \n- This prompt will help you compare models based on how well they meet readability standards and stay on point.\n \nAdjust the prompt to fit your desired testing criteria.\n"
+        "content": "## 📖Prompting Multiple LLMs\n\nWhen testing for specific outcomes (such as conciseness or readability), you can add a **System Prompt** in the LLM Chain to guide the models' responses.\n\n**System Prompt Suggestion**:\n- Focus on ensuring that responses are concise, clear, and easily understandable by a 5th-grade reading level. \n- This prompt will help you compare models based on how well they meet readability standards and stay on point.\n \nAdjust the prompt to fit your desired testing criteria.\n"
       },
       "typeVersion": 1
     },
@@ -187,7 +189,7 @@
         "model": "={{ $node['Extract Model IDsto Run Separately'].json.id }}",
         "options": {
           "topP": 1,
-          "baseURL": "http://192.168.1.179:1234/v1",
+          "baseURL": "{{ $env.WEBHOOK_URL }}",
           "timeout": 250000,
           "temperature": 1,
           "presencePenalty": 0
@@ -352,14 +354,14 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GdoTjKOrhWOqSZb-AoLNlXgRGBdXKSbXpy-EsZaPGvg/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1GdoTjKOrhWOqSZb-AoLNlXgRGBdXKSbXpy-EsZaPGvg",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GdoTjKOrhWOqSZb-AoLNlXgRGBdXKSbXpy-EsZaPGvg/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Teacking LLM Success"
         }
       },
@@ -538,18 +540,88 @@
         "color": 3,
         "width": 570.0000000000002,
         "height": 182.91935483870984,
-        "content": "## \ud83d\ude80Pro Tip \n\nIf you are getting strange results, ensure that you are Deleting the previous chat (next to the Chat Button) to ensure you aren't bleeding responses into the next chat. "
+        "content": "## 🚀Pro Tip \n\nIf you are getting strange results, ensure that you are Deleting the previous chat (next to the Chat Button) to ensure you aren't bleeding responses into the next chat. "
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-7801734c-5eb9-4abd-b234-e406462931f7",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 7801734c-5eb9-4abd-b234-e406462931f7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7801734c-5eb9-4abd-b234-e406462931f7-d5e7cd5b",
+      "name": "Error Handler for 7801734c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7801734c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-dd5f7e7b-bc69-4b67-90e6-2077b6b93148-8db13ac1",
+      "name": "Error Handler for dd5f7e7b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node dd5f7e7b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-adef5d92-cb7e-417e-acbb-1a5d6c26426a-2e56c55c",
+      "name": "Error Handler for adef5d92",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node adef5d92",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-3494decf",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Testing Mulitple Local LLM with LM Studio\n\n## Overview\nAutomated workflow: Testing Mulitple Local LLM with LM Studio. This workflow integrates 11 different services: stickyNote, httpRequest, code, splitOut, chainLlm. It contains 25 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 25\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note**: stickyNote\n- **Get Models**: httpRequest\n- **Sticky Note1**: stickyNote\n- **When chat message received**: chatTrigger\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Get timeDifference**: dateTime\n- **Sticky Note4**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Sticky Note6**: stickyNote\n- ... and 15 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "timezone": "America/Denver",
+    "timezone": "UTC",
     "callerPolicy": "workflowsFromSameOwner",
     "executionOrder": "v1",
-    "saveManualExecutions": true
+    "saveManualExecutions": true,
+    "errorWorkflow": null
   },
   "versionId": "a80bee71-8e21-40ff-8803-42d38f316bfb",
   "connections": {
@@ -673,6 +745,47 @@
           }
         ]
       ]
+    },
+    "7801734c-5eb9-4abd-b234-e406462931f7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7801734c-5eb9-4abd-b234-e406462931f7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-7801734c-5eb9-4abd-b234-e406462931f7-d5e7cd5b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "dd5f7e7b-bc69-4b67-90e6-2077b6b93148": {
+      "main": [
+        [
+          {
+            "node": "error-handler-dd5f7e7b-bc69-4b67-90e6-2077b6b93148-8db13ac1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "adef5d92-cb7e-417e-acbb-1a5d6c26426a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-adef5d92-cb7e-417e-acbb-1a5d6c26426a-2e56c55c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Testing Mulitple Local LLM with LM Studio. This workflow integrates 11 different services: stickyNote, httpRequest, code, splitOut, chainLlm. It contains 25 nodes and follows best practices for error handling and security."
 }

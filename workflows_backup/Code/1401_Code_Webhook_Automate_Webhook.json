@@ -1,8 +1,10 @@
 {
   "id": "D0I76cew5KOnlem0",
   "meta": {
-    "instanceId": "fb924c73af8f703905bc09c9ee8076f48c17b596ed05b18c0ff86915ef8a7c4a",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Workflow stats",
   "tags": [],
@@ -161,7 +163,7 @@
           "keepSource": false,
           "useRawData": true
         },
-        "sourceKey": "html",
+        "sourceKey": "YOUR_CREDENTIAL_HERE",
         "convertAllData": false
       },
       "typeVersion": 1
@@ -251,7 +253,7 @@
               "id": "2a42cfed-0451-41c2-9634-865cac2ea68d",
               "name": "xsl_template",
               "type": "string",
-              "value": "=<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n  <xsl:template match=\"/\">\n    <html>\n      <head>\n        <title>n8n Workflows Dashboard</title>\n        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\" />\n        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz\" crossorigin=\"anonymous\"></script>\n        <style>\n          body {\n            position: relative;\n          }\n          \n          section {\n            scroll-margin-top: 20px;\n          }\n\n          .form-check-overlay {\n            position: absolute;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100%;\n            cursor: default;\n            z-index: 1;\n          }\n\n          .badge-link {\n            scroll-margin-top: 80px;\n          }\n\n          .sidebar {\n            position: fixed;\n            top: 0;\n            bottom: 0;\n            left: 0;\n            z-index: 100;\n            padding: 20px 0 0;\n            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);\n            overflow-y: auto;\n          }\n\n          .sidebar-sticky {\n            position: relative;\n            top: 0;\n            height: calc(100vh - 20px);\n            overflow-x: hidden;\n            overflow-y: auto;\n            padding-left: .25rem;\n          }\n\n          .nooverflow {\n            overflow-x: hidden;\n          }\n\n          .sidebar .nav-link {\n            font-weight: 500;\n            color: var(--bs-gray-800);\n            white-space: nowrap;\n            overflow: hidden;\n            text-overflow: ellipsis;\n          }\n\n          .sidebar .nav-link.active {\n            color: var(--bs-primary);\n          }\n\n          .sidebar .btn {\n            padding: .25rem .5rem;\n            font-weight: 600;\n            color: var(--bs-gray-800);\n          }\n\n          .sidebar-a {\n            padding: .25rem .5rem;\n            margin-left: 1.25rem;\n            color: var(--bs-gray-800);\n            background-color: transparent;\n          }\n\n          .sidebar-bottom {\n            padding: .25rem .5rem;\n            margin-left: 1.25rem;\n          }\n\n          .btn-toggle::before {\n            width: 1.25em;\n            line-height: 0;\n            content: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e\");\n            transition: transform .35s ease;\n            transform-origin: .5em 50%;\n          }\n\n          .btn-toggle[aria-expanded=\"true\"] {\n            color: var(--bs-gray-800);\n          }\n\n          .btn-toggle[aria-expanded=\"true\"]::before {\n            transform: rotate(90deg);\n          }\n\n          .btn-toggle-nav a {\n            padding: .1rem .5rem;\n            margin-top: .125rem;\n          }\n\n          .sidebar-a:hover,\n          .sidebar-a:focus,\n\t\t  .btn-toggle:hover,\n          .btn-toggle:focus {\n            background-color: var(--bs-primary-bg-subtle);\n          }\n\n          .content {\n            margin-left: 16.66%;\n            padding: 20px;\n          }\n\n          .card-img-container {\n            max-height: 150px;\n            overflow: hidden;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n          }\n          \n          .card-img-top {\n            object-fit: cover;\n            object-position: top;\n            height: 100%;\n            width: 100%;\n          }\n\n        </style>\n      </head>\n      <body data-bs-spy=\"scroll\" data-bs-target=\"#sidebar\" data-bs-offset=\"10\">\n        <div class=\"container-fluid\">\n          <div class=\"row\">\n{{ $json.sidebar }}\n\n            <main class=\"col-10 content\">\n\n<!-- Overview section -->\n{{ $json.overview }}\n<!-- Workflows section -->\n{{ $json.workflows }}\n<!-- Nodes section -->\n{{ $json.nodes }}\n<!-- Tags section -->\n{{ $json.tags }}\n<!-- Webhooks section -->\n{{ $json.webhooks }}\n<!-- About section -->\n{{ $json.about }}\n\n            </main>\n          </div>\n        </div>\n      </body>\n    </html>\n  </xsl:template>\n</xsl:stylesheet>"
+              "value": "=<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"{{ $env.WEBHOOK_URL }}\">\n  <xsl:template match=\"/\">\n    <html>\n      <head>\n        <title>n8n Workflows Dashboard</title>\n        <link href=\"{{ $env.WEBHOOK_URL }}\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\" />\n        <script src=\"{{ $env.WEBHOOK_URL }}\" integrity=\"sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz\" crossorigin=\"anonymous\"></script>\n        <style>\n          body {\n            position: relative;\n          }\n          \n          section {\n            scroll-margin-top: 20px;\n          }\n\n          .form-check-overlay {\n            position: absolute;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100%;\n            cursor: default;\n            z-index: 1;\n          }\n\n          .badge-link {\n            scroll-margin-top: 80px;\n          }\n\n          .sidebar {\n            position: fixed;\n            top: 0;\n            bottom: 0;\n            left: 0;\n            z-index: 100;\n            padding: 20px 0 0;\n            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);\n            overflow-y: auto;\n          }\n\n          .sidebar-sticky {\n            position: relative;\n            top: 0;\n            height: calc(100vh - 20px);\n            overflow-x: hidden;\n            overflow-y: auto;\n            padding-left: .25rem;\n          }\n\n          .nooverflow {\n            overflow-x: hidden;\n          }\n\n          .sidebar .nav-link {\n            font-weight: 500;\n            color: var(--bs-gray-800);\n            white-space: nowrap;\n            overflow: hidden;\n            text-overflow: ellipsis;\n          }\n\n          .sidebar .nav-link.active {\n            color: var(--bs-primary);\n          }\n\n          .sidebar .btn {\n            padding: .25rem .5rem;\n            font-weight: 600;\n            color: var(--bs-gray-800);\n          }\n\n          .sidebar-a {\n            padding: .25rem .5rem;\n            margin-left: 1.25rem;\n            color: var(--bs-gray-800);\n            background-color: transparent;\n          }\n\n          .sidebar-bottom {\n            padding: .25rem .5rem;\n            margin-left: 1.25rem;\n          }\n\n          .btn-toggle::before {\n            width: 1.25em;\n            line-height: 0;\n            content: url(\"data:image/svg+xml,%3csvg xmlns='{{ $env.WEBHOOK_URL }}' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e\");\n            transition: transform .35s ease;\n            transform-origin: .5em 50%;\n          }\n\n          .btn-toggle[aria-expanded=\"true\"] {\n            color: var(--bs-gray-800);\n          }\n\n          .btn-toggle[aria-expanded=\"true\"]::before {\n            transform: rotate(90deg);\n          }\n\n          .btn-toggle-nav a {\n            padding: .1rem .5rem;\n            margin-top: .125rem;\n          }\n\n          .sidebar-a:hover,\n          .sidebar-a:focus,\n\t\t  .btn-toggle:hover,\n          .btn-toggle:focus {\n            background-color: var(--bs-primary-bg-subtle);\n          }\n\n          .content {\n            margin-left: 16.66%;\n            padding: 20px;\n          }\n\n          .card-img-container {\n            max-height: 150px;\n            overflow: hidden;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n          }\n          \n          .card-img-top {\n            object-fit: cover;\n            object-position: top;\n            height: 100%;\n            width: 100%;\n          }\n\n        </style>\n      </head>\n      <body data-bs-spy=\"scroll\" data-bs-target=\"#sidebar\" data-bs-offset=\"10\">\n        <div class=\"container-fluid\">\n          <div class=\"row\">\n{{ $json.sidebar }}\n\n            <main class=\"col-10 content\">\n\n<!-- Overview section -->\n{{ $json.overview }}\n<!-- Workflows section -->\n{{ $json.workflows }}\n<!-- Nodes section -->\n{{ $json.nodes }}\n<!-- Tags section -->\n{{ $json.tags }}\n<!-- Webhooks section -->\n{{ $json.webhooks }}\n<!-- About section -->\n{{ $json.about }}\n\n            </main>\n          </div>\n        </div>\n      </body>\n    </html>\n  </xsl:template>\n</xsl:stylesheet>"
             }
           ]
         }
@@ -274,7 +276,7 @@
               "id": "afbcca70-2977-46a3-89c3-27a96f791d13",
               "name": "sidebar",
               "type": "string",
-              "value": "=            <nav id=\"sidebar\" class=\"col-2 bg-light sidebar\">\n              <div class=\"sidebar-sticky\">\n                <ul class=\"list-unstyled ps-0\">\n                  <li class=\"mb-1\">\n                    <a href=\"#overview\" class=\"btn d-inline-flex align-items-center rounded border-0 sidebar-a\">Overview</a>\n                  </li>\n                  <!-- Workflows Section -->\n                  <li class=\"mb-1\">\n                    <button class=\"btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed\" data-bs-toggle=\"collapse\" data-bs-target=\"#workflows-collapse\" aria-expanded=\"false\">\n                      Workflows\n                    </button>\n                    <div class=\"collapse\" id=\"workflows-collapse\">\n                      <ul class=\"btn-toggle-nav list-unstyled fw-normal pb-1 small\">\n                        <xsl:for-each select=\"root/wf_stats\">\n                          <li><a href=\"#{wf_id}\" class=\"link-dark d-inline-flex text-decoration-none rounded sidebar-a\"><xsl:value-of select=\"wf_name\" /></a></li>\n                        </xsl:for-each>\n                      </ul>\n                    </div>\n                  </li>\n                  <!-- Nodes Section (No Sanitization) -->\n                  <li class=\"mb-1\">\n                    <button class=\"btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed\" data-bs-toggle=\"collapse\" data-bs-target=\"#nodes-collapse\" aria-expanded=\"false\">\n                      Nodes\n                    </button>\n                    <div class=\"collapse\" id=\"nodes-collapse\">\n                      <ul class=\"btn-toggle-nav list-unstyled fw-normal pb-1 small\">\n                        <xsl:for-each select=\"root/nodes-section\">\n                          <li>\n                            <a class=\"link-dark d-inline-flex text-decoration-none rounded sidebar-a\">\n                              <xsl:attribute name=\"href\">\n                                <!-- Use raw node name -->\n                                <xsl:value-of select=\"concat('#node-', node)\" />\n                              </xsl:attribute>\n                              <xsl:value-of select=\"node\" />\n                            </a>\n                          </li>\n                        </xsl:for-each>\n                      </ul>\n                    </div>\n                  </li>\n                  <!-- Tags Section (Keep Sanitization) -->\n                  <li class=\"mb-1\">\n                    <button class=\"btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed\" data-bs-toggle=\"collapse\" data-bs-target=\"#tags-collapse\" aria-expanded=\"false\">\n                      Tags\n                    </button>\n                    <div class=\"collapse\" id=\"tags-collapse\">\n                      <ul class=\"btn-toggle-nav list-unstyled fw-normal pb-1 small\">\n                        <xsl:for-each select=\"root/tags-section\">\n                           <!-- Sanitize tag name for href -->\n                          <xsl:variable name=\"raw_tag\" select=\"tag\"/>\n                          <xsl:variable name=\"lower_tag\" select=\"translate($raw_tag, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')\"/>\n                          <xsl:variable name=\"spaced_tag\" select=\"translate($lower_tag, ' ', '-')\"/>\n                          <xsl:variable name=\"invalid_chars\" select=\"&quot;'./?&amp;=:&quot;\"/>\n                          <xsl:variable name=\"sanitized_tag_id\" select=\"translate($spaced_tag, $invalid_chars, '')\"/>\n                          <li>\n                            <a class=\"link-dark d-inline-flex text-decoration-none rounded sidebar-a\">\n                              <xsl:attribute name=\"href\">\n                                <xsl:value-of select=\"concat('#tag-', $sanitized_tag_id)\" />\n                              </xsl:attribute>\n                              <xsl:value-of select=\"tag\" />\n                            </a>\n                          </li>\n                        </xsl:for-each>\n                      </ul>\n                    </div>\n                  </li>\n                  <!-- Webhooks Section (No Sanitization) -->\n                  <li class=\"mb-1\">\n                    <button class=\"btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed\" data-bs-toggle=\"collapse\" data-bs-target=\"#webhooks-collapse\" aria-expanded=\"false\">\n                      Webhooks\n                    </button>\n                    <div class=\"collapse\" id=\"webhooks-collapse\">\n                      <ul class=\"btn-toggle-nav list-unstyled fw-normal pb-1 small\">\n                        <xsl:for-each select=\"root/whooks-section\">\n                          <li>\n                            <a class=\"link-dark d-inline-flex text-decoration-none rounded sidebar-a\">\n                              <xsl:attribute name=\"href\">\n                                <!-- Use raw hookpath -->\n                                <xsl:value-of select=\"concat('#whook-', hookpath)\" />\n                              </xsl:attribute>\n                              <xsl:value-of select=\"hookpath\" />\n                            </a>\n                          </li>\n                        </xsl:for-each>\n                      </ul>\n                    </div>\n                  </li>\n                  <!-- END: Webhooks Section -->\n                  <li class=\"border-top my-3\"></li>\n                  <li class=\"mb-1\">\n                    <a href=\"#about\" class=\"btn d-inline-flex align-items-center rounded border-0 sidebar-a\">About</a>\n                  </li>\n                </ul>\n                <div class=\"sidebar-bottom\">\n                  <p>n8n Dashboard ver 0.8<br/> <!-- Updated version number -->\nContacts: <a class=\"link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover\" href=\"https://www.linkedin.com/in/parsadanyan/\" target=\"_blank\">Eduard Parsadanyan</a></p>\n                </div>\n              </div>\n            </nav>\n"
+              "value": "=            <nav id=\"sidebar\" class=\"col-2 bg-light sidebar\">\n              <div class=\"sidebar-sticky\">\n                <ul class=\"list-unstyled ps-0\">\n                  <li class=\"mb-1\">\n                    <a href=\"#overview\" class=\"btn d-inline-flex align-items-center rounded border-0 sidebar-a\">Overview</a>\n                  </li>\n                  <!-- Workflows Section -->\n                  <li class=\"mb-1\">\n                    <button class=\"btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed\" data-bs-toggle=\"collapse\" data-bs-target=\"#workflows-collapse\" aria-expanded=\"false\">\n                      Workflows\n                    </button>\n                    <div class=\"collapse\" id=\"workflows-collapse\">\n                      <ul class=\"btn-toggle-nav list-unstyled fw-normal pb-1 small\">\n                        <xsl:for-each select=\"root/wf_stats\">\n                          <li><a href=\"#{wf_id}\" class=\"link-dark d-inline-flex text-decoration-none rounded sidebar-a\"><xsl:value-of select=\"wf_name\" /></a></li>\n                        </xsl:for-each>\n                      </ul>\n                    </div>\n                  </li>\n                  <!-- Nodes Section (No Sanitization) -->\n                  <li class=\"mb-1\">\n                    <button class=\"btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed\" data-bs-toggle=\"collapse\" data-bs-target=\"#nodes-collapse\" aria-expanded=\"false\">\n                      Nodes\n                    </button>\n                    <div class=\"collapse\" id=\"nodes-collapse\">\n                      <ul class=\"btn-toggle-nav list-unstyled fw-normal pb-1 small\">\n                        <xsl:for-each select=\"root/nodes-section\">\n                          <li>\n                            <a class=\"link-dark d-inline-flex text-decoration-none rounded sidebar-a\">\n                              <xsl:attribute name=\"href\">\n                                <!-- Use raw node name -->\n                                <xsl:value-of select=\"concat('#node-', node)\" />\n                              </xsl:attribute>\n                              <xsl:value-of select=\"node\" />\n                            </a>\n                          </li>\n                        </xsl:for-each>\n                      </ul>\n                    </div>\n                  </li>\n                  <!-- Tags Section (Keep Sanitization) -->\n                  <li class=\"mb-1\">\n                    <button class=\"btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed\" data-bs-toggle=\"collapse\" data-bs-target=\"#tags-collapse\" aria-expanded=\"false\">\n                      Tags\n                    </button>\n                    <div class=\"collapse\" id=\"tags-collapse\">\n                      <ul class=\"btn-toggle-nav list-unstyled fw-normal pb-1 small\">\n                        <xsl:for-each select=\"root/tags-section\">\n                           <!-- Sanitize tag name for href -->\n                          <xsl:variable name=\"raw_tag\" select=\"tag\"/>\n                          <xsl:variable name=\"lower_tag\" select=\"translate($raw_tag, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')\"/>\n                          <xsl:variable name=\"spaced_tag\" select=\"translate($lower_tag, ' ', '-')\"/>\n                          <xsl:variable name=\"invalid_chars\" select=\"&quot;'./?&amp;=:&quot;\"/>\n                          <xsl:variable name=\"sanitized_tag_id\" select=\"translate($spaced_tag, $invalid_chars, '')\"/>\n                          <li>\n                            <a class=\"link-dark d-inline-flex text-decoration-none rounded sidebar-a\">\n                              <xsl:attribute name=\"href\">\n                                <xsl:value-of select=\"concat('#tag-', $sanitized_tag_id)\" />\n                              </xsl:attribute>\n                              <xsl:value-of select=\"tag\" />\n                            </a>\n                          </li>\n                        </xsl:for-each>\n                      </ul>\n                    </div>\n                  </li>\n                  <!-- Webhooks Section (No Sanitization) -->\n                  <li class=\"mb-1\">\n                    <button class=\"btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed\" data-bs-toggle=\"collapse\" data-bs-target=\"#webhooks-collapse\" aria-expanded=\"false\">\n                      Webhooks\n                    </button>\n                    <div class=\"collapse\" id=\"webhooks-collapse\">\n                      <ul class=\"btn-toggle-nav list-unstyled fw-normal pb-1 small\">\n                        <xsl:for-each select=\"root/whooks-section\">\n                          <li>\n                            <a class=\"link-dark d-inline-flex text-decoration-none rounded sidebar-a\">\n                              <xsl:attribute name=\"href\">\n                                <!-- Use raw hookpath -->\n                                <xsl:value-of select=\"concat('#whook-', hookpath)\" />\n                              </xsl:attribute>\n                              <xsl:value-of select=\"hookpath\" />\n                            </a>\n                          </li>\n                        </xsl:for-each>\n                      </ul>\n                    </div>\n                  </li>\n                  <!-- END: Webhooks Section -->\n                  <li class=\"border-top my-3\"></li>\n                  <li class=\"mb-1\">\n                    <a href=\"#about\" class=\"btn d-inline-flex align-items-center rounded border-0 sidebar-a\">About</a>\n                  </li>\n                </ul>\n                <div class=\"sidebar-bottom\">\n                  <p>n8n Dashboard ver 0.8<br/> <!-- Updated version number -->\nContacts: <a class=\"link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover\" href=\"{{ $env.WEBHOOK_URL }}\" target=\"_blank\">Eduard Parsadanyan</a></p>\n                </div>\n              </div>\n            </nav>\n"
             },
             {
               "id": "d6dc34a7-3c79-44ef-957c-63aec4b2d75a",
@@ -310,7 +312,7 @@
               "id": "2af68003-c9b9-4e60-8836-195da026ad2f",
               "name": "about",
               "type": "string",
-              "value": "=<hr class=\"featurette-divider border-dark\" />\n<section id=\"about\" class=\"container mt-3\">\n  <h2 class=\"text-center mb-5\">About This Dashboard &amp; Related Templates</h2>\n  <div class=\"row justify-content-center\">\n\n    <!-- Eduard Section -->\n    <div class=\"col-lg-3 text-center mb-4\">\n      <img src=\"https://gravatar.com/avatar/a551e67c6fe7affd5f882a527dee154bb6c3ac90cf878326accb3fb3ec77c8a6?r=pg&amp;d=retro&amp;size=200\" alt=\"Eduard\" class=\"rounded-circle mb-3\" width=\"140\" height=\"140\" />\n      <h3 class=\"fw-normal\">Eduard</h3>\n      <p><a class=\"btn btn-warning\" href=\"https://n8n.io/creators/eduard/\" target=\"_blank\">More templates</a></p>\n      <p><a class=\"btn btn-outline-primary\" href=\"https://www.linkedin.com/in/parsadanyan/\" target=\"_blank\">LinkedIn</a></p>\n    </div>\n\n    <!-- Original Article Card (Text Restored) -->\n    <div class=\"col-lg-3 text-center mb-4\">\n      <div class=\"card shadow-sm h-100\">\n         <div class=\"card-img-container\">\n            <img src=\"https://blog.n8n.io/content/images/size/w800/2023/09/gg.png\" class=\"card-img-top\" alt=\"How to work with XML and SQL using n8n\" />\n         </div>\n        <div class=\"card-body d-flex flex-column\">\n          <!-- Restored original title -->\n          <h5 class=\"card-title\">Read the article to find out more!</h5>\n          <p class=\"card-text\">This dashboard was created using XML template language (XSLT) in n8n.</p>\n          <a href=\"https://blog.n8n.io/sql-xml/#how-to-deliver-the-xml-file\" class=\"btn btn-primary mt-auto\" target=\"_blank\">Read Article</a>\n        </div>\n      </div>\n    </div>\n\n    <!-- New Card 1: Docsify Template (Text Expanded) -->\n    <div class=\"col-lg-3 text-center mb-4\">\n      <div class=\"card shadow-sm h-100\">\n        <div class=\"card-body d-flex flex-column\">\n          <h5 class=\"card-title\">📚 Auto-generate documentation for n8n workflows with GPT and Docsify</h5>\n          <p class=\"card-subtitle mb-2 text-muted\">Creates a dynamic Docsify site with GPT-powered descriptions and Mermaid diagrams.</p>\n          <!-- Added descriptive text -->\n          <p class=\"card-text\">Features live editing, tag filtering, and automated documentation updates for your n8n instance.</p>\n          <a href=\"https://n8n.io/workflows/2669-auto-generate-documentation-for-n8n-workflows-with-gpt-and-docsify/\" class=\"btn btn-primary mt-auto\" target=\"_blank\">View Template</a>\n        </div>\n      </div>\n    </div>\n\n    <!-- New Card 2: Mermaid Template (Text Expanded) -->\n    <div class=\"col-lg-3 text-center mb-4\">\n      <div class=\"card shadow-sm h-100\">\n        <div class=\"card-body d-flex flex-column\">\n          <h5 class=\"card-title\">🔍 Visualize Your n8n Workflows with Mermaid.js!</h5>\n           <p class=\"card-subtitle mb-2 text-muted\">Generates interactive workflow flowcharts using Mermaid.js and Bootstrap.</p>\n           <!-- Added descriptive text -->\n           <p class=\"card-text\">Instantly visualize structures with custom shapes and direct links to workflows, perfect for documentation.</p>\n          <a href=\"https://n8n.io/workflows/2378-visualize-your-n8n-workflows-with-mermaidjs/\" class=\"btn btn-primary mt-auto\" target=\"_blank\">View Template</a>\n        </div>\n      </div>\n    </div>\n\n  </div> <!-- End row -->\n</section>\n"
+              "value": "=<hr class=\"featurette-divider border-dark\" />\n<section id=\"about\" class=\"container mt-3\">\n  <h2 class=\"text-center mb-5\">About This Dashboard &amp; Related Templates</h2>\n  <div class=\"row justify-content-center\">\n\n    <!-- Eduard Section -->\n    <div class=\"col-lg-3 text-center mb-4\">\n      <img src=\"{{ $env.WEBHOOK_URL }}\" alt=\"Eduard\" class=\"rounded-circle mb-3\" width=\"140\" height=\"140\" />\n      <h3 class=\"fw-normal\">Eduard</h3>\n      <p><a class=\"btn btn-warning\" href=\"{{ $env.WEBHOOK_URL }}\" target=\"_blank\">More templates</a></p>\n      <p><a class=\"btn btn-outline-primary\" href=\"{{ $env.WEBHOOK_URL }}\" target=\"_blank\">LinkedIn</a></p>\n    </div>\n\n    <!-- Original Article Card (Text Restored) -->\n    <div class=\"col-lg-3 text-center mb-4\">\n      <div class=\"card shadow-sm h-100\">\n         <div class=\"card-img-container\">\n            <img src=\"{{ $env.WEBHOOK_URL }}\" class=\"card-img-top\" alt=\"How to work with XML and SQL using n8n\" />\n         </div>\n        <div class=\"card-body d-flex flex-column\">\n          <!-- Restored original title -->\n          <h5 class=\"card-title\">Read the article to find out more!</h5>\n          <p class=\"card-text\">This dashboard was created using XML template language (XSLT) in n8n.</p>\n          <a href=\"{{ $env.WEBHOOK_URL }}\" class=\"btn btn-primary mt-auto\" target=\"_blank\">Read Article</a>\n        </div>\n      </div>\n    </div>\n\n    <!-- New Card 1: Docsify Template (Text Expanded) -->\n    <div class=\"col-lg-3 text-center mb-4\">\n      <div class=\"card shadow-sm h-100\">\n        <div class=\"card-body d-flex flex-column\">\n          <h5 class=\"card-title\">📚 Auto-generate documentation for n8n workflows with GPT and Docsify</h5>\n          <p class=\"card-subtitle mb-2 text-muted\">Creates a dynamic Docsify site with GPT-powered descriptions and Mermaid diagrams.</p>\n          <!-- Added descriptive text -->\n          <p class=\"card-text\">Features live editing, tag filtering, and automated documentation updates for your n8n instance.</p>\n          <a href=\"{{ $env.WEBHOOK_URL }}\" class=\"btn btn-primary mt-auto\" target=\"_blank\">View Template</a>\n        </div>\n      </div>\n    </div>\n\n    <!-- New Card 2: Mermaid Template (Text Expanded) -->\n    <div class=\"col-lg-3 text-center mb-4\">\n      <div class=\"card shadow-sm h-100\">\n        <div class=\"card-body d-flex flex-column\">\n          <h5 class=\"card-title\">🔍 Visualize Your n8n Workflows with Mermaid.js!</h5>\n           <p class=\"card-subtitle mb-2 text-muted\">Generates interactive workflow flowcharts using Mermaid.js and Bootstrap.</p>\n           <!-- Added descriptive text -->\n           <p class=\"card-text\">Instantly visualize structures with custom shapes and direct links to workflows, perfect for documentation.</p>\n          <a href=\"{{ $env.WEBHOOK_URL }}\" class=\"btn btn-primary mt-auto\" target=\"_blank\">View Template</a>\n        </div>\n      </div>\n    </div>\n\n  </div> <!-- End row -->\n</section>\n"
             }
           ]
         }
@@ -453,7 +455,7 @@
       },
       "credentials": {
         "n8nApi": {
-          "id": "45",
+          "id": "{{ $credentials.n8nApi.id }}",
           "name": "n8n account 4"
         }
       },
@@ -660,6 +662,131 @@
         "content": "## &#x200B;\n# USE THIS WEBHOOK -->"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-5fdb74f7-6b2a-4042-91a2-c2088e8ea712",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 5fdb74f7-6b2a-4042-91a2-c2088e8ea712",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b6674f77-7797-4090-a4f9-56a9ddc0d4e0",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b6674f77-7797-4090-a4f9-56a9ddc0d4e0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b17fbec5-03e2-4836-8704-6b31cdf92a5b",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b17fbec5-03e2-4836-8704-6b31cdf92a5b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-36288776-5f67-40fd-872f-0eeac0dd03b0",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 36288776-5f67-40fd-872f-0eeac0dd03b0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5fdb74f7-6b2a-4042-91a2-c2088e8ea712-6ce7054d",
+      "name": "Error Handler for 5fdb74f7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5fdb74f7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b6674f77-7797-4090-a4f9-56a9ddc0d4e0-6b75e928",
+      "name": "Error Handler for b6674f77",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b6674f77",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b17fbec5-03e2-4836-8704-6b31cdf92a5b-e988e6d1",
+      "name": "Error Handler for b17fbec5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b17fbec5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-36288776-5f67-40fd-872f-0eeac0dd03b0-70043b62",
+      "name": "Error Handler for 36288776",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 36288776",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-1692c7c9",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Workflow stats\n\n## Overview\nAutomated workflow: Workflow stats. This workflow integrates 16 different services: webhook, stickyNote, code, n8n, merge. It contains 41 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 41\n- **Node Types**: 16\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking \"Test workflow\"**: manualTrigger\n- **nodes-section**: code\n- **workflows-section**: set\n- **Sticky Note**: stickyNote\n- **tags-section**: code\n- **globals-section**: set\n- **Execute Workflow Trigger**: executeWorkflowTrigger\n- **Convert to XML**: xml\n- **Create HTML**: html\n- **Move Binary Data**: moveBinaryData\n- ... and 31 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
@@ -668,7 +795,9 @@
     "callerPolicy": "workflowsFromSameOwner",
     "executionOrder": "v1",
     "saveManualExecutions": true,
-    "saveDataSuccessExecution": "all"
+    "saveDataSuccessExecution": "all",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "3fc1a529-eb6e-4f8a-9d7f-cb8e21e782a1",
   "connections": {
@@ -966,6 +1095,79 @@
           }
         ]
       ]
+    },
+    "5fdb74f7-6b2a-4042-91a2-c2088e8ea712": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5fdb74f7-6b2a-4042-91a2-c2088e8ea712",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-5fdb74f7-6b2a-4042-91a2-c2088e8ea712-6ce7054d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b6674f77-7797-4090-a4f9-56a9ddc0d4e0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b6674f77-7797-4090-a4f9-56a9ddc0d4e0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b6674f77-7797-4090-a4f9-56a9ddc0d4e0-6b75e928",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b17fbec5-03e2-4836-8704-6b31cdf92a5b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b17fbec5-03e2-4836-8704-6b31cdf92a5b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b17fbec5-03e2-4836-8704-6b31cdf92a5b-e988e6d1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "36288776-5f67-40fd-872f-0eeac0dd03b0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-36288776-5f67-40fd-872f-0eeac0dd03b0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-36288776-5f67-40fd-872f-0eeac0dd03b0-70043b62",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Workflow stats. This workflow integrates 16 different services: webhook, stickyNote, code, n8n, merge. It contains 41 nodes and follows best practices for error handling and security."
 }

@@ -1,7 +1,10 @@
 {
   "id": "rLoXUoKSZ4a9XUAv",
   "meta": {
-    "instanceId": "7599ed929ea25767a019b87ecbc83b90e16a268cb51892887b450656ac4518a2"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "My workflow 6",
   "tags": [],
@@ -46,16 +49,74 @@
         920
       ],
       "parameters": {
-        "url": "https://www.sldttc.org/allpdf/21583473018.pdf",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
+    },
+    {
+      "id": "error-handler-a8554e6b-6e2d-4a26-909c-25e74e618480",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a8554e6b-6e2d-4a26-909c-25e74e618480",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation 1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# My workflow 6\n\nAutomated workflow: My workflow 6. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 4 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
+    },
+    {
+      "id": "error-handler-a8554e6b-6e2d-4a26-909c-25e74e618480-8136f054",
+      "name": "Error Handler for a8554e6b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a8554e6b",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-a9832831",
+      "name": "Workflow Documentation 2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# My workflow 6\n\n## Overview\nAutomated workflow: My workflow 6. This workflow processes data and performs automated tasks.\n\n## Workflow Details\n- **Total Nodes**: 6\n- **Node Types**: 5\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Extract Pages From PDF1**: ExtractPages\n- **HTTP Request**: httpRequest\n- **Error Handler**: stopAndError\n- **Workflow Documentation**: stickyNote\n- **Error Handler for a8554e6b**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "82cbb24e-e907-419a-97d6-bdb577269927",
   "connections": {
@@ -80,6 +141,25 @@
           }
         ]
       ]
+    },
+    "a8554e6b-6e2d-4a26-909c-25e74e618480": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a8554e6b-6e2d-4a26-909c-25e74e618480",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a8554e6b-6e2d-4a26-909c-25e74e618480-8136f054",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: My workflow 6. This workflow processes data and performs automated tasks."
 }

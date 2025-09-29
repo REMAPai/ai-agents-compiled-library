@@ -37,7 +37,7 @@
           "sort": {
             "sortValue": [
               {
-                "key": "created_time",
+                "key": "{{ $credentials.key }}",
                 "direction": "descending",
                 "timestamp": true
               }
@@ -45,7 +45,7 @@
           },
           "filter": {
             "singleCondition": {
-              "key": "Is Current?|checkbox",
+              "key": "{{ $credentials.key }}",
               "condition": "equals",
               "checkboxValue": true
             }
@@ -176,13 +176,13 @@
               "title": "={{$json[\"projectName\"]}}"
             },
             {
-              "key": "Semesters|relation",
+              "key": "{{ $credentials.key }}",
               "relationValue": [
                 "={{$json[\"semesterID\"]}}"
               ]
             },
             {
-              "key": "Project Idea|rich_text",
+              "key": "{{ $credentials.key }}",
               "textContent": "={{$json[\"projectIdea\"]}}"
             }
           ]
@@ -232,7 +232,7 @@
               "title": "={{$json[\"name\"]}}"
             },
             {
-              "key": "Email|email",
+              "key": "{{ $credentials.key }}",
               "emailValue": "={{$json[\"email\"]}}"
             }
           ]
@@ -254,7 +254,7 @@
         "options": {
           "filter": {
             "singleCondition": {
-              "key": "Email|email",
+              "key": "{{ $credentials.key }}",
               "condition": "equals",
               "emailValue": "={{$json[\"email\"]}}"
             }
@@ -312,7 +312,7 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Semesters|relation",
+              "key": "{{ $credentials.key }}",
               "relationValue": [
                 "={{$json[\"allSemesterIDs\"].join(',')}}"
               ]
@@ -336,7 +336,7 @@
         "options": {
           "filter": {
             "singleCondition": {
-              "key": "Email|email",
+              "key": "{{ $credentials.key }}",
               "condition": "equals",
               "emailValue": "={{$json[\"email\"]}}"
             }
@@ -389,7 +389,7 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "Project|relation",
+              "key": "{{ $credentials.key }}",
               "relationValue": [
                 "={{$json[\"allProjectIDs\"].join(\",\")}}"
               ]
@@ -484,7 +484,7 @@
           "responseData": ""
         },
         "httpMethod": "POST",
-        "authentication": "basicAuth"
+        "authentication": "{{ $credentials.basicAuth }}"
       },
       "credentials": {
         "httpBasicAuth": "Oasis Basic Auth Creds"

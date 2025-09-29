@@ -73,11 +73,11 @@
         1020
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -155,9 +155,9 @@
         1500
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Webhook').item.json.body.transcript_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -177,14 +177,14 @@
         1500
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n    \"model\": \"gpt-4o-2024-08-06\",\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"{{ $('Set vars').item.json.prompt }}\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": {{ JSON.stringify($json.utterances.map(u => `Speaker ${u.speaker}: ${u.text}`).join(\"\\n\\n\"))}}\n      }\n    ],\n  \"response_format\":{ \"type\": \"json_schema\", \"json_schema\":   {{ JSON.stringify($('Set vars').item.json.json_schema) }} }\n  }",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -640,7 +640,7 @@
         "date_created": "2024-10-30T12:21:08.909539+00:00",
         "client_intent": "Interest in computer engineering degree",
         "interest_score": 75,
-        "key_client_needs": "YOUR_API_KEY",
+        "key_client_needs": "YOUR_CREDENTIAL_HERE",
         "conversion_probability": 70,
         "next_steps_recommended": "Arrange for a follow-up call with a specific school counselor who can provide detailed program information and potential financial aid options relevant to the client's situation. Sending personalized emails with program highlights that match Anthony’s interest in computer engineering can also increase engagement and conversion likelihood.",
         "objection_handling_score": 80,
@@ -11217,5 +11217,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

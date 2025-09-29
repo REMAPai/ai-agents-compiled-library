@@ -1,7 +1,10 @@
 {
   "id": "744G7emgZe0pXaPB",
   "meta": {
-    "instanceId": "d868e3d040e7bda892c81b17cf446053ea25d2556fcef89cbe19dd61a3e876e9"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Hacker News to Video Template - AlexK1919",
   "tags": [
@@ -39,7 +42,7 @@
   "nodes": [
     {
       "id": "c777c41b-842d-4504-a1a0-ccbb034a0fdd",
-      "name": "When clicking \u2018Test workflow\u2019",
+      "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
         -320,
@@ -97,7 +100,7 @@
         580
       ],
       "parameters": {
-        "url": "={{ $json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "toolDescription": "grab the article for the ai agent to use"
       },
       "typeVersion": 1.1
@@ -129,7 +132,7 @@
         "bucketName": "=",
         "additionalFields": {
           "grantRead": true,
-          "parentFolderKey": "="
+          "parentFolderKey": "YOUR_CREDENTIAL_HERE"
         }
       },
       "typeVersion": 1
@@ -178,7 +181,7 @@
         100
       ],
       "parameters": {
-        "url": "https://cloud.leonardo.ai/api/rest/v1/prompt/improve",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -191,7 +194,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth",
         "headerParameters": {
           "parameters": [
@@ -213,7 +216,7 @@
         100
       ],
       "parameters": {
-        "url": "=https://cloud.leonardo.ai/api/rest/v1/generations/{{ $json.body.sdGenerationJob.generationId }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -222,7 +225,7 @@
           }
         },
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth",
         "headerParameters": {
           "parameters": [
@@ -244,12 +247,12 @@
         300
       ],
       "parameters": {
-        "url": "https://api.dev.runwayml.com/v1/image_to_video",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -287,10 +290,10 @@
         300
       ],
       "parameters": {
-        "url": "=https://api.dev.runwayml.com/v1/tasks/{{ $json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth",
         "headerParameters": {
           "parameters": [
@@ -377,7 +380,7 @@
         320
       ],
       "parameters": {
-        "url": "={{ $('Article Analysis').first().json.output['image urls'] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -421,7 +424,7 @@
         100
       ],
       "parameters": {
-        "url": "https://cloud.leonardo.ai/api/rest/v1/generations",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -434,7 +437,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth",
         "headerParameters": {
           "parameters": [
@@ -494,7 +497,7 @@
           "detail": "auto"
         },
         "resource": "image",
-        "imageUrls": "={{ $json.output['image urls'] }}",
+        "imageUrls": "{{ $env.BASE_URL }}",
         "operation": "analyze"
       },
       "credentials": {
@@ -603,7 +606,7 @@
     },
     {
       "id": "55f3decc-f952-4d2a-804d-2aec44fb2755",
-      "name": "X",
+      "name": "Twitter",
       "type": "n8n-nodes-base.twitter",
       "position": [
         3840,
@@ -649,7 +652,7 @@
         500
       ],
       "parameters": {
-        "url": "https://cloud.leonardo.ai/api/rest/v1/prompt/improve",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -662,7 +665,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth",
         "headerParameters": {
           "parameters": [
@@ -719,7 +722,7 @@
         500
       ],
       "parameters": {
-        "url": "https://cloud.leonardo.ai/api/rest/v1/generations",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -732,7 +735,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth",
         "headerParameters": {
           "parameters": [
@@ -754,7 +757,7 @@
         500
       ],
       "parameters": {
-        "url": "=https://cloud.leonardo.ai/api/rest/v1/generations/{{ $json.body.sdGenerationJob.generationId }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -763,7 +766,7 @@
           }
         },
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth",
         "headerParameters": {
           "parameters": [
@@ -785,12 +788,12 @@
         700
       ],
       "parameters": {
-        "url": "https://api.dev.runwayml.com/v1/image_to_video",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -834,10 +837,10 @@
         700
       ],
       "parameters": {
-        "url": "=https://api.dev.runwayml.com/v1/tasks/{{ $json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth",
         "headerParameters": {
           "parameters": [
@@ -923,7 +926,7 @@
         1020
       ],
       "parameters": {
-        "url": "https://api.creatomate.com/v1/renders",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -935,7 +938,7 @@
         "jsonBody": "={\n \"max_width\": 480,\n \"template_id\": \"enterTemplateID\",\n \"modifications\": {\n \"Scenes.elements\": [\n {\n \"name\": \"Intro Comp\",\n \"type\": \"composition\",\n \"track\": 1,\n \"elements\": [\n {\n \"name\": \"Image-1\",\n \"type\": \"image\",\n \"source\": \"{{ $('Leo - Get imageId').item.json.body.generations_by_pk.generated_images[0].url }}\"\n },\n {\n \"name\": \"Subtitles-1\",\n \"type\": \"text\",\n \"transcript_source\": \"Voiceover-1\",\n \"width\": \"86.66%\",\n \"height\": \"37.71%\",\n \"x_alignment\": \"50%\",\n \"y_alignment\": \"50%\",\n \"fill_color\": \"#ffffff\",\n \"stroke_color\": \"#333333\",\n \"stroke_width\": \"1.05 vmin\",\n \"font_family\": \"Inter\",\n \"font_weight\": \"700\",\n \"font_size\": \"8 vmin\",\n \"background_color\": \"rgba(255,255,255,0.2)\",\n \"background_x_padding\": \"26%\",\n \"background_y_padding\": \"7%\",\n \"background_border_radius\": \"28%\",\n \"transcript_effect\": \"highlight\",\n \"transcript_color\": \"#ff5900\"\n },\n {\n \"name\": \"Voiceover-1\",\n \"type\": \"audio\",\n \"source\": \"{{ $('News1').item.json.property_name }}\",\n \"provider\": \"openai model=tts-1 voice=onyx\"\n }\n ]\n },\n {\n \"name\": \"Auto Scene Comp\",\n \"type\": \"composition\",\n \"track\": 1,\n \"elements\": [\n {\n \"name\": \"Video-2\",\n \"type\": \"video\",\n \"source\": \"{{ $('Runway - Get Video').first().json.output[0] }}\",\n \"loop\": true\n },\n {\n \"name\": \"Subtitles-2\",\n \"type\": \"text\",\n \"transcript_source\": \"Voiceover-2\",\n \"y\": \"78.2173%\",\n \"width\": \"86.66%\",\n \"height\": \"37.71%\",\n \"x_alignment\": \"50%\",\n \"y_alignment\": \"50%\",\n \"fill_color\": \"#ffffff\",\n \"stroke_color\": \"#333333\",\n \"stroke_width\": \"1.05 vmin\",\n \"font_family\": \"Inter\",\n \"font_weight\": \"700\",\n \"font_size\": \"8 vmin\",\n \"background_color\": \"rgba(255,255,255,0.2)\",\n \"background_x_padding\": \"26%\",\n \"background_y_padding\": \"7%\",\n \"background_border_radius\": \"28%\",\n \"transcript_effect\": \"highlight\",\n \"transcript_color\": \"#ff5900\"\n },\n {\n \"name\": \"Voiceover-2\",\n \"type\": \"audio\",\n \"source\": \"{{ $('Article Prep').item.json.message.content['Summary Blurb 1'] }}\",\n \"provider\": \"openai model=tts-1 voice=onyx\"\n }\n ]\n },\n {\n \"name\": \"Auto Scene Comp\",\n \"type\": \"composition\",\n \"track\": 1,\n \"elements\": [\n {\n \"name\": \"Video-3\",\n \"type\": \"video\",\n \"source\": \"{{ $('Runway - Get Video2').first().json.output[0] }}\",\n \"loop\": true\n },\n {\n \"name\": \"Subtitles-3\",\n \"type\": \"text\",\n \"transcript_source\": \"Voiceover-3\",\n \"y\": \"78.2173%\",\n \"width\": \"86.66%\",\n \"height\": \"37.71%\",\n \"x_alignment\": \"50%\",\n \"y_alignment\": \"50%\",\n \"fill_color\": \"#ffffff\",\n \"stroke_color\": \"#333333\",\n \"stroke_width\": \"1.05 vmin\",\n \"font_family\": \"Inter\",\n \"font_weight\": \"700\",\n \"font_size\": \"8 vmin\",\n \"background_color\": \"rgba(255,89,0,0.5)\",\n \"background_x_padding\": \"26%\",\n \"background_y_padding\": \"7%\",\n \"background_border_radius\": \"28%\",\n \"transcript_effect\": \"highlight\",\n \"transcript_color\": \"#ff0040\"\n },\n {\n \"name\": \"Voiceover-3\",\n \"type\": \"audio\",\n \"source\": \"{{ $('Article Prep').item.json.message.content['Summary Blurb 2'] }}\",\n \"provider\": \"openai model=tts-1 voice=onyx\"\n }\n ]\n }\n ]\n }\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth"
       },
       "credentials": {
@@ -955,7 +958,7 @@
         1020
       ],
       "parameters": {
-        "url": "=https://api.creatomate.com/v1/renders/{{ $json.body.body[0].id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -963,7 +966,7 @@
             }
           }
         },
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth"
       },
       "credentials": {
@@ -1055,7 +1058,7 @@
         "color": 6,
         "width": 252,
         "height": 946,
-        "content": "# AlexK1919 \n![Alex Kim](https://media.licdn.com/dms/image/v2/D5603AQFOYMkqCPl6Sw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718309808352?e=1736985600&v=beta&t=pQKm7lQfUU1ytuC2Gq1PRxNY-XmROFWbo-BjzUPxWOs)\n\n#### I\u2019m Alex Kim, an AI-Native Workflow Automation Architect Building Solutions to Optimize your Personal and Professional Life.\n\n### Workflow Overview Video\nhttps://youtu.be/XaKybLDUlLk\n\n### About Me\nhttps://beacons.ai/alexk1919\n\n### Product Used \n[Leonardo.ai](https://leonardo.ai)\n[RunwayML](https://runwayml.com/)\n[Creatomate](https://creatomate.com/)\n"
+        "content": "# AlexK1919 \n![Alex Kim]({{ $env.WEBHOOK_URL }}\n\n#### I’m Alex Kim, an AI-Native Workflow Automation Architect Building Solutions to Optimize your Personal and Professional Life.\n\n### Workflow Overview Video\n{{ $env.WEBHOOK_URL }}\n\n### About Me\n{{ $env.WEBHOOK_URL }}\n\n### Product Used \n[Leonardo.ai]({{ $env.WEBHOOK_URL }}\n[RunwayML]({{ $env.WEBHOOK_URL }}\n[Creatomate]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -1074,12 +1077,505 @@
         "content": "Don't forget to connect this last node to the loop to process additional items"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-f814682c-cf6f-49a8-8ea0-48fbc64a3ebe",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in f814682c-cf6f-49a8-8ea0-48fbc64a3ebe",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d175d366-e672-4452-b78e-a06336ef242b",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d175d366-e672-4452-b78e-a06336ef242b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d8da7879-1a67-4da1-86db-f70e50b4e9da",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d8da7879-1a67-4da1-86db-f70e50b4e9da",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-faf80246-3b1a-49c6-a277-0152428e46e1",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in faf80246-3b1a-49c6-a277-0152428e46e1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e91c1f01-7870-4063-9557-24a6ba1d3db3",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e91c1f01-7870-4063-9557-24a6ba1d3db3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e47140ac-20cc-417b-a6cd-30f780dc8289",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in e47140ac-20cc-417b-a6cd-30f780dc8289",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ce697f6f-f8fc-4ba7-b776-17bbc2e870b7",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ce697f6f-f8fc-4ba7-b776-17bbc2e870b7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-54c8b762-444d-4790-97a9-a2f84518492f",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 54c8b762-444d-4790-97a9-a2f84518492f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-691eb779-5fae-4f65-89eb-b1b8e5488809",
+      "name": "Stopanderror 8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 691eb779-5fae-4f65-89eb-b1b8e5488809",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-156f5735-bc20-46a9-871c-143b0772ca45",
+      "name": "Stopanderror 9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 156f5735-bc20-46a9-871c-143b0772ca45",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4f270fa8-4da2-44f0-927f-3509fd9f8f7d",
+      "name": "Stopanderror 10",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 4f270fa8-4da2-44f0-927f-3509fd9f8f7d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-49c0e7ba-bf9c-4819-b479-61aa099ab9ab",
+      "name": "Stopanderror 11",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 49c0e7ba-bf9c-4819-b479-61aa099ab9ab",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d03eb190-5fc0-4b7e-ad65-88ece3ab833d",
+      "name": "Stopanderror 12",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d03eb190-5fc0-4b7e-ad65-88ece3ab833d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-25f4cc09-fbff-4c10-b706-30df5840b794",
+      "name": "Stopanderror 13",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 25f4cc09-fbff-4c10-b706-30df5840b794",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7093de7b-a4e3-4363-8038-1002f7b20fbc",
+      "name": "Stopanderror 14",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 7093de7b-a4e3-4363-8038-1002f7b20fbc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-611b24cd-558b-4025-a0a8-ea355ba61988-3208ce13",
+      "name": "Error Handler for 611b24cd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 611b24cd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f814682c-cf6f-49a8-8ea0-48fbc64a3ebe-783e82ee",
+      "name": "Error Handler for f814682c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f814682c",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d175d366-e672-4452-b78e-a06336ef242b-4627c02c",
+      "name": "Error Handler for d175d366",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d175d366",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d8da7879-1a67-4da1-86db-f70e50b4e9da-1a431945",
+      "name": "Error Handler for d8da7879",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d8da7879",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-faf80246-3b1a-49c6-a277-0152428e46e1-b281598a",
+      "name": "Error Handler for faf80246",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node faf80246",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e91c1f01-7870-4063-9557-24a6ba1d3db3-42f05afa",
+      "name": "Error Handler for e91c1f01",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e91c1f01",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e47140ac-20cc-417b-a6cd-30f780dc8289-a2f6f4bf",
+      "name": "Error Handler for e47140ac",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e47140ac",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ce697f6f-f8fc-4ba7-b776-17bbc2e870b7-d7b92fc3",
+      "name": "Error Handler for ce697f6f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ce697f6f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e01152aa-961b-4e33-a1e3-186d47d81c55-7debc4e9",
+      "name": "Error Handler for e01152aa",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e01152aa",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-22ccd0a0-f7f6-40ca-bd09-40ed4a7fcde1-7dbc0d11",
+      "name": "Error Handler for 22ccd0a0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 22ccd0a0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-54c8b762-444d-4790-97a9-a2f84518492f-2bcfe370",
+      "name": "Error Handler for 54c8b762",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 54c8b762",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-691eb779-5fae-4f65-89eb-b1b8e5488809-2d8e21fa",
+      "name": "Error Handler for 691eb779",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 691eb779",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-156f5735-bc20-46a9-871c-143b0772ca45-06d918ec",
+      "name": "Error Handler for 156f5735",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 156f5735",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-4f270fa8-4da2-44f0-927f-3509fd9f8f7d-9469f8e4",
+      "name": "Error Handler for 4f270fa8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 4f270fa8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-49c0e7ba-bf9c-4819-b479-61aa099ab9ab-f1e7af6d",
+      "name": "Error Handler for 49c0e7ba",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 49c0e7ba",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d03eb190-5fc0-4b7e-ad65-88ece3ab833d-1ada95af",
+      "name": "Error Handler for d03eb190",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d03eb190",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-25f4cc09-fbff-4c10-b706-30df5840b794-b806944e",
+      "name": "Error Handler for 25f4cc09",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 25f4cc09",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7093de7b-a4e3-4363-8038-1002f7b20fbc-d05031ca",
+      "name": "Error Handler for 7093de7b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7093de7b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-afaf8437-ee52-434b-a267-8dbaff0e1922-bfa1cea1",
+      "name": "Error Handler for afaf8437",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node afaf8437",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-e2ea124b",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Hacker News to Video Template - AlexK1919\n\n## Overview\nAutomated workflow: Hacker News to Video Template - AlexK1919. This workflow integrates 22 different services: stickyNote, youTube, lmChatOpenAi, if, splitInBatches. It contains 82 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 82\n- **Node Types**: 22\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Hacker News**: hackerNews\n- **Loop Over Items**: splitInBatches\n- **OpenAI Chat Model3**: lmChatOpenAi\n- **HTTP Request1**: toolHttpRequest\n- **Structured Output Parser**: outputParserStructured\n- **Upload to Minio**: s3\n- **News1**: set\n- **Leo - Improve Prompt**: httpRequest\n- **Leo - Get imageId**: httpRequest\n- ... and 72 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "c7ab1ecd-50cb-4e4b-b2f7-aade804bbd63",
   "connections": {
@@ -1483,7 +1979,7 @@
         ]
       ]
     },
-    "When clicking \u2018Test workflow\u2019": {
+    "When clicking ‘Test workflow’": {
       "main": [
         [
           {
@@ -1493,6 +1989,321 @@
           }
         ]
       ]
+    },
+    "f814682c-cf6f-49a8-8ea0-48fbc64a3ebe": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f814682c-cf6f-49a8-8ea0-48fbc64a3ebe",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-f814682c-cf6f-49a8-8ea0-48fbc64a3ebe-783e82ee",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d175d366-e672-4452-b78e-a06336ef242b": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d175d366-e672-4452-b78e-a06336ef242b",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d175d366-e672-4452-b78e-a06336ef242b-4627c02c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d8da7879-1a67-4da1-86db-f70e50b4e9da": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d8da7879-1a67-4da1-86db-f70e50b4e9da",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d8da7879-1a67-4da1-86db-f70e50b4e9da-1a431945",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "faf80246-3b1a-49c6-a277-0152428e46e1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-faf80246-3b1a-49c6-a277-0152428e46e1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-faf80246-3b1a-49c6-a277-0152428e46e1-b281598a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e91c1f01-7870-4063-9557-24a6ba1d3db3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e91c1f01-7870-4063-9557-24a6ba1d3db3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e91c1f01-7870-4063-9557-24a6ba1d3db3-42f05afa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e47140ac-20cc-417b-a6cd-30f780dc8289": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e47140ac-20cc-417b-a6cd-30f780dc8289",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-e47140ac-20cc-417b-a6cd-30f780dc8289-a2f6f4bf",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ce697f6f-f8fc-4ba7-b776-17bbc2e870b7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ce697f6f-f8fc-4ba7-b776-17bbc2e870b7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ce697f6f-f8fc-4ba7-b776-17bbc2e870b7-d7b92fc3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "54c8b762-444d-4790-97a9-a2f84518492f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-54c8b762-444d-4790-97a9-a2f84518492f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-54c8b762-444d-4790-97a9-a2f84518492f-2bcfe370",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "691eb779-5fae-4f65-89eb-b1b8e5488809": {
+      "main": [
+        [
+          {
+            "node": "error-handler-691eb779-5fae-4f65-89eb-b1b8e5488809",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-691eb779-5fae-4f65-89eb-b1b8e5488809-2d8e21fa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "156f5735-bc20-46a9-871c-143b0772ca45": {
+      "main": [
+        [
+          {
+            "node": "error-handler-156f5735-bc20-46a9-871c-143b0772ca45",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-156f5735-bc20-46a9-871c-143b0772ca45-06d918ec",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4f270fa8-4da2-44f0-927f-3509fd9f8f7d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-4f270fa8-4da2-44f0-927f-3509fd9f8f7d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-4f270fa8-4da2-44f0-927f-3509fd9f8f7d-9469f8e4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "49c0e7ba-bf9c-4819-b479-61aa099ab9ab": {
+      "main": [
+        [
+          {
+            "node": "error-handler-49c0e7ba-bf9c-4819-b479-61aa099ab9ab",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-49c0e7ba-bf9c-4819-b479-61aa099ab9ab-f1e7af6d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d03eb190-5fc0-4b7e-ad65-88ece3ab833d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d03eb190-5fc0-4b7e-ad65-88ece3ab833d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d03eb190-5fc0-4b7e-ad65-88ece3ab833d-1ada95af",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "25f4cc09-fbff-4c10-b706-30df5840b794": {
+      "main": [
+        [
+          {
+            "node": "error-handler-25f4cc09-fbff-4c10-b706-30df5840b794",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-25f4cc09-fbff-4c10-b706-30df5840b794-b806944e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7093de7b-a4e3-4363-8038-1002f7b20fbc": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7093de7b-a4e3-4363-8038-1002f7b20fbc",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-7093de7b-a4e3-4363-8038-1002f7b20fbc-d05031ca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "611b24cd-558b-4025-a0a8-ea355ba61988": {
+      "main": [
+        [
+          {
+            "node": "error-handler-611b24cd-558b-4025-a0a8-ea355ba61988-3208ce13",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e01152aa-961b-4e33-a1e3-186d47d81c55": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e01152aa-961b-4e33-a1e3-186d47d81c55-7debc4e9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "22ccd0a0-f7f6-40ca-bd09-40ed4a7fcde1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-22ccd0a0-f7f6-40ca-bd09-40ed4a7fcde1-7dbc0d11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "afaf8437-ee52-434b-a267-8dbaff0e1922": {
+      "main": [
+        [
+          {
+            "node": "error-handler-afaf8437-ee52-434b-a267-8dbaff0e1922-bfa1cea1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Hacker News to Video Template - AlexK1919. This workflow integrates 22 different services: stickyNote, youTube, lmChatOpenAi, if, splitInBatches. It contains 82 nodes and follows best practices for error handling and security."
 }

@@ -26,7 +26,7 @@
         460
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $node[\"Split In Batches\"].json[\"Domain\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "redirect": {
             "redirect": {
@@ -53,7 +53,7 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": "html"
             }
           ]
@@ -74,13 +74,13 @@
         "prompt": "=This is the content of the website {{ $node[\"Split In Batches\"].json[\"Domain\"] }}:\"{{ $json[\"contentShort\"] }}\"\n\nIn a JSON format:\n\n- Give me the value proposition of the company. In less than 25 words. In English. Casual Tone. Format is: \"[Company Name] helps [target audience] [achieve desired outcome] and [additional benefit]\"\n\n- Give me the industry of the company. (Classify using this industry list: [Agriculture, Arts, Construction, Consumer Goods, Education, Entertainment, Finance, Other, Health Care, Legal, Manufacturing, Media & Communications, Public Administration, Advertisements, Real Estate, Recreation & Travel, Retail, Software, Transportation & Logistics, Wellness & Fitness] if it's ambiguous between Sofware and Consumer Goods, prefer Consumer Goods)\n\n- Guess the target audience of each company.(Classify and choose 1 from this list: [sales teams, marketing teams, HR teams, customer Service teams, consumers, C-levels] Write it in lowercase)\n\n- Tell me if they are B2B or B2C\n\nformat should be:\n{\"value_proposition\": value_proposition,\n\"industry\": industry,\n\"target_audience\": target_audience, \n\"market\": market }\n\nJSON:",
         "options": {
           "topP": 1,
-          "maxTokens": 120,
+          "maxTokens": "YOUR_TOKEN_HERE",
           "temperature": 0
         }
       },
       "credentials": {
         "openAiApi": {
-          "id": "67",
+          "id": "{{ $credentials.openAiApi.id }}",
           "name": "Lucas Open AI"
         }
       },
@@ -168,7 +168,7 @@
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2",
+          "id": "{{ $credentials.googleSheetsOAuth2Api.id }}",
           "name": "Google Sheets account lucas"
         }
       },
@@ -214,7 +214,7 @@
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2",
+          "id": "{{ $credentials.googleSheetsOAuth2Api.id }}",
           "name": "Google Sheets account lucas"
         }
       },
@@ -263,7 +263,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -332,7 +332,7 @@
     },
     {
       "id": "documentation-75728d77",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -531,5 +531,9 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": null,
     "timezone": "UTC"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

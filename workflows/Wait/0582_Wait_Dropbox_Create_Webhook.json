@@ -35,7 +35,7 @@
         },
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -144,11 +144,11 @@
       "parameters": {
         "path": "/valerian/w/prod/_freelance/ADEZIF/AI/Source data/Brochures pour GPT/Brochure 3M/3M_doc_emballage VERSION FINALE.pdf",
         "operation": "download",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "dropboxOAuth2Api": {
-          "id": "9",
+          "id": "{{ $credentials.dropboxOAuth2Api.id }}",
           "name": "Dropbox account"
         }
       },
@@ -193,7 +193,7 @@
         580
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Query + File + Asset information').item.json.endpoint }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "redirect": {
@@ -209,7 +209,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -252,10 +252,10 @@
         580
       ],
       "parameters": {
-        "url": "={{ $('Process Query').item.json[\"headers\"][\"location\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -286,7 +286,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -308,7 +308,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -433,7 +433,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "form-urlencoded",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {}
@@ -458,7 +458,7 @@
         580
       ],
       "parameters": {
-        "url": "={{ $json.uploadUri }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {
           "redirect": {
@@ -904,5 +904,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, wait, dropbox, merge. It contains 30 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, wait, dropbox, merge. It contains 30 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Find Top Keywords",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "386c7972-34c2-4f51-9329-dee7f6a7511b",
@@ -117,7 +120,7 @@
         "operation": "getAll",
         "projectId": "pbwiwe87uf1cpgc",
         "returnAll": true,
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -140,7 +143,7 @@
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -203,7 +206,7 @@
         "jsonBody": "=[\n    {\n        \"location_code\": 2840,\n        \"language_code\": \"en\",\n        \"keywords\": [{{ $json.keywords }}],\n        \"date_from\": \"2021-08-01\",\n        \"search_partners\": false \n    }\n]",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -261,7 +264,7 @@
         "jsonBody": "=[\n    {\n        \"location_code\": 2840,\n        \"language_code\": \"en\",\n        \"keywords\": [{{ $json.keywords }}],\n        \"date_from\": \"2021-08-01\",\n        \"search_partners\": true,\n        \"sort_by\": \"search_volume\"\n    }\n]",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -290,7 +293,7 @@
         },
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -501,7 +504,7 @@
         },
         "operation": "create",
         "projectId": "pbwiwe87uf1cpgc",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -569,7 +572,7 @@
         },
         "operation": "create",
         "projectId": "pbwiwe87uf1cpgc",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -629,8 +632,8 @@
         "jsonBody": "={{ $json.batch }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -666,8 +669,8 @@
         "jsonBody": "={{ $json.batch }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -790,7 +793,7 @@
         640
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.keyword }})",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "batching": {
             "batch": {
@@ -799,8 +802,8 @@
             }
           }
         },
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -821,10 +824,10 @@
         1260
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.keyword }})",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -911,7 +914,7 @@
         },
         "operation": "update",
         "projectId": "pbwiwe87uf1cpgc",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -983,7 +986,7 @@
         },
         "operation": "update",
         "projectId": "pbwiwe87uf1cpgc",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {

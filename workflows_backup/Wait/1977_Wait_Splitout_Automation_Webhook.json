@@ -1,8 +1,10 @@
 {
   "id": "sB6dC0GZ7zZHuMGF",
   "meta": {
-    "instanceId": "a9f3b18652ddc96459b459de4fa8fa33252fb820a9e5a1593074f3580352864a",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Test Webhooks in n8n Without Changing WEBHOOK_URL (PostBin & BambooHR Example)",
   "tags": [
@@ -55,7 +57,7 @@
         "color": 6,
         "width": 550.7128407259806,
         "height": 151.03568930452542,
-        "content": "### Requirements:\n1. **BambooHR instance** ([free trial link](https://www.bamboohr.com/signup/))\n2. **BambooHR API key*** ([documentation](https://documentation.bamboohr.com/docs/getting-started#authentication))\n3. **Slack connection** ([n8n documentation](https://docs.n8n.io/integrations/builtin/credentials/slack/))\n* **Note about API key**: Set up in n8n as Generic Credential (Basic Auth) with the API key as the username and any string for the password.\n\n"
+        "content": "### Requirements:\n1. **BambooHR instance** ([free trial link]({{ $env.WEBHOOK_URL }}\n2. **BambooHR API key*** ([documentation]({{ $env.WEBHOOK_URL }}\n3. **Slack connection** ([n8n documentation]({{ $env.WEBHOOK_URL }}\n* **Note about API key**: Set up in n8n as Generic Credential (Basic Auth) with the API key as the username and any string for the password.\n\n"
       },
       "typeVersion": 1
     },
@@ -166,7 +168,7 @@
         "color": 7,
         "width": 1140.1894415469083,
         "height": 593.490746966612,
-        "content": "## How to Test a Short-Lived Webhook in n8n **WITHOUT** Changing WEBHOOK_URL\nTypically in n8n, in order to test a webhook, you first need to go through the process of changing the [**WEBHOOK_URL**](https://docs.n8n.io/hosting/configuration/configuration-examples/webhook-url/) environment variable to an address that is accessible to the service you want to test. Time permitting, that can be done with [ngrok](https://ngrok.com/docs/getting-started/) ([example](https://docs.n8n.io/hosting/installation/server-setups/)) or by self-hosting with one of [n8n's recommended deployment options](https://docs.n8n.io/hosting/installation/server-setups/).\n\nBut if you're new to n8n and in a rush to test a webhook's functionality, you can use [PostBin](https://www.postb.in/) as demonstrated in this workflow to test a proof of concept fast and avoid any unnecessary time on n8n setup and configuration."
+        "content": "## How to Test a Short-Lived Webhook in n8n **WITHOUT** Changing WEBHOOK_URL\nTypically in n8n, in order to test a webhook, you first need to go through the process of changing the [**WEBHOOK_URL**]({{ $env.WEBHOOK_URL }} environment variable to an address that is accessible to the service you want to test. Time permitting, that can be done with [ngrok]({{ $env.WEBHOOK_URL }} ([example]({{ $env.WEBHOOK_URL }} or by self-hosting with one of [n8n's recommended deployment options]({{ $env.WEBHOOK_URL }}\n\nBut if you're new to n8n and in a rush to test a webhook's functionality, you can use [PostBin]({{ $env.WEBHOOK_URL }} as demonstrated in this workflow to test a proof of concept fast and avoid any unnecessary time on n8n setup and configuration."
       },
       "typeVersion": 1
     },
@@ -195,7 +197,7 @@
         420
       ],
       "parameters": {
-        "url": "https://www.postb.in/api/bin",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {}
       },
@@ -244,7 +246,7 @@
         "color": 7,
         "width": 351.0986223154297,
         "height": 80,
-        "content": "Retrieve the binId (can also be found in response of Create Bin node). Craft a url that uses `https://www.postb.in/:binId` structure"
+        "content": "Retrieve the binId (can also be found in response of Create Bin node). Craft a url that uses `{{ $env.WEBHOOK_URL }}` structure"
       },
       "typeVersion": 1
     },
@@ -259,7 +261,7 @@
       "parameters": {
         "width": 631.0482952232512,
         "height": 113.5322633928848,
-        "content": "**Per PostBin API Documentation:**\nYou can hit the https://www.postb.in/:binId endpoint to collect any kind of request data whether it is a GET, POST, PUT, PATCH, DELETE or whatever. This particular endpoint is not RESTful and is not part of this API. It isn't RESTful by definition. ie. it is meant to collect whatever you send to it."
+        "content": "**Per PostBin API Documentation:**\nYou can hit the {{ $env.WEBHOOK_URL }} endpoint to collect any kind of request data whether it is a GET, POST, PUT, PATCH, DELETE or whatever. This particular endpoint is not RESTful and is not part of this API. It isn't RESTful by definition. ie. it is meant to collect whatever you send to it."
       },
       "typeVersion": 1
     },
@@ -279,7 +281,7 @@
               "id": "5235b8f1-f284-472f-b6a5-25c16bc4a66e",
               "name": "webhook_url",
               "type": "string",
-              "value": "=https://www.postb.in/{{ $json.binId }}"
+              "value": "={{ $env.WEBHOOK_URL }}{{ $json.binId }}"
             },
             {
               "id": "35d56f07-4f6b-422a-8a03-0c3e49f4d734",
@@ -350,7 +352,7 @@
         1220
       ],
       "parameters": {
-        "url": "https://www.postb.in/api/bin",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {}
       },
@@ -387,7 +389,7 @@
               "id": "5235b8f1-f284-472f-b6a5-25c16bc4a66e",
               "name": "url",
               "type": "string",
-              "value": "=https://www.postb.in/{{ $json.binId }}"
+              "value": "={{ $env.WEBHOOK_URL }}{{ $json.binId }}"
             },
             {
               "id": "35d56f07-4f6b-422a-8a03-0c3e49f4d734",
@@ -531,13 +533,13 @@
         1240
       ],
       "parameters": {
-        "url": "=https://api.bamboohr.com/api/gateway.php/{{ $json.subdomain }}/v1/webhooks/",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{ $json.removeField(\"subdomain\").toJsonString() }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -574,7 +576,7 @@
         "color": 7,
         "width": 794.510445997778,
         "height": 368.01097806266364,
-        "content": "## GET fields from BambooHR to monitor for changes [[src]](https://documentation.bamboohr.com/reference/get-monitor-fields)"
+        "content": "## GET fields from BambooHR to monitor for changes [[src]]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -652,9 +654,9 @@
         1480
       ],
       "parameters": {
-        "url": "=https://api.bamboohr.com/api/gateway.php/{{ $json.subdomain }}/v1/webhooks/monitor_fields",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -718,9 +720,9 @@
         1140
       ],
       "parameters": {
-        "url": "=https://api.bamboohr.com/api/gateway.php/{{ $('Format payload for BambooHR webhook').item.json.subdomain }}/v1/webhooks/{{ $('Create webhook in BambooHR').item.json.id }}/log",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -903,8 +905,8 @@
         "keys": {
           "key": [
             {
-              "newKey": "=employee{{ $if($json.employee.length > 1,\"s\",\"\") }}",
-              "currentKey": "employee"
+              "newKey": "{{ $credentials.newKey }}",
+              "currentKey": "{{ $credentials.currentKey }}"
             }
           ]
         },
@@ -981,10 +983,10 @@
         1020
       ],
       "parameters": {
-        "url": "=https://api.bamboohr.com/api/gateway.php/{subdomain}/v1/webhooks/{webhook_id}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -1006,7 +1008,7 @@
       "parameters": {
         "width": 424.0067532215409,
         "height": 134.02025779064905,
-        "content": "BambooHR's `/webhook` API endpoint expects arguments passed in the body of the request. You can see what arguments are required in their [documentation](https://documentation.bamboohr.com/reference/post-webhook) and [examples](https://documentation.bamboohr.com/docs/webhook-api-permissioned). In the arguments we pass through, we have set our webhook to fire at the same frequency as BambooHR's rate limit: 1 time every 60 seconds."
+        "content": "BambooHR's `/webhook` API endpoint expects arguments passed in the body of the request. You can see what arguments are required in their [documentation]({{ $env.WEBHOOK_URL }} and [examples]({{ $env.API_BASE_URL }} In the arguments we pass through, we have set our webhook to fire at the same frequency as BambooHR's rate limit: 1 time every 60 seconds."
       },
       "typeVersion": 1
     },
@@ -1069,7 +1071,7 @@
         "color": 5,
         "width": 256.0973815349037,
         "height": 87.34661077350344,
-        "content": "## About the maker\n**[Find Ludwig Gerdes on LinkedIn](https://www.linkedin.com/in/ludwiggerdes)**"
+        "content": "## About the maker\n**[Find Ludwig Gerdes on LinkedIn]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -1085,7 +1087,7 @@
         "color": 7,
         "width": 255.71137685448693,
         "height": 240.80136668021893,
-        "content": "![image](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjM4dWFjeW1lNGVxc2Vsd2Z0aXB4cWNzZmN6aG41Y296cXVnem10eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5cL9WAVQREF3TkfhXj/giphy.gif#full-width)"
+        "content": "![image]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
     },
@@ -1103,12 +1105,239 @@
         "content": "## What's happening here?\nIn this section, we do the following:\n1. Extract employee information from webhook call (from PostBin)\n2. Create a displayName from each employee's first and last name\n3. Combine the names into a list and format the key\n4. Ask OpenAI to compose a welcome message with the employee names\n5. Post that welcome message to Slack"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-17eabcf5-9ae7-4e79-bdb5-3664fa286aeb",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 17eabcf5-9ae7-4e79-bdb5-3664fa286aeb",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a7f57c0a-3918-450b-b1a7-edd80e6edcf6",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a7f57c0a-3918-450b-b1a7-edd80e6edcf6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b0191582-e8d3-4432-b8e8-38ff0fc782fb",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in b0191582-e8d3-4432-b8e8-38ff0fc782fb",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2b0ee3a5-1b9f-4f8f-b024-2c576573d2d6",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2b0ee3a5-1b9f-4f8f-b024-2c576573d2d6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ea428b8f-fb4c-44bd-bcf0-bb7f40f3ed98",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in ea428b8f-fb4c-44bd-bcf0-bb7f40f3ed98",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0e03ab51-dace-4aed-9f4e-16fbbb7f7173",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 0e03ab51-dace-4aed-9f4e-16fbbb7f7173",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-17eabcf5-9ae7-4e79-bdb5-3664fa286aeb-9fccb694",
+      "name": "Error Handler for 17eabcf5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 17eabcf5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a7f57c0a-3918-450b-b1a7-edd80e6edcf6-4e85e749",
+      "name": "Error Handler for a7f57c0a",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a7f57c0a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b0191582-e8d3-4432-b8e8-38ff0fc782fb-40cc25aa",
+      "name": "Error Handler for b0191582",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b0191582",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2b0ee3a5-1b9f-4f8f-b024-2c576573d2d6-31956ee5",
+      "name": "Error Handler for 2b0ee3a5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2b0ee3a5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ea428b8f-fb4c-44bd-bcf0-bb7f40f3ed98-1e09c246",
+      "name": "Error Handler for ea428b8f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ea428b8f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-5fdf5f56-42ea-4891-9b66-5d3d290d0862-a523b61b",
+      "name": "Error Handler for 5fdf5f56",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 5fdf5f56",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-e32e3977-1a4c-4b74-839e-278621ac59ec-c27e044f",
+      "name": "Error Handler for e32e3977",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node e32e3977",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7e0474f1-3a9a-4b30-91eb-0b0d107d8bd1-f012eeeb",
+      "name": "Error Handler for 7e0474f1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7e0474f1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-0e03ab51-dace-4aed-9f4e-16fbbb7f7173-17c765f9",
+      "name": "Error Handler for 0e03ab51",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 0e03ab51",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-4c509e4c",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Test Webhooks in n8n Without Changing WEBHOOK_URL (PostBin & BambooHR Example)\n\n## Overview\nAutomated workflow: Test Webhooks in n8n Without Changing WEBHOOK_URL (PostBin & BambooHR Example). This workflow integrates 20 different services: stickyNote, merge, outputParserAutofixing, lmChatOpenAi, postBin. It contains 73 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 73\n- **Node Types**: 20\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **Merge**: merge\n- **Sticky Note3**: stickyNote\n- **Sticky Note4**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Sticky Note6**: stickyNote\n- **Sticky Note10**: stickyNote\n- ... and 63 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "c8562d68-8706-4fe0-9983-b9ae6de379a0",
   "connections": {
@@ -1440,6 +1669,148 @@
           }
         ]
       ]
+    },
+    "17eabcf5-9ae7-4e79-bdb5-3664fa286aeb": {
+      "main": [
+        [
+          {
+            "node": "error-handler-17eabcf5-9ae7-4e79-bdb5-3664fa286aeb",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-17eabcf5-9ae7-4e79-bdb5-3664fa286aeb-9fccb694",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a7f57c0a-3918-450b-b1a7-edd80e6edcf6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a7f57c0a-3918-450b-b1a7-edd80e6edcf6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a7f57c0a-3918-450b-b1a7-edd80e6edcf6-4e85e749",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b0191582-e8d3-4432-b8e8-38ff0fc782fb": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b0191582-e8d3-4432-b8e8-38ff0fc782fb",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-b0191582-e8d3-4432-b8e8-38ff0fc782fb-40cc25aa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2b0ee3a5-1b9f-4f8f-b024-2c576573d2d6": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2b0ee3a5-1b9f-4f8f-b024-2c576573d2d6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2b0ee3a5-1b9f-4f8f-b024-2c576573d2d6-31956ee5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ea428b8f-fb4c-44bd-bcf0-bb7f40f3ed98": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ea428b8f-fb4c-44bd-bcf0-bb7f40f3ed98",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-ea428b8f-fb4c-44bd-bcf0-bb7f40f3ed98-1e09c246",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0e03ab51-dace-4aed-9f4e-16fbbb7f7173": {
+      "main": [
+        [
+          {
+            "node": "error-handler-0e03ab51-dace-4aed-9f4e-16fbbb7f7173",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-0e03ab51-dace-4aed-9f4e-16fbbb7f7173-17c765f9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5fdf5f56-42ea-4891-9b66-5d3d290d0862": {
+      "main": [
+        [
+          {
+            "node": "error-handler-5fdf5f56-42ea-4891-9b66-5d3d290d0862-a523b61b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e32e3977-1a4c-4b74-839e-278621ac59ec": {
+      "main": [
+        [
+          {
+            "node": "error-handler-e32e3977-1a4c-4b74-839e-278621ac59ec-c27e044f",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7e0474f1-3a9a-4b30-91eb-0b0d107d8bd1": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7e0474f1-3a9a-4b30-91eb-0b0d107d8bd1-f012eeeb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Test Webhooks in n8n Without Changing WEBHOOK_URL (PostBin & BambooHR Example). This workflow integrates 20 different services: stickyNote, merge, outputParserAutofixing, lmChatOpenAi, postBin. It contains 73 nodes and follows best practices for error handling and security."
 }

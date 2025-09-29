@@ -31,10 +31,10 @@
         300
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}/fulfillment_orders.json",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -43,7 +43,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -133,7 +133,7 @@
         },
         "operation": "getAll",
         "returnAll": true,
-        "authentication": "accessToken"
+        "authentication": "{{ $credentials.accessToken }}"
       },
       "credentials": {
         "shopifyAccessTokenApi": {
@@ -249,9 +249,9 @@
         260
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/customers?$filter=email eq '{{ $json.customer.email }}' and contains(email,'@')&$select=id,number,email",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "oAuth2Api"
       },
       "credentials": {
@@ -364,7 +364,7 @@
         320
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/customers",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "response": {
@@ -373,7 +373,7 @@
         },
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -483,7 +483,7 @@
         900
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders({{ $json.so_id }})/salesOrderLines",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "batching": {
@@ -497,7 +497,7 @@
         },
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -576,7 +576,7 @@
         980
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/Production/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders({{ $json.so_id }})",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {
           "batching": {
@@ -590,7 +590,7 @@
         },
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {}
@@ -673,7 +673,7 @@
         920
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "batching": {
@@ -690,7 +690,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "oAuth2Api",
         "headerParameters": {
           "parameters": [
@@ -806,7 +806,7 @@
         360
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesInvoices({{ $json.so_id }})/salesInvoiceLines",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "batching": {
@@ -820,7 +820,7 @@
         },
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -894,7 +894,7 @@
         380
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/{{ $('D365 BC Environment Settings').item.json.environmentName }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesInvoices",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "batching": {
@@ -911,7 +911,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "oAuth2Api",
         "headerParameters": {
           "parameters": [
@@ -1009,9 +1009,9 @@
         1080
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/salesOrders?$filter=externalDocumentNumber eq '{{ $json.order.id.toString() }}'&$select=id,number,externalDocumentNumber",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "oAuth2Api"
       },
       "credentials": {
@@ -1110,9 +1110,9 @@
         920
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json[\"tenantId\"] }}/{{ $('D365 BC Environment Settings').item.json[\"environmentName\"] }}/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json[\"companyId\"] }})/salesInvoices?$filter=externalDocumentNumber eq '{{ $json.order.id.toString() }}'&$select=id,number,externalDocumentNumber",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "oAuth2Api"
       },
       "credentials": {
@@ -1174,7 +1174,7 @@
         440
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('D365 BC Environment Settings').item.json.tenantId }}/Production/api/v2.0/companies({{ $('D365 BC Environment Settings').item.json.companyId }})/salesOrders({{ $json.so_id }})",
+        "url": "{{ $env.BASE_URL }}",
         "method": "DELETE",
         "options": {
           "batching": {
@@ -1188,7 +1188,7 @@
         },
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {}

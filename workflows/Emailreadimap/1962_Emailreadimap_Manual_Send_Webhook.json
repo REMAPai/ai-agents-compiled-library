@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Email AI Auto-responder. Summerize and send email",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "communication"
+  ],
   "nodes": [
     {
       "id": "59885699-0f6c-4522-acff-9e28b2a07b82",
@@ -174,7 +178,7 @@
       ],
       "parameters": {
         "options": {
-          "binaryDataKey": "YOUR_API_KEY",
+          "binaryDataKey": "YOUR_CREDENTIAL_HERE",
           "summarizationMethodAndPrompts": {
             "values": {
               "prompt": "=Write a concise summary of the following in max 100 words:\n\n\"{{ $json.data }}\"\n\nDo not enter the total number of words used.",
@@ -252,7 +256,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -287,7 +291,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [

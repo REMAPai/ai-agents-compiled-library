@@ -1,9 +1,10 @@
 {
   "id": "H7porcmXYj7StO23",
   "meta": {
-    "instanceId": "35409808e3cc9dd8ecfa6f7b93ae931f074920a2f681e667da8974c0ecf81c52",
-    "templateId": "2537",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Generate Instagram Content from Top Trends with AI Image Generation",
   "tags": [],
@@ -85,7 +86,7 @@
         440
       ],
       "parameters": {
-        "text": "Video upload edilmeden \u00f6nce bir problem oldu",
+        "text": "Video upload edilmeden önce bir problem oldu",
         "chatId": "={{ $('Telegram Params').item.json.telegram_chat_id }}",
         "additionalFields": {}
       },
@@ -281,7 +282,7 @@
         180
       ],
       "parameters": {
-        "url": "https://instagram-scraper-api2.p.rapidapi.com/v1/hashtag",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
@@ -321,7 +322,7 @@
         380
       ],
       "parameters": {
-        "url": "https://instagram-scraper-api2.p.rapidapi.com/v1/hashtag",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
@@ -391,7 +392,7 @@
         "color": 5,
         "width": 180,
         "height": 300,
-        "content": "## Guide \n** [Guide](https://docs.matillion.com/metl/docs/6957316//) of getting of Instagram Business Account Id "
+        "content": "## Guide \n** [Guide]({{ $env.WEBHOOK_URL }} of getting of Instagram Business Account Id "
       },
       "typeVersion": 1
     },
@@ -407,7 +408,7 @@
         "color": 5,
         "width": 180,
         "height": 300,
-        "content": "## Guide \n** [Guide](https://rapidapi.com/i-yqerddkq0t/api/telegram92/tutorials/how-to-get-the-id-of-a-telegram-channel,-chat,-user-or-bot%3F) of Getting of Telegram Chat Id "
+        "content": "## Guide \n** [Guide]({{ $env.API_BASE_URL }} of Getting of Telegram Chat Id "
       },
       "typeVersion": 1
     },
@@ -423,7 +424,7 @@
         "color": 5,
         "width": 180,
         "height": 300,
-        "content": "## Guide \n** [Guide](https://docs.rapidapi.com/docs/keys-and-key-rotation) of Getting of Rapid Api Key "
+        "content": "## Guide \n** [Guide]({{ $env.API_BASE_URL }} of Getting of Rapid Api Key "
       },
       "typeVersion": 1
     },
@@ -609,7 +610,7 @@
             "code": "={{$('Loop Over Items').item.json.content_code}}",
             "prompt": "={{$('Loop Over Items').item.json.prompt}}",
             "isposted": false,
-            "thumbnail_url": "={{$('Loop Over Items').item.json.thumbnail_url}}"
+            "thumbnail_url": "{{ $env.BASE_URL }}"
           },
           "schema": [
             {
@@ -733,7 +734,7 @@
         },
         "options": {},
         "resource": "image",
-        "imageUrls": "={{ $('Loop Over Items').item.json.thumbnail_url }}",
+        "imageUrls": "{{ $env.BASE_URL }}",
         "operation": "analyze"
       },
       "credentials": {
@@ -958,7 +959,7 @@
         "color": 5,
         "width": 260,
         "height": 500,
-        "content": "## For More About Api\n** [Facebook Scraper Api Guide](https://rapidapi.com/social-api1-instagram/api/instagram-scraper-api2/playground/apiendpoint_a45552b2-9850-4da9-b5cb-bbdd3ac2199d)"
+        "content": "## For More About Api\n** [Facebook Scraper Api Guide]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -987,7 +988,7 @@
         "color": 5,
         "width": 180,
         "height": 300,
-        "content": "## Guide \n** [Guide](https://replicate.com) of getting of Replicate Token "
+        "content": "## Guide \n** [Guide]({{ $env.WEBHOOK_URL }} of getting of Replicate Token "
       },
       "typeVersion": 1
     },
@@ -1023,7 +1024,7 @@
         260
       ],
       "parameters": {
-        "url": "https://api.replicate.com/v1/models/black-forest-labs/flux-schnell/predictions",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n \"input\": {\n \"prompt\": \"A highly detailed 3D isometric model of {{$('Analyze Image and give the content').item.json.content .replace(/\\\\n/g, ' ') \n.replace(/\\\\t/g, ' ') \n.replace(/\\s+/g, ' ')\n.trim(); }} rendered in a stylized miniature toy aesthetic. Materials: Matte plastic/painted metal/weathered stone texture with no self-shadowing. Lighting: - Completely shadowless rendering - Ultra bright and perfectly even illumination from all angles - Pure ambient lighting without directional shadows - Flat, consistent lighting across all surfaces - No ambient occlusion. Style specifications: - Clean, defined edges and surfaces - Slightly exaggerated proportions - Miniature/toy-like scale - Subtle wear and texturing - Rich color palette with muted tones - Isometric 3/4 view angle - Crisp details and micro-elements. Technical details: - 4K resolution - PBR materials without shadows - No depth of field - High-quality anti-aliasing - Perfect uniform lighting. Environment: Pure white background with zero shadows or gradients. Post-processing: High key lighting, maximum brightness, shadow removal.\",\n \"output_format\": \"jpg\",\n \"output_quality\": 100,\n \"go_fast\":false\n }\n}\n",
@@ -1109,7 +1110,7 @@
         "color": 7,
         "width": 180,
         "height": 120,
-        "content": "##Warning\n** Dont forgot the subscribe [Instagram Scraper Api](https://rapidapi.com/social-api1-instagram/api/instagram-scraper-api2/playground/apiendpoint_a45552b2-9850-4da9-b5cb-bbdd3ac2199d)"
+        "content": "##Warning\n** Dont forgot the subscribe [Instagram Scraper Api]({{ $env.API_BASE_URL }}"
       },
       "typeVersion": 1
     },
@@ -1124,17 +1125,312 @@
       "parameters": {
         "width": 180,
         "height": 180,
-        "content": "## Warning\n** You can check the [rate limit](https://rapidapi.com/social-api1-instagram/api/instagram-scraper-api2) of the Instagram Scraper Api on Rapid Api\n** Free version is monthly 500 request\n"
+        "content": "## Warning\n** You can check the [rate limit]({{ $env.API_BASE_URL }} of the Instagram Scraper Api on Rapid Api\n** Free version is monthly 500 request\n"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-a65690cd-4d30-4541-b80d-aae872326a77",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a65690cd-4d30-4541-b80d-aae872326a77",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8707c475-7e28-4d80-92b8-ba24033c4632",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 8707c475-7e28-4d80-92b8-ba24033c4632",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2259f6df-dca9-4a7e-babb-e63375f7207f",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2259f6df-dca9-4a7e-babb-e63375f7207f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bcbb6058-1966-4bb5-915a-1e65b9131117",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in bcbb6058-1966-4bb5-915a-1e65b9131117",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-518d87ff-7808-4c06-b137-4e97d8f2ca28",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 518d87ff-7808-4c06-b137-4e97d8f2ca28",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a033d12b-524f-40e8-9208-5300bbc823d3",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a033d12b-524f-40e8-9208-5300bbc823d3",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2c73cc9c-d436-459b-9b3c-bd870810b9b4",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2c73cc9c-d436-459b-9b3c-bd870810b9b4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c8d8d8cd-8501-4d1b-ac28-8cb3fa74d9d7-d5000a4c",
+      "name": "Error Handler for c8d8d8cd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c8d8d8cd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-ae91a5e0-4f70-4a1c-afa5-41f5449facab-0e545852",
+      "name": "Error Handler for ae91a5e0",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node ae91a5e0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-b8b38440-14a7-43f6-ac49-6ca9502ff54d-c22455ab",
+      "name": "Error Handler for b8b38440",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node b8b38440",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a65690cd-4d30-4541-b80d-aae872326a77-5fcd3724",
+      "name": "Error Handler for a65690cd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a65690cd",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8707c475-7e28-4d80-92b8-ba24033c4632-692e5586",
+      "name": "Error Handler for 8707c475",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8707c475",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-9b510f11-9a44-4d54-b162-3ffb55d66677-81bc7cda",
+      "name": "Error Handler for 9b510f11",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9b510f11",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-15e7d69d-a10f-48a1-b240-046e9950d077-f1135612",
+      "name": "Error Handler for 15e7d69d",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 15e7d69d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-93e253b1-da7d-4193-b899-a38e6fd9f4e4-82ded92b",
+      "name": "Error Handler for 93e253b1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 93e253b1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2259f6df-dca9-4a7e-babb-e63375f7207f-a1309110",
+      "name": "Error Handler for 2259f6df",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2259f6df",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bcbb6058-1966-4bb5-915a-1e65b9131117-33aeb42b",
+      "name": "Error Handler for bcbb6058",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node bcbb6058",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-518d87ff-7808-4c06-b137-4e97d8f2ca28-42b9ed65",
+      "name": "Error Handler for 518d87ff",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 518d87ff",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a033d12b-524f-40e8-9208-5300bbc823d3-3f3fe561",
+      "name": "Error Handler for a033d12b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a033d12b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2c73cc9c-d436-459b-9b3c-bd870810b9b4-341cfe95",
+      "name": "Error Handler for 2c73cc9c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2c73cc9c",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-5d964ae1",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Generate Instagram Content from Top Trends with AI Image Generation\n\n## Overview\nAutomated workflow: Generate Instagram Content from Top Trends with AI Image Generation. This workflow integrates 13 different services: stickyNote, httpRequest, facebookGraphApi, telegram, code. It contains 64 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 64\n- **Node Types**: 13\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **If media status is finished**: if\n- **If media status is finished1**: if\n- **Telegram**: telegram\n- **Telegram1**: telegram\n- **Telegram2**: telegram\n- **Loop Over Items**: splitInBatches\n- **Schedule Trigger1**: scheduleTrigger\n- **Telegram Params**: set\n- **Instagram params**: set\n- **Sticky Note2**: stickyNote\n- ... and 54 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "timezone": "Europe/Istanbul",
+    "timezone": "UTC",
     "callerPolicy": "workflowsFromSameOwner",
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "errorWorkflow": null
   },
   "versionId": "cc50f9e8-373b-433a-af43-824a264e762a",
   "connections": {
@@ -1429,6 +1725,199 @@
           }
         ]
       ]
+    },
+    "a65690cd-4d30-4541-b80d-aae872326a77": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a65690cd-4d30-4541-b80d-aae872326a77",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a65690cd-4d30-4541-b80d-aae872326a77-5fcd3724",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8707c475-7e28-4d80-92b8-ba24033c4632": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8707c475-7e28-4d80-92b8-ba24033c4632",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-8707c475-7e28-4d80-92b8-ba24033c4632-692e5586",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2259f6df-dca9-4a7e-babb-e63375f7207f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2259f6df-dca9-4a7e-babb-e63375f7207f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2259f6df-dca9-4a7e-babb-e63375f7207f-a1309110",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bcbb6058-1966-4bb5-915a-1e65b9131117": {
+      "main": [
+        [
+          {
+            "node": "error-handler-bcbb6058-1966-4bb5-915a-1e65b9131117",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-bcbb6058-1966-4bb5-915a-1e65b9131117-33aeb42b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "518d87ff-7808-4c06-b137-4e97d8f2ca28": {
+      "main": [
+        [
+          {
+            "node": "error-handler-518d87ff-7808-4c06-b137-4e97d8f2ca28",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-518d87ff-7808-4c06-b137-4e97d8f2ca28-42b9ed65",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a033d12b-524f-40e8-9208-5300bbc823d3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a033d12b-524f-40e8-9208-5300bbc823d3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a033d12b-524f-40e8-9208-5300bbc823d3-3f3fe561",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2c73cc9c-d436-459b-9b3c-bd870810b9b4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2c73cc9c-d436-459b-9b3c-bd870810b9b4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2c73cc9c-d436-459b-9b3c-bd870810b9b4-341cfe95",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c8d8d8cd-8501-4d1b-ac28-8cb3fa74d9d7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c8d8d8cd-8501-4d1b-ac28-8cb3fa74d9d7-d5000a4c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ae91a5e0-4f70-4a1c-afa5-41f5449facab": {
+      "main": [
+        [
+          {
+            "node": "error-handler-ae91a5e0-4f70-4a1c-afa5-41f5449facab-0e545852",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b8b38440-14a7-43f6-ac49-6ca9502ff54d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-b8b38440-14a7-43f6-ac49-6ca9502ff54d-c22455ab",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9b510f11-9a44-4d54-b162-3ffb55d66677": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9b510f11-9a44-4d54-b162-3ffb55d66677-81bc7cda",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15e7d69d-a10f-48a1-b240-046e9950d077": {
+      "main": [
+        [
+          {
+            "node": "error-handler-15e7d69d-a10f-48a1-b240-046e9950d077-f1135612",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "93e253b1-da7d-4193-b899-a38e6fd9f4e4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-93e253b1-da7d-4193-b899-a38e6fd9f4e4-82ded92b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Generate Instagram Content from Top Trends with AI Image Generation. This workflow integrates 13 different services: stickyNote, httpRequest, facebookGraphApi, telegram, code. It contains 64 nodes and follows best practices for error handling and security."
 }

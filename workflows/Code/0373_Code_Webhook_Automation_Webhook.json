@@ -90,9 +90,9 @@
         "options": {},
         "sendBody": true,
         "contentType": "raw",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "rawContentType": "application/json",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "discordBotApi": {
@@ -116,9 +116,9 @@
         "options": {},
         "sendBody": true,
         "contentType": "raw",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "rawContentType": "application/json",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "discordBotApi": {
@@ -139,7 +139,7 @@
       "parameters": {
         "query": "={\n  inventoryItem(id: \"gid://shopify/InventoryItem/{{ $json.inventory_tem }}\") {\n    id\n    variant {\n      id\n      title\n      inventoryQuantity  # This line adds the inventory quantity field\n      product {\n        id\n        title\n        images(first: 1) {\n          edges {\n            node {\n              originalSrc\n            }\n          }\n        }\n      }\n    }\n  }\n}",
         "endpoint": "{{ $env.API_BASE_URL }}",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "typeVersion": 1
     },
@@ -154,7 +154,7 @@
       "parameters": {
         "query": "={\n  inventoryItem(id: \"gid://shopify/InventoryItem/{{ $json.inventory_tem }}\") {\n    id\n    variant {\n      id\n      title\n      inventoryQuantity  # This line adds the inventory quantity field\n      product {\n        id\n        title\n        images(first: 1) {\n          edges {\n            node {\n              originalSrc\n            }\n          }\n        }\n      }\n    }\n  }\n}",
         "endpoint": "{{ $env.API_BASE_URL }}",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "typeVersion": 1
     },
@@ -502,5 +502,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Webhook Workflow. This workflow integrates 7 different services: webhook, stickyNote, httpRequest, code, graphql. It contains 21 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Webhook Workflow. This workflow integrates 7 different services: webhook, stickyNote, httpRequest, code, graphql. It contains 21 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "webhook"
+  ]
 }

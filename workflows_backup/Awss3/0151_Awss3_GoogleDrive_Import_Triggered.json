@@ -11,15 +11,16 @@
         "event": "fileUpdated",
         "options": {},
         "triggerOn": "specificFolder",
-        "folderToWatch": "https://drive.google.com/drive/folders/[your_id]"
+        "folderToWatch": "{{ $env.WEBHOOK_URL }}[your_id]"
       },
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "12",
+          "id": "{{ $credentials.googleDriveOAuth2Api.id }}",
           "name": "Google Drive account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "0feb2324-889c-404d-9131-d63e8d0ba893"
     },
     {
       "name": "Merge",
@@ -33,7 +34,8 @@
         "propertyName1": "name.value",
         "propertyName2": "Key.value"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "b163b0d1-ef02-49c2-a49b-75dfe4fd5923"
     },
     {
       "name": "AWS S3  - get",
@@ -49,11 +51,12 @@
       },
       "credentials": {
         "aws": {
-          "id": "9",
+          "id": "{{ $credentials.aws.id }}",
           "name": "aws"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "df8098c9-ee36-4740-aa23-01120882112a"
     },
     {
       "name": "AWS S3 - upload",
@@ -66,7 +69,7 @@
         "tagsUi": {
           "tagsValues": [
             {
-              "key": "source",
+              "key": "YOUR_CREDENTIAL_HERE",
               "value": "gdrive"
             }
           ]
@@ -81,11 +84,25 @@
       },
       "credentials": {
         "aws": {
-          "id": "9",
+          "id": "{{ $credentials.aws.id }}",
           "name": "aws"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "3f7495b5-e7c8-4f2e-82c4-bca01bc33c7d"
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Googledrivetrigger Workflow\n\nAutomated workflow: Googledrivetrigger Workflow. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 4 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "connections": {
@@ -122,5 +139,14 @@
         ]
       ]
     }
+  },
+  "name": "Googledrivetrigger Workflow",
+  "description": "Automated workflow: Googledrivetrigger Workflow. This workflow processes data and performs automated tasks.",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   }
 }

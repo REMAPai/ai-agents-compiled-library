@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "OpenSea NFT Agent Tool",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "33cb5db2-a023-4a6c-a4ad-3f4b3c35ce42",
@@ -94,7 +97,7 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}{address_or_username}",
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "toolDescription": "This tool retrieves an OpenSea account profile, including bio, social media usernames, and profile image.",
         "parametersHeaders": {
@@ -126,7 +129,7 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}{collection_slug}",
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "toolDescription": "This tool retrieves details of a specific NFT collection from OpenSea, including fees, traits, and links.",
         "parametersHeaders": {
@@ -159,7 +162,7 @@
         "url": "{{ $env.API_BASE_URL }}",
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "parametersQuery": {
           "values": [
@@ -219,7 +222,7 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}{chain}/contract/{address}",
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "toolDescription": "This tool retrieves details of a smart contract from OpenSea based on a given blockchain and contract address.",
         "parametersHeaders": {
@@ -251,7 +254,7 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}{chain}/contract/{address}/nfts/{identifier}",
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "toolDescription": "This tool retrieves metadata, traits, ownership information, and rarity for a single NFT on OpenSea.",
         "parametersHeaders": {
@@ -284,7 +287,7 @@
         "url": "{{ $env.API_BASE_URL }}{chain}/account/{address}/nfts",
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "parametersQuery": {
           "values": [
@@ -333,7 +336,7 @@
         "url": "{{ $env.API_BASE_URL }}{collection_slug}/nfts",
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "parametersQuery": {
           "values": [
@@ -378,7 +381,7 @@
         "url": "{{ $env.API_BASE_URL }}{chain}/contract/{address}/nfts",
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "parametersQuery": {
           "values": [
@@ -422,7 +425,7 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}{chain}/payment_token/{address}",
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "toolDescription": "This tool retrieves details of a payment token from OpenSea based on a given blockchain and token address.",
         "parametersHeaders": {
@@ -454,7 +457,7 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}{collection_slug}",
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "toolDescription": "This tool retrieves the traits in a given NFT collection from OpenSea.",
         "parametersHeaders": {

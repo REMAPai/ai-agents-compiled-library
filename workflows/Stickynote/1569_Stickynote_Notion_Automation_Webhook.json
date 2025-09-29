@@ -38,14 +38,14 @@
         620
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.notionID }}/query",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "jsonBody": "{\n \"filter\": {\n \"or\": [\n {\n \"property\": \"question\",\n \"rich_text\": {\n \"contains\": \"{keyword}\"\n }\n },\n {\n \"property\": \"tags\",\n \"multi_select\": {\n \"contains\": \"{tag}\"\n }\n }\n ]\n },\n \"sorts\": [\n {\n \"property\": \"updated_at\",\n \"direction\": \"ascending\"\n }\n ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "toolDescription": "=Use this tool to search the \"\" Notion app database.\n\nIt is structured with question and answer format. \nYou can filter query result by:\n- By keyword\n- filter by tag.\n\nKeyword and Tag have an OR relationship not AND.\n\n",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE",
         "placeholderDefinitions": {
           "values": [
             {
@@ -120,11 +120,11 @@
         "url": "{{ $env.API_BASE_URL }}{page_id}/children",
         "fields": "id, type, paragraph.text, heading_1.text, heading_2.text, heading_3.text, bulleted_list_item.text, numbered_list_item.text, to_do.text, children",
         "dataField": "results",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "fieldsToInclude": "selected",
         "toolDescription": "=Use this tool to retrieve Notion page content using the page ID. \n\nIt is structured with question and answer format. \nYou can filter query result by:\n- By keyword\n- filter by tag.\n\nKeyword and Tag have an OR relationship not AND.\n\n",
         "optimizeResponse": true,
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE",
         "placeholderDefinitions": {
           "values": [
             {
@@ -515,5 +515,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Lmchatopenai Workflow. This workflow integrates 9 different services: stickyNote, toolHttpRequest, agent, set, stopAndError. It contains 17 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Lmchatopenai Workflow. This workflow integrates 9 different services: stickyNote, toolHttpRequest, agent, set, stopAndError. It contains 17 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

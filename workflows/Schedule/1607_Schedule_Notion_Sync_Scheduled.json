@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Sync Todoist tasks to Notion",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "0122196d-e051-4154-9e39-3ddbfe26858f",
@@ -41,7 +44,7 @@
           "labelId": "send-to-notion"
         },
         "operation": "getAll",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "todoistOAuth2Api": {
@@ -73,7 +76,7 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "numberValue": "={{ parseInt($json.id) }}"
             }
           ]
@@ -104,7 +107,7 @@
           ],
           "description": "=Notion Link:  {{ $json.url }}\n\n{{ $('Get all tasks with specific label').item.json.description }}"
         },
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "todoistOAuth2Api": {
@@ -116,7 +119,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -129,7 +132,7 @@
     },
     {
       "id": "documentation-11e3dbc7",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [

@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Streamline Your Zoom Meetings with Secure, Automated Stripe Payments",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "fcc38ae8-0dbf-4676-b47b-ba77f97a38b8",
@@ -19,9 +22,9 @@
       ],
       "parameters": {
         "topic": "={{ $('Creation Form').item.json.title }}",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
-          "password": "YOUR_VALUE_HERE",
+          "password": "YOUR_PASSWORD_HERE",
           "startTime": "={{ new Date(new Date($('Creation Form').item.json.date_start).getTime() + ($('Creation Form').item.json.hour * 3600000) + ($('Creation Form').item.json.minute * 60000)).toISOString() }}"
         }
       },
@@ -47,7 +50,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "form-urlencoded",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -64,7 +67,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "stripeApi": {
@@ -330,7 +333,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "form-urlencoded",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -375,7 +378,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "stripeApi": {
@@ -841,7 +844,7 @@
               "metadata": {
                 "zoom_id": "86579738722",
                 "zoom_link": "{{ $env.WEBHOOK_URL }}",
-                "zoom_password": "YOUR_VALUE_HERE",
+                "zoom_password": "YOUR_PASSWORD_HERE",
                 "event_sheet_id": "1710369993"
               },
               "shipping": null,

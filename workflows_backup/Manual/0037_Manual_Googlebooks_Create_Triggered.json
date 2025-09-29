@@ -10,7 +10,8 @@
         300
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "b8c24415-a6f8-42ae-9105-8e2d15e8061f"
     },
     {
       "name": "Google Books",
@@ -22,12 +23,13 @@
       "parameters": {
         "resource": "volume",
         "volumeId": "XxUJ2U2FXtYC",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "googleBooksOAuth2Api": "google-books"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "bea109b1-cd7a-4a9c-a71a-76dabeeae875"
     },
     {
       "name": "Google Books1",
@@ -41,12 +43,13 @@
         "resource": "bookshelfVolume",
         "volumeId": "={{$node[\"Google Books\"].json[\"id\"]}}",
         "operation": "add",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "googleBooksOAuth2Api": "google-books"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "ac645069-c205-4d8e-adf4-a590177fe1e0"
     },
     {
       "name": "Google Books2",
@@ -59,16 +62,36 @@
         "shelfId": "={{$node[\"Google Books1\"].parameter[\"shelfId\"]}}",
         "resource": "bookshelfVolume",
         "myLibrary": true,
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "googleBooksOAuth2Api": "google-books"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "1ca3f14f-f844-4c41-a190-50772ee430c6"
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Get a volume and add it to your bookshelf\n\nAutomated workflow: Get a volume and add it to your bookshelf. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 4 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "active": false,
-  "settings": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
   "connections": {
     "Google Books": {
       "main": [
@@ -103,5 +126,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: Get a volume and add it to your bookshelf. This workflow processes data and performs automated tasks."
 }

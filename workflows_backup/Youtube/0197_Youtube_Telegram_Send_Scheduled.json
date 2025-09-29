@@ -28,7 +28,8 @@
         "options": {},
         "keepOnlySet": true
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "a86b8e00-8314-4a4f-8fd2-f88d0b230e86"
     },
     {
       "name": "Function",
@@ -40,7 +41,8 @@
       "parameters": {
         "functionCode": "const new_items = [];\nconst data = this.getWorkflowStaticData('node');\n\ndata.ids = data.ids || [];\n\nfor (var i=0; i<items.length; i++) {\n  if (data.ids.includes(items[i].json.id)) {\n    break;\n  } else {\n    new_items.push({json: {id: items[i].json.id, url: items[i].json.url, title: items[i].json.title}});\n  }\n}\n\ndata.ids = items.map(item => item.json.id)\nreturn new_items;\n"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "ff3e26e3-859a-41b1-9ab6-a788848f338b"
     },
     {
       "name": "CheckTime",
@@ -53,7 +55,8 @@
         "unit": "minutes",
         "interval": 30
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "6f4da66f-49c9-4fa0-98cb-740b3e684930"
     },
     {
       "name": "GetVideosYT",
@@ -75,7 +78,8 @@
       "credentials": {
         "youTubeOAuth2Api": "tubo"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "77d0a7ed-46c4-4a19-9e16-a89f9581f9b9"
     },
     {
       "name": "SendVideo",
@@ -94,7 +98,21 @@
       "credentials": {
         "telegramApi": "bot raspino"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "e9d4a7fc-065d-4de7-bd7b-bd62511da338"
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Set Workflow\n\nAutomated workflow: Set Workflow. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 5 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "connections": {
@@ -142,5 +160,14 @@
         ]
       ]
     }
+  },
+  "name": "Set Workflow",
+  "description": "Automated workflow: Set Workflow. This workflow processes data and performs automated tasks.",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   }
 }

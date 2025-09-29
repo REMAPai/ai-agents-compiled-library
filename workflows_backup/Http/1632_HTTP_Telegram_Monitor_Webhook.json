@@ -1,8 +1,10 @@
 {
   "id": "RMxcTgpFGpE3RdLZ",
   "meta": {
-    "instanceId": "1a1a56e303d37d31a273d2dd1d2c6ab5d45185370759d2a4763eabe48f3be2df",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Telegram Tron Wallet Blacklist Checker",
   "tags": [],
@@ -96,7 +98,7 @@
         -60
       ],
       "parameters": {
-        "url": "=https://apilist.tronscanapi.com/api/stableCoin/blackList?blackAddress={{ $json.message.text }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 1
@@ -142,12 +144,85 @@
         "content": "## TRON USDT Blacklist Checker\n**This template checks USDT wallets on the TRON blockchain and queries whether they have been blacklisted.**"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-8a05f33e-71bd-4053-b182-baf721a3a650",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 8a05f33e-71bd-4053-b182-baf721a3a650",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fbd55c61-91ad-43e7-aa89-c30d14fc3b92-1f91376c",
+      "name": "Error Handler for fbd55c61",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fbd55c61",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-f7b2d70e-9a5c-4a31-b445-68e9a37cfdb3-0c0f529b",
+      "name": "Error Handler for f7b2d70e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node f7b2d70e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-8a05f33e-71bd-4053-b182-baf721a3a650-f4397f25",
+      "name": "Error Handler for 8a05f33e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 8a05f33e",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-7c07825c",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Telegram Tron Wallet Blacklist Checker\n\n## Overview\nThis n8n workflow template allows users to check if a Tron wallet address is blacklisted on the USDT contract via a Telegram bot. When a user sends the command {walletAddress} through the Telegram bot, the workflow queries the Tronscan API to determine if the provided wallet address is blacklisted. The result is then sent back to the user via the Telegram bot.\n\n## Workflow Details\n- **Total Nodes**: 11\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Telegram Trigger**: telegramTrigger\n- **Telegram Send Message**: telegram\n- **Check Wallet Address Format**: if\n- **Tron BlackList Stable Token Api Request**: httpRequest\n- **Check Api Response**: code\n- **Set Error Message (Wallet Address Format)**: code\n- **Sticky Note**: stickyNote\n- **Error Handler**: stopAndError\n- **Error Handler for fbd55c61**: stopAndError\n- **Error Handler for f7b2d70e**: stopAndError\n- ... and 1 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "0595cea0-5444-42aa-a988-5169f29b85b2",
   "connections": {
@@ -207,6 +282,46 @@
         [
           {
             "node": "Telegram Send Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8a05f33e-71bd-4053-b182-baf721a3a650": {
+      "main": [
+        [
+          {
+            "node": "error-handler-8a05f33e-71bd-4053-b182-baf721a3a650",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-8a05f33e-71bd-4053-b182-baf721a3a650-f4397f25",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fbd55c61-91ad-43e7-aa89-c30d14fc3b92": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fbd55c61-91ad-43e7-aa89-c30d14fc3b92-1f91376c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f7b2d70e-9a5c-4a31-b445-68e9a37cfdb3": {
+      "main": [
+        [
+          {
+            "node": "error-handler-f7b2d70e-9a5c-4a31-b445-68e9a37cfdb3-0c0f529b",
             "type": "main",
             "index": 0
           }

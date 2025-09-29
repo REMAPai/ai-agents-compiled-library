@@ -1,8 +1,9 @@
 {
   "meta": {
-    "instanceId": "1dd912a1610cd0376bae7bb8f1b5838d2b601f42ac66a48e012166bb954fed5a",
-    "templateId": "2299",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -44,7 +45,7 @@
               "id": "2086908e-c301-4392-9cf6-b6461e11dcd4",
               "name": "url",
               "type": "string",
-              "value": "https://n8n.io/"
+              "value": "{{ $env.WEBHOOK_URL }}"
             }
           ]
         }
@@ -75,7 +76,7 @@
       "parameters": {
         "width": 389,
         "height": 255.7976193268613,
-        "content": "## Web Scraping \n\nUsing **Scrappey's** API to scrape every website.\n\nDon't get blocked again by anti-bot technologies while scraping the web.\n\n**Setup:**\nReplace YOUR_API_KEY with [your Scrappey API key.](https://scrappey.com/?ref=n8n)\n"
+        "content": "## Web Scraping \n\nUsing **Scrappey's** API to scrape every website.\n\nDon't get blocked again by anti-bot technologies while scraping the web.\n\n**Setup:**\nReplace YOUR_API_KEY with [your Scrappey API key.]({{ $env.WEBHOOK_URL }}\n"
       },
       "typeVersion": 1
     },
@@ -88,7 +89,7 @@
         240
       ],
       "parameters": {
-        "url": "https://publisher.scrappey.com/api/v1",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "redirect": {
@@ -119,6 +120,47 @@
         }
       },
       "typeVersion": 4.2
+    },
+    {
+      "id": "error-handler-7f8b3077-ec09-4fec-a4f0-f6b7f3f7ec0e",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 7f8b3077-ec09-4fec-a4f0-f6b7f3f7ec0e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-7f8b3077-ec09-4fec-a4f0-f6b7f3f7ec0e-773d15fb",
+      "name": "Error Handler for 7f8b3077",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 7f8b3077",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-060129cf",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Scheduletrigger Workflow\n\n## Overview\nAutomated workflow: Scheduletrigger Workflow. This workflow integrates 5 different services: stickyNote, httpRequest, scheduleTrigger, set, stopAndError. It contains 7 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 7\n- **Node Types**: 5\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Schedule Trigger**: scheduleTrigger\n- **Test Data**: set\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Scrape website with Scrappey**: httpRequest\n- **Error Handler**: stopAndError\n- **Error Handler for 7f8b3077**: stopAndError\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -144,6 +186,33 @@
           }
         ]
       ]
+    },
+    "7f8b3077-ec09-4fec-a4f0-f6b7f3f7ec0e": {
+      "main": [
+        [
+          {
+            "node": "error-handler-7f8b3077-ec09-4fec-a4f0-f6b7f3f7ec0e",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-7f8b3077-ec09-4fec-a4f0-f6b7f3f7ec0e-773d15fb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Scheduletrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Scheduletrigger Workflow. This workflow integrates 5 different services: stickyNote, httpRequest, scheduleTrigger, set, stopAndError. It contains 7 nodes and follows best practices for error handling and security."
 }

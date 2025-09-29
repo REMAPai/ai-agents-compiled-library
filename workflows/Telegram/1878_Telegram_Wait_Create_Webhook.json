@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Auto-create and publish AI social videos with Telegram, GPT-4 and Blotato",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "b8a41b63-8c48-4964-befe-b949f3e9b755",
@@ -452,7 +455,7 @@
         440
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Download Image from Telegram').item.json.result.file_path }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -471,7 +474,7 @@
         "options": {},
         "sendBody": true,
         "contentType": "multipart-form-data",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -510,7 +513,7 @@
         "jsonBody": "={\n\"model\": \"kling\",\n\"task_type\": \"video_generation\",\n\"input\": {\n\"prompt\": \"{{ $('Split Prompt or Image Input').item.json.videoPrompt }}\",\n\"image_url\": \"{{ $json.secure_url }}\",\n\"negative_prompt\": \"\",\n\"cfg_scale\": 0.5,\n\"duration\": 5,\n\"version\": \"1.6\",\n\"camera_control\": {\n\"type\": \"simple\",\n\"config\": {\n\"horizontal\": 0,\n\"vertical\": 0,\n\"pan\": 0,\n\"tilt\": 0,\n\"roll\": 0,\n\"zoom\": 0\n}\n},\n\"mode\": \"std\"\n},\n\"config\": {\n\"service_mode\": \"\",\n\"webhook_config\": {\n\"endpoint\": \"\",\n\"secret\": \"\"\n}\n}\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -549,7 +552,7 @@
         440
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.data.task_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -557,7 +560,7 @@
             }
           }
         },
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -618,7 +621,7 @@
         120
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.item.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -675,7 +678,7 @@
         "jsonBody": "={\n  \"model\": \"Qubico/diffrhythm\",\n  \"task_type\": \"txt2audio-base\",\n  \"input\": {\n    \"style_prompt\": \"{{ $('Split Prompt or Image Input').item.json.musicStyle }}\",\n    \"lyrics\": \"\",\n    \"style_audio\": \"\"\n  },\n  \"config\": {\n    \"webhook_config\": {\n      \"endpoint\": \"\",\n      \"secret\": \"\"\n    }\n  }\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -710,7 +713,7 @@
         1040
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.data.task_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -718,7 +721,7 @@
             }
           }
         },
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -789,7 +792,7 @@
         "jsonBody": "={\n  \"id\": \"qbaasr7s\",\n  \"resolution\": \"instagram-story\",\n  \"quality\": \"high\",\n  \"scenes\": [\n    {\n      \"id\": \"qyjh9lwj\",\n      \"comment\": \"Scene 1\",\n      \"elements\": []\n    }\n  ],\n  \"elements\": [\n    {\n      \"id\": \"q6dznzcv\",\n      \"type\": \"video\",\n      \"src\": \"{{ $('Merge Video Data (Image or Prompt)').item.json.url_video }}\",\n      \"resize\": \"cover\"\n    },\n    {\n      \"id\": \"top-text\",\n      \"type\": \"text\",\n      \"text\": \"{{ $json.text1 }}\",\n      \"settings\": {\n        \"font-family\": \"Libre Baskerville\",\n        \"font-size\": \"80px\",\n        \"color\": \"#ffffff\",\n        \"horizontal-position\": \"center\",\n        \"vertical-position\": \"top\",\n        \"margin-top\": \"100px\",\n        \"word-break\": \"break-word\",\n        \"overflow-wrap\": \"break-word\",\n        \"font-weight\": \"normal\",\n        \"text-shadow\": \"3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 0px 3px 0 #000, 3px 0px 0 #000, -3px 0px 0 #000, 0px -3px 0 #000\"\n      }\n    },\n    {\n      \"id\": \"bottom-text\",\n      \"type\": \"text\",\n      \"text\": \"{{ $json.text2 }}\",\n      \"settings\": {\n        \"font-family\": \"Libre Baskerville\",\n        \"font-size\": \"80px\",\n        \"color\": \"#ffffff\",\n        \"horizontal-position\": \"center\",\n        \"vertical-position\": \"bottom\",\n        \"margin-bottom\": \"250px\",\n        \"word-break\": \"break-word\",\n        \"overflow-wrap\": \"break-word\",\n        \"font-weight\": \"normal\",\n        \"text-shadow\": \"3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 0px 3px 0 #000, 3px 0px 0 #000, -3px 0px 0 #000, 0px -3px 0 #000\"\n      }\n    },\n    {\n      \"id\": \"music-track\",\n      \"type\": \"audio\",\n      \"src\": \"{{ $('Get Music File URL').item.json.data.output.audio_url }}\",\n      \"volume\": 0.5,\n      \"duration\": -2\n    }\n  ]\n}\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth"
       },
       "credentials": {
@@ -824,9 +827,9 @@
         1640
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.project }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpCustomAuth"
       },
       "credentials": {
@@ -912,7 +915,7 @@
       "parameters": {
         "columns": {
           "value": {
-            "url ": "={{ $('Get Final Video URL').item.json.movie.url }}",
+            "url ": "{{ $env.BASE_URL }}",
             "Title": "={{ $json.message.content }}",
             "caption": "={{ $('Generate Social Caption (GPT-4)').item.json.message.content }}"
           },

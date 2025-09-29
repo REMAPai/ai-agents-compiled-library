@@ -24,7 +24,7 @@
           "cachedResultName": "general"
         },
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "typeVersion": 2.2
     },
@@ -198,7 +198,7 @@
         600
       ],
       "parameters": {
-        "url": "={{ $json.file_url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -344,9 +344,9 @@
         "jsonBody": "={\n \"timeMin\": \"{timeMin}\",\n \"timeMax\": \"{timeMax}\",\n \"timeZone\": \"Europe/Berlin\",\n \"groupExpansionMax\": 20,\n \"calendarExpansionMax\": 10,\n \"items\": [\n {\n \"id\": \"max@n8n.io\"\n }\n ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "toolDescription": "Call this tool to get the appointment availability for a particular period on the calendar. The tool may refer to availability as \"Free\" or \"Busy\". \n\nUse {timeMin} and {timeMax} to specify the window for the availability query. For example, to get availability for 25 July, 2024 the {timeMin} would be 2024-07-25T09:00:00+02:00 and {timeMax} would be 2024-07-25T17:00:00+02:00.\n\nIf the tool returns an empty response, it means that something went wrong. It does not mean that there is no availability.",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 1
     },
@@ -479,9 +479,9 @@
         "jsonBody": "={\n \"summary\": \"Appointment with {userName}\",\n \"start\": {\n \"dateTime\": \"{startTime}\",\n \"timeZone\": \"Europe/Berlin\"\n },\n \"end\": {\n \"dateTime\": \"{endTime}\",\n \"timeZone\": \"Europe/Berlin\"\n },\n \"attendees\": [\n {\"email\": \"max@n8n.io\"},\n {\"email\": \"{userEmail}\"}\n ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "toolDescription": "Call this tool to book an appointment in the calendar. ",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE",
         "placeholderDefinitions": {
           "values": [
             {
@@ -1256,5 +1256,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Slack Workflow. This workflow integrates 23 different services: stickyNote, textSplitterRecursiveCharacterTextSplitter, chainRetrievalQa, lmChatOpenAi, if. It contains 52 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Slack Workflow. This workflow integrates 23 different services: stickyNote, textSplitterRecursiveCharacterTextSplitter, chainRetrievalQa, lmChatOpenAi, if. It contains 52 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "slack"
+  ]
 }

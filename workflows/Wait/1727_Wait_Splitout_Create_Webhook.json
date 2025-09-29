@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "address validation",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "c6e389ae-6db2-416b-8f6f-91749fbc860f",
@@ -18,10 +21,10 @@
         880
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.orderID }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [
@@ -197,12 +200,12 @@
         720
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Address Fields').item.json[\"BillbeeShippingAddressID\"] }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -306,14 +309,14 @@
         920
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Address Fields').item.json[\"BillbeeID\"] }}/tags",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n  \"Tags\": [\n    \"endereco_address_failed\"\n  ]\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [
@@ -641,14 +644,14 @@
         1200
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Address Fields').item.json[\"BillbeeID\"] }}/tags",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n  \"Tags\": [\n    \"manual_address_check\"\n  ]\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [
@@ -726,14 +729,14 @@
         720
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Set Address Fields').item.json[\"BillbeeID\"] }}/tags",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "{\n  \"Tags\": [\n    \"endereco_address_validated\"\n  ]\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [

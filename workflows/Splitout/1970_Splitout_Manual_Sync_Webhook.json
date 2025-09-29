@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Sync Youtube Video Urls with Google Sheets",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ],
   "nodes": [
     {
       "id": "f1cd1374-2214-41c1-af32-9e31e72aab88",
@@ -58,7 +62,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Youtube Videos Comments"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -95,7 +99,7 @@
           }
         },
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpQueryAuth",
         "queryParameters": {
           "parameters": [
@@ -173,7 +177,7 @@
         "columns": {
           "value": {
             "Title": "={{ $json.Title }}",
-            "video_urls": "={{ $json.video_urls }}",
+            "video_urls": "{{ $env.BASE_URL }}",
             "published_at": "={{ $json.published_at }}"
           },
           "schema": [
@@ -251,7 +255,7 @@
           "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Youtube Videos Comments"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {

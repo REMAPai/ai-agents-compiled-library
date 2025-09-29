@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Bitrix24 Task Form Widget Application Workflow example with Webhook Integration",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "webhook"
+  ],
   "nodes": [
     {
       "id": "cb30a147-2965-4b45-8974-12fea1eac96d",
@@ -153,7 +157,7 @@
         -400
       ],
       "parameters": {
-        "url": "=https://{{$json.domain}}/rest/placement.bind?auth={{$json.access_token}}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -256,7 +260,7 @@
         -40
       ],
       "parameters": {
-        "url": "=https://{{ $json.originalRequest.query.DOMAIN }}/rest/tasks.task.get?auth={{ $json.originalRequest.access_token }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={{ $json.originalRequest.body.PLACEMENT_OPTIONS }}",
@@ -603,7 +607,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -770,7 +774,7 @@
     },
     {
       "id": "documentation-804abd43",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [

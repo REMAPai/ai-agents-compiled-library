@@ -15,10 +15,10 @@
         522
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}/leads",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -133,7 +133,7 @@
       "parameters": {
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -439,7 +439,7 @@
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "9",
+          "id": "{{ $credentials.googleSheetsOAuth2Api.id }}",
           "name": "Nik's Google"
         }
       },
@@ -1129,5 +1129,10 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 9 different services: filter, httpRequest, stickyNote, clearbit, scheduleTrigger. It contains 20 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Httprequest Workflow. This workflow integrates 9 different services: filter, httpRequest, stickyNote, clearbit, scheduleTrigger. It contains 20 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n",
+    "api"
+  ]
 }

@@ -91,7 +91,7 @@
           }
         },
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -187,7 +187,7 @@
       "parameters": {
         "email": "={{ $('Set keys').item.json.email }}",
         "options": {},
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "gender": "={{ $json.result.gender }}",
           "school": "={{ $json.result.education?.[0]?.school?.name }}",
@@ -223,7 +223,7 @@
           "value": "={{ $json.contactId }}"
         },
         "operation": "get",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {}
       },
       "credentials": {
@@ -430,5 +430,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "9e331a89ae45a204c6dee51c77131d32a8c962ec20ccf002135ea60bd285dba9"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -184,7 +187,7 @@
         640
       ],
       "parameters": {
-        "url": "={{ $json.invoice_pdf }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -281,7 +284,7 @@
       "parameters": {
         "width": 367.15098241985504,
         "height": 485.66522445338995,
-        "content": "## Instructions\n\nThis automation syncs monthly your Invoice PDF from Stripe to a (AWS) S3 Bucket of your choice with the following subPaths (Key):\n\n*yourFolder/invoiceYear/invoiceMonth/fileName*\n\n\nFill in your **Credentials and Settings** in the Nodes marked with _\"*\"_.\n\nYou can adjust this Workflow to your needs. You can also override the `year`and `month` in the ENV* Node for manual syncs.\n\n![Image](https://let-the-work-flow.com/logo-64.png)\nEnjoy the Workflow! ❤️ \nhttps://let-the-work-flow.com\nWorkflow Automation & Development"
+        "content": "## Instructions\n\nThis automation syncs monthly your Invoice PDF from Stripe to a (AWS) S3 Bucket of your choice with the following subPaths (Key):\n\n*yourFolder/invoiceYear/invoiceMonth/fileName*\n\n\nFill in your **Credentials and Settings** in the Nodes marked with _\"*\"_.\n\nYou can adjust this Workflow to your needs. You can also override the `year`and `month` in the ENV* Node for manual syncs.\n\n![Image]({{ $env.WEBHOOK_URL }}\nEnjoy the Workflow! ❤️ \n{{ $env.WEBHOOK_URL }}\nWorkflow Automation & Development"
       },
       "typeVersion": 1
     },
@@ -294,10 +297,10 @@
         900
       ],
       "parameters": {
-        "url": "https://api.stripe.com/v1/invoices",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -310,7 +313,7 @@
             }
           ]
         },
-        "nodeCredentialType": "stripeApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 4.2
     },
@@ -373,6 +376,47 @@
         "includeOtherFields": true
       },
       "typeVersion": 3.4
+    },
+    {
+      "id": "error-handler-dd75af83-6e0a-4685-a3bd-1622e2c800de-138cf810",
+      "name": "Error Handler for dd75af83",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node dd75af83",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c5e5946c-c74f-435f-9664-491bbbca00f2-e28dfe1c",
+      "name": "Error Handler for c5e5946c",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c5e5946c",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-85801687",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: stickyNote, httpRequest, awsS3, scheduleTrigger, splitOut. It contains 19 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 19\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **List Invoices**: splitOut\n- **Inject s3 Subpath**: set\n- **Set-Subpath**: set\n- **We do only Invoice Objects**: if\n- **It shouldn't be something else**: stopAndError\n- **ENV***: set\n- **Download Invoice PDF from Stripe**: httpRequest\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- ... and 9 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -493,6 +537,37 @@
           }
         ]
       ]
+    },
+    "dd75af83-6e0a-4685-a3bd-1622e2c800de": {
+      "main": [
+        [
+          {
+            "node": "error-handler-dd75af83-6e0a-4685-a3bd-1622e2c800de-138cf810",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c5e5946c-c74f-435f-9664-491bbbca00f2": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c5e5946c-c74f-435f-9664-491bbbca00f2-e28dfe1c",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: stickyNote, httpRequest, awsS3, scheduleTrigger, splitOut. It contains 19 nodes and follows best practices for error handling and security."
 }

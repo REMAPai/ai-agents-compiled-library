@@ -118,10 +118,10 @@
         20
       ],
       "parameters": {
-        "url": "=https://{{ $('Set Global').item.json['store-id'] }}.myshopify.com/admin/api/2025-01/orders/{{ $json.id }}/fulfillment_orders.json",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "shopifyAccessTokenApi": {
@@ -213,7 +213,7 @@
         },
         "operation": "getAll",
         "returnAll": true,
-        "authentication": "accessToken"
+        "authentication": "{{ $credentials.accessToken }}"
       },
       "credentials": {
         "shopifyAccessTokenApi": {
@@ -232,14 +232,14 @@
         20
       ],
       "parameters": {
-        "url": "=https://{{ $('Set Global').item.json['store-id'] }}.myshopify.com/admin/api/2025-01/fulfillments.json",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\"fulfillment\":{\"line_items_by_fulfillment_order\":[{\"fulfillment_order_id\":{{ $json.fulfillment_orders[0].id }}}],\"notify_customer\":true}}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "shopifyAccessTokenApi": {
@@ -455,5 +455,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: stickyNote, filter, httpRequest, shopify, scheduleTrigger. It contains 17 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: stickyNote, filter, httpRequest, shopify, scheduleTrigger. It contains 17 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

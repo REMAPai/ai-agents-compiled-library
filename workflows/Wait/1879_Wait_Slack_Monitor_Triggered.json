@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "N_01_Simple_Lead_Tracker_Automation_v4",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "a69ff573-797d-4a77-a831-940168046448",
@@ -68,7 +71,7 @@
           "cachedResultName": "test-automation-workflow"
         },
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
@@ -112,7 +115,7 @@
       "parameters": {
         "email": "={{ $json['E-Mail'] }}",
         "options": {},
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "message": "={{ $json['Notes '] }}",
           "salutation": "={{ $json['  Lead Source  '] }}",

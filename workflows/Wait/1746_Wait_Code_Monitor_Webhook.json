@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Live link checker",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "40009961-9c97-49ee-b9ce-440e65b41e47",
@@ -101,7 +104,7 @@
         "jsonBody": "=[{\n\"target\": \"{{ $json.domain }}\",\n\"start_url\": \"{{ $json.url }}\",\n\"max_crawl_pages\": 1\n}]",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -148,7 +151,7 @@
         "jsonBody": "=[\n  {\n    \"id\": \"{{ $json.tasks[0].id }}\"\n  }\n]\n",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -186,7 +189,7 @@
         "columns": {
           "value": {
             "Status": "={{ $json.status }}",
-            "Backlink URL": "={{ $('Loop Over Items').item.json.url }}"
+            "Backlink URL": "{{ $env.BASE_URL }}"
           },
           "schema": [
             {

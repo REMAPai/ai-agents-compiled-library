@@ -37,10 +37,10 @@
         280
       ],
       "parameters": {
-        "url": "http://localhost:9091/transmission/rpc",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "requestMethod": "POST",
-        "authentication": "basicAuth",
+        "authentication": "{{ $credentials.basicAuth }}",
         "jsonParameters": true,
         "bodyParametersJson": "={\"method\":\"torrent-add\",\"arguments\":{\"paused\":false,\"download-dir\":\"/media/FILM/TORRENT\",\"filename\":\"{{$node[\"SearchTorrent\"].json[\"torrents\"][0][\"magnet\"]}}\"}}",
         "headerParametersJson": "{\"X-Transmission-Session-Id\":\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}"
@@ -131,10 +131,10 @@
         260
       ],
       "parameters": {
-        "url": "http://localhost:9091/transmission/rpc",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "requestMethod": "POST",
-        "authentication": "basicAuth",
+        "authentication": "{{ $credentials.basicAuth }}",
         "jsonParameters": true,
         "bodyParametersJson": "={\"method\":\"torrent-add\",\"arguments\":{\"paused\":false,\"download-dir\":\"/media/FILM/TORRENT\",\"filename\":\"{{$node[\"SearchTorrent\"].json[\"torrents\"][0][\"magnet\"]}}\"}}",
         "headerParametersJson": "={\"X-Transmission-Session-Id\":\"{{$node[\"Start download\"].json[\"error\"][\"response\"][\"headers\"][\"x-transmission-session-id\"]}}\"}"

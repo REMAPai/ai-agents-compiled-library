@@ -34,7 +34,7 @@
           }
         },
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -47,7 +47,7 @@
       },
       "credentials": {
         "httpHeaderAuth": {
-          "id": "12",
+          "id": "{{ $credentials.httpHeaderAuth.id }}",
           "name": "Header Auth account"
         }
       },
@@ -63,7 +63,7 @@
         240
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.OrgID }}/networks  ",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "redirect": {
             "redirect": {}
@@ -249,14 +249,14 @@
         400
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.id }}/devices/uplinksLossAndLatency?timespan=300",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "redirect": {
             "redirect": {}
           }
         },
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -269,7 +269,7 @@
       },
       "credentials": {
         "httpHeaderAuth": {
-          "id": "12",
+          "id": "{{ $credentials.httpHeaderAuth.id }}",
           "name": "Header Auth account"
         }
       },
@@ -362,7 +362,7 @@
         240
       ],
       "parameters": {
-        "key": "YOUR_API_KEY",
+        "key": "YOUR_CREDENTIAL_HERE",
         "options": {
           "dotNotation": "={{ true }}"
         },
@@ -413,11 +413,11 @@
         300
       ],
       "parameters": {
-        "key": "YOUR_API_KEY",
+        "key": "YOUR_CREDENTIAL_HERE",
         "ttl": 10800,
         "value": "={{ $('Merge').item.json.NetworkName }}",
         "expire": true,
-        "keyType": "YOUR_API_KEY",
+        "keyType": "YOUR_CREDENTIAL_HERE",
         "operation": "set"
       },
       "typeVersion": 1,
@@ -866,5 +866,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, code, scheduleTrigger, merge. It contains 29 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 10 different services: stickyNote, httpRequest, code, scheduleTrigger, merge. It contains 29 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

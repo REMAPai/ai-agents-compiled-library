@@ -55,7 +55,7 @@
         "path": "3ea0b887-9caa-477e-b6e4-1d3edf72d11e",
         "options": {},
         "httpMethod": "POST",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -74,9 +74,9 @@
         1040
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.body.data.messageId }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -131,7 +131,7 @@
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -140,15 +140,15 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "slackApi": {
-          "id": "350",
+          "id": "{{ $credentials.slackApi.id }}",
           "name": "n8n License Token"
         },
         "slackOAuth2Api": {
-          "id": "346",
+          "id": "{{ $credentials.slackOAuth2Api.id }}",
           "name": "n8n License Bot"
         }
       },
@@ -224,7 +224,7 @@
       },
       "credentials": {
         "slackApi": {
-          "id": "350",
+          "id": "{{ $credentials.slackApi.id }}",
           "name": "n8n License Token"
         }
       },

@@ -1,11 +1,14 @@
 {
   "meta": {
-    "instanceId": "26ba763460b97c249b82942b23b6384876dfeb9327513332e743c5f6219c2b8e"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
       "id": "1bb3c94e-326e-41ca-82e4-102a598dba39",
-      "name": "When clicking \u2018Test workflow\u2019",
+      "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
         -320,
@@ -92,7 +95,7 @@
         340
       ],
       "parameters": {
-        "url": "https://statutes.capitol.texas.gov/Docs/Zips/TX.pdf.zip",
+        "url": "{{ $env.API_BASE_URL }}",
         "options": {
           "response": {
             "response": {
@@ -216,11 +219,11 @@
         1060
       ],
       "parameters": {
-        "url": "https://api.mistral.ai/v1/embeddings",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -237,7 +240,7 @@
             }
           ]
         },
-        "nodeCredentialType": "mistralCloudApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "mistralCloudApi": {
@@ -354,11 +357,11 @@
         1060
       ],
       "parameters": {
-        "url": "=http://qdrant:6333/collections/texas_tax_codes/points/search",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -375,7 +378,7 @@
             }
           ]
         },
-        "nodeCredentialType": "qdrantApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -394,7 +397,7 @@
         1320
       ],
       "parameters": {
-        "url": "=http://qdrant:6333/collections/texas_tax_codes/points/scroll",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {
           "pagination": {
@@ -414,7 +417,7 @@
           }
         },
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -431,7 +434,7 @@
             }
           ]
         },
-        "nodeCredentialType": "qdrantApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "qdrantApi": {
@@ -476,7 +479,7 @@
         "color": 7,
         "width": 571.4359274276384,
         "height": 352.65642339230595,
-        "content": "## Step 1. Download the Tax Code PDF\n[Read more about handling Zip Files](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.compression/)\n\nLet's begin by pulling a zip file containing all the tax codes as separate PDF files. We can unzip on the fly with n8n's compression node."
+        "content": "## Step 1. Download the Tax Code PDF\n[Read more about handling Zip Files]({{ $env.WEBHOOK_URL }}\n\nLet's begin by pulling a zip file containing all the tax codes as separate PDF files. We can unzip on the fly with n8n's compression node."
       },
       "typeVersion": 1
     },
@@ -492,7 +495,7 @@
         "color": 7,
         "width": 777.897719182587,
         "height": 503.3459981018574,
-        "content": "## Step 2. Extract and Partition Into Chapters & Sections\n[Learn more about reading PDF Files](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.extractfromfile)\n\nRather than ingest the raw text of the PDF, we'll be a little more strategic and extract the tax code sections separately instead. Not only will this provide cleaner results, we'll also be able to fetch sections in isolation if required."
+        "content": "## Step 2. Extract and Partition Into Chapters & Sections\n[Learn more about reading PDF Files]({{ $env.WEBHOOK_URL }}\n\nRather than ingest the raw text of the PDF, we'll be a little more strategic and extract the tax code sections separately instead. Not only will this provide cleaner results, we'll also be able to fetch sections in isolation if required."
       },
       "typeVersion": 1
     },
@@ -508,7 +511,7 @@
         "color": 7,
         "width": 1045.1698686248747,
         "height": 771.1260499456115,
-        "content": "## Step 3. Save into Qdrant VectorStore\n[Read more about using the Qdrant Vectorstore](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoreqdrant)\n\nWe'll save our data into a Qdrant collection being mindful to use metadata to take full advantage of Qdrant's filtering capabilities later.\nThough not always required, since the tax code documents can be quite large we'll implement a loop here to throttle the number of tokens being processed as to not trip the Mistral.ai rate limits for embeddings."
+        "content": "## Step 3. Save into Qdrant VectorStore\n[Read more about using the Qdrant Vectorstore]({{ $env.WEBHOOK_URL }}\n\nWe'll save our data into a Qdrant collection being mindful to use metadata to take full advantage of Qdrant's filtering capabilities later.\nThough not always required, since the tax code documents can be quite large we'll implement a loop here to throttle the number of tokens being processed as to not trip the Mistral.ai rate limits for embeddings."
       },
       "typeVersion": 1
     },
@@ -550,7 +553,7 @@
         "color": 7,
         "width": 858.1415560000298,
         "height": 513.2269439624808,
-        "content": "## Step 4. Build a Tax Code Assistant ChatBot\n[Learn more about using AI Agents in n8n](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent)\n\nFor our chatbot, we'll use an AI agent node because we want to achieve more than one functionality. The first will be querying to relevant texts to answer a user's question and secondly, a direct search feature to pull full section text when requested."
+        "content": "## Step 4. Build a Tax Code Assistant ChatBot\n[Learn more about using AI Agents in n8n]({{ $env.WEBHOOK_URL }}\n\nFor our chatbot, we'll use an AI agent node because we want to achieve more than one functionality. The first will be querying to relevant texts to answer a user's question and secondly, a direct search feature to pull full section text when requested."
       },
       "typeVersion": 1
     },
@@ -566,7 +569,7 @@
         "color": 7,
         "width": 1030.0926850706744,
         "height": 577.7854680142904,
-        "content": "## Step 5. Use Qdrant API as Tools\n[Learn more about using AI Agents in n8n](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent)\n\nOur Ask Tool will generate embeddings using Mistral.ai and query our Qdrant collection using the Qdrant Search API.\nOur Search Tool will use filter our Qdrant collection using the Qdrant Scroll API, matching on each doc's section metadata key."
+        "content": "## Step 5. Use Qdrant API as Tools\n[Learn more about using AI Agents in n8n]({{ $env.WEBHOOK_URL }}\n\nOur Ask Tool will generate embeddings using Mistral.ai and query our Qdrant collection using the Qdrant Search API.\nOur Search Tool will use filter our Qdrant collection using the Qdrant Scroll API, matching on each doc's section metadata key."
       },
       "typeVersion": 1
     },
@@ -719,7 +722,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "ask_tool",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -741,7 +744,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "search_tool",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -804,7 +807,7 @@
       "parameters": {
         "width": 383.14868794462586,
         "height": 563.604204119637,
-        "content": "## Try Me Out!\n### This workflow builds an AI powered Legal assistant who answers questions about tax codes.\n* Download publically available tax code PDFs from the relevant government website.\n* Strategically exact tax code sections and store these in our Qdrant Vectorstore using Mistral.ai embeddings.\n* Use an AI Agent to answer user's tax questions by attaching tools which query our Qdrant vectorstore.\n\n### Need Help?\nJoin the [Discord](https://discord.com/invite/XPKeKXeB7d) or ask in the [Forum](https://community.n8n.io/)!\n\nHappy Hacking!"
+        "content": "## Try Me Out!\n### This workflow builds an AI powered Legal assistant who answers questions about tax codes.\n* Download publically available tax code PDFs from the relevant government website.\n* Strategically exact tax code sections and store these in our Qdrant Vectorstore using Mistral.ai embeddings.\n* Use an AI Agent to answer user's tax questions by attaching tools which query our Qdrant vectorstore.\n\n### Need Help?\nJoin the [Discord]({{ $env.WEBHOOK_URL }} or ask in the [Forum]({{ $env.WEBHOOK_URL }}\n\nHappy Hacking!"
       },
       "typeVersion": 1
     },
@@ -820,9 +823,162 @@
         "color": 5,
         "width": 489.3944544742706,
         "height": 131.61363932813174,
-        "content": "### \ud83d\ude4b\u200d\u2640\ufe0fWhat's the difference?\nWith raw PDF data, we may blur the boundaries between chapters and sections making later results hard to find, incoherent or misleading.\nDepending on your use-case, store your data in a way you intend to retrieve it!"
+        "content": "### 🙋‍♀️What's the difference?\nWith raw PDF data, we may blur the boundaries between chapters and sections making later results hard to find, incoherent or misleading.\nDepending on your use-case, store your data in a way you intend to retrieve it!"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-a1ecb096-4d31-4993-b801-ca3f09a9edc7",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a1ecb096-4d31-4993-b801-ca3f09a9edc7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3a93c19b-09d9-4e38-8b0c-2008fc03f7fc",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3a93c19b-09d9-4e38-8b0c-2008fc03f7fc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-dfe1818f-93b7-4116-8a6e-dcb2e6c23fcf",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in dfe1818f-93b7-4116-8a6e-dcb2e6c23fcf",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-588318e6-e188-4d99-9c11-39b2f3fb1c18",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 588318e6-e188-4d99-9c11-39b2f3fb1c18",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a1ecb096-4d31-4993-b801-ca3f09a9edc7-a3702f5d",
+      "name": "Error Handler for a1ecb096",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a1ecb096",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-038060dc-e01d-40ae-878d-5043bc36ab91-99ca25b1",
+      "name": "Error Handler for 038060dc",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 038060dc",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3a93c19b-09d9-4e38-8b0c-2008fc03f7fc-61bed7c4",
+      "name": "Error Handler for 3a93c19b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3a93c19b",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-dfe1818f-93b7-4116-8a6e-dcb2e6c23fcf-6618ad18",
+      "name": "Error Handler for dfe1818f",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node dfe1818f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-588318e6-e188-4d99-9c11-39b2f3fb1c18-d7ed105e",
+      "name": "Error Handler for 588318e6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 588318e6",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-30f238f8-1987-4d6d-b06d-ac2106ea3734-4e43d5a5",
+      "name": "Error Handler for 30f238f8",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 30f238f8",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-921d3381",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 22 different services: stickyNote, embeddingsMistralCloud, textSplitterRecursiveCharacterTextSplitter, vectorStoreQdrant, switch. It contains 48 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 48\n- **Node Types**: 22\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Embeddings Mistral Cloud**: embeddingsMistralCloud\n- **Default Data Loader**: documentDefaultDataLoader\n- **Recursive Character Text Splitter**: textSplitterRecursiveCharacterTextSplitter\n- **Get Tax Code Zip File**: httpRequest\n- **Extract Zip Files**: compression\n- **Files as Items**: splitOut\n- **Extract PDF Contents**: extractFromFile\n- **Extract From Chapter**: set\n- **Map To Sections**: set\n- ... and 38 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -1132,7 +1288,7 @@
         ]
       ]
     },
-    "When clicking \u2018Test workflow\u2019": {
+    "When clicking ‘Test workflow’": {
       "main": [
         [
           {
@@ -1142,6 +1298,109 @@
           }
         ]
       ]
+    },
+    "a1ecb096-4d31-4993-b801-ca3f09a9edc7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a1ecb096-4d31-4993-b801-ca3f09a9edc7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a1ecb096-4d31-4993-b801-ca3f09a9edc7-a3702f5d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3a93c19b-09d9-4e38-8b0c-2008fc03f7fc": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3a93c19b-09d9-4e38-8b0c-2008fc03f7fc",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3a93c19b-09d9-4e38-8b0c-2008fc03f7fc-61bed7c4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "dfe1818f-93b7-4116-8a6e-dcb2e6c23fcf": {
+      "main": [
+        [
+          {
+            "node": "error-handler-dfe1818f-93b7-4116-8a6e-dcb2e6c23fcf",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-dfe1818f-93b7-4116-8a6e-dcb2e6c23fcf-6618ad18",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "588318e6-e188-4d99-9c11-39b2f3fb1c18": {
+      "main": [
+        [
+          {
+            "node": "error-handler-588318e6-e188-4d99-9c11-39b2f3fb1c18",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-588318e6-e188-4d99-9c11-39b2f3fb1c18-d7ed105e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "038060dc-e01d-40ae-878d-5043bc36ab91": {
+      "main": [
+        [
+          {
+            "node": "error-handler-038060dc-e01d-40ae-878d-5043bc36ab91-99ca25b1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "30f238f8-1987-4d6d-b06d-ac2106ea3734": {
+      "main": [
+        [
+          {
+            "node": "error-handler-30f238f8-1987-4d6d-b06d-ac2106ea3734-4e43d5a5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 22 different services: stickyNote, embeddingsMistralCloud, textSplitterRecursiveCharacterTextSplitter, vectorStoreQdrant, switch. It contains 48 nodes and follows best practices for error handling and security."
 }

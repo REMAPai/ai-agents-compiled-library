@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Amazon Product Price Tracker",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "cc15c8e6-53f9-4dd1-895f-34a72af4506f",
@@ -277,7 +280,7 @@
             "asin": "={{ $('Loop Over Items').item.json.asin }}",
             "name": "={{ $('Scrapeops - Amazon Product').item.json.data.name }}",
             "pricing": "={{ $('Scrapeops - Amazon Product').item.json.data.pricing.replace(/[^\\d.]/g, '') }}",
-            "product_url": "={{ $env.WEBHOOK_URL }}{{ $('Loop Over Items').item.json.asin }}?th=1&psc=1",
+            "product_url": "{{ $env.BASE_URL }}",
             "alert_status": "={{ $json.alert_status }}",
             "last_updated": "={{$now.format(\"MM/dd/yyyy HH:mm:ss\")}}",
             "price_change": "={{ $('Price Change').item.json.price_change }}",

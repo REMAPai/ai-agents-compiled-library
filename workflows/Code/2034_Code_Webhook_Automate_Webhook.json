@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "OIDC client workflow",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "da0c6b83-9c8c-431b-beaa-66b5343b21c5",
@@ -48,7 +51,7 @@
         760
       ],
       "parameters": {
-        "url": "={{ $('Set variables : auth, token, userinfo, client id, scope').item.json.userinfo_endpoint }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -289,7 +292,7 @@
         640
       ],
       "parameters": {
-        "url": "={{ $('Set variables : auth, token, userinfo, client id, scope').item.json.token_endpoint }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,

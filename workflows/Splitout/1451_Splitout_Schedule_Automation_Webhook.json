@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Hugging Face  to Notion",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "32d5bfee-97f1-4e92-b62e-d09bdd9c3821",
@@ -136,7 +139,7 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "attribute": "href",
               "cssSelector": ".line-clamp-3",
               "returnArray": true,
@@ -159,8 +162,8 @@
         "filters": {
           "conditions": [
             {
-              "key": "YOUR_API_KEY",
-              "urlValue": "={{ '{{ $env.WEBHOOK_URL }}'+$json.url }}",
+              "key": "YOUR_CREDENTIAL_HERE",
+              "urlValue": "{{ $env.BASE_URL }}",
               "condition": "equals"
             }
           ]
@@ -195,7 +198,7 @@
         -300
       ],
       "parameters": {
-        "url": "={{ '{{ $env.WEBHOOK_URL }}'+$('Split Out').item.json.url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -258,40 +261,40 @@
         "propertiesUi": {
           "propertyValues": [
             {
-              "key": "YOUR_API_KEY",
-              "urlValue": "={{ '{{ $env.WEBHOOK_URL }}'+$('Split Out').item.json.url }}"
+              "key": "YOUR_CREDENTIAL_HERE",
+              "urlValue": "{{ $env.BASE_URL }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "title": "={{ $('Extract Hugging Face Paper Abstract').item.json.title }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $('Extract Hugging Face Paper Abstract').item.json.abstract.substring(0,2000) }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "date": "={{  $today.format('yyyy-MM-dd')  }}",
               "includeTime": false
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.message.content.Classification.join(',') }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.message.content.Technical_Details }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.message.content.Data_and_Results }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.message.content.Keywords.join(',') }}"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "textContent": "={{ $json.message.content.Core_Introduction }}"
             }
           ]
@@ -319,11 +322,11 @@
         "extractionValues": {
           "values": [
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": ".text-gray-700"
             },
             {
-              "key": "YOUR_API_KEY",
+              "key": "YOUR_CREDENTIAL_HERE",
               "cssSelector": ".text-2xl"
             }
           ]
@@ -361,7 +364,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -416,7 +419,7 @@
     },
     {
       "id": "documentation-b56aee94",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [

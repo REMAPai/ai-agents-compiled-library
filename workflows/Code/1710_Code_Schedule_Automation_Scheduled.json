@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "UTM Link Creator & QR Code Generator with Scheduled Google Analytics Reports",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ],
   "nodes": [
     {
       "id": "5efbd956-51b6-4f94-aebc-07e3e691f7eb",
@@ -42,7 +46,7 @@
         480
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey",
         "contextWindowLength": 200
       },
@@ -191,7 +195,7 @@
         },
         "columns": {
           "value": {
-            "URL": "={{ $json.utmUrl }}"
+            "URL": "{{ $env.BASE_URL }}"
           },
           "schema": [
             {
@@ -243,7 +247,7 @@
         -20
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $json.utmUrl }}&size=300&margin=10&ecLevel=H&dark=000000&light=FFFFFF\n",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2

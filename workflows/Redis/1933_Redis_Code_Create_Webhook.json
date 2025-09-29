@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "New Ticket Alerts to Teams",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "80c29a2a-c005-4a19-a71e-3e862a4f9b49",
@@ -51,8 +54,8 @@
         620
       ],
       "parameters": {
-        "key": "YOUR_API_KEY",
-        "keyType": "YOUR_API_KEY",
+        "key": "YOUR_CREDENTIAL_HERE",
+        "keyType": "YOUR_CREDENTIAL_HERE",
         "options": {},
         "operation": "get",
         "propertyName": "=Tickets"
@@ -104,7 +107,7 @@
         "url": "{{ $env.API_BASE_URL }}\"New\" or status/name=\"New (email)\" or status/name=\"New (portal)\") and (board/id=25 or board/id=26 or board/id=1 or board/id=28) and parentTicketId=null&PageSize=999",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -168,7 +171,7 @@
         460
       ],
       "parameters": {
-        "key": "YOUR_API_KEY",
+        "key": "YOUR_CREDENTIAL_HERE",
         "value": "={{ $json.id }}",
         "operation": "set"
       },
@@ -196,7 +199,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -223,7 +226,7 @@
     },
     {
       "id": "documentation-a13307cc",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [

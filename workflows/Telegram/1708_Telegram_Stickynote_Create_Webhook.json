@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Agentic Telegram AI bot with LangChain nodes and new tools",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "13b3488e-af72-4d89-bef4-e9b895e3bf76",
@@ -41,7 +44,7 @@
         580
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "contextWindowLength": 10
       },
       "typeVersion": 1
@@ -143,7 +146,7 @@
         "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "parametersBody": {
           "values": [
             {
@@ -157,7 +160,7 @@
           ]
         },
         "toolDescription": "Call this tool to request a Dall-E-3 model, when the user asks to draw something. If you gеt a response from this tool, forward it to the Telegram tool.",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {

@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "My workflow 2",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "084bcc9e-9d05-4b69-8cb1-eccdcb67358e",
@@ -270,13 +273,13 @@
             "pubDate": "={{ $json.pubDate }}",
             "abstract": "={{ $json.abstract.replaceAll('  ', '').substring(0, 49999) }}",
             "approx_traffic": "={{ $json.approx_traffic }}",
-            "news_item_url1": "={{ $json.news_item_url1 }}",
-            "news_item_url2": "={{ $json.news_item_url2 }}",
-            "news_item_url3": "={{ $json.news_item_url3 }}",
+            "news_item_url1": "{{ $env.BASE_URL }}",
+            "news_item_url2": "{{ $env.BASE_URL }}",
+            "news_item_url3": "{{ $env.BASE_URL }}",
             "news_item_title1": "={{ $json.news_item_title1 }}",
             "news_item_title2": "={{ $json.news_item_title2 }}",
             "news_item_title3": "={{ $json.news_item_title3 }}",
-            "trending_keyword": "YOUR_API_KEY",
+            "trending_keyword": "YOUR_CREDENTIAL_HERE",
             "news_item_source1": "={{ $json.news_item_source1 }}",
             "news_item_source2": "={{ $json.news_item_source2 }}",
             "news_item_source3": "={{ $json.news_item_source3 }}",
@@ -486,7 +489,7 @@
         1700
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('New keywords').item.json.news_item_url1 }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -525,7 +528,7 @@
         1700
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('New keywords').item.json.news_item_url2 }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -564,7 +567,7 @@
         1700
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('New keywords').item.json.news_item_url3 }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {

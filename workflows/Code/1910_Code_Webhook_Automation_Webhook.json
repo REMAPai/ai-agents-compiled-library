@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Lead Qualification with BatchData",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "376bc838-013e-4033-a508-d27a2a64d792",
@@ -49,9 +52,9 @@
         600
       ],
       "parameters": {
-        "url": "={{ $json.crmApiUrl }}/leads/{{ $json.leadId }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "typeVersion": 4.1
@@ -84,7 +87,7 @@
         "url": "{{ $env.API_BASE_URL }}",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -163,11 +166,11 @@
         620
       ],
       "parameters": {
-        "url": "={{ $json.crmApiUrl }}/leads/{{ $json.leadId }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -273,11 +276,11 @@
         320
       ],
       "parameters": {
-        "url": "={{ $json.crmApiUrl }}/tasks",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {

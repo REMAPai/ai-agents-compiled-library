@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Convert YouTube Videos into SEO Blog Posts",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "c79371d9-c1be-48d4-a2c7-d97a12f4e23c",
@@ -33,7 +36,7 @@
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -186,7 +189,7 @@
         "jsonBody": "={\n  \"model\": \"FLUX.1-dev\",\n  \"input\": {\n    \"prompt\": \"{{ $json.message.content.blogImagePrompt }}\"\n  }\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth"
       },
       "credentials": {
@@ -256,7 +259,7 @@
         "mode": "markdownToHtml",
         "options": {},
         "markdown": "={{ $('Generate Blog Post').item.json.message.content.content }}",
-        "destinationKey": "YOUR_API_KEY"
+        "destinationKey": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 1
     },
@@ -269,7 +272,7 @@
         0
       ],
       "parameters": {
-        "url": "={{ $('Generate AI Image').item.json.images[0].url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2

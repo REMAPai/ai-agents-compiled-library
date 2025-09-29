@@ -300,14 +300,14 @@
         340
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "={\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": {{ JSON.stringify($('Set Fields').item.json.prompt) }}\n      },\n      {\n        \"role\": \"user\",\n        \"content\": {{ JSON.stringify( JSON.stringify($('Webhook').item.json.body.json[0].items) ) }}\n      }\n    ],\n  \"response_format\":{ \"type\": \"json_schema\", \"json_schema\":  {{ $('Set Fields').item.json.schema }}\n\n }\n  }",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "openAiApi": {
@@ -813,5 +813,10 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ]
 }

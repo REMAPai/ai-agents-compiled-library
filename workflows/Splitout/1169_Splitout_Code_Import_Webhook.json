@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Workflow Importer",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "eb3d4912-09c3-4c17-8e2b-94dd15e145f4",
@@ -20,7 +23,7 @@
       "parameters": {
         "options": {},
         "operation": "fromJson",
-        "destinationKey": "YOUR_API_KEY",
+        "destinationKey": "YOUR_CREDENTIAL_HERE",
         "binaryPropertyName": "Workflow_File"
       },
       "typeVersion": 1
@@ -140,7 +143,7 @@
         620
       ],
       "parameters": {
-        "url": "={{ $json.instance.baseUrl }}/workflows",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendBody": true,
         "sendHeaders": true,
@@ -235,7 +238,7 @@
         "color": 5,
         "width": 535.6419634856759,
         "height": 223.19907940161124,
-        "content": "## Instances config example\n```\n[\n  {\n    \"name\": \"n8n-test\",\n    \"apiKey\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n    \"baseUrl\": \"https://n8n-test.example.com/api/v1\"\n  },\n  {\n    ...\n  }\n]\n```"
+        "content": "## Instances config example\n```\n[\n  {\n    \"name\": \"n8n-test\",\n    \"apiKey\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n    \"baseUrl\": \"{{ $env.API_BASE_URL }}\"\n  },\n  {\n    ...\n  }\n]\n```"
       },
       "typeVersion": 1
     },
@@ -392,8 +395,8 @@
         "keys": {
           "key": [
             {
-              "newKey": "allCredentials",
-              "currentKey": "data"
+              "newKey": "{{ $credentials.newKey }}",
+              "currentKey": "{{ $credentials.currentKey }}"
             }
           ]
         },
@@ -971,7 +974,7 @@
         "name": "={{ $json.name }}",
         "resource": "credential",
         "requestOptions": {},
-        "credentialTypeName": "YOUR_CREDENTIAL_ID"
+        "credentialTypeName": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {

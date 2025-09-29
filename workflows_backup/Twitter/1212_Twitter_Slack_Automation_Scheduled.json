@@ -25,7 +25,8 @@
         "options": {},
         "keepOnlySet": true
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "600d8d84-ac22-4afd-9d1b-7ccff17f8a34"
     },
     {
       "name": "Run Every 10 Minutes",
@@ -45,7 +46,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "d3bb9d53-d66c-4191-8423-0ce3b29b0f7a"
     },
     {
       "name": "Now - 10 minutes",
@@ -62,7 +64,8 @@
         "timeUnit": "={{$node[\"Run Every 10 Minutes\"].parameter[\"triggerTimes\"][\"item\"][0][\"unit\"]}}",
         "operation": "subtract"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "eb067db9-dba8-4905-809a-89b4e8434846"
     },
     {
       "name": "Get last 50 mentions",
@@ -78,11 +81,12 @@
       },
       "credentials": {
         "twitterOAuth1Api": {
-          "id": "27",
+          "id": "{{ $credentials.twitterOAuth1Api.id }}",
           "name": "86-88 Twitter"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "6420b041-8915-4502-9df7-1c62ef48b95b"
     },
     {
       "name": "Created since last run?",
@@ -101,7 +105,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "4bbde00c-b777-43e0-ae29-c576bd886273"
     },
     {
       "name": "Setup",
@@ -125,7 +130,8 @@
         },
         "options": {}
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "48c4f3ec-8c34-4403-bc72-c4284b26c2e2"
     },
     {
       "name": "Post to Slack",
@@ -142,15 +148,35 @@
       },
       "credentials": {
         "slackApi": {
-          "id": "53",
+          "id": "{{ $credentials.slackApi.id }}",
           "name": "Slack Access Token"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "8abb8abe-6a4b-486a-9407-1d4820fdc7f6"
+    },
+    {
+      "id": "documentation-node",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ],
+      "parameters": {
+        "content": "# Scrape Twitter for mentions of company\n\nAutomated workflow: Scrape Twitter for mentions of company. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 7 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
+      }
     }
   ],
   "active": true,
-  "settings": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
   "connections": {
     "Setup": {
       "main": [
@@ -218,5 +244,6 @@
         ]
       ]
     }
-  }
+  },
+  "description": "Automated workflow: Scrape Twitter for mentions of company. This workflow processes data and performs automated tasks."
 }

@@ -30,7 +30,7 @@
         640
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "pagination": {
             "pagination": {
@@ -50,8 +50,8 @@
         "jsonQuery": "={\n  \"created\": {\n    \"gte\":{{ $today.minus(20, 'days').toSeconds() }},\n    \"lte\":{{ $today.toSeconds() }}\n  }\n}",
         "sendQuery": true,
         "specifyQuery": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 4.2
     },
@@ -261,5 +261,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Splitout Workflow. This workflow integrates 5 different services: filter, httpRequest, stickyNote, splitOut, stopAndError. It contains 9 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Splitout Workflow. This workflow integrates 5 different services: filter, httpRequest, stickyNote, splitOut, stopAndError. It contains 9 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

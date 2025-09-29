@@ -126,7 +126,7 @@
         620
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey",
         "contextWindowLength": 15
       },
@@ -266,9 +266,9 @@
         "jsonBody": "={\n  \"parent\": {\n    \"database_id\": \"{{ $json.databaseID }}\"\n  },\n  \"properties\": {\n    \"Name\": {\n      \"title\": [\n        {\n          \"text\": {\n            \"content\": \"{title}\"\n          }\n        }\n      ]\n    },\n    \"Priority\": {\n      \"select\": {\n        \"name\": \"{priority}\"\n      }\n    }\n  },\n  \"children\": [\n    {\n      \"object\": \"block\",\n      \"type\": \"paragraph\",\n      \"paragraph\": {\n        \"rich_text\": [\n          {\n            \"type\": \"text\",\n            \"text\": {\n              \"content\": \"{description}\"\n            }\n          }\n        ]\n      }\n    }\n  ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "toolDescription": "Create a Task in Notion using a title, description and priority.",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE",
         "placeholderDefinitions": {
           "values": [
             {
@@ -373,7 +373,7 @@
         1100
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey",
         "contextWindowLength": 15
       },
@@ -393,9 +393,9 @@
         "jsonBody": "={\n  \"timeMin\": \"{timeMin}\",\n  \"timeMax\": \"{timeMax}\",\n  \"timeZone\": \"{{ $json.timeZone }}\",\n  \"groupExpansionMax\": 20,\n  \"calendarExpansionMax\": 10,\n  \"items\": [\n    {\n      \"id\": \"{{ $json.calendarID }}\"\n    }\n  ]\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "toolDescription": "Call this tool to get the calendar availability for a particular period on the calendar. The tool may refer to availability as \"Free\" or \"Busy\". \n\nUse {timeMin} and {timeMax} to specify the window for the availability query. For example, to get availability for 25 July, 2024 the {timeMin} would be 2024-07-25T00:00:00+02:00 and {timeMax} would be 2024-07-26T00:00:00+02:00.\n\nIf the tool returns an empty response, it means that something went wrong. It does not mean that there is no availability.",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 1
     },
@@ -408,14 +408,14 @@
         1100
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.calendarID }}/events",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "jsonBody": "={\n  \"summary\": \"{eventName}\",\n  \"start\": {\n    \"dateTime\": \"{startTime}\",\n    \"timeZone\": \"Europe/Berlin\"\n  },\n  \"end\": {\n    \"dateTime\": \"{endTime}\",\n    \"timeZone\": \"Europe/Berlin\"\n  }\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "toolDescription": "Call this tool to create an event in the calendar.",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE",
         "placeholderDefinitions": {
           "values": [
             {
@@ -538,7 +538,7 @@
         1100
       ],
       "parameters": {
-        "sessionKey": "YOUR_SESSION_KEY",
+        "sessionKey": "YOUR_CREDENTIAL_HERE",
         "sessionIdType": "customKey",
         "contextWindowLength": 15
       },
@@ -619,7 +619,7 @@
         "options": {},
         "httpMethod": "POST",
         "responseMode": "responseNode",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "typeVersion": 2
     },
@@ -1184,5 +1184,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Lmchatopenai Workflow. This workflow integrates 11 different services: webhook, stickyNote, toolHttpRequest, agent, respondToWebhook. It contains 41 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Lmchatopenai Workflow. This workflow integrates 11 different services: webhook, stickyNote, toolHttpRequest, agent, respondToWebhook. It contains 41 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

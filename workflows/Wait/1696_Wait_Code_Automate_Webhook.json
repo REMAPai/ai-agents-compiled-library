@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Automated Content SEO Audit Report",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "b5f15675-35c9-42a1-b7eb-bfaf0b467a5a",
@@ -100,10 +103,10 @@
         620
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.tasks[0].id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [
@@ -132,7 +135,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [
@@ -210,7 +213,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [
@@ -261,14 +264,14 @@
         680
       ],
       "parameters": {
-        "url": "={{ \n  $('Set Fields').first().json.gsc_property_type === 'domain' \n    ? '{{ $env.API_BASE_URL }}' + \n      'sc-domain:' + \n      $node[\"Loop Over Items\"].json.url.replace(/https?:\\/\\/(www\\.)?([^\\/]+).*/, '$2') + \n      '/searchAnalytics/query' \n    : '{{ $env.API_BASE_URL }}' + \n      encodeURIComponent(\n        $node[\"Loop Over Items\"].json.url.replace(/(https?:\\/\\/(?:www\\.)?[^\\/]+).*/, '$1')\n      ) + \n      '/searchAnalytics/query' \n}}",
+        "url": "{{ $env.BASE_URL }}",
         "body": "={\n  \"startDate\": \"{{ new Date(new Date().setDate(new Date().getDate() - 90)).toISOString().split('T')[0] }}\",\n  \"endDate\": \"{{ new Date().toISOString().split('T')[0] }}\",\n  \"dimensionFilterGroups\": [\n    {\n      \"filters\": [\n        {\n          \"dimension\": \"page\",\n          \"operator\": \"equals\",\n          \"expression\": \"{{ $node['Loop Over Items'].json.url }}\"\n        }\n      ]\n    }\n  ],\n  \"aggregationType\": \"auto\",\n  \"rowLimit\": 100\n}",
         "method": "POST",
         "options": {},
         "sendBody": true,
         "contentType": "raw",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "rawContentType": "JSON",
         "headerParameters": {
           "parameters": [
@@ -278,7 +281,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "retryOnFail": true,
       "typeVersion": 4.2,
@@ -428,7 +431,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [

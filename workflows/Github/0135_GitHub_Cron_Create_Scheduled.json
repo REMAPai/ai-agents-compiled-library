@@ -12,7 +12,8 @@
         "resource": "release",
         "operation": "getAll"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "bf7d4605-b066-4c6d-ad34-7fd02f5f081e"
     },
     {
       "name": "Cron",
@@ -30,7 +31,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "19c51102-b256-4ee7-bdb4-86b214a69123"
     },
     {
       "name": "Merge",
@@ -40,7 +42,8 @@
         420
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "14000e84-dd29-4a74-b2e6-42eb2d9f0295"
     },
     {
       "name": "No issue for release?",
@@ -53,7 +56,8 @@
         "functionCode": "const _ = require('lodash')\n\n// differentiate merged inputs (didnt find a way to get both inputs into one function invocation)\nconst releases = _.filter(items, i => _.has(i, 'json.assets'))\nif (releases.length != 1) throw new Error(`Invalid release count: ${releases.length}`)\nconst release = releases[0]\nconst issues = _.without(items, release)\n//console.log({release,issues})\n\n// check if there's an issue for the release\nconst matchingIssue = _.find(issues, i => i.json.title.includes(release.json.tag_name))\n//console.log({release,issues,matchingIssue})\n\nif (matchingIssue)\n  return []\nelse\n  return [release]"
       },
       "executeOnce": false,
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "55245df8-20a5-4d6c-9ce8-d32dfa0f6764"
     },
     {
       "name": "Create issue",
@@ -70,7 +74,8 @@
         "repository": "docker-linkcheck",
         "assignee_ids": []
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "85f9b593-e414-49fc-b00b-0e52e7444acc"
     },
     {
       "name": "List issues",
@@ -85,11 +90,12 @@
         "repository": "docker-linkcheck",
         "getRepositoryIssuesFilters": {}
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "5e1625b0-67c3-47a5-a4fc-f35eaa7d528b"
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -102,7 +108,7 @@
     },
     {
       "id": "documentation-61a9bc75",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -206,5 +212,9 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

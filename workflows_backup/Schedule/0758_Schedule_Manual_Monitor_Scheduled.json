@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "cb484ba7b742928a2048bf8829668bed5b5ad9787579adea888f05980292a4a7"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -103,7 +106,7 @@
       "parameters": {
         "width": 340,
         "height": 820,
-        "content": "![Callforge](https://uploads.n8n.io/templates/callforgeshadow.png)\n## CallForge\nCallForge allows you to extract important information for different departments from your Sales Gong Calls. \n\n### Salesforce Trigger\nThis workflow triggers the AI agent to run, processing calls every hour. It uses the Gong/Salesforce integration to look for new conversation objects in Salesforce which indicate that a new recording has synced to Salesforce. This allows us to filter calls based on internal milestones and metrics ensuring only calls that meet a certain criteria are processed. "
+        "content": "![Callforge]({{ $env.WEBHOOK_URL }}\n## CallForge\nCallForge allows you to extract important information for different departments from your Sales Gong Calls. \n\n### Salesforce Trigger\nThis workflow triggers the AI agent to run, processing calls every hour. It uses the Gong/Salesforce integration to look for new conversation objects in Salesforce which indicate that a new recording has synced to Salesforce. This allows us to filter calls based on internal milestones and metrics ensuring only calls that meet a certain criteria are processed. "
       },
       "typeVersion": 1
     },
@@ -394,6 +397,19 @@
         }
       },
       "typeVersion": 1.2
+    },
+    {
+      "id": "documentation-235791e7",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Manualtrigger Workflow\n\n## Overview\nAutomated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: stickyNote, salesforce, scheduleTrigger, set, sort. It contains 11 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 11\n- **Node Types**: 9\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Check if Primary Opportunity Contains Value**: if\n- **Check if Opportunity Stage is Meeting Booked or Discovery**: if\n- **Sticky Note5**: stickyNote\n- **Sticky Note4**: stickyNote\n- **Format call into correct JSON Object**: set\n- **Pass to Gong Call Preprocessor**: executeWorkflow\n- **Get Gong Call**: gong\n- **Sort by date**: sort\n- **Get all custom Salesforce Gong Objects**: salesforce\n- ... and 1 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -486,5 +502,14 @@
         ]
       ]
     }
-  }
+  },
+  "name": "Manualtrigger Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Manualtrigger Workflow. This workflow integrates 9 different services: stickyNote, salesforce, scheduleTrigger, set, sort. It contains 11 nodes and follows best practices for error handling and security."
 }

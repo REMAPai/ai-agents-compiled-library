@@ -10,7 +10,8 @@
         300
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "f43f0530-7091-4a88-9333-507ff8c16ec4"
     },
     {
       "name": "Current date",
@@ -22,7 +23,8 @@
       "parameters": {
         "functionCode": "var today = new Date();\nvar year = today.getFullYear();\nvar month = today.getMonth() + 1;\nvar day = today.getDate();\n\nif(month < 10) {\n  month = \"0\" + month;\n}\n\nitems[0].json.year = year;\nitems[0].json.month = month;\nitems[0].json.day = day;\n\nreturn items;"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "1bb0161e-1a38-4533-909c-a9e9425d7536"
     },
     {
       "name": "Every 23:45",
@@ -41,7 +43,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "78cd2038-7309-4626-84d2-53a69468661b"
     },
     {
       "name": "Get Year folder",
@@ -70,15 +73,16 @@
             }
           ]
         },
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "7",
+          "id": "{{ $credentials.googleDriveOAuth2Api.id }}",
           "name": "Google Drive account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "7f818f24-7fa9-4203-93aa-72ad69aadfe0"
     },
     {
       "name": "Get Month folder",
@@ -95,16 +99,17 @@
         },
         "operation": "list",
         "queryString": "='{{$json[\"id\"]}}' in parents and name = '{{$node[\"Current date\"].json[\"month\"]}}'",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "useQueryString": true
       },
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "7",
+          "id": "{{ $credentials.googleDriveOAuth2Api.id }}",
           "name": "Google Drive account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "4f13c5eb-daa4-4128-9d40-2152886635a7"
     },
     {
       "name": "Orlen Invoice",
@@ -124,11 +129,12 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "5",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "dbarwikowski Gmail account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "4131cf58-3557-4c96-a74c-7c44e0cd6142"
     },
     {
       "name": "Upload Invoice to Google Drive",
@@ -145,16 +151,17 @@
         ],
         "binaryData": true,
         "resolveData": true,
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "binaryPropertyName": "attachment_0"
       },
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "7",
+          "id": "{{ $credentials.googleDriveOAuth2Api.id }}",
           "name": "Google Drive account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "994830f7-3442-4cac-a540-6e1956e16c45"
     },
     {
       "name": "Mark as Read",
@@ -173,11 +180,12 @@
       },
       "credentials": {
         "gmailOAuth2": {
-          "id": "5",
+          "id": "{{ $credentials.gmailOAuth2.id }}",
           "name": "dbarwikowski Gmail account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "f1d5054b-a93f-4f39-a286-30100b7eec5b"
     },
     {
       "name": "Merge",
@@ -189,7 +197,8 @@
       "parameters": {
         "mode": "mergeByIndex"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "14c863bd-ee46-43b4-9954-59603d8fd0e9"
     },
     {
       "name": "Slack",
@@ -203,15 +212,16 @@
         "channel": "n8n",
         "attachments": [],
         "otherOptions": {},
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "slackOAuth2Api": {
-          "id": "6",
+          "id": "{{ $credentials.slackOAuth2Api.id }}",
           "name": "Slack account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "95fd287a-2a87-4a8d-955c-4df7c1ce8772"
     },
     {
       "id": "documentation-node",
@@ -229,7 +239,7 @@
   ],
   "active": true,
   "settings": {
-    "timezone": "Europe/Warsaw",
+    "timezone": "UTC",
     "saveExecutionProgress": "DEFAULT",
     "executionOrder": "v1",
     "saveManualExecutions": true,
@@ -340,5 +350,17 @@
       ]
     }
   },
-  "description": "Automated workflow: Orlen. This workflow processes data and performs automated tasks."
+  "description": "Automated workflow: Orlen. This workflow processes data and performs automated tasks.",
+  "meta": {
+    "instanceId": "workflow-07eb292a",
+    "versionId": "1.0.0",
+    "createdAt": "2025-09-29T06:40:00.424244",
+    "updatedAt": "2025-09-29T06:40:00.424258",
+    "owner": "n8n-user",
+    "license": "MIT"
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

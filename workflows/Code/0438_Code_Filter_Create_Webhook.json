@@ -31,7 +31,7 @@
         "query": "=query GetTeamsAndProjects {\n  teams(filter: {name: {contains: \"{{ $json['Linear team name'] }}\"}}) {\n    nodes {\n      id\n      name\n      members {\n        nodes {\n          id\n          name\n          email\n        }\n      }\n      projects {\n        nodes {\n          id\n          name\n          description\n        }\n      }\n    }\n  }\n}\n",
         "endpoint": "{{ $env.API_BASE_URL }}",
         "requestMethod": "GET",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -65,7 +65,7 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "80",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion david-internal"
         }
       },
@@ -139,7 +139,7 @@
       },
       "credentials": {
         "linearApi": {
-          "id": "218",
+          "id": "{{ $credentials.linearApi.id }}",
           "name": "Linear account (David)"
         }
       },
@@ -260,14 +260,14 @@
         2620
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Loop Over Items').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "jsonBody": "={\n  \"to_do\":\n    {{ JSON.stringify($('Set assignee and title').item.json.new_content).replace('$url', $json.data.issue.url) }}\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -276,11 +276,11 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "notionApi": {
-          "id": "80",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion david-internal"
         }
       },
@@ -298,7 +298,7 @@
         "query": "=query IssueDetails {\n  issue(id: \"{{ $json.id }}\") {\n    url\n  }\n}",
         "endpoint": "{{ $env.API_BASE_URL }}",
         "requestMethod": "GET",
-        "authentication": "headerAuth"
+        "authentication": "{{ $credentials.headerAuth }}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -541,7 +541,7 @@
       },
       "credentials": {
         "notionApi": {
-          "id": "80",
+          "id": "{{ $credentials.notionApi.id }}",
           "name": "Notion david-internal"
         }
       },
@@ -980,5 +980,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Splitinbatches Workflow. This workflow integrates 15 different services: stickyNote, httpRequest, filter, formTrigger, code. It contains 31 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Splitinbatches Workflow. This workflow integrates 15 different services: stickyNote, httpRequest, filter, formTrigger, code. It contains 31 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

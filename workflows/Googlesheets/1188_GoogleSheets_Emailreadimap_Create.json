@@ -21,7 +21,8 @@
         },
         "combineOperation": "any"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "b15e5cbe-1ca2-4e8d-9c41-15fb4c0b639f"
     },
     {
       "name": "Setup Variables",
@@ -41,7 +42,8 @@
         },
         "options": {}
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "3bb8576e-9b1b-4d02-b88f-7f93bc37e04f"
     },
     {
       "name": "Check for new emails",
@@ -59,11 +61,12 @@
       },
       "credentials": {
         "imap": {
-          "id": "24",
+          "id": "{{ $credentials.imap.id }}",
           "name": "GMAIL"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "baf1dfb8-0486-4dfc-b7c8-320d21ed2743"
     },
     {
       "name": "Read Receipts",
@@ -77,11 +80,12 @@
       },
       "credentials": {
         "mindeeReceiptApi": {
-          "id": "61",
+          "id": "{{ $credentials.mindeeReceiptApi.id }}",
           "name": "Mindee Receipt account"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "17b1387f-46e7-4184-a49d-a99eb1d518e3"
     },
     {
       "name": "Set column data",
@@ -117,7 +121,8 @@
         },
         "options": {}
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "d04b42ee-32e2-4985-aeff-86727cf0ebff"
     },
     {
       "name": "Add to Google Sheet",
@@ -131,15 +136,16 @@
         "options": {},
         "sheetId": "1xAtx1ORZYKu4urgqpOe3DawFjiWeOZO0VCVvOlQYnaE",
         "operation": "append",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "8",
+          "id": "{{ $credentials.googleSheetsOAuth2Api.id }}",
           "name": "Sheets"
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "0e943e58-3b1b-4bc3-8906-12838b9e6dbe"
     },
     {
       "id": "documentation-node",
@@ -153,6 +159,20 @@
       "parameters": {
         "content": "# Extract expenses from emails and add to Google Sheet\n\nAutomated workflow: Extract expenses from emails and add to Google Sheet. This workflow processes data and performs automated tasks.\n\n## Nodes:\n- 6 total nodes\n- Includes error handling\n- Follows best practices\n\n## Usage:\n1. Configure credentials\n2. Update environment variables\n3. Test workflow\n4. Deploy to production"
       }
+    },
+    {
+      "id": "error-handler-baf1dfb8-0486-4dfc-b7c8-320d21ed2743-917150e3",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution",
+        "options": {}
+      }
     }
   ],
   "active": false,
@@ -160,7 +180,8 @@
     "executionOrder": "v1",
     "saveManualExecutions": true,
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": null
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "connections": {
     "Check subject": {
@@ -217,7 +238,32 @@
           }
         ]
       ]
+    },
+    "baf1dfb8-0486-4dfc-b7c8-320d21ed2743": {
+      "main": [
+        [
+          {
+            "node": "error-handler-baf1dfb8-0486-4dfc-b7c8-320d21ed2743-917150e3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "description": "Automated workflow: Extract expenses from emails and add to Google Sheet. This workflow processes data and performs automated tasks."
+  "description": "Automated workflow: Extract expenses from emails and add to Google Sheet. This workflow processes data and performs automated tasks.",
+  "meta": {
+    "instanceId": "workflow-d71e260d",
+    "versionId": "1.0.0",
+    "createdAt": "2025-09-29T06:39:53.715615",
+    "updatedAt": "2025-09-29T06:39:53.715625",
+    "owner": "n8n-user",
+    "license": "MIT"
+  },
+  "tags": [
+    "automation",
+    "n8n",
+    "communication",
+    "google"
+  ]
 }

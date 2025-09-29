@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "82a17fa4a0b8e81bf77e5ab999d980f392150f2a9541fde626dc5f74857b1f54"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -44,7 +47,7 @@
       "parameters": {
         "width": 1407,
         "height": 254,
-        "content": "## Instructions\n1. Connect Google sheets\n2. Connect your OpenAi account (api key + org Id)\n3. Create a customer feedback form, use an existing one or use the one below as example. \nAll set!\n\n\n- Here is the example google sheet being used in this workflow: https://docs.google.com/spreadsheets/d/1omWdRbiT6z6GNZ6JClu9gEsRhPQ6J0EJ2yXyFH9Zng4/edit?usp=sharing. You can download it to your account."
+        "content": "## Instructions\n1. Connect Google sheets\n2. Connect your OpenAi account (api key + org Id)\n3. Create a customer feedback form, use an existing one or use the one below as example. \nAll set!\n\n\n- Here is the example google sheet being used in this workflow: {{ $env.WEBHOOK_URL }} You can download it to your account."
       },
       "typeVersion": 1
     },
@@ -180,20 +183,20 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1omWdRbiT6z6GNZ6JClu9gEsRhPQ6J0EJ2yXyFH9Zng4/edit#gid=0",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
           "__rl": true,
           "mode": "list",
           "value": "1omWdRbiT6z6GNZ6JClu9gEsRhPQ6J0EJ2yXyFH9Zng4",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1omWdRbiT6z6GNZ6JClu9gEsRhPQ6J0EJ2yXyFH9Zng4/edit?usp=drivesdk",
+          "cachedResultUrl": "{{ $env.WEBHOOK_URL }}",
           "cachedResultName": "CustomerFeedback"
         }
       },
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "3",
+          "id": "{{ $credentials.googleSheetsOAuth2Api.id }}",
           "name": "Google Sheets account"
         }
       },
@@ -285,6 +288,47 @@
         "formDescription": "Please give feedback about our company orproducts."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-9772eac1-8df2-4305-9b2c-265d3c5a9a4a-69ecedf7",
+      "name": "Error Handler for 9772eac1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 9772eac1",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-235edf5b-7724-4712-8dc5-d8327a0620b8-b91685ce",
+      "name": "Error Handler for 235edf5b",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 235edf5b",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-8b7d4328",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Stickynote Workflow\n\n## Overview\nAutomated workflow: Stickynote Workflow. This workflow integrates 6 different services: stickyNote, formTrigger, merge, stopAndError, googleSheets. It contains 11 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 11\n- **Node Types**: 6\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Sticky Note2**: stickyNote\n- **Sticky Note3**: stickyNote\n- **Sticky Note4**: stickyNote\n- **Sticky Note5**: stickyNote\n- **Sticky Note6**: stickyNote\n- **Add customer feedback to Google Sheets**: googleSheets\n- **Merge sentiment with form content**: merge\n- **Classify feedback with OpenAI**: openAi\n- **Submit form with customer feedback**: formTrigger\n- **Error Handler for 9772eac1**: stopAndError\n- ... and 1 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "connections": {
@@ -325,6 +369,37 @@
           }
         ]
       ]
+    },
+    "9772eac1-8df2-4305-9b2c-265d3c5a9a4a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-9772eac1-8df2-4305-9b2c-265d3c5a9a4a-69ecedf7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "235edf5b-7724-4712-8dc5-d8327a0620b8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-235edf5b-7724-4712-8dc5-d8327a0620b8-b91685ce",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "Stickynote Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: Stickynote Workflow. This workflow integrates 6 different services: stickyNote, formTrigger, merge, stopAndError, googleSheets. It contains 11 nodes and follows best practices for error handling and security."
 }

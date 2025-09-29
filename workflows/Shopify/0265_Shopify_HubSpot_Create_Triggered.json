@@ -20,7 +20,7 @@
       },
       "credentials": {
         "shopifyApi": {
-          "id": "10",
+          "id": "{{ $credentials.shopifyApi.id }}",
           "name": "Shopify account"
         }
       },
@@ -89,7 +89,7 @@
       ],
       "parameters": {
         "stage": "closedwon",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "amount": "={{ $node[\"Add Hubspot userId to data\"].json[\"current_total_price\"] }}",
           "dealName": "={{ $node[\"Add Hubspot userId to data\"].json[\"name\"] }}",
@@ -99,7 +99,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "21",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot account"
         }
       },
@@ -115,14 +115,14 @@
       ],
       "parameters": {
         "operation": "search",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "query": "={{ $json[\"name\"] }}"
         }
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "21",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot account"
         }
       },
@@ -153,7 +153,7 @@
       "parameters": {
         "email": "={{ $json[\"contact_email\"] }}",
         "resource": "contact",
-        "authentication": "oAuth2",
+        "authentication": "{{ $credentials.oAuth2 }}",
         "additionalFields": {
           "city": "={{ $json[\"customer\"][\"default_address\"][\"city\"] }}",
           "country": "={{ $json[\"customer\"][\"default_address\"][\"country\"] }}",
@@ -163,7 +163,7 @@
       },
       "credentials": {
         "hubspotOAuth2Api": {
-          "id": "21",
+          "id": "{{ $credentials.hubspotOAuth2Api.id }}",
           "name": "HubSpot account"
         }
       },
@@ -171,7 +171,7 @@
     },
     {
       "id": "documentation-node",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -184,7 +184,7 @@
     },
     {
       "id": "documentation-b2f42bc0",
-      "name": "Workflow Documentation",
+      "name": "Workflow Documentation 2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -284,5 +284,9 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": null,
     "timezone": "UTC"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

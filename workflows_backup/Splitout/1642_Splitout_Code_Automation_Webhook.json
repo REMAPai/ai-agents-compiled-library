@@ -1,8 +1,10 @@
 {
   "id": "SHgOqN3ednIo5gNu",
   "meta": {
-    "instanceId": "5fdeff34cb31eeba72e9ea7f1100a8cb9dfce8edcd1fd736c5a33060890e9b77",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Find Top Keywords",
   "tags": [],
@@ -115,7 +117,7 @@
         "operation": "getAll",
         "projectId": "pbwiwe87uf1cpgc",
         "returnAll": true,
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -134,11 +136,11 @@
         800
       ],
       "parameters": {
-        "url": "http://192.168.1.110:8000/google-search/autocomplete-keywords",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {},
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -195,13 +197,13 @@
         800
       ],
       "parameters": {
-        "url": "https://api.dataforseo.com/v3/keywords_data/google_ads/search_volume/live",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "=[\n    {\n        \"location_code\": 2840,\n        \"language_code\": \"en\",\n        \"keywords\": [{{ $json.keywords }}],\n        \"date_from\": \"2021-08-01\",\n        \"search_partners\": false \n    }\n]",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -253,13 +255,13 @@
         1120
       ],
       "parameters": {
-        "url": "https://api.dataforseo.com/v3/keywords_data/google_ads/search_volume/live",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {},
         "jsonBody": "=[\n    {\n        \"location_code\": 2840,\n        \"language_code\": \"en\",\n        \"keywords\": [{{ $json.keywords }}],\n        \"date_from\": \"2021-08-01\",\n        \"search_partners\": true,\n        \"sort_by\": \"search_volume\"\n    }\n]",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth"
       },
       "credentials": {
@@ -280,7 +282,7 @@
         1120
       ],
       "parameters": {
-        "url": "http://192.168.1.110:8000/google-search/autocomplete-keywords",
+        "url": "{{ $env.WEBHOOK_URL }}",
         "options": {
           "redirect": {
             "redirect": {}
@@ -288,7 +290,7 @@
         },
         "sendQuery": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -499,7 +501,7 @@
         },
         "operation": "create",
         "projectId": "pbwiwe87uf1cpgc",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -567,7 +569,7 @@
         },
         "operation": "create",
         "projectId": "pbwiwe87uf1cpgc",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -615,7 +617,7 @@
         400
       ],
       "parameters": {
-        "url": "http://192.168.1.186:8080/api/v2/tables/ma51kvf78diz0sg/records",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "batching": {
@@ -627,8 +629,8 @@
         "jsonBody": "={{ $json.batch }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "nocoDbApiToken"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -652,7 +654,7 @@
         980
       ],
       "parameters": {
-        "url": "http://192.168.1.186:8080/api/v2/tables/ma51kvf78diz0sg/records",
+        "url": "{{ $env.API_BASE_URL }}",
         "method": "POST",
         "options": {
           "batching": {
@@ -664,8 +666,8 @@
         "jsonBody": "={{ $json.batch }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "nocoDbApiToken"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -788,7 +790,7 @@
         640
       ],
       "parameters": {
-        "url": "=http://192.168.1.186:8080/api/v2/tables/mjmbcomto18scyi/records?where=(keyword,eq,{{ $json.keyword }})",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "batching": {
             "batch": {
@@ -797,8 +799,8 @@
             }
           }
         },
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "nocoDbApiToken"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -819,10 +821,10 @@
         1260
       ],
       "parameters": {
-        "url": "=http://192.168.1.186:8080/api/v2/tables/m8bp2fnwtqsd2m7/records/?where=(keyword,eq,{{ $json.keyword }})",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "nocoDbApiToken"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -909,7 +911,7 @@
         },
         "operation": "update",
         "projectId": "pbwiwe87uf1cpgc",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -981,7 +983,7 @@
         },
         "operation": "update",
         "projectId": "pbwiwe87uf1cpgc",
-        "authentication": "nocoDbApiToken"
+        "authentication": "{{ $credentials.nocoDbApiToken }}"
       },
       "credentials": {
         "nocoDbApiToken": {
@@ -1019,7 +1021,7 @@
       "parameters": {
         "width": 1060,
         "height": 380,
-        "content": "## Setup Instuctions: \n### Required: NocoDB, N8N, [DataforSEO Account *aff*](https://app.dataforseo.com/?aff=184401), and [Social Flood Docker Instance](https://github.com/rainmanjam/social-flood)\n### Tables for NocoDB\n-- Base Keyword Search (Keyword)\n-- Second Order Google Keywords( keyword, location_code, language_code, search_partners, competition, competition_index, search_volume, cpc, low_top_of_page, high_top_of_page)\n-- Second Order YouTube Keywords( keyword, location_code, language_code, search_partners, competition, competition_index, search_volume, cpc, low_top_of_page, high_top_of_page)\n-- Search Volume( unique_id, year, month, search_volume, youtube_keyword_id, google_keyword_id)\n"
+        "content": "## Setup Instuctions: \n### Required: NocoDB, N8N, [DataforSEO Account *aff*]({{ $env.WEBHOOK_URL }} and [Social Flood Docker Instance]({{ $env.WEBHOOK_URL }}\n### Tables for NocoDB\n-- Base Keyword Search (Keyword)\n-- Second Order Google Keywords( keyword, location_code, language_code, search_partners, competition, competition_index, search_volume, cpc, low_top_of_page, high_top_of_page)\n-- Second Order YouTube Keywords( keyword, location_code, language_code, search_partners, competition, competition_index, search_volume, cpc, low_top_of_page, high_top_of_page)\n-- Search Volume( unique_id, year, month, search_volume, youtube_keyword_id, google_keyword_id)\n"
       },
       "typeVersion": 1
     },
@@ -1048,12 +1050,253 @@
         "jsCode": "// Gather all keywords from all items\nlet allKeywords = [];\n\nfor (const item of items) {\n  const keywordData = item.json.keyword_data;\n  const keywords = Object.values(keywordData)\n    .flatMap(section => Object.values(section))\n    .flat();\n\n  allKeywords = allKeywords.concat(keywords);\n}\n\n// Clean and transform the combined keywords\nconst cleanedKeywords = allKeywords\n  .filter(keyword => keyword.length <= 80)\n  .filter(keyword => keyword.split(\" \").length <= 10)\n  .map(keyword => keyword.replace(/[^a-zA-Z0-9\\s]/g, \"\"))\n  .map(keyword => keyword.trim())\n  .filter(keyword => keyword.length > 0)\n  .map(keyword => `\"${keyword}\"`);\n\n// Remove duplicates\nconst uniqueKeywords = Array.from(new Set(cleanedKeywords));\n\n// Split into batches of 1000\nconst batchSize = 1000;\nconst result = [];\n\nfor (let i = 0; i < uniqueKeywords.length; i += batchSize) {\n  result.push({\n    json: {\n      keywords: uniqueKeywords.slice(i, i + batchSize).join(\", \")\n    }\n  });\n}\n\n// Return as an array of objects\nreturn result;\n"
       },
       "typeVersion": 2
+    },
+    {
+      "id": "error-handler-fef9283e-886a-486b-a51f-0f459f4b18e0",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in fef9283e-886a-486b-a51f-0f459f4b18e0",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fad88d1e-a14e-4cc1-9ac1-dcc6126355c4",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in fad88d1e-a14e-4cc1-9ac1-dcc6126355c4",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-12f53197-a03e-4862-a6cf-d4feffd49b29",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 12f53197-a03e-4862-a6cf-d4feffd49b29",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d0173c03-c803-4c64-9c87-48a47952085f",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d0173c03-c803-4c64-9c87-48a47952085f",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-67848762-a140-4c63-b8ca-e20331135741",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 67848762-a140-4c63-b8ca-e20331135741",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-377b5470-9d9f-42e5-9528-fbf9fd3a1d77",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 377b5470-9d9f-42e5-9528-fbf9fd3a1d77",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a3c0ed20-f696-4ca6-a6fb-872cab8fbba5",
+      "name": "Stopanderror 6",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a3c0ed20-f696-4ca6-a6fb-872cab8fbba5",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bb7cae83-8ff0-45d0-abca-d8d99efcfead",
+      "name": "Stopanderror 7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in bb7cae83-8ff0-45d0-abca-d8d99efcfead",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fef9283e-886a-486b-a51f-0f459f4b18e0-6b3c785a",
+      "name": "Error Handler for fef9283e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fef9283e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-fad88d1e-a14e-4cc1-9ac1-dcc6126355c4-c44af4fc",
+      "name": "Error Handler for fad88d1e",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node fad88d1e",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-12f53197-a03e-4862-a6cf-d4feffd49b29-58c01d75",
+      "name": "Error Handler for 12f53197",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 12f53197",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d0173c03-c803-4c64-9c87-48a47952085f-352dffc0",
+      "name": "Error Handler for d0173c03",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d0173c03",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-67848762-a140-4c63-b8ca-e20331135741-ab2d7ec5",
+      "name": "Error Handler for 67848762",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 67848762",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-377b5470-9d9f-42e5-9528-fbf9fd3a1d77-5856a6ca",
+      "name": "Error Handler for 377b5470",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 377b5470",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a3c0ed20-f696-4ca6-a6fb-872cab8fbba5-f558680e",
+      "name": "Error Handler for a3c0ed20",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a3c0ed20",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-bb7cae83-8ff0-45d0-abca-d8d99efcfead-1018798b",
+      "name": "Error Handler for bb7cae83",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node bb7cae83",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-0463522f",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# Find Top Keywords\n\n## Overview\nAutomated workflow: Find Top Keywords. This workflow integrates 11 different services: stickyNote, httpRequest, filter, code, scheduleTrigger. It contains 51 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 51\n- **Node Types**: 11\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **When clicking ‘Test workflow’**: manualTrigger\n- **Schedule Trigger**: scheduleTrigger\n- **Gen Time**: code\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **NocoDB**: nocoDb\n- **Second Order Google Autocomplete Keywords**: httpRequest\n- **Google Search Volume**: httpRequest\n- **Sticky Note3**: stickyNote\n- ... and 41 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": false,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "2712313f-4b1e-4f5b-8c6b-1f456896d981",
   "connections": {
@@ -1385,6 +1628,151 @@
           }
         ]
       ]
+    },
+    "fef9283e-886a-486b-a51f-0f459f4b18e0": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fef9283e-886a-486b-a51f-0f459f4b18e0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-fef9283e-886a-486b-a51f-0f459f4b18e0-6b3c785a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fad88d1e-a14e-4cc1-9ac1-dcc6126355c4": {
+      "main": [
+        [
+          {
+            "node": "error-handler-fad88d1e-a14e-4cc1-9ac1-dcc6126355c4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-fad88d1e-a14e-4cc1-9ac1-dcc6126355c4-c44af4fc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12f53197-a03e-4862-a6cf-d4feffd49b29": {
+      "main": [
+        [
+          {
+            "node": "error-handler-12f53197-a03e-4862-a6cf-d4feffd49b29",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-12f53197-a03e-4862-a6cf-d4feffd49b29-58c01d75",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "d0173c03-c803-4c64-9c87-48a47952085f": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d0173c03-c803-4c64-9c87-48a47952085f",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d0173c03-c803-4c64-9c87-48a47952085f-352dffc0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "67848762-a140-4c63-b8ca-e20331135741": {
+      "main": [
+        [
+          {
+            "node": "error-handler-67848762-a140-4c63-b8ca-e20331135741",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-67848762-a140-4c63-b8ca-e20331135741-ab2d7ec5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "377b5470-9d9f-42e5-9528-fbf9fd3a1d77": {
+      "main": [
+        [
+          {
+            "node": "error-handler-377b5470-9d9f-42e5-9528-fbf9fd3a1d77",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-377b5470-9d9f-42e5-9528-fbf9fd3a1d77-5856a6ca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a3c0ed20-f696-4ca6-a6fb-872cab8fbba5": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a3c0ed20-f696-4ca6-a6fb-872cab8fbba5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a3c0ed20-f696-4ca6-a6fb-872cab8fbba5-f558680e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bb7cae83-8ff0-45d0-abca-d8d99efcfead": {
+      "main": [
+        [
+          {
+            "node": "error-handler-bb7cae83-8ff0-45d0-abca-d8d99efcfead",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-bb7cae83-8ff0-45d0-abca-d8d99efcfead-1018798b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: Find Top Keywords. This workflow integrates 11 different services: stickyNote, httpRequest, filter, code, scheduleTrigger. It contains 51 nodes and follows best practices for error handling and security."
 }

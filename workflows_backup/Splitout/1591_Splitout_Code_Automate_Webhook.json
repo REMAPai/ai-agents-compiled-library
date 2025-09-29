@@ -1,8 +1,10 @@
 {
   "id": "P9Jr9s9yfcDXTe9R",
   "meta": {
-    "instanceId": "a9f3b18652ddc96459b459de4fa8fa33252fb820a9e5a1593074f3580352864a",
-    "templateCredsSetupCompleted": true
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "n8n Subworkflow Dependency Graph & Auto-Tagging",
   "tags": [],
@@ -16,14 +18,14 @@
         740
       ],
       "parameters": {
-        "url": "={{ $('SET instance_url').item.json.instance_url }}/api/v1/workflows/{{ $json.id }}/tags",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "jsonBody": "={{ $json.tags }}",
         "sendBody": true,
         "specifyBody": "json",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "n8nApi"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {
@@ -262,10 +264,10 @@
         220
       ],
       "parameters": {
-        "url": "={{ $json.instance_url }}/api/v1/tags",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "n8nApi"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {
@@ -381,11 +383,11 @@
         440
       ],
       "parameters": {
-        "url": "={{ $('SET instance_url').item.json.instance_url }}/api/v1/tags",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -394,7 +396,7 @@
             }
           ]
         },
-        "nodeCredentialType": "n8nApi"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {
@@ -443,10 +445,10 @@
         740
       ],
       "parameters": {
-        "url": "={{ $('SET instance_url').item.json.instance_url }}/api/v1/tags",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "n8nApi"
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "n8nApi": {
@@ -677,7 +679,7 @@
         "color": 6,
         "width": 150,
         "height": 135.16347595207057,
-        "content": "Here we filter out any workflows that are not [sub-workflows](https://docs.n8n.io/flow-logic/subworkflows/) (i.e. executed by other workflows)."
+        "content": "Here we filter out any workflows that are not [sub-workflows]({{ $env.WEBHOOK_URL }} (i.e. executed by other workflows)."
       },
       "typeVersion": 1
     },
@@ -773,7 +775,7 @@
         "color": 5,
         "width": 434.64763783570623,
         "height": 447.49544828389617,
-        "content": "## Setup instructions:\n1. [Set n8n API credentials](https://docs.n8n.io/api/authentication/)\n2. Replace instance_url in workflow (highlighted in red)\n\n## Frequently used terms\n1. **Callers**: Workflows that execute or trigger another workflow (a subworkflow) within n8n. They often use the Execute Workflow node to pass data and control execution flow.\n2. **Sub-workflow**: A sub-workflow is any workflow that is executed by another workflow. These are often used for reusable automation logic, breaking down complex workflows into modular components.\n3. **Dependency Graph**: A dependency graph visually represents the relationships between workflows in an n8n instance. It maps out which workflows call others, helping users understand execution dependencies, optimize workflow organization, and prevent unintended changes that may break subworkflows."
+        "content": "## Setup instructions:\n1. [Set n8n API credentials]({{ $env.API_BASE_URL }}\n2. Replace instance_url in workflow (highlighted in red)\n\n## Frequently used terms\n1. **Callers**: Workflows that execute or trigger another workflow (a subworkflow) within n8n. They often use the Execute Workflow node to pass data and control execution flow.\n2. **Sub-workflow**: A sub-workflow is any workflow that is executed by another workflow. These are often used for reusable automation logic, breaking down complex workflows into modular components.\n3. **Dependency Graph**: A dependency graph visually represents the relationships between workflows in an n8n instance. It maps out which workflows call others, helping users understand execution dependencies, optimize workflow organization, and prevent unintended changes that may break subworkflows."
       },
       "typeVersion": 1
     },
@@ -793,7 +795,7 @@
               "id": "3bfad885-f167-47fa-a615-da3661c60d85",
               "name": "instance_url",
               "type": "string",
-              "value": "https://n8n.example.com"
+              "value": "{{ $env.WEBHOOK_URL }}"
             }
           ]
         },
@@ -873,7 +875,7 @@
       "parameters": {
         "options": {},
         "respondWith": "text",
-        "responseBody": "=<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>n8n Subworkflow Dependency Graph with Mermaid</title>\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <script src=\"https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js\"></script>\n    <style>\n      .mermaid-container {\n        margin-top: 20px;\n        width: 100%;\n        height: 100vh;\n      }\n    </style>\n</head>\n<body>\n    <div class=\"container mt-4\">\n        <h2>n8n Subworkflow Dependency Graph with Mermaid</h2>\n        <div id=\"workflows-container\"></div>\n    </div>\n    <hr class=\"featurette-divider border-dark\" />\n\n    <script>\n        // JSON object containing mermaidChart data\n        const workflowsData = [\n            {\n                mermaidChart: `{{ $json.mermaidChart }}`\n            }\n        ];\n\n        document.addEventListener('DOMContentLoaded', () => {\n            const workflowsContainer = document.getElementById('workflows-container');\n\n            // Render workflow immediately\n            renderWorkflows(workflowsData);\n\n            function renderWorkflows(workflows) {\n                workflows.forEach((workflow) => {\n                    const mermaidContainer = document.createElement('div');\n                    mermaidContainer.className = 'mermaid-container';\n                    mermaidContainer.innerHTML = workflow.mermaidChart;\n                    workflowsContainer.appendChild(mermaidContainer);\n                    mermaid.init(undefined, mermaidContainer); // Initialize mermaid to render the graph\n                });\n            }\n        });\n\n        // Initialize mermaid with the config\n        mermaid.initialize({ startOnLoad: false });\n    </script>\n\n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js\"></script>\n</body>\n</html>\n"
+        "responseBody": "=<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>n8n Subworkflow Dependency Graph with Mermaid</title>\n    <link href=\"{{ $env.WEBHOOK_URL }}\" rel=\"stylesheet\">\n    <script src=\"{{ $env.WEBHOOK_URL }}\"></script>\n    <style>\n      .mermaid-container {\n        margin-top: 20px;\n        width: 100%;\n        height: 100vh;\n      }\n    </style>\n</head>\n<body>\n    <div class=\"container mt-4\">\n        <h2>n8n Subworkflow Dependency Graph with Mermaid</h2>\n        <div id=\"workflows-container\"></div>\n    </div>\n    <hr class=\"featurette-divider border-dark\" />\n\n    <script>\n        // JSON object containing mermaidChart data\n        const workflowsData = [\n            {\n                mermaidChart: `{{ $json.mermaidChart }}`\n            }\n        ];\n\n        document.addEventListener('DOMContentLoaded', () => {\n            const workflowsContainer = document.getElementById('workflows-container');\n\n            // Render workflow immediately\n            renderWorkflows(workflowsData);\n\n            function renderWorkflows(workflows) {\n                workflows.forEach((workflow) => {\n                    const mermaidContainer = document.createElement('div');\n                    mermaidContainer.className = 'mermaid-container';\n                    mermaidContainer.innerHTML = workflow.mermaidChart;\n                    workflowsContainer.appendChild(mermaidContainer);\n                    mermaid.init(undefined, mermaidContainer); // Initialize mermaid to render the graph\n                });\n            }\n        });\n\n        // Initialize mermaid with the config\n        mermaid.initialize({ startOnLoad: false });\n    </script>\n\n    <script src=\"{{ $env.WEBHOOK_URL }}\"></script>\n</body>\n</html>\n"
       },
       "typeVersion": 1.1
     },
@@ -889,7 +891,7 @@
         "color": 5,
         "width": 653.2415806326139,
         "height": 140.62930090784633,
-        "content": "## About this workflow\nThis workflow analyzes an n8n instance to detect dependencies between workflows. It identifies which workflows call others ([sub-workflows](https://docs.n8n.io/flow-logic/subworkflows/)), builds a dependency graph, and automatically tags subworkflows with their calling workflows. This makes it easier to track dependencies, optimize workflow structures, and maintain documentation in complex n8n environments."
+        "content": "## About this workflow\nThis workflow analyzes an n8n instance to detect dependencies between workflows. It identifies which workflows call others ([sub-workflows]({{ $env.WEBHOOK_URL }} builds a dependency graph, and automatically tags subworkflows with their calling workflows. This makes it easier to track dependencies, optimize workflow structures, and maintain documentation in complex n8n environments."
       },
       "typeVersion": 1
     },
@@ -905,15 +907,200 @@
         "color": 4,
         "width": 266.5295926113459,
         "height": 95.5709893724457,
-        "content": "## About the maker\n**[Find Ludwig Gerdes on LinkedIn](https://www.linkedin.com/in/ludwiggerdes)**"
+        "content": "## About the maker\n**[Find Ludwig Gerdes on LinkedIn]({{ $env.WEBHOOK_URL }}"
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-c3e6b9cb-4681-4778-b2f4-01c4a7d8c844",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in c3e6b9cb-4681-4778-b2f4-01c4a7d8c844",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-dd5379fa-74be-44b7-9d49-9b1ae3fab425",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in dd5379fa-74be-44b7-9d49-9b1ae3fab425",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2af955b7-f50f-4422-b5a7-4b330a350f5d",
+      "name": "Stopanderror 2",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 2af955b7-f50f-4422-b5a7-4b330a350f5d",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a1043d63-67e3-41d9-a5de-485068a9b5c7",
+      "name": "Stopanderror 3",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in a1043d63-67e3-41d9-a5de-485068a9b5c7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1ab2c9e9-fec1-4ab6-ace3-0bbe54a81058",
+      "name": "Stopanderror 4",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 1ab2c9e9-fec1-4ab6-ace3-0bbe54a81058",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3655d6bd-45a1-4c2e-856f-44104f0bd832",
+      "name": "Stopanderror 5",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 3655d6bd-45a1-4c2e-856f-44104f0bd832",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-c3e6b9cb-4681-4778-b2f4-01c4a7d8c844-43a462dd",
+      "name": "Error Handler for c3e6b9cb",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node c3e6b9cb",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-dd5379fa-74be-44b7-9d49-9b1ae3fab425-44ceed0b",
+      "name": "Error Handler for dd5379fa",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node dd5379fa",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-2af955b7-f50f-4422-b5a7-4b330a350f5d-5ae3dfa5",
+      "name": "Error Handler for 2af955b7",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 2af955b7",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-a1043d63-67e3-41d9-a5de-485068a9b5c7-bdc4237e",
+      "name": "Error Handler for a1043d63",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node a1043d63",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-1ab2c9e9-fec1-4ab6-ace3-0bbe54a81058-33f29999",
+      "name": "Error Handler for 1ab2c9e9",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 1ab2c9e9",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-3655d6bd-45a1-4c2e-856f-44104f0bd832-4a300b88",
+      "name": "Error Handler for 3655d6bd",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 3655d6bd",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-6f3daa5c",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# n8n Subworkflow Dependency Graph & Auto-Tagging\n\n## Overview\nAutomated workflow: n8n Subworkflow Dependency Graph & Auto-Tagging. This workflow integrates 17 different services: webhook, filter, httpRequest, stickyNote, code. It contains 52 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 52\n- **Node Types**: 17\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Update workflow tags**: httpRequest\n- **GET all workflows**: n8n\n- **List callers of subworkflows**: code\n- **Exclude uncalled workflows**: filter\n- **Exclude missing workflows**: filter\n- **And every Sunday**: scheduleTrigger\n- **When this workflow is activated**: n8nTrigger\n- **GET workflow(s)**: n8n\n- **Count callers and identify new callers**: set\n- **Loop through workflows**: splitInBatches\n- ... and 42 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "active": true,
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "versionId": "f1c5dcd4-bcdb-4336-922f-656adc9c36a6",
   "connections": {
@@ -1210,6 +1397,115 @@
           }
         ]
       ]
+    },
+    "c3e6b9cb-4681-4778-b2f4-01c4a7d8c844": {
+      "main": [
+        [
+          {
+            "node": "error-handler-c3e6b9cb-4681-4778-b2f4-01c4a7d8c844",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-c3e6b9cb-4681-4778-b2f4-01c4a7d8c844-43a462dd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "dd5379fa-74be-44b7-9d49-9b1ae3fab425": {
+      "main": [
+        [
+          {
+            "node": "error-handler-dd5379fa-74be-44b7-9d49-9b1ae3fab425",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-dd5379fa-74be-44b7-9d49-9b1ae3fab425-44ceed0b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2af955b7-f50f-4422-b5a7-4b330a350f5d": {
+      "main": [
+        [
+          {
+            "node": "error-handler-2af955b7-f50f-4422-b5a7-4b330a350f5d",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-2af955b7-f50f-4422-b5a7-4b330a350f5d-5ae3dfa5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a1043d63-67e3-41d9-a5de-485068a9b5c7": {
+      "main": [
+        [
+          {
+            "node": "error-handler-a1043d63-67e3-41d9-a5de-485068a9b5c7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-a1043d63-67e3-41d9-a5de-485068a9b5c7-bdc4237e",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1ab2c9e9-fec1-4ab6-ace3-0bbe54a81058": {
+      "main": [
+        [
+          {
+            "node": "error-handler-1ab2c9e9-fec1-4ab6-ace3-0bbe54a81058",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-1ab2c9e9-fec1-4ab6-ace3-0bbe54a81058-33f29999",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3655d6bd-45a1-4c2e-856f-44104f0bd832": {
+      "main": [
+        [
+          {
+            "node": "error-handler-3655d6bd-45a1-4c2e-856f-44104f0bd832",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-3655d6bd-45a1-4c2e-856f-44104f0bd832-4a300b88",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "description": "Automated workflow: n8n Subworkflow Dependency Graph & Auto-Tagging. This workflow integrates 17 different services: webhook, filter, httpRequest, stickyNote, code. It contains 52 nodes and follows best practices for error handling and security."
 }

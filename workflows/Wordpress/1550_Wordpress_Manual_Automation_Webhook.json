@@ -119,7 +119,7 @@
           "value": "=deepseek-chat"
         },
         "options": {
-          "maxTokens": 2048
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "messages": {
           "values": [
@@ -152,7 +152,7 @@
           "value": "=deepseek-chat"
         },
         "options": {
-          "maxTokens": 2048
+          "maxTokens": "YOUR_TOKEN_HERE"
         },
         "messages": {
           "values": [
@@ -233,7 +233,7 @@
         "sendBody": true,
         "contentType": "binaryData",
         "sendHeaders": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "headerParameters": {
           "parameters": [
             {
@@ -243,7 +243,7 @@
           ]
         },
         "inputDataFieldName": "data",
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -262,11 +262,11 @@
         200
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Add draft to WP').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "POST",
         "options": {},
         "sendQuery": true,
-        "authentication": "predefinedCredentialType",
+        "authentication": "{{ $credentials.predefinedCredentialType }}",
         "queryParameters": {
           "parameters": [
             {
@@ -275,7 +275,7 @@
             }
           ]
         },
-        "nodeCredentialType": "YOUR_CREDENTIAL_ID"
+        "nodeCredentialType": "YOUR_CREDENTIAL_HERE"
       },
       "credentials": {
         "wordpressApi": {
@@ -296,7 +296,7 @@
       "parameters": {
         "columns": {
           "value": {
-            "URL": "={{ $('Add draft to WP').item.json.guid.rendered }}",
+            "URL": "{{ $env.BASE_URL }}",
             "DATA": "={{ $now.format('dd/LL/yyyy') }}",
             "TITLE": "={{ $('Add draft to WP').item.json.title.rendered }}",
             "ID POST": "={{ $('Add draft to WP').item.json.id }}",
@@ -479,14 +479,14 @@
         480
       ],
       "parameters": {
-        "url": "={{ $env.WEBHOOK_URL }}{{ $('Add draft to WP').item.json.id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "jsonBody": "={\n  \"meta\":{\n    \"_yoast_wpseo_title\":\"{{ $json.output.metatitle }}\",\n    \"_yoast_wpseo_metadesc\":\"{{ $json.output.metadescription }}\"\n  }\n}",
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpBasicAuth",
         "headerParameters": {
           "parameters": [

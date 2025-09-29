@@ -71,12 +71,12 @@
         140
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('set key fields').item.json.user_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PUT",
         "options": {},
         "sendBody": true,
         "sendHeaders": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "bodyParameters": {
           "parameters": [
             {
@@ -196,7 +196,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "leftValue": "",
@@ -289,7 +289,7 @@
           }
         },
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -422,7 +422,7 @@
               "name": "Eadan exact butyer",
               "role": "user",
               "tags": {
-                "url": "/contacts/65d5de6eb71d82abcb782f68/tags",
+                "url": "{{ $env.BASE_URL }}",
                 "data": [],
                 "type": "list",
                 "has_more": false,
@@ -431,7 +431,7 @@
               "type": "contact",
               "email": "edan@exactbuyer.com",
               "notes": {
-                "url": "/contacts/65d5de6eb71d82abcb782f68/notes",
+                "url": "{{ $env.BASE_URL }}",
                 "data": [],
                 "type": "list",
                 "has_more": false,
@@ -452,7 +452,7 @@
               "referrer": null,
               "utm_term": null,
               "companies": {
-                "url": "/contacts/65d5de6eb71d82abcb782f68/companies",
+                "url": "{{ $env.BASE_URL }}",
                 "data": [],
                 "type": "list",
                 "has_more": false,
@@ -498,14 +498,14 @@
               "unsubscribed_from_sms": false,
               "unsubscribed_from_emails": false,
               "opted_in_subscription_types": {
-                "url": "/contacts/65d5de6eb71d82abcb782f68/subscriptions",
+                "url": "{{ $env.BASE_URL }}",
                 "data": [],
                 "type": "list",
                 "has_more": false,
                 "total_count": 0
               },
               "opted_out_subscription_types": {
-                "url": "/contacts/65d5de6eb71d82abcb782f68/subscriptions",
+                "url": "{{ $env.BASE_URL }}",
                 "data": [],
                 "type": "list",
                 "has_more": false,
@@ -666,5 +666,9 @@
     "errorWorkflow": null,
     "timezone": "UTC"
   },
-  "description": "Automated workflow: Noop Workflow. This workflow integrates 9 different services: webhook, stickyNote, httpRequest, code, intercom. It contains 19 nodes and follows best practices for error handling and security."
+  "description": "Automated workflow: Noop Workflow. This workflow integrates 9 different services: webhook, stickyNote, httpRequest, code, intercom. It contains 19 nodes and follows best practices for error handling and security.",
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

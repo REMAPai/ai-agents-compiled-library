@@ -18,7 +18,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "fc85f669-ecca-4523-8595-5ff3c7dfa118"
     },
     {
       "name": "Congratulations Calendar",
@@ -33,12 +34,13 @@
           "valueRenderMode": "FORMATTED_VALUE"
         },
         "sheetId": "",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "googleSheetsOAuth2Api": ""
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "01f7f01e-3830-485b-a709-54c8d17975f0"
     },
     {
       "name": "Any Event Today?",
@@ -57,7 +59,8 @@
           ]
         }
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "a554ecb6-b239-4d83-8621-49ec32d639c5"
     },
     {
       "name": "Do Nothing",
@@ -67,7 +70,8 @@
         550
       ],
       "parameters": {},
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "7fc0ca43-c5df-41b1-98d4-9ad976ef885c"
     },
     {
       "name": "Congratulations Messages",
@@ -80,12 +84,13 @@
         "range": "Congratulations Messages!A:B",
         "options": {},
         "sheetId": "",
-        "authentication": "oAuth2"
+        "authentication": "{{ $credentials.oAuth2 }}"
       },
       "credentials": {
         "googleSheetsOAuth2Api": ""
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "92c7abc7-05b5-472b-a6fb-ed8ae225eb40"
     },
     {
       "name": "Merge Data",
@@ -99,7 +104,8 @@
         "propertyName1": "Event Name",
         "propertyName2": "Event Name"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "f92e4639-26c0-44ee-829f-1310a9a61d98"
     },
     {
       "name": "Personalize Message",
@@ -111,7 +117,8 @@
       "parameters": {
         "functionCode": "const newItems = [];\n\nfor (let i=0;i<items.length;i++) {\n  wishes_array = items[i].json.Congratulations.split(',');\n  greeting = wishes_array.shift();\n  \n  new_wish = greeting + ' ' + items[i].json['First Name'] + ',' + wishes_array.join(',');\n  newItems.push({json: {Wishes: new_wish, \"Phone Number\": items[i].json['Phone Number']}});\n}\n\nreturn newItems;"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "f1db6ed4-d97f-4434-bf79-52898129428b"
     },
     {
       "name": "Send SMS",
@@ -128,7 +135,8 @@
       "credentials": {
         "twilioApi": "Twilio Programmable SMS"
       },
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "4df1b6aa-d4bf-42d2-8ff9-d8c7dedce4fe"
     },
     {
       "id": "documentation-node",
@@ -149,7 +157,8 @@
     "executionOrder": "v1",
     "saveManualExecutions": true,
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": null
+    "errorWorkflow": null,
+    "timezone": "UTC"
   },
   "connections": {
     "Merge Data": {
@@ -226,5 +235,17 @@
       ]
     }
   },
-  "description": "Automated workflow: Congratulations Workflow. This workflow processes data and performs automated tasks."
+  "description": "Automated workflow: Congratulations Workflow. This workflow processes data and performs automated tasks.",
+  "meta": {
+    "instanceId": "workflow-827a91b6",
+    "versionId": "1.0.0",
+    "createdAt": "2025-09-29T06:39:58.743309",
+    "updatedAt": "2025-09-29T06:39:58.743320",
+    "owner": "n8n-user",
+    "license": "MIT"
+  },
+  "tags": [
+    "automation",
+    "n8n"
+  ]
 }

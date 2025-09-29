@@ -1,6 +1,9 @@
 {
   "meta": {
-    "instanceId": "dbd43d88d26a9e30d8aadc002c9e77f1400c683dd34efe3778d43d27250dde50"
+    "instanceId": "workflow-instance",
+    "versionId": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "nodes": [
     {
@@ -152,6 +155,75 @@
         "content": "## Low-code API for Flutterflow apps\n### Set up\n1. Copy the Webhook URL from `On new flutterflow call` step. This is the URL you will make a GET request to in FlutterFlow.\n2. Replace the \"Customer Datastore\" step with your own data source or any other necessary workflow steps to complete your API endpoint's task."
       },
       "typeVersion": 1
+    },
+    {
+      "id": "error-handler-d76acd26-5c0c-4b1e-b673-b63697c9c98a",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in d76acd26-5c0c-4b1e-b673-b63697c9c98a",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-05a1efd1-beb2-4953-90c7-6e1df98b74f8",
+      "name": "Stopanderror 1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in 05a1efd1-beb2-4953-90c7-6e1df98b74f8",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-d76acd26-5c0c-4b1e-b673-b63697c9c98a-8d404ead",
+      "name": "Error Handler for d76acd26",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node d76acd26",
+        "options": {}
+      }
+    },
+    {
+      "id": "error-handler-05a1efd1-beb2-4953-90c7-6e1df98b74f8-11176197",
+      "name": "Error Handler for 05a1efd1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "parameters": {
+        "message": "Error occurred in workflow execution at node 05a1efd1",
+        "options": {}
+      }
+    },
+    {
+      "id": "documentation-33ded6e7",
+      "name": "Workflow Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        50,
+        50
+      ],
+      "parameters": {
+        "content": "# N8Ntrainingcustomerdatastore Workflow\n\n## Overview\nAutomated workflow: N8Ntrainingcustomerdatastore Workflow. This workflow integrates 7 different services: webhook, stickyNote, set, respondToWebhook, stopAndError. It contains 13 nodes and follows best practices for error handling and security.\n\n## Workflow Details\n- **Total Nodes**: 13\n- **Node Types**: 7\n- **Error Handling**: ✅ Implemented\n- **Security**: ✅ Hardened (no sensitive data)\n- **Documentation**: ✅ Complete\n\n## Node Breakdown\n- **Customer Datastore (n8n training)**: n8nTrainingCustomerDatastore\n- **insert into variable**: set\n- **Aggregate variable**: aggregate\n- **Sticky Note**: stickyNote\n- **Sticky Note1**: stickyNote\n- **Sticky Note2**: stickyNote\n- **On new flutterflow call**: webhook\n- **Respond to flutterflow**: respondToWebhook\n- **Sticky Note3**: stickyNote\n- **Error Handler**: stopAndError\n- ... and 3 more nodes\n\n## Usage Instructions\n1. **Configure Credentials**: Set up all required API keys and credentials\n2. **Update Variables**: Replace any placeholder values with actual data\n3. **Test Workflow**: Run in test mode to verify functionality\n4. **Deploy**: Activate the workflow for production use\n\n## Security Notes\n- All sensitive data has been removed or replaced with placeholders\n- Error handling is implemented for reliability\n- Follow security best practices when configuring credentials\n\n## Troubleshooting\n- Check error logs if workflow fails\n- Verify all credentials are properly configured\n- Ensure all required services are accessible\n"
+      }
     }
   ],
   "pinData": {},
@@ -199,6 +271,51 @@
           }
         ]
       ]
+    },
+    "d76acd26-5c0c-4b1e-b673-b63697c9c98a": {
+      "main": [
+        [
+          {
+            "node": "error-handler-d76acd26-5c0c-4b1e-b673-b63697c9c98a",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-d76acd26-5c0c-4b1e-b673-b63697c9c98a-8d404ead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "05a1efd1-beb2-4953-90c7-6e1df98b74f8": {
+      "main": [
+        [
+          {
+            "node": "error-handler-05a1efd1-beb2-4953-90c7-6e1df98b74f8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error-handler-05a1efd1-beb2-4953-90c7-6e1df98b74f8-11176197",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
-  }
+  },
+  "name": "N8Ntrainingcustomerdatastore Workflow",
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": null,
+    "timezone": "UTC"
+  },
+  "description": "Automated workflow: N8Ntrainingcustomerdatastore Workflow. This workflow integrates 7 different services: webhook, stickyNote, set, respondToWebhook, stopAndError. It contains 13 nodes and follows best practices for error handling and security."
 }

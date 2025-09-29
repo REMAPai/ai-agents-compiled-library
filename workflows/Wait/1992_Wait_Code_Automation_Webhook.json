@@ -7,7 +7,10 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "General 3D Presentation",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n"
+  ],
   "nodes": [
     {
       "id": "629ef84e-ffb7-4143-b0af-764bcb86a7fa",
@@ -55,7 +58,7 @@
         280
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.data.task_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {
@@ -84,7 +87,7 @@
         "sendBody": true,
         "sendHeaders": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "headerParameters": {
           "parameters": [
@@ -137,7 +140,7 @@
         200
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.data.task_id }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendHeaders": true,
         "headerParameters": {

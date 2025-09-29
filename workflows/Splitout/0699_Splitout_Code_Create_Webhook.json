@@ -28,7 +28,7 @@
         "rules": {
           "values": [
             {
-              "outputKey": "output_1",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -53,7 +53,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_2",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -78,7 +78,7 @@
               "renameOutput": true
             },
             {
-              "outputKey": "output_3",
+              "outputKey": "YOUR_CREDENTIAL_HERE",
               "conditions": {
                 "options": {
                   "version": 2,
@@ -117,10 +117,10 @@
         -140
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.body.table_id }}/",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -176,11 +176,11 @@
         220
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $json.table_id }}/",
+        "url": "{{ $env.BASE_URL }}",
         "options": {
           "pagination": {
             "pagination": {
-              "nextURL": "={{ $response.body.next || `{{ $env.API_BASE_URL }}{$json.table_id}/?user_field_names=true&size=20&page=9999` }}",
+              "nextURL": "{{ $env.BASE_URL }}",
               "maxRequests": 3,
               "paginationMode": "responseContainsNextURL",
               "requestInterval": 1000,
@@ -191,7 +191,7 @@
           }
         },
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -244,7 +244,7 @@
         320
       ],
       "parameters": {
-        "url": "={{ $json.File[0].url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -275,14 +275,14 @@
         380
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Event Ref').first().json.table_id }}/{{ $('Row Reference').item.json.id }}/",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "jsonBody": "={{\n{\n  ...$input.all()\n    .reduce((acc, item) => ({\n      ...acc,\n      [item.json.field]: item.json.value\n    }), {})\n}\n}}",
         "sendBody": true,
         "sendQuery": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -388,10 +388,10 @@
         -420
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Event Ref1').first().json.table_id }}/{{ $json.id }}/",
+        "url": "{{ $env.BASE_URL }}",
         "options": {},
         "sendQuery": true,
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -470,7 +470,7 @@
         -300
       ],
       "parameters": {
-        "url": "={{ $('Row Ref').item.json.File[0].url }}",
+        "url": "{{ $env.BASE_URL }}",
         "options": {}
       },
       "typeVersion": 4.2
@@ -501,14 +501,14 @@
         -260
       ],
       "parameters": {
-        "url": "={{ $env.API_BASE_URL }}{{ $('Event Ref1').first().json.table_id }}/{{ $('Row Ref').first().json.id }}/",
+        "url": "{{ $env.BASE_URL }}",
         "method": "PATCH",
         "options": {},
         "jsonBody": "={{\n{\n  ...$input.all()\n    .reduce((acc, item) => ({\n      ...acc,\n      [item.json.field]: item.json.value\n    }), {})\n}\n}}",
         "sendBody": true,
         "sendQuery": true,
         "specifyBody": "json",
-        "authentication": "genericCredentialType",
+        "authentication": "{{ $credentials.genericCredentialType }}",
         "genericAuthType": "httpHeaderAuth",
         "queryParameters": {
           "parameters": [
@@ -1792,5 +1792,10 @@
     "versionId": "1.0.0",
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+  },
+  "tags": [
+    "automation",
+    "n8n",
+    "webhook"
+  ]
 }

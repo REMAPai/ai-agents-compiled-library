@@ -7,7 +7,11 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   "name": "Enrich Company Data from Google Sheet with OpenAI Agent and Scraper Tool",
-  "tags": [],
+  "tags": [
+    "automation",
+    "n8n",
+    "google"
+  ],
   "nodes": [
     {
       "id": "90c02c5e-228e-478b-b06d-424dc0c4f9b9",
@@ -57,7 +61,7 @@
           "__rl": true,
           "mode": "list",
           "value": "gid=0",
-          "cachedResultUrl": "h",
+          "cachedResultUrl": "{{ $env.BASE_URL }}",
           "cachedResultName": "Sheet1"
         },
         "documentId": {
@@ -67,7 +71,7 @@
           "cachedResultUrl": "",
           "cachedResultName": "Companies to enrich list"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -234,7 +238,7 @@
           "cachedResultUrl": "",
           "cachedResultName": "Companies to enrich list"
         },
-        "authentication": "serviceAccount"
+        "authentication": "{{ $credentials.serviceAccount }}"
       },
       "credentials": {
         "googleApi": {
@@ -364,7 +368,7 @@
       "parameters": {
         "html": "={{ $json.data }}",
         "options": {},
-        "destinationKey": "YOUR_API_KEY"
+        "destinationKey": "YOUR_CREDENTIAL_HERE"
       },
       "typeVersion": 1
     },

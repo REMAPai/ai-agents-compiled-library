@@ -209,7 +209,13 @@ async def get_workflow_detail(filename: str):
         # Load raw JSON from file
         workflows_path = Path('workflows')
         json_files = list(workflows_path.rglob("*.json"))
-        file_path = [f for f in json_files if f.name == filename][0]
+        matching_files = [f for f in json_files if f.name == filename]
+        
+        if not matching_files:
+            print(f"Warning: File {filename} not found in workflows directory")
+            raise HTTPException(status_code=404, detail=f"Workflow file '{filename}' not found on filesystem")
+        
+        file_path = matching_files[0]
         if not file_path.exists():
             print(f"Warning: File {file_path} not found on filesystem but exists in database")
             raise HTTPException(status_code=404, detail=f"Workflow file '{filename}' not found on filesystem")
@@ -232,7 +238,13 @@ async def download_workflow(filename: str):
     try:
         workflows_path = Path('workflows')
         json_files = list(workflows_path.rglob("*.json"))
-        file_path = [f for f in json_files if f.name == filename][0]
+        matching_files = [f for f in json_files if f.name == filename]
+        
+        if not matching_files:
+            print(f"Warning: File {filename} not found in workflows directory")
+            raise HTTPException(status_code=404, detail=f"Workflow file '{filename}' not found on filesystem")
+        
+        file_path = matching_files[0]
         if not os.path.exists(file_path):
             print(f"Warning: Download requested for missing file: {file_path}")
             raise HTTPException(status_code=404, detail=f"Workflow file '{filename}' not found on filesystem")
@@ -254,7 +266,13 @@ async def get_workflow_diagram(filename: str):
     try:
         workflows_path = Path('workflows')
         json_files = list(workflows_path.rglob("*.json"))
-        file_path = [f for f in json_files if f.name == filename][0]
+        matching_files = [f for f in json_files if f.name == filename]
+        
+        if not matching_files:
+            print(f"Warning: File {filename} not found in workflows directory")
+            raise HTTPException(status_code=404, detail=f"Workflow file '{filename}' not found on filesystem")
+        
+        file_path = matching_files[0]
         print(f'{file_path}')
         if not file_path.exists():
             print(f"Warning: Diagram requested for missing file: {file_path}")

@@ -530,16 +530,33 @@ class WorkflowDatabase:
             where_conditions.append("w.complexity = ?")
             params.append(complexity_filter)
         
-        # Use FTS search if query provided
+        # Use FTS search if query provided and FTS table exists
         if query.strip():
-            # FTS search with ranking
-            base_query = """
-                SELECT w.*, rank
-                FROM workflows_fts fts
-                JOIN workflows w ON w.id = fts.rowid
-                WHERE workflows_fts MATCH ?
-            """
-            params.insert(0, query)
+            # Check if FTS table exists
+            cursor_check = conn.execute("""
+                SELECT name FROM sqlite_master 
+                WHERE type='table' AND name='workflows_fts'
+            """)
+            fts_exists = cursor_check.fetchone() is not None
+            
+            if fts_exists:
+                # FTS search with ranking
+                base_query = """
+                    SELECT w.*, rank
+                    FROM workflows_fts fts
+                    JOIN workflows w ON w.id = fts.rowid
+                    WHERE workflows_fts MATCH ?
+                """
+                params.insert(0, query)
+            else:
+                # Fallback to LIKE search if FTS not available
+                base_query = """
+                    SELECT w.*, 0 as rank
+                    FROM workflows w
+                    WHERE (w.name LIKE ? OR w.description LIKE ? OR w.filename LIKE ?)
+                """
+                search_term = f"%{query}%"
+                params.extend([search_term, search_term, search_term])
         else:
             # Regular query without FTS
             base_query = """
@@ -549,7 +566,10 @@ class WorkflowDatabase:
             """
         
         if where_conditions:
-            base_query += " AND " + " AND ".join(where_conditions)
+            if "WHERE" in base_query:
+                base_query += " AND " + " AND ".join(where_conditions)
+            else:
+                base_query += " WHERE " + " AND ".join(where_conditions)
         
         # Count total results
         count_query = f"SELECT COUNT(*) as total FROM ({base_query}) t"

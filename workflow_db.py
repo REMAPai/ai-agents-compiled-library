@@ -199,8 +199,12 @@ class WorkflowDatabase:
         workflow['trigger_type'] = trigger_type
         workflow['integrations'] = list(integrations)
         
-        # Generate description
-        workflow['description'] = self.generate_description(workflow, trigger_type, integrations)
+        # Use JSON description if available, otherwise generate one
+        json_description = data.get('description', '').strip()
+        if json_description:
+            workflow['description'] = json_description
+        else:
+            workflow['description'] = self.generate_description(workflow, trigger_type, integrations)
         
         return workflow
     
@@ -353,7 +357,7 @@ class WorkflowDatabase:
                 service_name = service_mappings.get(raw_service, raw_service.title() if raw_service else None)
             
             # Handle custom nodes
-            elif '-' in node_type:
+            elif '-' in node_type or '@' in node_type:
                 # Try to extract service name from custom node names like "n8n-nodes-youtube-transcription-kasha.youtubeTranscripter"
                 parts = node_type.lower().split('.')
                 for part in parts:
@@ -366,10 +370,16 @@ class WorkflowDatabase:
                     elif 'discord' in part:
                         service_name = 'Discord'
                         break
+                    elif 'calcslive' in part:
+                        service_name = 'CalcsLive'
+                        break
             
-            # Also check node names for service hints
+            # Also check node names for service hints (but avoid false positives)
             for service_key, service_value in service_mappings.items():
                 if service_key in node_name and service_value:
+                    # Avoid false positive: "cal" in calcslive-related terms should not match "Cal.com"
+                    if service_key == 'cal' and any(term in node_name.lower() for term in ['calcslive', 'calc', 'calculation']):
+                        continue
                     service_name = service_value
                     break
             
@@ -530,33 +540,16 @@ class WorkflowDatabase:
             where_conditions.append("w.complexity = ?")
             params.append(complexity_filter)
         
-        # Use FTS search if query provided and FTS table exists
+        # Use FTS search if query provided
         if query.strip():
-            # Check if FTS table exists
-            cursor_check = conn.execute("""
-                SELECT name FROM sqlite_master 
-                WHERE type='table' AND name='workflows_fts'
-            """)
-            fts_exists = cursor_check.fetchone() is not None
-            
-            if fts_exists:
-                # FTS search with ranking
-                base_query = """
-                    SELECT w.*, rank
-                    FROM workflows_fts fts
-                    JOIN workflows w ON w.id = fts.rowid
-                    WHERE workflows_fts MATCH ?
-                """
-                params.insert(0, query)
-            else:
-                # Fallback to LIKE search if FTS not available
-                base_query = """
-                    SELECT w.*, 0 as rank
-                    FROM workflows w
-                    WHERE (w.name LIKE ? OR w.description LIKE ? OR w.filename LIKE ?)
-                """
-                search_term = f"%{query}%"
-                params.extend([search_term, search_term, search_term])
+            # FTS search with ranking
+            base_query = """
+                SELECT w.*, rank
+                FROM workflows_fts fts
+                JOIN workflows w ON w.id = fts.rowid
+                WHERE workflows_fts MATCH ?
+            """
+            params.insert(0, query)
         else:
             # Regular query without FTS
             base_query = """
@@ -566,10 +559,7 @@ class WorkflowDatabase:
             """
         
         if where_conditions:
-            if "WHERE" in base_query:
-                base_query += " AND " + " AND ".join(where_conditions)
-            else:
-                base_query += " WHERE " + " AND ".join(where_conditions)
+            base_query += " AND " + " AND ".join(where_conditions)
         
         # Count total results
         count_query = f"SELECT COUNT(*) as total FROM ({base_query}) t"
@@ -669,7 +659,7 @@ class WorkflowDatabase:
             'cloud_storage': ['Google Drive', 'Google Docs', 'Google Sheets', 'Dropbox', 'OneDrive', 'Box'],
             'database': ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Airtable', 'Notion'],
             'project_management': ['Jira', 'GitHub', 'GitLab', 'Trello', 'Asana', 'Monday.com'],
-            'ai_ml': ['OpenAI', 'Anthropic', 'Hugging Face'],
+            'ai_ml': ['OpenAI', 'Anthropic', 'Hugging Face', 'CalcsLive'],
             'social_media': ['LinkedIn', 'Twitter/X', 'Facebook', 'Instagram'],
             'ecommerce': ['Shopify', 'Stripe', 'PayPal'],
             'analytics': ['Google Analytics', 'Mixpanel'],

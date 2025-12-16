@@ -4,13 +4,13 @@ FastAPI Server for N8N Workflow Documentation
 High-performance API with sub-100ms response times.
 """
 
-from fastapi import FastAPI, HTTPException, Query, BackgroundTasks, Request
+from fastapi import FastAPI, HTTPException, Query, BackgroundTasks, Request, File, UploadFile, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from pydantic import BaseModel, field_validator
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Tuple
 import json
 import os
 import re
@@ -197,6 +197,13 @@ class StatsResponse(BaseModel):
     total_nodes: int
     unique_integrations: int
     last_indexed: str
+
+
+class WorkflowUploadResponse(BaseModel):
+    message: str
+    filename: str
+    filepath: str
+    indexed: bool
 
 
 @app.get("/")
@@ -432,6 +439,91 @@ async def download_workflow(filename: str, request: Request):
         )
 
 
+@app.delete("/api/workflows/{filename}")
+async def delete_workflow(filename: str, request: Request):
+    """Delete a workflow from both the database and filesystem."""
+    try:
+        # Security: Validate filename to prevent path traversal
+        if not validate_filename(filename):
+            print(f"Security: Blocked path traversal attempt for filename: {filename}")
+            raise HTTPException(status_code=400, detail="Invalid filename format")
+
+        # Security: Rate limiting
+        client_ip = request.client.host if request.client else "unknown"
+        if not check_rate_limit(client_ip):
+            raise HTTPException(
+                status_code=429, detail="Rate limit exceeded. Please try again later."
+            )
+
+        # Check if workflow exists in database
+        workflows, _ = db.search_workflows(f'filename:"{filename}"', limit=1)
+        if not workflows:
+            raise HTTPException(
+                status_code=404, detail="Workflow not found in database"
+            )
+
+        # Find and delete the file
+        workflows_path = Path("workflows").resolve()
+        matching_file = None
+        
+        for subdir in workflows_path.iterdir():
+            if subdir.is_dir():
+                target_file = subdir / filename
+                if target_file.exists() and target_file.is_file():
+                    try:
+                        target_file.resolve().relative_to(workflows_path)
+                        matching_file = target_file
+                        break
+                    except ValueError:
+                        continue
+
+        # Delete from database
+        deleted_from_db = db.delete_workflow(filename)
+        if not deleted_from_db:
+            raise HTTPException(
+                status_code=500, detail="Failed to delete workflow from database"
+            )
+
+        # Delete file from filesystem
+        file_deleted = False
+        if matching_file:
+            try:
+                matching_file.unlink()
+                file_deleted = True
+                print(f"✅ Deleted workflow file: {matching_file}")
+            except Exception as e:
+                print(f"⚠️  Warning: Could not delete file {matching_file}: {e}")
+
+        # Remove from category mappings if exists
+        try:
+            search_categories_file = Path("context/search_categories.json")
+            if search_categories_file.exists():
+                with open(search_categories_file, "r", encoding="utf-8") as f:
+                    categories = json.load(f)
+                
+                # Remove entry for this filename
+                categories = [item for item in categories if item.get("filename") != filename]
+                
+                with open(search_categories_file, "w", encoding="utf-8") as f:
+                    json.dump(categories, f, indent=2, ensure_ascii=False)
+        except Exception as e:
+            print(f"⚠️  Warning: Could not update category mappings: {e}")
+
+        return {
+            "message": f"Workflow '{filename}' deleted successfully",
+            "filename": filename,
+            "deleted_from_db": True,
+            "deleted_from_filesystem": file_deleted
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error deleting workflow: {str(e)}"
+        )
+
+
 @app.get("/api/workflows/{filename}/diagram")
 async def get_workflow_diagram(filename: str, request: Request):
     """Get Mermaid diagram code for workflow visualization."""
@@ -497,6 +589,143 @@ async def get_workflow_diagram(filename: str, request: Request):
         raise HTTPException(
             status_code=500, detail=f"Error generating diagram: {str(e)}"
         )
+
+
+def determine_workflow_directory(workflow_data: Dict) -> str:
+    """Determine the appropriate subdirectory for a workflow based on its content."""
+    nodes = workflow_data.get("nodes", [])
+    if not nodes:
+        return "Manual"  # Default directory
+    
+    # Get the first non-utility node to determine category
+    service_mappings = {
+        "telegram": "Telegram",
+        "discord": "Discord",
+        "slack": "Slack",
+        "gmail": "Gmail",
+        "googlesheets": "Googlesheets",
+        "googledrive": "Googledrive",
+        "webhook": "Webhook",
+        "http": "Http",
+        "schedule": "Schedule",
+        "cron": "Cron",
+        "postgres": "Postgres",
+        "mysql": "Mysqltool",
+        "mongodb": "Mongodbtool",
+        "airtable": "Airtable",
+        "github": "Github",
+        "gitlab": "Gitlab",
+        "jira": "Jira",
+        "openai": "Openai",
+        "notion": "Notion",
+        "shopify": "Shopify",
+        "stripe": "Stripe",
+        "twitter": "Twitter",
+        "linkedin": "Linkedin",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "whatsapp": "Whatsapp",
+        "trello": "Trello",
+        "asana": "Asana",
+        "mondaycom": "Mondaycom",
+        "dropbox": "Dropbox",
+        "onedrive": "Microsoftonedrive",
+        "outlook": "Microsoftoutlook",
+        "calendly": "Calendly",
+        "typeform": "Typeform",
+        "youtube": "Youtube",
+        "wordpress": "Wordpress",
+        "woocommerce": "Woocommerce",
+    }
+    
+    # Check all nodes to find the primary service
+    primary_service = None
+    for node in nodes:
+        node_type = node.get("type", "").lower()
+        node_name = node.get("name", "").lower()
+        
+        # Check for webhook first (common trigger)
+        if "webhook" in node_type or "webhook" in node_name:
+            if not primary_service or primary_service == "Manual":
+                primary_service = "Webhook"
+        
+        # Check for scheduled/cron
+        if "cron" in node_type or "schedule" in node_type:
+            if not primary_service or primary_service == "Manual":
+                primary_service = "Schedule"
+        
+        # Check for service mappings
+        for key, directory in service_mappings.items():
+            if key in node_type or key in node_name:
+                if not primary_service or primary_service in ["Manual", "Webhook", "Schedule"]:
+                    primary_service = directory
+                    break
+        
+        if primary_service and primary_service not in ["Manual", "Webhook", "Schedule"]:
+            break
+    
+    # If no specific service found, use the first node type or default
+    if not primary_service or primary_service == "Manual":
+        if nodes:
+            first_node_type = nodes[0].get("type", "")
+            if "n8n-nodes-base." in first_node_type:
+                service_name = first_node_type.replace("n8n-nodes-base.", "").split(".")[0]
+                # Capitalize first letter
+                primary_service = service_name.capitalize()
+            else:
+                primary_service = "Manual"
+        else:
+            primary_service = "Manual"
+    
+    return primary_service
+
+
+def save_workflow_file(workflow_data: Dict, filename: Optional[str] = None) -> Tuple[str, str]:
+    """Save workflow JSON to the appropriate directory and return (filepath, filename)."""
+    workflows_dir = Path("workflows")
+    workflows_dir.mkdir(exist_ok=True)
+    
+    # Determine subdirectory
+    subdirectory = determine_workflow_directory(workflow_data)
+    subdir_path = workflows_dir / subdirectory
+    subdir_path.mkdir(exist_ok=True)
+    
+    # Generate filename if not provided
+    if not filename:
+        # Use workflow name or ID to create filename
+        workflow_name = workflow_data.get("name", "workflow")
+        workflow_id = workflow_data.get("id", "")
+        
+        # Clean name for filename
+        clean_name = re.sub(r'[^\w\s-]', '', workflow_name).strip()
+        clean_name = re.sub(r'[-\s]+', '_', clean_name)
+        
+        if workflow_id:
+            filename = f"{workflow_id}_{clean_name}.json"
+        else:
+            # Use timestamp if no ID
+            import datetime
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"{timestamp}_{clean_name}.json"
+    
+    # Ensure .json extension
+    if not filename.endswith(".json"):
+        filename += ".json"
+    
+    # Validate filename
+    if not validate_filename(filename):
+        # Sanitize filename if invalid
+        filename = re.sub(r'[^\w\-_.]', '_', filename)
+        if not filename.endswith(".json"):
+            filename += ".json"
+    
+    filepath = subdir_path / filename
+    
+    # Write workflow JSON
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(workflow_data, f, indent=2, ensure_ascii=False)
+    
+    return str(filepath), filename
 
 
 def generate_mermaid_diagram(nodes: List[Dict], connections: Dict) -> str:
@@ -744,6 +973,159 @@ async def search_workflows_by_category(
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Error searching by category: {str(e)}"
+        )
+
+
+@app.post("/api/workflows/upload", response_model=WorkflowUploadResponse)
+async def upload_workflow(
+    request: Request,
+    background_tasks: BackgroundTasks,
+    file: Optional[UploadFile] = File(None),
+    workflow_json: Optional[str] = Form(None),
+):
+    """
+    Upload a new workflow JSON file.
+    Can accept either a file upload or JSON string in form data.
+    """
+    try:
+        # Security: Rate limiting
+        client_ip = request.client.host if request.client else "unknown"
+        if not check_rate_limit(client_ip):
+            raise HTTPException(
+                status_code=429, detail="Rate limit exceeded. Please try again later."
+            )
+
+        workflow_data = None
+        provided_filename = None
+
+        # Handle file upload
+        if file:
+            if not file.filename.endswith(".json"):
+                raise HTTPException(
+                    status_code=400, detail="File must be a JSON file (.json extension)"
+                )
+            
+            provided_filename = file.filename
+            content = await file.read()
+            try:
+                workflow_data = json.loads(content.decode("utf-8"))
+            except json.JSONDecodeError as e:
+                raise HTTPException(
+                    status_code=400, detail=f"Invalid JSON in file: {str(e)}"
+                )
+        
+        # Handle JSON string in form data
+        elif workflow_json:
+            try:
+                workflow_data = json.loads(workflow_json)
+            except json.JSONDecodeError as e:
+                raise HTTPException(
+                    status_code=400, detail=f"Invalid JSON string: {str(e)}"
+                )
+        
+        # Handle raw JSON in request body (if Content-Type is application/json)
+        else:
+            try:
+                body = await request.body()
+                if body:
+                    workflow_data = await request.json()
+            except:
+                raise HTTPException(
+                    status_code=400,
+                    detail="No workflow data provided. Send JSON in body, file upload, or workflow_json form field.",
+                )
+
+        if not workflow_data:
+            raise HTTPException(
+                status_code=400, detail="No valid workflow data provided"
+            )
+
+        # Validate workflow structure
+        if not isinstance(workflow_data, dict):
+            raise HTTPException(
+                status_code=400, detail="Workflow data must be a JSON object"
+            )
+
+        # Save workflow file
+        filepath, filename = save_workflow_file(workflow_data, provided_filename)
+
+        # Index the workflow in background
+        def index_workflow():
+            try:
+                db.index_all_workflows(force_reindex=False)
+                print(f"✅ Workflow {filename} indexed successfully")
+            except Exception as e:
+                print(f"❌ Error indexing workflow {filename}: {e}")
+
+        background_tasks.add_task(index_workflow)
+
+        return WorkflowUploadResponse(
+            message="Workflow uploaded successfully",
+            filename=filename,
+            filepath=filepath,
+            indexed=True,  # Will be indexed in background
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error uploading workflow: {str(e)}"
+        )
+
+
+@app.post("/api/workflows/upload-json")
+async def upload_workflow_json(
+    request: Request,
+    background_tasks: BackgroundTasks,
+):
+    """
+    Upload a workflow by sending JSON directly in the request body.
+    Content-Type should be application/json.
+    """
+    try:
+        # Security: Rate limiting
+        client_ip = request.client.host if request.client else "unknown"
+        if not check_rate_limit(client_ip):
+            raise HTTPException(
+                status_code=429, detail="Rate limit exceeded. Please try again later."
+            )
+
+        # Parse JSON from request body
+        workflow_data = await request.json()
+
+        if not isinstance(workflow_data, dict):
+            raise HTTPException(
+                status_code=400, detail="Workflow data must be a JSON object"
+            )
+
+        # Save workflow file
+        filepath, filename = save_workflow_file(workflow_data)
+
+        # Index the workflow in background
+        def index_workflow():
+            try:
+                db.index_all_workflows(force_reindex=False)
+                print(f"✅ Workflow {filename} indexed successfully")
+            except Exception as e:
+                print(f"❌ Error indexing workflow {filename}: {e}")
+
+        background_tasks.add_task(index_workflow)
+
+        return WorkflowUploadResponse(
+            message="Workflow uploaded successfully",
+            filename=filename,
+            filepath=filepath,
+            indexed=True,
+        )
+
+    except HTTPException:
+        raise
+    except json.JSONDecodeError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error uploading workflow: {str(e)}"
         )
 
 

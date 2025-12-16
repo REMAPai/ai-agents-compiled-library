@@ -9,6 +9,7 @@ import json
 import os
 import datetime
 import hashlib
+import sys
 from typing import Dict, List, Any, Optional, Tuple
 from pathlib import Path
 
@@ -791,6 +792,38 @@ class WorkflowDatabase:
         conn.close()
         return results, total
 
+    def delete_workflow(self, filename: str) -> bool:
+        """Delete a workflow from the database by filename."""
+        conn = sqlite3.connect(self.db_path)
+        conn.row_factory = sqlite3.Row
+        
+        try:
+            # Check if workflow exists
+            cursor = conn.execute(
+                "SELECT id FROM workflows WHERE filename = ?",
+                (filename,)
+            )
+            row = cursor.fetchone()
+            
+            if not row:
+                conn.close()
+                return False
+            
+            # Delete from workflows table (FTS table will be updated by trigger)
+            conn.execute(
+                "DELETE FROM workflows WHERE filename = ?",
+                (filename,)
+            )
+            
+            conn.commit()
+            conn.close()
+            return True
+            
+        except Exception as e:
+            print(f"Error deleting workflow {filename} from database: {e}")
+            conn.close()
+            return False
+
 
 def main():
     """Command-line interface for workflow database."""
@@ -801,6 +834,7 @@ def main():
     parser.add_argument("--force", action="store_true", help="Force reindex all files")
     parser.add_argument("--search", help="Search workflows")
     parser.add_argument("--stats", action="store_true", help="Show database statistics")
+    parser.add_argument("--delete", help="Delete workflow from database by filename")
 
     args = parser.parse_args()
 
@@ -826,6 +860,13 @@ def main():
         print(f"  Total nodes: {stats['total_nodes']}")
         print(f"  Unique integrations: {stats['unique_integrations']}")
         print(f"  Trigger types: {stats['triggers']}")
+
+    elif args.delete:
+        if db.delete_workflow(args.delete):
+            print(f"✅ Workflow '{args.delete}' deleted from database")
+        else:
+            print(f"❌ Workflow '{args.delete}' not found in database")
+            sys.exit(1)
 
     else:
         parser.print_help()

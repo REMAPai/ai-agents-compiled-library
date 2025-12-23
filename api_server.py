@@ -22,6 +22,13 @@ from collections import defaultdict
 
 from workflow_db import WorkflowDatabase
 
+# Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv not installed, skip
+
 # SendGrid email integration
 try:
     from sendgrid import SendGridAPIClient

@@ -168,16 +168,42 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/develop'
     environment: staging
+    permissions:
+      contents: read
+      packages: read
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=sha,prefix=sha-
+
     - name: Deploy to staging
       run: |
         echo "Deploying to staging environment..."
-        # Add your staging deployment commands here
-        # Example: kubectl, docker-compose, or cloud provider CLI commands
+        echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}"
+        
+        # Configure deployment method (same options as production)
+        # See deploy-production job for deployment options
+        echo "✅ Docker image built and pushed successfully"
+        echo "📦 Image available at: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:develop"
 
   deploy-production:
     name: Deploy to Production
@@ -185,16 +211,82 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/main' || github.event_name == 'release'
     environment: production
+    permissions:
+      contents: read
+      packages: read
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=sha,prefix=sha-
+
     - name: Deploy to production
       run: |
         echo "Deploying to production environment..."
-        # Add your production deployment commands here
-        # Example: kubectl, docker-compose, or cloud provider CLI commands
+        echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}"
+        
+        # Option 1: Deploy via SSH to a server (most common)
+        # Uncomment and configure if deploying to a remote server via SSH
+        # if [ -n "${{ secrets.DEPLOY_HOST }}" ]; then
+        #   echo "Deploying via SSH..."
+        #   ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'EOF'
+        #     cd /path/to/app
+        #     docker login ${{ env.REGISTRY }} -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+        #     docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
+        #     docker compose -f docker-compose.yml -f docker-compose.prod.yml pull
+        #     docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+        #   EOF
+        # fi
+        
+        # Option 2: Deploy to Kubernetes
+        # Uncomment if using Kubernetes
+        # if [ -n "${{ secrets.KUBECONFIG }}" ]; then
+        #   echo "Deploying to Kubernetes..."
+        #   echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+        #   export KUBECONFIG=kubeconfig
+        #   kubectl set image deployment/workflows-docs workflows-docs=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main -n n8n-workflows
+        #   kubectl rollout status deployment/workflows-docs -n n8n-workflows --timeout=300s
+        # fi
+        
+        # Option 3: Deploy using cloud platform CLI (Railway, Render, Fly.io, etc.)
+        # Example for Railway:
+        # railway up --service production
+        
+        # Option 4: Webhook-based deployment (trigger external deployment service)
+        # if [ -n "${{ secrets.DEPLOY_WEBHOOK_URL }}" ]; then
+        #   curl -X POST ${{ secrets.DEPLOY_WEBHOOK_URL }} \
+        #     -H "Content-Type: application/json" \
+        #     -d '{"image": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main", "commit": "${{ github.sha }}"}'
+        # fi
+        
+        # For now, output deployment info (replace with actual deployment commands above)
+        echo "✅ Docker image built and pushed successfully"
+        echo "📦 Image available at: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main"
+        echo "🔗 Image tags: ${{ steps.meta.outputs.tags }}"
+        echo ""
+        echo "⚠️  Configure deployment by:"
+        echo "   1. Setting up SSH deployment (DEPLOY_HOST, DEPLOY_USER secrets)"
+        echo "   2. Setting up Kubernetes (KUBECONFIG secret)"
+        echo "   3. Using cloud platform CLI"
+        echo "   4. Setting up webhook deployment (DEPLOY_WEBHOOK_URL secret)"
 
   notification:
     name: Send Notifications

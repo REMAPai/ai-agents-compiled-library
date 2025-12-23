@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚡ N8N Workflow Documentation</title>
+  <title>Workflow Library - Private AI</title>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
   <style>
     /* Modern CSS Reset and Base */
@@ -15,39 +15,61 @@
     }
 
     :root {
-      --primary: #3b82f6;
-      --primary-dark: #2563eb;
+      /* Private AI / Modern SaaS color palette */
+      --primary: #3151DD;
+      --primary-dark: #2540c4;
+      --primary-hover: #3d5ef0;
+      --primary-light: #5a75e8;
       --success: #10b981;
       --warning: #f59e0b;
       --error: #ef4444;
-      --bg: #ffffff;
-      --bg-secondary: #f8fafc;
-      --bg-tertiary: #f1f5f9;
-      --text: #1e293b;
-      --text-secondary: #64748b;
-      --text-muted: #94a3b8;
-      --text-modal: #4a5568;
-      --border: #e2e8f0;
-      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    }
-
-    [data-theme="dark"] {
       --bg: #0f172a;
       --bg-secondary: #1e293b;
       --bg-tertiary: #334155;
-      --text: #f8fafc;
+      --bg-hover: #334155;
+      --bg-card: #1e293b;
+      --text: #f1f5f9;
       --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --text-modal: #f1f5f9;
+      --border: #334155;
+      --border-light: #475569;
+      --accent: #3151DD;
+      --accent-light: #5a75e8;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -1px rgb(0 0 0 / 0.2);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -2px rgb(0 0 0 / 0.2);
+      --gradient-primary: linear-gradient(135deg, #3151DD 0%, #3d5ef0 100%);
+      --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      /* Gray color palette */
+      --color-gray-200: #e5e7eb;
+      --color-gray-700: #4e4e4e;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-tertiary: #f1f5f9;
+      --bg-hover: #e2e8f0;
+      --bg-card: #ffffff;
+      --text: #4e4e4e;
+      --text-secondary: #4e4e4e;
       --text-muted: #64748b;
-      --border: #475569;
+      --text-modal: #4e4e4e;
+      --border: #e2e8f0;
+      --border-light: #cbd5e1;
+      --gradient-bg: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      --color-gray-200: #e5e7eb;
+      --color-gray-700: #4e4e4e;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+      background: var(--gradient-bg);
+      background-attachment: fixed;
       color: var(--text);
       line-height: 1.6;
       transition: all 0.2s ease;
+      min-height: 100vh;
     }
 
     .container {
@@ -60,21 +82,50 @@
     .header {
       background: var(--bg-secondary);
       border-bottom: 1px solid var(--border);
-      padding: 2rem 0;
+      padding: 2.5rem 0;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--gradient-primary);
+      opacity: 0.5;
     }
 
     .title {
-      font-size: 2.5rem;
+      font-size: 2.75rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
-      color: var(--primary);
+      color: var(--text-secondary);
+      letter-spacing: -0.02em;
+      border-color: var(--color-gray-200, currentColor);
     }
 
     .subtitle {
       font-size: 1.125rem;
       color: var(--text-secondary);
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 0.875rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 1rem;
     }
 
     .stats {
@@ -93,7 +144,10 @@
       display: block;
       font-size: 1.875rem;
       font-weight: 700;
-      color: var(--primary);
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .stat-label {
@@ -125,16 +179,18 @@
       padding: 0.75rem 1rem;
       border: 1px solid var(--border);
       border-radius: 0.5rem;
-      background: var(--bg);
+      background: var(--bg-secondary);
       color: var(--text);
       font-size: 1rem;
       min-width: 300px;
+      transition: all 0.2s ease;
     }
 
     .search-input:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
+      border-color: var(--border-light);
+      background: var(--bg);
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
     }
 
     .filter-section {
@@ -157,22 +213,43 @@
     }
 
     .filter-group select {
-      padding: 0.5rem;
+      padding: 0.5rem 0.75rem;
       border: 1px solid var(--border);
-      border-radius: 0.375rem;
-      background: var(--bg);
+      border-radius: 0.5rem;
+      background: var(--bg-secondary);
       color: var(--text);
       font-size: 0.875rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .filter-group select:focus {
+      outline: none;
+      border-color: var(--border-light);
+      background: var(--bg);
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .filter-group select:hover {
+      border-color: var(--primary-light);
     }
 
     .theme-toggle {
-      background: var(--bg-tertiary);
+      background: var(--bg-secondary);
       border: 1px solid var(--border);
       border-radius: 0.5rem;
       padding: 0.5rem 1rem;
       cursor: pointer;
       font-size: 1rem;
       margin-left: auto;
+      color: var(--text);
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    .theme-toggle:hover {
+      background: var(--bg-hover);
+      border-color: var(--primary);
     }
 
     .results-info {
@@ -209,7 +286,7 @@
     }
 
     .retry-btn {
-      background: var(--primary);
+      background: var(--gradient-primary);
       color: white;
       border: none;
       padding: 0.75rem 1.5rem;
@@ -217,10 +294,14 @@
       cursor: pointer;
       font-size: 1rem;
       font-weight: 500;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow);
     }
 
     .retry-btn:hover {
-      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+      opacity: 0.9;
     }
 
     /* Workflow Grid */
@@ -231,35 +312,64 @@
     }
 
     .workflow-card {
-      background: var(--bg-secondary);
+      background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 0.75rem;
       padding: 1.5rem;
       box-shadow: var(--shadow);
-      transition: all 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
       position: relative;
+      backdrop-filter: blur(10px);
+    }
+
+    .workflow-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .workflow-card:hover {
-      box-shadow: var(--shadow-lg);
+      background: var(--bg-hover);
       border-color: var(--primary);
       transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .workflow-card:hover::before {
+      opacity: 1;
     }
 
     .workflow-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
+      gap: 1rem;
       margin-bottom: 1rem;
+      flex-wrap: wrap;
     }
 
     .workflow-meta {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
       gap: 0.5rem;
       font-size: 0.875rem;
       color: var(--text-secondary);
+      flex: 1;
+      min-width: 0;
+    }
+
+    .workflow-meta-top {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     .status-dot {
@@ -295,22 +405,67 @@
     }
 
     .trigger-badge {
-      background: var(--primary);
-      color: white;
-      padding: 0.25rem 0.5rem;
+      background: var(--bg-tertiary);
+      color: var(--text);
+      padding: 0.25rem 0.75rem;
       border-radius: 0.375rem;
       font-size: 0.75rem;
       font-weight: 500;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .category-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
       background: var(--bg-tertiary);
       color: var(--text-secondary);
-      padding: 0.125rem 0.375rem;
+      padding: 0.25rem 0.5rem;
       border-radius: 0.25rem;
       font-size: 0.75rem;
-      border: 1px solid var(--border);
       font-weight: 500;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+      text-transform: capitalize;
+      line-height: 1.2;
+      white-space: nowrap;
+      height: fit-content;
+      flex-shrink: 0;
+      max-width: 100%;
+    }
+
+    .category-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      transition: left 0.4s ease;
+    }
+
+    .category-badge:hover::before {
+      left: 100%;
+    }
+
+    .category-badge:hover {
+      background: var(--bg-hover);
+      border-color: var(--border-light);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-badge::after {
+      content: '▸';
+      font-size: 0.5rem;
+      opacity: 0.6;
+      margin-left: 0.125rem;
     }
 
     .workflow-title {
@@ -319,6 +474,7 @@
       margin-bottom: 0.5rem;
       color: var(--text);
       line-height: 1.4;
+      border-color: var(--color-gray-200, currentColor);
     }
 
     .workflow-description {
@@ -353,6 +509,25 @@
       border: 1px solid var(--border);
     }
 
+    .workflow-tag {
+      background: #000000;
+      color: #ffffff;
+      padding: 0.25rem 0.625rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      display: inline-block;
+      border: 1px solid #000000;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .workflow-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-top: 0.5rem;
+    }
+
     .workflow-actions {
       display: flex;
       gap: 0.5rem;
@@ -364,29 +539,37 @@
     .action-btn {
       padding: 0.5rem 1rem;
       border: 1px solid var(--border);
-      border-radius: 0.375rem;
-      background: var(--bg);
+      border-radius: 0.5rem;
+      background: var(--bg-secondary);
       color: var(--text);
       text-decoration: none;
       font-size: 0.875rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .action-btn:hover {
-      background: var(--bg-tertiary);
+      background: var(--bg-hover);
       border-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
     }
 
     .action-btn.primary {
-      background: var(--primary);
+      background: var(--gradient-primary);
       color: white;
-      border-color: var(--primary);
+      border-color: transparent;
+      box-shadow: var(--shadow);
     }
 
     .action-btn.primary:hover {
-      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+      opacity: 0.9;
     }
 
     /* Load More */
@@ -404,10 +587,11 @@
       cursor: pointer;
       font-size: 1rem;
       font-weight: 500;
+      transition: all 0.2s ease;
     }
 
     .load-more-btn:hover {
-      background: var(--primary-dark);
+      background: var(--primary-hover);
     }
 
     /* Modal */
@@ -417,7 +601,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -430,13 +614,15 @@
     }
 
     .modal-content {
-      background: var(--bg);
-      border-radius: 0.75rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
       max-width: 800px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
       position: relative;
+      box-shadow: var(--shadow-lg);
     }
 
     .modal-header {
@@ -500,7 +686,7 @@
     }
 
     .copy-btn:hover {
-      background: var(--primary-dark);
+      background: var(--primary-hover);
     }
 
     .copy-btn.copied {
@@ -606,6 +792,116 @@
       margin-left: 0.5rem;
     }
 
+    /* Toast Notifications */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .toast {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow-lg);
+      min-width: 300px;
+      max-width: 400px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: slideInRight 0.3s ease-out;
+      position: relative;
+    }
+
+    .toast.success {
+      border-left: 4px solid var(--success);
+    }
+
+    .toast.error {
+      border-left: 4px solid var(--error);
+    }
+
+    .toast.warning {
+      border-left: 4px solid var(--warning);
+    }
+
+    .toast.info {
+      border-left: 4px solid var(--primary);
+    }
+
+    .toast-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+      font-size: 0.875rem;
+    }
+
+    .toast-message {
+      color: var(--text-secondary);
+      font-size: 0.8125rem;
+      line-height: 1.4;
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 1.25rem;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: color 0.2s ease;
+    }
+
+    .toast-close:hover {
+      color: var(--text);
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideOutRight {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+
+    .toast.hiding {
+      animation: slideOutRight 0.3s ease-out forwards;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .title {
@@ -649,7 +945,11 @@
     <!-- Header -->
     <header class="header">
       <div class="container">
-        <h1 class="title">⚡ N8N Workflow Documentation</h1>
+        <div class="brand-badge">
+          <span>🔒</span>
+          <span>Private AI</span>
+        </div>
+        <h1 class="title">Workflow Library</h1>
         <p class="subtitle">Lightning-fast workflow browser with instant search</p>
         <div class="stats">
           <div class="stat">
@@ -717,7 +1017,7 @@
             </label>
           </div>
 
-          <button id="themeToggle" class="theme-toggle">🌙</button>
+          <button id="themeToggle" class="theme-toggle">☀️ Light</button>
         </div>
 
         <div class="results-info">
@@ -782,6 +1082,11 @@
           </div>
 
           <div class="workflow-detail">
+            <h4>Tags</h4>
+            <div id="modalTags">Loading...</div>
+          </div>
+
+          <div class="workflow-detail">
             <h4>Integrations</h4>
             <div id="modalIntegrations">Loading...</div>
           </div>
@@ -792,6 +1097,7 @@
               <a id="downloadBtn" class="action-btn primary" href="#" download>📥 Download JSON</a>
               <button id="viewJsonBtn" class="action-btn">📄 View JSON</button>
               <button id="viewDiagramBtn" class="action-btn">📊 View Diagram</button>
+              <button id="purchaseAgentBtn" class="action-btn primary hidden">🛒 Purchase Agent</button>
             </div>
           </div>
 
@@ -824,7 +1130,36 @@
         </div>
       </div>
     </div>
+
+    <!-- Purchase Agent Modal -->
+    <div id="purchaseModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Purchase Agent</h2>
+          <button class="modal-close" id="purchaseModalClose">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="purchaseForm">
+            <div class="workflow-detail">
+              <label for="purchaseEmail" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-secondary);">Email</label>
+              <input type="email" id="purchaseEmail" class="search-input" placeholder="your.email@example.com" required style="width: 100%; margin-bottom: 1rem;">
+            </div>
+            <div class="workflow-detail">
+              <label for="purchaseDescription" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-secondary);">Description</label>
+              <textarea id="purchaseDescription" class="search-input" placeholder="Describe your use case or requirements..." required style="width: 100%; min-height: 120px; resize: vertical; font-family: inherit; margin-bottom: 1rem;"></textarea>
+            </div>
+            <div class="workflow-actions">
+              <button type="submit" class="action-btn primary">Submit Request</button>
+              <button type="button" class="action-btn" id="cancelPurchaseBtn">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
 
   <script>
     // Enhanced Workflow App with Full Functionality
@@ -874,6 +1209,7 @@
           modalClose: document.getElementById('modalClose'),
           modalDescription: document.getElementById('modalDescription'),
           modalStats: document.getElementById('modalStats'),
+          modalTags: document.getElementById('modalTags'),
           modalIntegrations: document.getElementById('modalIntegrations'),
           downloadBtn: document.getElementById('downloadBtn'),
           viewJsonBtn: document.getElementById('viewJsonBtn'),
@@ -887,8 +1223,20 @@
           copyDiagramBtn: document.getElementById('copyDiagramBtn'),
           zoomInBtn: document.getElementById('zoomInBtn'),
           zoomOutBtn: document.getElementById('zoomOutBtn'),
-          zoomResetBtn: document.getElementById('zoomResetBtn')
+          zoomResetBtn: document.getElementById('zoomResetBtn'),
+          // Purchase modal elements
+          purchaseAgentBtn: document.getElementById('purchaseAgentBtn'),
+          purchaseModal: document.getElementById('purchaseModal'),
+          purchaseModalClose: document.getElementById('purchaseModalClose'),
+          purchaseForm: document.getElementById('purchaseForm'),
+          purchaseEmail: document.getElementById('purchaseEmail'),
+          purchaseDescription: document.getElementById('purchaseDescription'),
+          cancelPurchaseBtn: document.getElementById('cancelPurchaseBtn')
         };
+
+        // Get user role from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        this.userRole = urlParams.get('userRole') || 'user'; // Default to 'user' if not specified
 
         this.searchDebounceTimer = null;
         this.currentWorkflow = null;
@@ -906,7 +1254,23 @@
         this.setupEventListeners();
         this.setupTheme();
         this.initMermaid();
+        this.setupRoleBasedUI();
         await this.loadInitialData();
+      }
+
+      setupRoleBasedUI() {
+        // Show/hide buttons based on user role
+        if (this.userRole === 'admin') {
+          // Admin: Show download and view JSON buttons
+          this.elements.downloadBtn.classList.remove('hidden');
+          this.elements.viewJsonBtn.classList.remove('hidden');
+          this.elements.purchaseAgentBtn.classList.add('hidden');
+        } else {
+          // User: Hide download/view JSON, show purchase button
+          this.elements.downloadBtn.classList.add('hidden');
+          this.elements.viewJsonBtn.classList.add('hidden');
+          this.elements.purchaseAgentBtn.classList.remove('hidden');
+        }
       }
 
       initMermaid() {
@@ -1005,6 +1369,31 @@
           this.copyToClipboard(this.currentDiagramData, 'copyDiagramBtn');
         });
 
+        // Purchase agent button
+        this.elements.purchaseAgentBtn.addEventListener('click', () => {
+          this.openPurchaseModal();
+        });
+
+        // Purchase modal events
+        this.elements.purchaseModalClose.addEventListener('click', () => {
+          this.closePurchaseModal();
+        });
+
+        this.elements.cancelPurchaseBtn.addEventListener('click', () => {
+          this.closePurchaseModal();
+        });
+
+        this.elements.purchaseModal.addEventListener('click', (e) => {
+          if (e.target === this.elements.purchaseModal) {
+            this.closePurchaseModal();
+          }
+        });
+
+        this.elements.purchaseForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.submitPurchaseRequest();
+        });
+
         // Zoom control events
         this.elements.zoomInBtn.addEventListener('click', () => {
           this.zoomDiagram(1.2);
@@ -1041,7 +1430,8 @@
       }
 
       setupTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        // Default to dark theme (ChatGPT style)
+        const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
         this.updateThemeToggle(savedTheme);
       }
@@ -1055,7 +1445,7 @@
       }
 
       updateThemeToggle(theme) {
-        this.elements.themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+        this.elements.themeToggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
       }
 
       debounceSearch() {
@@ -1079,7 +1469,18 @@
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
 
-        return response.json();
+        const data = await response.json();
+        
+        // Debug: Log search queries and results
+        if (endpoint.includes('/workflows')) {
+          console.log(`[API] Called: ${endpoint}`);
+          console.log(`[API] Results: ${data.workflows?.length || 0} workflows, total: ${data.total || 0}`);
+          if (data.workflows && data.workflows.length > 0) {
+            console.log(`[API] First workflow category: ${data.workflows[0].category || 'null'}`);
+          }
+        }
+        
+        return data;
       }
 
       async loadInitialData() {
@@ -1185,57 +1586,29 @@
         this.state.isLoading = true;
 
         try {
-          // If category filtering is active, we need to load all workflows to filter properly
-          const needsAllWorkflows = this.state.filters.category !== 'all' && reset;
+          // Normal pagination with server-side filtering (including category)
+          const params = new URLSearchParams({
+            q: this.state.searchQuery,
+            trigger: this.state.filters.trigger,
+            complexity: this.state.filters.complexity,
+            category: this.state.filters.category,
+            active_only: this.state.filters.activeOnly,
+            page: this.state.currentPage,
+            per_page: this.state.perPage
+          });
 
-          let allWorkflows = [];
-          let totalCount = 0;
-          let totalPages = 1;
+          console.log(`[Search] Loading workflows with params:`, {
+            query: this.state.searchQuery,
+            filters: this.state.filters,
+            page: this.state.currentPage
+          });
 
-          if (needsAllWorkflows) {
-            // Load all workflows in batches for category filtering
-            console.log('Loading all workflows for category filtering...');
-            allWorkflows = await this.loadAllWorkflowsForCategoryFiltering();
+          const response = await this.apiCall(`/workflows?${params}`);
+          const allWorkflows = response.workflows;
+          const totalCount = response.total;
+          const totalPages = response.pages;
 
-            // Apply client-side category filtering
-            console.log(`Filtering ${allWorkflows.length} workflows for category: ${this.state.filters.category}`);
-            console.log('Category map size:', this.state.categoryMap.size);
-
-            let matchCount = 0;
-            const filteredWorkflows = allWorkflows.filter(workflow => {
-              const workflowCategory = this.getWorkflowCategory(workflow.filename);
-              const matches = workflowCategory === this.state.filters.category;
-
-              // Debug: log first few matches/non-matches
-              if (matchCount < 5 || (!matches && matchCount < 3)) {
-                console.log(`${workflow.filename}: ${workflowCategory} ${matches ? '===' : '!=='} ${this.state.filters.category}`);
-              }
-
-              if (matches) matchCount++;
-
-              return matches;
-            });
-
-            console.log(`Filtered from ${allWorkflows.length} to ${filteredWorkflows.length} workflows`);
-            allWorkflows = filteredWorkflows;
-            totalCount = filteredWorkflows.length;
-            totalPages = 1; // All results loaded, no pagination needed
-          } else {
-            // Normal pagination
-            const params = new URLSearchParams({
-              q: this.state.searchQuery,
-              trigger: this.state.filters.trigger,
-              complexity: this.state.filters.complexity,
-              active_only: this.state.filters.activeOnly,
-              page: this.state.currentPage,
-              per_page: this.state.perPage
-            });
-
-            const response = await this.apiCall(`/workflows?${params}`);
-            allWorkflows = response.workflows;
-            totalCount = response.total;
-            totalPages = response.pages;
-          }
+          console.log(`[Search] Received ${allWorkflows.length} workflows, total: ${totalCount}`);
 
           if (reset) {
             this.state.workflows = allWorkflows;
@@ -1254,41 +1627,14 @@
         }
       }
 
-      async loadAllWorkflowsForCategoryFiltering() {
-        const allWorkflows = [];
-        let currentPage = 1;
-        const maxPerPage = 100; // API limit
-
-        while (true) {
-          const params = new URLSearchParams({
-            q: this.state.searchQuery,
-            trigger: this.state.filters.trigger,
-            complexity: this.state.filters.complexity,
-            active_only: this.state.filters.activeOnly,
-            page: currentPage,
-            per_page: maxPerPage
-          });
-
-          const response = await this.apiCall(`/workflows?${params}`);
-          allWorkflows.push(...response.workflows);
-
-          console.log(`Loaded page ${currentPage}/${response.pages} (${response.workflows.length} workflows)`);
-
-          if (currentPage >= response.pages) {
-            break;
-          }
-
-          currentPage++;
-        }
-
-        console.log(`Loaded total of ${allWorkflows.length} workflows for filtering`);
-        return allWorkflows;
-      }
-
       getWorkflowCategory(filename) {
+        // Get category from workflow data if available, otherwise from category map
+        const workflow = this.state.workflows.find(w => w.filename === filename);
+        if (workflow && workflow.category) {
+          return workflow.category;
+        }
         const category = this.state.categoryMap.get(filename);
-        const result = category && category.trim() ? category : 'Uncategorized';
-        return result;
+        return category && category.trim() ? category : 'Uncategorized';
       }
 
       async loadMoreWorkflows() {
@@ -1354,7 +1700,8 @@
       createWorkflowCard(workflow) {
         const statusClass = workflow.active ? 'status-active' : 'status-inactive';
         const complexityClass = `complexity-${workflow.complexity}`;
-        const category = this.getWorkflowCategory(workflow.filename);
+        // Use category from API response if available, otherwise fallback to category map
+        const category = workflow.category || this.getWorkflowCategory(workflow.filename);
 
         const integrations = workflow.integrations.slice(0, 5).map(integration =>
           `<span class="integration-tag">${this.escapeHtml(integration)}</span>`
@@ -1364,13 +1711,24 @@
           ? `<span class="integration-tag">+${workflow.integrations.length - 5}</span>`
           : '';
 
+        // Format tags
+        const tags = (workflow.tags || []).slice(0, 8).map(tag =>
+          `<span class="workflow-tag">${this.escapeHtml(tag)}</span>`
+        ).join('');
+
+        const moreTags = (workflow.tags || []).length > 8
+          ? `<span class="workflow-tag">+${(workflow.tags || []).length - 8}</span>`
+          : '';
+
         return `
                     <div class="workflow-card" data-filename="${workflow.filename}">
                         <div class="workflow-header">
                             <div class="workflow-meta">
-                                <div class="status-dot ${statusClass}"></div>
-                                <div class="complexity-dot ${complexityClass}"></div>
-                                <span>${workflow.node_count} nodes</span>
+                                <div class="workflow-meta-top">
+                                    <div class="status-dot ${statusClass}"></div>
+                                    <div class="complexity-dot ${complexityClass}"></div>
+                                    <span>${workflow.node_count} nodes</span>
+                                </div>
                                 <span class="category-badge">${this.escapeHtml(category)}</span>
                             </div>
                             <span class="trigger-badge">${this.escapeHtml(workflow.trigger_type)}</span>
@@ -1378,6 +1736,13 @@
                         
                         <h3 class="workflow-title">${this.escapeHtml(workflow.name)}</h3>
                         <p class="workflow-description">${this.escapeHtml(workflow.description)}</p>
+                        
+                        ${(workflow.tags || []).length > 0 ? `
+                            <div class="workflow-tags">
+                                ${tags}
+                                ${moreTags}
+                            </div>
+                        ` : ''}
                         
                         ${workflow.integrations.length > 0 ? `
                             <div class="workflow-integrations">
@@ -1398,16 +1763,25 @@
         this.elements.modalDescription.textContent = workflow.description;
 
         // Update stats
-        const category = this.getWorkflowCategory(workflow.filename);
+        const category = workflow.category || this.getWorkflowCategory(workflow.filename);
         this.elements.modalStats.innerHTML = `
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
                         <div><strong>Status:</strong> ${workflow.active ? 'Active' : 'Inactive'}</div>
                         <div><strong>Trigger:</strong> ${workflow.trigger_type}</div>
                         <div><strong>Complexity:</strong> ${workflow.complexity}</div>
                         <div><strong>Nodes:</strong> ${workflow.node_count}</div>
-                        <div><strong>Category:</strong> ${this.escapeHtml(category)}</div>
+                        <div><strong>Category:</strong> <span class="category-badge">${this.escapeHtml(category)}</span></div>
                     </div>
                 `;
+
+        // Update tags
+        if (workflow.tags && workflow.tags.length > 0) {
+          this.elements.modalTags.innerHTML = workflow.tags
+            .map(tag => `<span class="workflow-tag">${this.escapeHtml(tag)}</span>`)
+            .join(' ');
+        } else {
+          this.elements.modalTags.textContent = 'No tags found';
+        }
 
         // Update integrations
         if (workflow.integrations.length > 0) {
@@ -1715,6 +2089,106 @@
 
         button.innerHTML = '📋 Copy';
         button.classList.remove('copied');
+      }
+
+      showToast(type, title, message, duration = 5000) {
+        const container = document.getElementById('toastContainer');
+        if (!container) {
+          // Create container if it doesn't exist
+          const newContainer = document.createElement('div');
+          newContainer.id = 'toastContainer';
+          newContainer.className = 'toast-container';
+          document.body.appendChild(newContainer);
+          return this.showToast(type, title, message, duration);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+
+        const icons = {
+          success: '✅',
+          error: '❌',
+          warning: '⚠️',
+          info: 'ℹ️'
+        };
+
+        toast.innerHTML = `
+          <span class="toast-icon">${icons[type] || icons.info}</span>
+          <div class="toast-content">
+            <div class="toast-title">${this.escapeHtml(title)}</div>
+            <div class="toast-message">${this.escapeHtml(message)}</div>
+          </div>
+          <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+        `;
+
+        container.appendChild(toast);
+
+        // Auto-remove after duration
+        setTimeout(() => {
+          toast.classList.add('hiding');
+          setTimeout(() => {
+            if (toast.parentElement) {
+              toast.remove();
+            }
+          }, 300);
+        }, duration);
+      }
+
+      openPurchaseModal() {
+        // Reset form
+        this.elements.purchaseEmail.value = '';
+        this.elements.purchaseDescription.value = '';
+        this.elements.purchaseModal.classList.remove('hidden');
+      }
+
+      closePurchaseModal() {
+        this.elements.purchaseModal.classList.add('hidden');
+        // Reset form
+        this.elements.purchaseEmail.value = '';
+        this.elements.purchaseDescription.value = '';
+      }
+
+      async submitPurchaseRequest() {
+        const email = this.elements.purchaseEmail.value.trim();
+        const description = this.elements.purchaseDescription.value.trim();
+        const workflowName = this.currentWorkflow ? this.currentWorkflow.name : 'Unknown Workflow';
+        const workflowFilename = this.currentWorkflow ? this.currentWorkflow.filename : '';
+
+        if (!email || !description) {
+          this.showToast('error', 'Validation Error', 'Please fill in all fields');
+          return;
+        }
+
+        try {
+          // Submit purchase request to API
+          const response = await fetch('/api/purchase-request', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: email,
+              description: description,
+              workflowName: workflowName,
+              workflowFilename: workflowFilename,
+              userRole: this.userRole
+            })
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+
+          const data = await response.json();
+          
+          // Show success toast
+          this.showToast('success', 'Request Submitted', 'Purchase request submitted successfully! Admin will be notified.');
+          this.closePurchaseModal();
+        } catch (error) {
+          console.error('Error submitting purchase request:', error);
+          // Show error toast
+          this.showToast('error', 'Submission Error', 'Failed to submit request. Please try again.');
+        }
       }
     }
 

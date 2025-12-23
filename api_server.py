@@ -22,6 +22,15 @@ from collections import defaultdict
 
 from workflow_db import WorkflowDatabase
 
+# SendGrid email integration
+try:
+    from sendgrid import SendGridAPIClient
+    from sendgrid.helpers.mail import Mail, Email, To, Content
+    SENDGRID_AVAILABLE = True
+except ImportError:
+    SENDGRID_AVAILABLE = False
+    print("[WARNING] SendGrid not installed. Install with: pip install sendgrid")
+
 # Initialize FastAPI app
 app = FastAPI(
     title="N8N Workflow Documentation API",
@@ -143,11 +152,11 @@ async def startup_event():
     try:
         stats = db.get_stats()
         if stats["total"] == 0:
-            print("⚠️  Warning: No workflows found in database. Run indexing first.")
+            print("[WARNING] No workflows found in database. Run indexing first.")
         else:
-            print(f"✅ Database connected: {stats['total']} workflows indexed")
+            print(f"[OK] Database connected: {stats['total']} workflows indexed")
     except Exception as e:
-        print(f"❌ Database connection failed: {e}")
+        print(f"[ERROR] Database connection failed: {e}")
         raise
 
 
@@ -163,6 +172,7 @@ class WorkflowSummary(BaseModel):
     node_count: int = 0
     integrations: List[str] = []
     tags: List[str] = []
+    category: str = "Uncategorized"
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
 
@@ -247,6 +257,7 @@ async def search_workflows(
     q: str = Query("", description="Search query"),
     trigger: str = Query("all", description="Filter by trigger type"),
     complexity: str = Query("all", description="Filter by complexity"),
+    category: str = Query("all", description="Filter by category"),
     active_only: bool = Query(False, description="Show only active workflows"),
     page: int = Query(1, ge=1, description="Page number"),
     per_page: int = Query(20, ge=1, le=100, description="Items per page"),
@@ -259,6 +270,7 @@ async def search_workflows(
             query=q,
             trigger_filter=trigger,
             complexity_filter=complexity,
+            category_filter=category,
             active_only=active_only,
             limit=per_page,
             offset=offset,
@@ -268,6 +280,13 @@ async def search_workflows(
         workflow_summaries = []
         for workflow in workflows:
             try:
+                # Get category - handle None, empty string, or missing
+                category_value = workflow.get("category")
+                if not category_value or (isinstance(category_value, str) and category_value.strip() == ""):
+                    category_value = "Uncategorized"
+                # Ensure it's a string
+                category_value = str(category_value) if category_value else "Uncategorized"
+                
                 # Remove extra fields that aren't in the model
                 clean_workflow = {
                     "id": workflow.get("id"),
@@ -280,6 +299,7 @@ async def search_workflows(
                     "node_count": workflow.get("node_count", 0),
                     "integrations": workflow.get("integrations", []),
                     "tags": workflow.get("tags", []),
+                    "category": category_value,
                     "created_at": workflow.get("created_at"),
                     "updated_at": workflow.get("updated_at"),
                 }
@@ -303,6 +323,7 @@ async def search_workflows(
             filters={
                 "trigger": trigger,
                 "complexity": complexity,
+                "category": category,
                 "active_only": active_only,
             },
         )
@@ -490,7 +511,7 @@ async def delete_workflow(filename: str, request: Request):
             try:
                 matching_file.unlink()
                 file_deleted = True
-                print(f"✅ Deleted workflow file: {matching_file}")
+                print(f"[OK] Deleted workflow file: {matching_file}")
             except Exception as e:
                 print(f"⚠️  Warning: Could not delete file {matching_file}: {e}")
 
@@ -892,6 +913,137 @@ async def get_categories():
         )
 
 
+def send_purchase_notification_email(user_email: str, description: str, workflow_name: str, workflow_filename: str):
+    """Send email notification to admin about purchase request using SendGrid."""
+    if not SENDGRID_AVAILABLE:
+        print("[WARNING] SendGrid not available, skipping email notification")
+        return False
+
+    # Get SendGrid API key from environment or use provided key
+    sendgrid_api_key = os.environ.get("SENDGRID_API_KEY", "")
+    if not sendgrid_api_key:
+        print("[WARNING] SENDGRID_API_KEY not set, skipping email notification")
+        return False
+
+    admin_email = "tq@remap.ai"
+    from_email = os.environ.get("SMTP_EMAIL", "support@aiagents.co.id")
+    
+    try:
+        # Create email content
+        subject = f"New Purchase Request: {workflow_name}"
+        
+        html_content = f"""
+        <html>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                <h2 style="color: #3151DD;">New Agent Purchase Request</h2>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                    <h3 style="margin-top: 0; color: #3151DD;">Request Details</h3>
+                    <p><strong>User Email:</strong> {user_email}</p>
+                    <p><strong>Workflow Name:</strong> {workflow_name}</p>
+                    <p><strong>Workflow Filename:</strong> {workflow_filename}</p>
+                    <p><strong>Request Time:</strong> {time.strftime('%Y-%m-%d %H:%M:%S')}</p>
+                </div>
+                
+                <div style="background: #ffffff; padding: 15px; border-left: 4px solid #3151DD; margin: 20px 0;">
+                    <h3 style="margin-top: 0; color: #3151DD;">Description</h3>
+                    <p style="white-space: pre-wrap;">{description}</p>
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px;">
+                    <p>This is an automated notification from the Workflow Library system.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+        
+        text_content = f"""
+New Agent Purchase Request
+
+User Email: {user_email}
+Workflow Name: {workflow_name}
+Workflow Filename: {workflow_filename}
+Request Time: {time.strftime('%Y-%m-%d %H:%M:%S')}
+
+Description:
+{description}
+
+---
+This is an automated notification from the Workflow Library system.
+        """
+
+        # Create Mail object
+        message = Mail(
+            from_email=Email(from_email, "Workflow Library"),
+            to_emails=To(admin_email),
+            subject=subject,
+            plain_text_content=text_content,
+            html_content=html_content
+        )
+
+        # Send email
+        sg = SendGridAPIClient(sendgrid_api_key)
+        response = sg.send(message)
+        
+        if response.status_code in [200, 201, 202]:
+            print(f"[OK] Purchase request email sent to {admin_email}")
+            return True
+        else:
+            print(f"[ERROR] SendGrid returned status {response.status_code}: {response.body}")
+            return False
+            
+    except Exception as e:
+        print(f"[ERROR] Failed to send purchase request email: {str(e)}")
+        return False
+
+
+@app.post("/api/purchase-request")
+async def submit_purchase_request(request: Request, background_tasks: BackgroundTasks):
+    """Handle purchase request submission and notify admin."""
+    try:
+        data = await request.json()
+        email = data.get("email", "").strip()
+        description = data.get("description", "").strip()
+        workflow_name = data.get("workflowName", "")
+        workflow_filename = data.get("workflowFilename", "")
+        user_role = data.get("userRole", "user")
+
+        if not email or not description:
+            raise HTTPException(
+                status_code=400, detail="Email and description are required"
+            )
+
+        # Log the purchase request
+        print(f"[PURCHASE REQUEST]")
+        print(f"  Email: {email}")
+        print(f"  Description: {description}")
+        print(f"  Workflow: {workflow_name} ({workflow_filename})")
+        print(f"  User Role: {user_role}")
+        print(f"  Timestamp: {time.strftime('%Y-%m-%d %H:%M:%S')}")
+
+        # Send email notification to admin in background
+        background_tasks.add_task(
+            send_purchase_notification_email,
+            email,
+            description,
+            workflow_name,
+            workflow_filename
+        )
+
+        return {
+            "success": True,
+            "message": "Purchase request submitted successfully. Admin will be notified.",
+            "email": email,
+            "workflow": workflow_name,
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error submitting purchase request: {str(e)}"
+        )
+
+
 @app.get("/api/category-mappings")
 async def get_category_mappings():
     """Get filename to category mappings for client-side filtering."""
@@ -1053,9 +1205,9 @@ async def upload_workflow(
         def index_workflow():
             try:
                 db.index_all_workflows(force_reindex=False)
-                print(f"✅ Workflow {filename} indexed successfully")
+                print(f"[OK] Workflow {filename} indexed successfully")
             except Exception as e:
-                print(f"❌ Error indexing workflow {filename}: {e}")
+                print(f"[ERROR] Error indexing workflow {filename}: {e}")
 
         background_tasks.add_task(index_workflow)
 
@@ -1106,9 +1258,9 @@ async def upload_workflow_json(
         def index_workflow():
             try:
                 db.index_all_workflows(force_reindex=False)
-                print(f"✅ Workflow {filename} indexed successfully")
+                print(f"[OK] Workflow {filename} indexed successfully")
             except Exception as e:
-                print(f"❌ Error indexing workflow {filename}: {e}")
+                print(f"[ERROR] Error indexing workflow {filename}: {e}")
 
         background_tasks.add_task(index_workflow)
 
@@ -1141,9 +1293,9 @@ async def global_exception_handler(request, exc):
 static_dir = Path("static")
 if static_dir.exists():
     app.mount("/static", StaticFiles(directory="static"), name="static")
-    print(f"✅ Static files mounted from {static_dir.absolute()}")
+    print(f"[OK] Static files mounted from {static_dir.absolute()}")
 else:
-    print(f"❌ Warning: Static directory not found at {static_dir.absolute()}")
+    print(f"[WARNING] Static directory not found at {static_dir.absolute()}")
 
 
 def create_static_directory():
@@ -1161,34 +1313,34 @@ def run_server(host: str = "127.0.0.1", port: int = 8000, reload: bool = False):
     # Debug: Check database connectivity
     try:
         stats = db.get_stats()
-        print(f"✅ Database connected: {stats['total']} workflows found")
+        print(f"[OK] Database connected: {stats['total']} workflows found")
         if stats["total"] == 0:
-            print("🔄 Database is empty. Indexing workflows...")
+            print("[INFO] Database is empty. Indexing workflows...")
             db.index_all_workflows()
             stats = db.get_stats()
     except Exception as e:
-        print(f"❌ Database error: {e}")
-        print("🔄 Attempting to create and index database...")
+        print(f"[ERROR] Database error: {e}")
+        print("[INFO] Attempting to create and index database...")
         try:
             db.index_all_workflows()
             stats = db.get_stats()
-            print(f"✅ Database created: {stats['total']} workflows indexed")
+            print(f"[OK] Database created: {stats['total']} workflows indexed")
         except Exception as e2:
-            print(f"❌ Failed to create database: {e2}")
+            print(f"[ERROR] Failed to create database: {e2}")
             stats = {"total": 0}
 
     # Debug: Check static files
     static_path = Path("static")
     if static_path.exists():
         files = list(static_path.glob("*"))
-        print(f"✅ Static files found: {[f.name for f in files]}")
+        print(f"[OK] Static files found: {[f.name for f in files]}")
     else:
-        print(f"❌ Static directory not found at: {static_path.absolute()}")
+        print(f"[WARNING] Static directory not found at: {static_path.absolute()}")
 
-    print("🚀 Starting N8N Workflow Documentation API")
-    print(f"📊 Database contains {stats['total']} workflows")
-    print(f"🌐 Server will be available at: http://{host}:{port}")
-    print(f"📁 Static files at: http://{host}:{port}/static/")
+    print("[START] Starting N8N Workflow Documentation API")
+    print(f"[INFO] Database contains {stats['total']} workflows")
+    print(f"[INFO] Server will be available at: http://{host}:{port}")
+    print(f"[INFO] Static files at: http://{host}:{port}/static/")
 
     uvicorn.run(
         "api_server:app",

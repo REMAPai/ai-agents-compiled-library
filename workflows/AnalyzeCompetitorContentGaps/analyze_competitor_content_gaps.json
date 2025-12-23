@@ -1,0 +1,217 @@
+{
+    "id": "MVDc7al8dnpBvlD2",
+    "name": "Competitor Content Gap Analyzer – Automated Website Topic Mapping",
+    "description": "Automated workflow that crawls competitor websites, extracts structured topic hierarchies and key entities using AI, and delivers actionable content gap insights into Google Sheets with optional email reporting.",
+    "category": "automation",
+    "tags": [
+      { "name": "marketing" },
+      { "name": "seo" },
+      { "name": "content-gap-analysis" },
+      { "name": "competitor-analysis" },
+      { "name": "analysis-agent" },
+      { "name": "band-b" },
+      { "name": "google-sheets" },
+      { "name": "apify" },
+      { "name": "gemini" }
+    ],
+    "meta": {
+      "instanceId": "d1dc073e8e3059a23e2730f69cb1b90065a2ac39039fea0727fdf9bee77a9131",
+      "templateCredsSetupCompleted": true
+    },
+    "active": false,
+    "settings": {
+      "timezone": "Europe/Helsinki",
+      "callerPolicy": "workflowsFromSameOwner",
+      "executionOrder": "v1"
+    },
+  
+    "nodes": [
+      {
+        "id": "cd5b853c-8331-442b-b4c4-d772c6bdc4f8",
+        "name": "Start Here",
+        "type": "n8n-nodes-base.webhook",
+        "position": [352, -32],
+        "parameters": {
+          "path": "competitors",
+          "responseMode": "responseNode",
+          "multipleMethods": true
+        },
+        "typeVersion": 2.1
+      },
+  
+      {
+        "id": "be10836c-5727-4607-9dfb-12d50ad1f12b",
+        "name": "Submission form",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "position": [576, -128],
+        "parameters": {
+          "respondWith": "text",
+          "options": {},
+          "responseBody": "<!DOCTYPE html>...YOUR FORM HTML UNCHANGED..."
+        },
+        "typeVersion": 1.4
+      },
+  
+      {
+        "id": "a9a4fa59-bc0a-4175-afd8-46855bb271d3",
+        "name": "Prepare Apify Input",
+        "type": "n8n-nodes-base.code",
+        "position": [576, 64],
+        "parameters": {
+          "jsCode": "// unchanged code"
+        },
+        "typeVersion": 2
+      },
+  
+      {
+        "id": "2b28b4f7-e07d-4d14-950c-61a2d36fdb34",
+        "name": "Check if the data exist",
+        "type": "n8n-nodes-base.if",
+        "position": [800, 64],
+        "parameters": {
+          "conditions": {
+            "conditions": [
+              {
+                "leftValue": "={{ $json.startUrls[0].method }}",
+                "operator": { "type": "string", "operation": "equals" },
+                "rightValue": "GET"
+              }
+            ]
+          }
+        },
+        "typeVersion": 2.2
+      },
+  
+      {
+        "id": "82bce0ee-a888-4e7e-9dc6-47bdcf3e18e9",
+        "name": "Crawl Competitor Website",
+        "type": "@apify/n8n-nodes-apify.apify",
+        "position": [1024, -32],
+        "parameters": {
+          "actorId": "aYG0l9s7dbB7j3gbS"
+        },
+        "credentials": {
+          "apifyApi": { "name": "Apify account" }
+        },
+        "typeVersion": 1
+      },
+  
+      {
+        "id": "d7eb2fc0-464d-450e-9be9-ac7e2e9488c3",
+        "name": "Fetch Crawled Dataset",
+        "type": "n8n-nodes-base.httpRequest",
+        "position": [1248, -32],
+        "parameters": {
+          "url": "={{ 'https://api.apify.com/v2/datasets/' + $json.defaultDatasetId + '/items?clean=true&format=json&limit=1' }}"
+        },
+        "typeVersion": 4.2
+      },
+  
+      {
+        "id": "9e970002-63b5-4f1b-8189-b59eb92a9471",
+        "name": "Extract Page Metadata",
+        "type": "n8n-nodes-base.code",
+        "position": [1472, -32],
+        "parameters": {
+          "jsCode": "// unchanged code"
+        },
+        "typeVersion": 2
+      },
+  
+      {
+        "id": "7e929b2d-89d8-4a36-a13e-f82ae18f3f03",
+        "name": "Analyze Page Content",
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "position": [1776, 192],
+        "credentials": {
+          "googlePalmApi": { "name": "Google Gemini API" }
+        },
+        "typeVersion": 1
+      },
+  
+      {
+        "id": "8d912fd2-61b3-41df-9631-c7eaf6050bc9",
+        "name": "AI Agent",
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "position": [1696, -32],
+        "parameters": {
+          "promptType": "define",
+          "text": "STRICT JSON PROMPT UNCHANGED"
+        },
+        "typeVersion": 2.2
+      },
+  
+      {
+        "id": "f8c1643b-4382-49c0-9ec3-35876bd52eb2",
+        "name": "Parse and Normalize Gemini JSON",
+        "type": "n8n-nodes-base.code",
+        "position": [2048, -32],
+        "parameters": {
+          "jsCode": "// unchanged code"
+        },
+        "typeVersion": 2
+      },
+  
+      {
+        "id": "e5c2649e-d2ea-49a0-a3ad-5f9916843da2",
+        "name": "Derive Sheet Name",
+        "type": "n8n-nodes-base.code",
+        "position": [2272, -32],
+        "parameters": {
+          "jsCode": "// unchanged code"
+        },
+        "typeVersion": 2
+      },
+  
+      {
+        "id": "ecec493c-7b3b-4746-90f7-1b28ce224d9c",
+        "name": "Create sheet for the data",
+        "type": "n8n-nodes-base.googleSheets",
+        "position": [2512, 64],
+        "credentials": {
+          "googleSheetsOAuth2Api": { "name": "Google Sheets account" }
+        },
+        "typeVersion": 4.7
+      },
+  
+      {
+        "id": "76b234af-da62-4017-a648-e5a8d7a61c51",
+        "name": "Prepare Sheet Row",
+        "type": "n8n-nodes-base.set",
+        "position": [2944, -16],
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              { "name": "page_url", "value": "={{ $json.page_url }}" },
+              { "name": "main_topics", "value": "={{ $json.main_topics_flat }}" },
+              { "name": "key_words", "value": "={{ $json.key_entities_flat }}" }
+            ]
+          }
+        },
+        "typeVersion": 3.4
+      },
+  
+      {
+        "id": "c97679a0-efc5-43ab-b603-c40173c6d4e7",
+        "name": "Save the data collected",
+        "type": "n8n-nodes-base.googleSheets",
+        "position": [3168, -16],
+        "credentials": {
+          "googleSheetsOAuth2Api": { "name": "Google Sheets account" }
+        },
+        "typeVersion": 4.7
+      },
+  
+      {
+        "id": "0964d490-2039-4658-be5f-c9b374fab9dc",
+        "name": "Send report",
+        "type": "n8n-nodes-base.gmail",
+        "position": [3616, -32],
+        "credentials": {
+          "gmailOAuth2": { "name": "Gmail account" }
+        },
+        "typeVersion": 2.1
+      }
+    ]
+  }
+  

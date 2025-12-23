@@ -23,6 +23,7 @@ class WorkflowDatabase:
             db_path = os.environ.get("WORKFLOW_DB_PATH", "workflows.db")
         self.db_path = db_path
         self.workflows_dir = "workflows"
+        self.category_mapping = self.load_category_mapping()
         self.init_database()
 
     def init_database(self):
@@ -47,6 +48,7 @@ class WorkflowDatabase:
                 node_count INTEGER DEFAULT 0,
                 integrations TEXT,  -- JSON array
                 tags TEXT,         -- JSON array
+                category TEXT,     -- Workflow category
                 created_at TEXT,
                 updated_at TEXT,
                 file_hash TEXT,
@@ -63,10 +65,20 @@ class WorkflowDatabase:
                 description,
                 integrations,
                 tags,
+                category,
                 content=workflows,
                 content_rowid=id
             )
         """)
+
+        # Migrate existing databases to add category column if needed
+        # This must happen BEFORE creating indexes on the column
+        try:
+            conn.execute("ALTER TABLE workflows ADD COLUMN category TEXT")
+            conn.commit()
+        except sqlite3.OperationalError:
+            # Column already exists, ignore
+            pass
 
         # Create indexes for fast filtering
         conn.execute(
@@ -80,33 +92,84 @@ class WorkflowDatabase:
             "CREATE INDEX IF NOT EXISTS idx_node_count ON workflows(node_count)"
         )
         conn.execute("CREATE INDEX IF NOT EXISTS idx_filename ON workflows(filename)")
+        
+        # Only create category index if column exists
+        try:
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_category ON workflows(category)")
+        except sqlite3.OperationalError:
+            # Column doesn't exist yet (shouldn't happen after migration, but just in case)
+            pass
 
         # Create triggers to keep FTS table in sync
         conn.execute("""
             CREATE TRIGGER IF NOT EXISTS workflows_ai AFTER INSERT ON workflows BEGIN
-                INSERT INTO workflows_fts(rowid, filename, name, description, integrations, tags)
-                VALUES (new.id, new.filename, new.name, new.description, new.integrations, new.tags);
+                INSERT INTO workflows_fts(rowid, filename, name, description, integrations, tags, category)
+                VALUES (new.id, new.filename, new.name, new.description, new.integrations, new.tags, new.category);
             END
         """)
 
         conn.execute("""
             CREATE TRIGGER IF NOT EXISTS workflows_ad AFTER DELETE ON workflows BEGIN
-                INSERT INTO workflows_fts(workflows_fts, rowid, filename, name, description, integrations, tags)
-                VALUES ('delete', old.id, old.filename, old.name, old.description, old.integrations, old.tags);
+                INSERT INTO workflows_fts(workflows_fts, rowid, filename, name, description, integrations, tags, category)
+                VALUES ('delete', old.id, old.filename, old.name, old.description, old.integrations, old.tags, old.category);
             END
         """)
 
         conn.execute("""
             CREATE TRIGGER IF NOT EXISTS workflows_au AFTER UPDATE ON workflows BEGIN
-                INSERT INTO workflows_fts(workflows_fts, rowid, filename, name, description, integrations, tags)
-                VALUES ('delete', old.id, old.filename, old.name, old.description, old.integrations, old.tags);
-                INSERT INTO workflows_fts(rowid, filename, name, description, integrations, tags)
-                VALUES (new.id, new.filename, new.name, new.description, new.integrations, new.tags);
+                INSERT INTO workflows_fts(workflows_fts, rowid, filename, name, description, integrations, tags, category)
+                VALUES ('delete', old.id, old.filename, old.name, old.description, old.integrations, old.tags, old.category);
+                INSERT INTO workflows_fts(rowid, filename, name, description, integrations, tags, category)
+                VALUES (new.id, new.filename, new.name, new.description, new.integrations, new.tags, new.category);
             END
         """)
 
         conn.commit()
         conn.close()
+
+    def load_category_mapping(self) -> Dict[str, str]:
+        """Load category mappings from context/search_categories.json."""
+        category_file = Path("context/search_categories.json")
+        category_mapping = {}
+        
+        if category_file.exists():
+            try:
+                with open(category_file, "r", encoding="utf-8") as f:
+                    categories_data = json.load(f)
+                    for item in categories_data:
+                        filename = item.get("filename", "")
+                        category = item.get("category", "")
+                        if filename and category:
+                            category_mapping[filename] = category
+            except (json.JSONDecodeError, IOError) as e:
+                print(f"Warning: Could not load category mappings: {e}")
+        
+        return category_mapping
+
+    def format_fts_query(self, query: str) -> str:
+        """Format search query for FTS5 syntax with better matching."""
+        query = query.strip()
+        if not query:
+            return "*"
+        
+        # If query contains quotes, handle as phrase search
+        if '"' in query:
+            # Keep quoted phrases as-is for exact matching
+            return query
+        
+        # Split into terms
+        terms = [t.strip() for t in query.split() if t.strip()]
+        
+        if not terms:
+            return "*"
+        
+        if len(terms) == 1:
+            # Single term - add wildcard for prefix matching
+            return f"{terms[0]}*"
+        else:
+            # Multiple terms - use OR for broader matching (any term matches)
+            # This allows finding workflows that contain any of the search terms
+            return " OR ".join([f"{term}*" for term in terms if term])
 
     def get_file_hash(self, file_path: str) -> str:
         """Get MD5 hash of file for change detection."""
@@ -196,6 +259,23 @@ class WorkflowDatabase:
         node_count = len(workflow["nodes"])
         workflow["node_count"] = node_count
 
+        # Detect if workflow contains agent nodes (for sorting priority)
+        has_agent = False
+        for node in workflow["nodes"]:
+            node_type = node.get("type", "").lower()
+            node_name = node.get("name", "").lower()
+            if "agent" in node_type or "agent" in node_name:
+                has_agent = True
+                break
+        # Also check name, description, and tags for agent-related content
+        if not has_agent:
+            name_lower = workflow["name"].lower()
+            desc_lower = workflow.get("description", "").lower()
+            tags_lower = " ".join([str(t).lower() for t in workflow.get("tags", [])])
+            if "agent" in name_lower or "agent" in desc_lower or "agent" in tags_lower:
+                has_agent = True
+        workflow["has_agent"] = 1 if has_agent else 0
+
         # Determine complexity
         if node_count <= 5:
             complexity = "low"
@@ -218,6 +298,29 @@ class WorkflowDatabase:
             workflow["description"] = self.generate_description(
                 workflow, trigger_type, integrations
             )
+
+        # Extract and clean tags
+        raw_tags = data.get("tags", [])
+        clean_tags = []
+        for tag in raw_tags:
+            if isinstance(tag, dict):
+                # Extract name from tag dict if available
+                tag_name = tag.get("name", tag.get("id", ""))
+                if tag_name:
+                    clean_tags.append(str(tag_name))
+            elif tag:
+                clean_tags.append(str(tag))
+        workflow["tags"] = clean_tags
+
+        # Extract category - priority: JSON field > mapping file > infer from integrations
+        category = data.get("category", "").strip()
+        if not category:
+            # Check category mapping file
+            category = self.category_mapping.get(filename, "")
+        if not category:
+            # Infer category from integrations if not in JSON or mapping
+            category = self.infer_category_from_integrations(integrations)
+        workflow["category"] = category
 
         return workflow
 
@@ -453,8 +556,40 @@ class WorkflowDatabase:
 
         return desc + "."
 
+    def infer_category_from_integrations(self, integrations: set) -> str:
+        """Infer category from integrations based on service categories."""
+        if not integrations:
+            return "Uncategorized"
+        
+        # Map integrations to categories
+        category_mapping = {
+            "messaging": ["Telegram", "Discord", "Slack", "WhatsApp", "Mattermost", "Microsoft Teams", "Rocket.Chat"],
+            "email": ["Gmail", "Mailjet", "Email (IMAP)", "Email (SMTP)", "Outlook"],
+            "cloud_storage": ["Google Drive", "Google Docs", "Google Sheets", "Dropbox", "OneDrive", "Box"],
+            "database": ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Airtable", "Notion"],
+            "project_management": ["Jira", "GitHub", "GitLab", "Trello", "Asana", "Monday.com"],
+            "ai_ml": ["OpenAI", "Anthropic", "Hugging Face", "CalcsLive"],
+            "social_media": ["LinkedIn", "Twitter/X", "Facebook", "Instagram"],
+            "ecommerce": ["Shopify", "Stripe", "PayPal"],
+            "analytics": ["Google Analytics", "Mixpanel"],
+            "calendar_tasks": ["Google Calendar", "Google Tasks", "Cal.com", "Calendly"],
+            "forms": ["Typeform", "Google Forms", "Form Trigger"],
+            "development": ["Webhook", "HTTP Request", "GraphQL", "Server-Sent Events", "YouTube"],
+        }
+        
+        # Find matching category
+        for category_name, services in category_mapping.items():
+            if any(service in integrations for service in services):
+                # Convert category name to readable format
+                return category_name.replace("_", " ").title()
+        
+        return "Uncategorized"
+
     def index_all_workflows(self, force_reindex: bool = False) -> Dict[str, int]:
         """Index all workflow files. Only reprocesses changed files unless force_reindex=True."""
+        # Reload category mapping before indexing to get latest categories
+        self.category_mapping = self.load_category_mapping()
+        
         if not os.path.exists(self.workflows_dir):
             print(f"Warning: Workflows directory '{self.workflows_dir}' not found.")
             return {"processed": 0, "skipped": 0, "errors": 0}
@@ -500,9 +635,9 @@ class WorkflowDatabase:
                     """
                     INSERT OR REPLACE INTO workflows (
                         filename, name, workflow_id, active, description, trigger_type,
-                        complexity, node_count, integrations, tags, created_at, updated_at,
+                        complexity, node_count, integrations, tags, category, created_at, updated_at,
                         file_hash, file_size, analyzed_at
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
                 """,
                     (
                         workflow_data["filename"],
@@ -515,6 +650,7 @@ class WorkflowDatabase:
                         workflow_data["node_count"],
                         json.dumps(workflow_data["integrations"]),
                         json.dumps(workflow_data["tags"]),
+                        workflow_data.get("category", "Uncategorized"),
                         workflow_data["created_at"],
                         workflow_data["updated_at"],
                         workflow_data["file_hash"],
@@ -533,7 +669,7 @@ class WorkflowDatabase:
         conn.close()
 
         print(
-            f"✅ Indexing complete: {stats['processed']} processed, {stats['skipped']} skipped, {stats['errors']} errors"
+            f"[OK] Indexing complete: {stats['processed']} processed, {stats['skipped']} skipped, {stats['errors']} errors"
         )
         return stats
 
@@ -542,6 +678,7 @@ class WorkflowDatabase:
         query: str = "",
         trigger_filter: str = "all",
         complexity_filter: str = "all",
+        category_filter: str = "all",
         active_only: bool = False,
         limit: int = 50,
         offset: int = 0,
@@ -565,8 +702,14 @@ class WorkflowDatabase:
             where_conditions.append("w.complexity = ?")
             params.append(complexity_filter)
 
+        if category_filter != "all":
+            where_conditions.append("w.category = ?")
+            params.append(category_filter)
+
         # Use FTS search if query provided
         if query.strip():
+            # Format query for FTS5 - escape special characters and add wildcards
+            fts_query = self.format_fts_query(query)
             # FTS search with ranking
             base_query = """
                 SELECT w.*, rank
@@ -574,7 +717,7 @@ class WorkflowDatabase:
                 JOIN workflows w ON w.id = fts.rowid
                 WHERE workflows_fts MATCH ?
             """
-            params.insert(0, query)
+            params.insert(0, fts_query)
         else:
             # Regular query without FTS
             base_query = """
@@ -591,11 +734,27 @@ class WorkflowDatabase:
         cursor = conn.execute(count_query, params)
         total = cursor.fetchone()["total"]
 
-        # Get paginated results
+        # Get paginated results - prioritize workflows with agents (descending order)
         if query.strip():
-            base_query += " ORDER BY rank"
+            # For FTS queries, sort by agent presence then by rank
+            base_query += """ ORDER BY 
+                CASE 
+                    WHEN LOWER(w.name) LIKE '%agent%' OR LOWER(w.description) LIKE '%agent%' 
+                         OR LOWER(w.integrations) LIKE '%agent%' OR LOWER(w.tags) LIKE '%agent%' 
+                    THEN 1 
+                    ELSE 0 
+                END DESC, 
+                rank"""
         else:
-            base_query += " ORDER BY w.analyzed_at DESC"
+            # For non-FTS queries, sort by agent presence then by analyzed_at
+            base_query += """ ORDER BY 
+                CASE 
+                    WHEN LOWER(w.name) LIKE '%agent%' OR LOWER(w.description) LIKE '%agent%' 
+                         OR LOWER(w.integrations) LIKE '%agent%' OR LOWER(w.tags) LIKE '%agent%' 
+                    THEN 1 
+                    ELSE 0 
+                END DESC, 
+                w.analyzed_at DESC"""
 
         base_query += f" LIMIT {limit} OFFSET {offset}"
 
@@ -618,6 +777,13 @@ class WorkflowDatabase:
                 else:
                     clean_tags.append(str(tag))
             workflow["tags"] = clean_tags
+
+            # Ensure category is set (default to Uncategorized if None or empty)
+            category_value = workflow.get("category")
+            if not category_value or (isinstance(category_value, str) and category_value.strip() == ""):
+                workflow["category"] = "Uncategorized"
+            else:
+                workflow["category"] = str(category_value)
 
             results.append(workflow)
 
@@ -787,6 +953,14 @@ class WorkflowDatabase:
                 else:
                     clean_tags.append(str(tag))
             workflow["tags"] = clean_tags
+            
+            # Ensure category is set (default to Uncategorized if None or empty)
+            category_value = workflow.get("category")
+            if not category_value or (isinstance(category_value, str) and category_value.strip() == ""):
+                workflow["category"] = "Uncategorized"
+            else:
+                workflow["category"] = str(category_value)
+            
             results.append(workflow)
 
         conn.close()
@@ -863,9 +1037,9 @@ def main():
 
     elif args.delete:
         if db.delete_workflow(args.delete):
-            print(f"✅ Workflow '{args.delete}' deleted from database")
+            print(f"[OK] Workflow '{args.delete}' deleted from database")
         else:
-            print(f"❌ Workflow '{args.delete}' not found in database")
+            print(f"[ERROR] Workflow '{args.delete}' not found in database")
             sys.exit(1)
 
     else:

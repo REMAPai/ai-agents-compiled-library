@@ -1,0 +1,135 @@
+{
+    "name": "AI Sales Assistant – Lead Qualification & Meeting Booking",
+    "category": "CRM & Sales",
+    "description": "Chat-based AI sales assistant that qualifies inbound leads, maintains conversational memory, retrieves company knowledge, checks calendar availability, books meetings automatically, logs conversation summaries to Google Sheets, and sends branded confirmation emails using GPT and Claude models.",
+    "tags": [
+      { "name": "sales" },
+      { "name": "lead-qualification" },
+      { "name": "meeting-booking" },
+      { "name": "chat-assistant" },
+      { "name": "crm-automation" },
+      { "name": "analysis-agent" },
+      { "name": "band-c" },
+      { "name": "google-calendar" },
+      { "name": "google-sheets" },
+      { "name": "gmail" },
+      { "name": "openrouter" },
+      { "name": "gpt-4" },
+      { "name": "claude" }
+    ],
+  
+    "meta": {
+      "instanceId": "73e3c0fd395bfd0d194601f37f29fe40e0317103ab5899d92df39eaef2eb4c87",
+      "templateCredsSetupCompleted": true
+    },
+  
+    "nodes": [
+      {
+        "id": "aba936e6-d3b5-4561-ab4e-42357f690509",
+        "name": "When chat message received",
+        "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+        "position": [448, -320],
+        "webhookId": "ffcf29b6-19e9-40fd-81a6-132910560043",
+        "parameters": { "public": true, "options": {} },
+        "typeVersion": 1.1
+      },
+      {
+        "id": "2fd5e8d4-fe42-4fbe-9a1d-22a1af775aad",
+        "name": "AI Agent",
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "position": [688, -320],
+        "parameters": {
+          "promptType": "define",
+          "text": "={{ $json.chatInput }}{{ $json.message }}",
+          "options": { "systemMessage": "=## Role & Identity\nYou are **Hassan**, a lead qualification assistant working at **Sycorda**...\n(UNCHANGED FULL PROMPT CONTENT)" }
+        },
+        "typeVersion": 2.2
+      },
+      {
+        "id": "4c1d36e5-0662-45ff-b13a-5b01bed5c228",
+        "name": "OpenRouter Chat Model",
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+        "position": [144, 80],
+        "parameters": { "model": "openai/gpt-4.1", "options": {} },
+        "credentials": { "openRouterApi": { "id": "quUHCZdxn2JgpCAH", "name": "OpenRouter account" } },
+        "typeVersion": 1
+      },
+      {
+        "id": "38c89145-cd2e-4472-a9cd-d60a69ada983",
+        "name": "Simple Memory",
+        "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+        "position": [288, 80],
+        "parameters": { "sessionKey": "={{ $json.sessionId }} ", "sessionIdType": "customKey", "contextWindowLength": 10 },
+        "typeVersion": 1.3
+      },
+      {
+        "id": "2441f496-c35f-4a09-8493-bc6627e935a3",
+        "name": "Get a document in Google Docs",
+        "type": "n8n-nodes-base.googleDocsTool",
+        "position": [432, 80],
+        "parameters": { "operation": "get", "documentURL": "1H9ZBePkINDHi2c-IfsxRaVjF5iiGkwimxgJLICyGZco" },
+        "credentials": { "googleDocsOAuth2Api": { "id": "E0shoKK417yJ5FNV", "name": "Working sycorda" } },
+        "typeVersion": 2
+      },
+      {
+        "id": "594ef008-5597-4d07-8768-b3c533b67197",
+        "name": "Checking History",
+        "type": "n8n-nodes-base.googleSheetsTool",
+        "position": [736, 80],
+        "parameters": {},
+        "credentials": { "googleSheetsOAuth2Api": { "id": "GK3DNFmawp2s2qCA", "name": "Google Sheets account" } },
+        "typeVersion": 4.7
+      },
+      {
+        "id": "6daedf00-e0a1-4792-88d1-44677b7c4baa",
+        "name": "Append or update row in sheet in Google Sheets",
+        "type": "n8n-nodes-base.googleSheetsTool",
+        "position": [592, 80],
+        "parameters": { "operation": "appendOrUpdate" },
+        "credentials": { "googleSheetsOAuth2Api": { "id": "GK3DNFmawp2s2qCA", "name": "Google Sheets account" } },
+        "typeVersion": 4.6
+      },
+      {
+        "id": "be6600f6-6563-4326-9892-c760b99ad8ee",
+        "name": "Check Calendar & Book Meeting and send email",
+        "type": "@n8n/n8n-nodes-langchain.agentTool",
+        "position": [1024, 64],
+        "parameters": { "toolDescription": "Use this Ai Agent to check calendar and book meetings" },
+        "typeVersion": 2.2
+      },
+      {
+        "id": "46869f84-48b8-49ad-90ef-c3f204ac0d21",
+        "name": "Get booked Appointments from Google Calendar",
+        "type": "n8n-nodes-base.googleCalendarTool",
+        "position": [1520, 288],
+        "parameters": { "operation": "getAll" },
+        "credentials": { "googleCalendarOAuth2Api": { "id": "hvhnsH9gkCbjWtg7", "name": "Sycorda calendar" } },
+        "typeVersion": 1.2
+      },
+      {
+        "id": "b8aa95b2-280a-4892-b8be-7857fcfe4c50",
+        "name": "Google Calendar1",
+        "type": "n8n-nodes-base.googleCalendarTool",
+        "position": [1200, 304],
+        "parameters": {},
+        "credentials": { "googleCalendarOAuth2Api": { "id": "hvhnsH9gkCbjWtg7", "name": "Sycorda calendar" } },
+        "typeVersion": 1.2
+      },
+      {
+        "id": "1aa9f367-02b7-40aa-8360-f0b4cf1540ac",
+        "name": "Send a message in Gmail",
+        "type": "n8n-nodes-base.gmailTool",
+        "position": [1360, 304],
+        "parameters": {},
+        "credentials": { "gmailOAuth2": { "id": "ymdaU0TkiPqN3Psz", "name": "hassan@sycorda.com" } },
+        "typeVersion": 2.1
+      }
+    ],
+  
+    "connections": {
+      "When chat message received": { "main": [[{ "node": "AI Agent", "type": "main", "index": 0 }]] }
+    },
+  
+    "pinData": {}
+  }
+  

@@ -919,8 +919,8 @@ def send_purchase_notification_email(user_email: str, description: str, workflow
         print("[WARNING] SendGrid not available, skipping email notification")
         return False
 
-    # Get SendGrid API key from environment or use provided key
-    sendgrid_api_key = os.environ.get("SENDGRID_API_KEY", "")
+    # Get SendGrid API key from environment variable
+    sendgrid_api_key = os.environ.get("SENDGRID_API_KEY")
     if not sendgrid_api_key:
         print("[WARNING] SENDGRID_API_KEY not set, skipping email notification")
         return False

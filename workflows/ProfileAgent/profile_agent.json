@@ -1,0 +1,84 @@
+{
+    "meta": {
+      "name": "Company Overview / Profile Agent",
+      "description": "Automated agent that generates standardized company briefs using public signals and internal context.",
+      "category": "AI / Research Automation"
+    },
+    "nodes": [
+      {
+        "id": "company-trigger",
+        "name": "Company Brief Request",
+        "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+        "position": [200, 300],
+        "parameters": {
+          "public": true,
+          "options": {
+            "systemMessage": "You are an internal Company Overview Agent."
+          }
+        }
+      },
+      {
+        "id": "set-brief-standards",
+        "name": "Inject Briefing Standards",
+        "type": "n8n-nodes-base.set",
+        "position": [450, 300],
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "briefing_standards",
+                "value": "Tone: Executive, neutral, concise. No hype. No speculation. Use bullet points. Highlight metrics where available. Clearly mark unknown data."
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "llm-research",
+        "name": "Generate Company Brief",
+        "type": "@n8n/n8n-nodes-langchain.openAi",
+        "position": [720, 300],
+        "parameters": {
+          "model": "gpt-4o-mini",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an expert research analyst creating meeting-ready company briefs."
+            },
+            {
+              "role": "user",
+              "content": "Company to analyze: {{$json[\"chatInput\"]}}\n\nFollow these standards:\n{{$json[\"briefing_standards\"]}}\n\nProduce a structured brief with the following sections:\n1. Company Snapshot\n2. Business Model\n3. Products / Services\n4. Key Metrics (Revenue, Employees, Geography, Customers if known)\n5. Recent News & Developments\n6. Strategic Risks & Opportunities\n7. Meeting Talking Points\n\nIf information is unavailable, explicitly state: \"Data not publicly available.\""
+            }
+          ]
+        }
+      },
+      {
+        "id": "format-brief",
+        "name": "Format Brief Output",
+        "type": "n8n-nodes-base.set",
+        "position": [980, 300],
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "company_brief",
+                "value": "{{$json[\"choices\"][0][\"message\"][\"content\"]}}"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Company Brief Request": {
+        "main": [[{ "node": "Inject Briefing Standards", "type": "main", "index": 0 }]]
+      },
+      "Inject Briefing Standards": {
+        "main": [[{ "node": "Generate Company Brief", "type": "main", "index": 0 }]]
+      },
+      "Generate Company Brief": {
+        "main": [[{ "node": "Format Brief Output", "type": "main", "index": 0 }]]
+      }
+    }
+  }
+  

@@ -943,7 +943,7 @@ def send_purchase_notification_email(user_email: str, description: str, workflow
         <html>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
             <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-                <h2 style="color: #3151DD;">New Agent Purchase Request</h2>
+                <h2 style="color: #3151DD;">New Agent Request</h2>
                 
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
                     <h3 style="margin-top: 0; color: #3151DD;">Request Details</h3>

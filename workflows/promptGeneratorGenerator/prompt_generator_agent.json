@@ -1,0 +1,84 @@
+{
+    "meta": {
+      "name": "Prompt Developer Agent",
+      "description": "Centralized agent to generate, standardize, guardrail, and version internal AI prompts.",
+      "category": "AI / Prompt Engineering"
+    },
+    "nodes": [
+      {
+        "id": "chat-trigger",
+        "name": "Prompt Request",
+        "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+        "position": [200, 300],
+        "parameters": {
+          "public": true,
+          "options": {
+            "systemMessage": "You are an internal Prompt Developer Agent."
+          }
+        }
+      },
+      {
+        "id": "set-standards",
+        "name": "Inject Prompt Standards",
+        "type": "n8n-nodes-base.set",
+        "position": [450, 300],
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "prompt_standards",
+                "value": "Tone: Professional, clear, concise. No emojis unless explicitly requested. Avoid assumptions. Output must be structured. Follow company AI safety guidelines."
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "llm-builder",
+        "name": "Build Standardized Prompt",
+        "type": "@n8n/n8n-nodes-langchain.openAi",
+        "position": [720, 300],
+        "parameters": {
+          "model": "gpt-4o-mini",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Prompt Engineering expert responsible for producing high-quality, reusable, and safe prompts."
+            },
+            {
+              "role": "user",
+              "content": "Raw Prompt Request: {{$json[\"chatInput\"]}}\n\nApply the following standards:\n{{$json[\"prompt_standards\"]}}\n\nDeliver:\n1. Final Prompt\n2. Intended Use\n3. Guardrails Applied\n4. Reusable Components"
+            }
+          ]
+        }
+      },
+      {
+        "id": "format-output",
+        "name": "Format Prompt Output",
+        "type": "n8n-nodes-base.set",
+        "position": [980, 300],
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "final_output",
+                "value": "{{$json[\"choices\"][0][\"message\"][\"content\"]}}"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Prompt Request": {
+        "main": [[{ "node": "Inject Prompt Standards", "type": "main", "index": 0 }]]
+      },
+      "Inject Prompt Standards": {
+        "main": [[{ "node": "Build Standardized Prompt", "type": "main", "index": 0 }]]
+      },
+      "Build Standardized Prompt": {
+        "main": [[{ "node": "Format Prompt Output", "type": "main", "index": 0 }]]
+      }
+    }
+  }
+  
